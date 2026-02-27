@@ -1,7 +1,9 @@
+/*
 ==================================================
 Paso_2 Crear Tablas
 ==================================================
 */
+
 /*
 ==================================================
 Dimensión: dim_pais
@@ -181,21 +183,27 @@ Dimensión: dim_geografia_municipio_osm
 Descripción: Tabla geoespacial
 ==================================================
 */
-DROP TABLE IF EXISTS culturatrip.dim_geografia_municipio_osm cascade;
-CREATE TABLE culturatrip.dim_geografia_municipio_osm (
-    osm_id VARCHAR(11) PRIMARY KEY NOT null,
-    id_municipio CHAR(8) NOT NULL,
-    osm_type VARCHAR(8) NOT NULL,
-    osm_query_usada VARCHAR(95) NOT NULL,
-    osm_pass VARCHAR(100) NOT NULL,
+DROP TABLE IF EXISTS culturatrip.dim_geografia_municipio_osm CASCADE;
 
-    lat NUMERIC(10,7) NOT NULL,
-    lon NUMERIC(10,7) NOT NULL,
+CREATE TABLE culturatrip.dim_geografia_municipio_osm (
+
+    id_municipio VARCHAR(8) PRIMARY KEY,
+
+    osm_id VARCHAR(15) NOT NULL,
+    osm_type VARCHAR(10) NOT NULL,
+    osm_query_usada VARCHAR(150) NOT NULL,
+    osm_pass VARCHAR(150) NOT NULL,
+
+    lat NUMERIC(10,7) NOT NULL CHECK (lat BETWEEN -90 AND 90),
+    lon NUMERIC(10,7) NOT NULL CHECK (lon BETWEEN -180 AND 180),
 
     CONSTRAINT fk_geo_municipio
         FOREIGN KEY (id_municipio)
         REFERENCES culturatrip.dim_municipio(id_municipio)
-        ON DELETE RESTRICT
+        ON DELETE RESTRICT,
+
+    CONSTRAINT unique_osm_id UNIQUE (osm_id)
+
 );
 /*
 ==================================================
@@ -203,26 +211,35 @@ Dimensión: dim_actividades
 Descripción: Tabla actividades sociales region
 ==================================================
 */
-DROP TABLE IF EXISTS culturatrip.fact_actividades cascade;
+DROP TABLE IF EXISTS culturatrip.fact_actividades CASCADE;
 
 CREATE TABLE culturatrip.fact_actividades (
-    id_actividad INTEGER PRIMARY KEY NOT NULL,
-    id_pais CHAR(2) NOT NULL,
-    id_ccaa CHAR(2) NOT NULL,
-    id_provincia CHAR(2) NOT NULL,
+
+    id_actividad BIGSERIAL PRIMARY KEY,
+
+    id_pais VARCHAR(2) NOT NULL,
+    id_ccaa VARCHAR(2) NOT NULL,
+    id_provincia VARCHAR(2) NOT NULL,
+
     mes SMALLINT NOT NULL CHECK (mes BETWEEN 1 AND 12),
+
     categoria VARCHAR(40) NOT NULL,
     producto VARCHAR(40) NOT NULL,
     subcategoria VARCHAR(40) NOT NULL,
+
     comunidad_autonoma VARCHAR(40) NOT NULL,
     provincia VARCHAR(40) NOT NULL,
+
     gasto_total_promedio NUMERIC(12,2) NOT NULL,
     precio_medio_entrada_promedio NUMERIC(10,2) NOT NULL,
+
     valoracion_por_categoria_promedio NUMERIC(3,2),
     valoracion_general_promedio NUMERIC(3,2),
-    total_opiniones_categoria_promedio integer,
+    total_opiniones_categoria_promedio INTEGER,
+
     hay_valoracion BOOLEAN NOT NULL,
 
+    -- 🔐 Claves foráneas
     CONSTRAINT fk_fact_act_pais
         FOREIGN KEY (id_pais)
         REFERENCES culturatrip.dim_pais(id_pais)
@@ -236,7 +253,12 @@ CREATE TABLE culturatrip.fact_actividades (
     CONSTRAINT fk_fact_act_provincia
         FOREIGN KEY (id_provincia)
         REFERENCES culturatrip.dim_provincia(id_provincia)
-        ON DELETE RESTRICT
+        ON DELETE RESTRICT,
+
+    --  Evitar duplicados por llave natural
+    CONSTRAINT unique_fact_actividades
+        UNIQUE (id_pais, id_ccaa, id_provincia, mes, categoria, producto, subcategoria)
+
 );
 /*
 ==================================================
@@ -244,13 +266,15 @@ Dimensión: dim_alojamientos
 Descripción: Tabla alojamientos por region
 ==================================================
 */
-DROP TABLE IF EXISTS culturatrip.fact_alojamientos cascade;
-CREATE TABLE culturatrip.fact_alojamientos (
-    id_alojamiento INTEGER PRIMARY KEY,
+DROP TABLE IF EXISTS culturatrip.fact_alojamientos CASCADE;
 
-    id_pais CHAR(2) NOT NULL,
-    id_ccaa CHAR(2) NOT NULL,
-    id_provincia CHAR(2) NOT NULL,
+CREATE TABLE culturatrip.fact_alojamientos (
+
+    id_alojamiento BIGSERIAL PRIMARY KEY,
+
+    id_pais VARCHAR(2) NOT NULL,
+    id_ccaa VARCHAR(2) NOT NULL,
+    id_provincia VARCHAR(2) NOT NULL,
 
     mes SMALLINT NOT NULL CHECK (mes BETWEEN 1 AND 12),
 
@@ -269,6 +293,7 @@ CREATE TABLE culturatrip.fact_alojamientos (
     tiene_valoraciones BOOLEAN,
     es_dato_replicado BOOLEAN,
 
+    -- Claves foráneas
     CONSTRAINT fk_fact_aloj_pais
         FOREIGN KEY (id_pais)
         REFERENCES culturatrip.dim_pais(id_pais)
@@ -282,7 +307,19 @@ CREATE TABLE culturatrip.fact_alojamientos (
     CONSTRAINT fk_fact_aloj_provincia
         FOREIGN KEY (id_provincia)
         REFERENCES culturatrip.dim_provincia(id_provincia)
-        ON DELETE RESTRICT
+        ON DELETE RESTRICT,
+
+    -- Evitar duplicados por llave natural
+    CONSTRAINT unique_fact_alojamientos
+        UNIQUE (
+            id_pais,
+            id_ccaa,
+            id_provincia,
+            mes,
+            categoria_alojamiento,
+            periodo_antelacion
+        )
+
 );
 -- ==================================================
 -- FIN DEL SCRIPT

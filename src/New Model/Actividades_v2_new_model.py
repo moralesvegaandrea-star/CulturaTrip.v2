@@ -259,6 +259,25 @@ for c in check_cols:
 df_act["id_ccaa"] = df_act["id_ccaa"].astype(str).str.zfill(2)
 df_act["id_provincia"] = df_act["id_provincia"].astype(str).str.zfill(2)
 df_act["id_pais"] = df_act["id_pais"].astype(str).str.upper().str.strip()
+
+# =========================
+# 5.1) Codigo para consultas Streamlit
+# =========================
+from sqlalchemy import create_engine
+import os
+
+engine = create_engine(
+    f"postgresql+psycopg2://{os.getenv('DB_USER','culturatrip')}:{os.getenv('DB_PASSWORD','culturatrip')}"
+    f"@{os.getenv('DB_HOST','localhost')}:{os.getenv('DB_PORT','5432')}/{os.getenv('DB_NAME','culturatrip')}"
+)
+
+df_act.to_sql(
+    "df_muni",
+    engine,
+    schema="culturatrip",
+    if_exists="append",
+    index=False
+)
 # =========================
 # 9) GUARDAR
 # =========================

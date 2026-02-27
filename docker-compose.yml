@@ -10,11 +10,12 @@ services:
       POSTGRES_PASSWORD: culturatrip
       POSTGRES_DB: culturatrip
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./sql:/docker-entrypoint-initdb.d
-
+    env_file:
+      - .env
   app:
     build: .
     container_name: culturatrip_app

@@ -233,7 +233,6 @@ if not qa_no_match.empty:
     qa_no_match.to_csv(qa_path, index=False, encoding="utf-8-sig")
     print("📝 QA guardado:", qa_path)
     print(qa_no_match.head(30))
-
 # =========================
 # 6) GUARDAR DIM PAÍS
 # =========================
