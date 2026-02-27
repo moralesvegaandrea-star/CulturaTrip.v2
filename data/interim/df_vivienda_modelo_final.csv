@@ -1,0 +1,1101 @@
+﻿id_pais,id_ccaa,ccaa,ccaa_key,mes,categoria_alojamiento,valoraciones,precio_checkin_entre_semana,precio_checkin_fin_semana,periodo_antelacion
+ES,01,andalucia,andalucia,1,alternativo,4.54,333.76,333.76,1 mes
+ES,01,andalucia,andalucia,1,apartamento,4.67,140.99,140.99,1 mes
+ES,01,andalucia,andalucia,1,casa entera,4.68,254.4,254.4,1 mes
+ES,01,andalucia,andalucia,1,habitacion compartida,4.43,40.48,40.48,1 mes
+ES,01,andalucia,andalucia,1,habitacion privada,4.54,122.73,122.73,1 mes
+ES,02,aragon,aragon,1,alternativo,4.44,183.98,183.98,1 mes
+ES,02,aragon,aragon,1,apartamento,4.67,145.95,145.95,1 mes
+ES,02,aragon,aragon,1,casa entera,4.65,209.57,209.57,1 mes
+ES,02,aragon,aragon,1,habitacion compartida,4.65,67.98,67.98,1 mes
+ES,02,aragon,aragon,1,habitacion privada,4.32,91.1,91.1,1 mes
+ES,05,canarias,canarias,1,alternativo,4.64,117.8,117.8,1 mes
+ES,05,canarias,canarias,1,apartamento,4.71,138.42,138.42,1 mes
+ES,05,canarias,canarias,1,casa entera,4.71,213.63,213.63,1 mes
+ES,05,canarias,canarias,1,habitacion compartida,4.55,46.64,46.64,1 mes
+ES,05,canarias,canarias,1,habitacion privada,4.64,111.58,111.58,1 mes
+ES,06,cantabria,cantabria,1,alternativo,4.69,223.5,223.5,1 mes
+ES,06,cantabria,cantabria,1,apartamento,4.68,555.13,555.13,1 mes
+ES,06,cantabria,cantabria,1,casa entera,4.7,251.25,251.25,1 mes
+ES,06,cantabria,cantabria,1,habitacion compartida,4.53,58.57,58.57,1 mes
+ES,06,cantabria,cantabria,1,habitacion privada,4.61,114.68,114.68,1 mes
+ES,08,castilla - la mancha,castilla - la mancha,1,alternativo,4.46,205.03,205.03,1 mes
+ES,08,castilla - la mancha,castilla - la mancha,1,apartamento,4.71,143.56,143.56,1 mes
+ES,08,castilla - la mancha,castilla - la mancha,1,casa entera,4.54,227.56,227.56,1 mes
+ES,08,castilla - la mancha,castilla - la mancha,1,habitacion compartida,4.1,69.72,69.72,1 mes
+ES,08,castilla - la mancha,castilla - la mancha,1,habitacion privada,4.23,140.4,140.4,1 mes
+ES,07,castilla y leon,castilla y leon,1,alternativo,4.59,185.27,185.27,1 mes
+ES,07,castilla y leon,castilla y leon,1,apartamento,4.69,112.14,112.14,1 mes
+ES,07,castilla y leon,castilla y leon,1,casa entera,4.61,201.67,201.67,1 mes
+ES,07,castilla y leon,castilla y leon,1,habitacion compartida,4.28,48.5,48.5,1 mes
+ES,07,castilla y leon,castilla y leon,1,habitacion privada,4.41,86.71,86.71,1 mes
+ES,09,cataluna,cataluna,1,alternativo,4.46,210.73,210.73,1 mes
+ES,09,cataluna,cataluna,1,apartamento,4.65,180.72,180.72,1 mes
+ES,09,cataluna,cataluna,1,casa entera,4.6,286.89,286.89,1 mes
+ES,09,cataluna,cataluna,1,habitacion compartida,4.25,40.33,40.33,1 mes
+ES,09,cataluna,cataluna,1,habitacion privada,4.51,111.98,111.98,1 mes
+ES,18,ceuta,ceuta,1,alternativo,4.23,64.81,64.81,1 mes
+ES,18,ceuta,ceuta,1,casa entera,3.69,401.38,401.38,1 mes
+ES,18,ceuta,ceuta,1,habitacion privada,4.22,57.33,57.33,1 mes
+ES,13,comunidad de madrid,madrid,1,alternativo,4.22,142.86,142.86,1 mes
+ES,13,comunidad de madrid,madrid,1,apartamento,4.61,291.28,291.28,1 mes
+ES,13,comunidad de madrid,madrid,1,casa entera,4.58,214.58,214.58,1 mes
+ES,13,comunidad de madrid,madrid,1,habitacion compartida,4.31,55.38,55.38,1 mes
+ES,13,comunidad de madrid,madrid,1,habitacion privada,4.51,103.57,103.57,1 mes
+ES,15,comunidad foral de navarra,navarra,1,alternativo,4.62,213.84,213.84,1 mes
+ES,15,comunidad foral de navarra,navarra,1,apartamento,4.57,182.96,182.96,1 mes
+ES,15,comunidad foral de navarra,navarra,1,casa entera,4.6,251.16,251.16,1 mes
+ES,15,comunidad foral de navarra,navarra,1,habitacion compartida,4.32,182.32,182.32,1 mes
+ES,15,comunidad foral de navarra,navarra,1,habitacion privada,4.44,129.37,129.37,1 mes
+ES,10,comunitat valenciana,comunitat valenciana,1,alternativo,4.34,190.14,190.14,1 mes
+ES,10,comunitat valenciana,comunitat valenciana,1,apartamento,4.65,117.14,117.14,1 mes
+ES,10,comunitat valenciana,comunitat valenciana,1,casa entera,4.64,219.55,219.55,1 mes
+ES,10,comunitat valenciana,comunitat valenciana,1,habitacion compartida,4.21,42.38,42.38,1 mes
+ES,10,comunitat valenciana,comunitat valenciana,1,habitacion privada,4.49,86.87,86.87,1 mes
+ES,11,extremadura,extremadura,1,alternativo,4.07,129.44,129.44,1 mes
+ES,11,extremadura,extremadura,1,apartamento,4.62,115.42,115.42,1 mes
+ES,11,extremadura,extremadura,1,casa entera,4.56,179.79,179.79,1 mes
+ES,11,extremadura,extremadura,1,habitacion compartida,3.83,43.25,43.25,1 mes
+ES,11,extremadura,extremadura,1,habitacion privada,4.23,145.3,145.3,1 mes
+ES,12,galicia,galicia,1,alternativo,4.53,158.3,158.3,1 mes
+ES,12,galicia,galicia,1,apartamento,4.67,123.52,123.52,1 mes
+ES,12,galicia,galicia,1,casa entera,4.73,175.88,175.88,1 mes
+ES,12,galicia,galicia,1,habitacion compartida,4.53,71.42,71.42,1 mes
+ES,12,galicia,galicia,1,habitacion privada,4.36,136.18,136.18,1 mes
+ES,04,illes balears,balears,1,alternativo,4.38,418.88,418.88,1 mes
+ES,04,illes balears,balears,1,apartamento,4.57,291.62,291.62,1 mes
+ES,04,illes balears,balears,1,casa entera,4.69,589.1,589.1,1 mes
+ES,04,illes balears,balears,1,habitacion compartida,3.06,1396.51,1396.51,1 mes
+ES,04,illes balears,balears,1,habitacion privada,4.61,360.16,360.16,1 mes
+ES,17,la rioja,rioja,1,alternativo,4.44,197.84,197.84,1 mes
+ES,17,la rioja,rioja,1,apartamento,4.76,119.66,119.66,1 mes
+ES,17,la rioja,rioja,1,casa entera,4.61,167.61,167.61,1 mes
+ES,17,la rioja,rioja,1,habitacion privada,4.48,97.82,97.82,1 mes
+ES,19,melilla,melilla,1,alternativo,4.93,81.0,81.0,1 mes
+ES,19,melilla,melilla,1,apartamento,4.86,97.75,97.75,1 mes
+ES,19,melilla,melilla,1,casa entera,4.28,103.37,103.37,1 mes
+ES,19,melilla,melilla,1,habitacion privada,3.86,40.17,40.17,1 mes
+ES,16,pais vasco,pais vasco,1,alternativo,4.42,222.64,222.64,1 mes
+ES,16,pais vasco,pais vasco,1,apartamento,4.69,138.38,138.38,1 mes
+ES,16,pais vasco,pais vasco,1,casa entera,4.68,224.0,224.0,1 mes
+ES,16,pais vasco,pais vasco,1,habitacion compartida,4.58,70.52,70.52,1 mes
+ES,16,pais vasco,pais vasco,1,habitacion privada,4.57,107.33,107.33,1 mes
+ES,03,principado de asturias,asturias,1,alternativo,4.5,176.53,176.53,1 mes
+ES,03,principado de asturias,asturias,1,apartamento,4.7,116.47,116.47,1 mes
+ES,03,principado de asturias,asturias,1,casa entera,4.72,183.51,183.51,1 mes
+ES,03,principado de asturias,asturias,1,habitacion compartida,4.64,40.76,40.76,1 mes
+ES,03,principado de asturias,asturias,1,habitacion privada,4.5,109.68,109.68,1 mes
+ES,14,region de murcia,murcia,1,alternativo,4.34,174.55,174.55,1 mes
+ES,14,region de murcia,murcia,1,apartamento,4.66,142.07,142.07,1 mes
+ES,14,region de murcia,murcia,1,casa entera,4.64,225.37,225.37,1 mes
+ES,14,region de murcia,murcia,1,habitacion compartida,4.41,38.28,38.28,1 mes
+ES,14,region de murcia,murcia,1,habitacion privada,4.45,89.5,89.5,1 mes
+ES,01,andalucia,andalucia,2,alternativo,4.58,339.7,339.7,1 mes
+ES,01,andalucia,andalucia,2,apartamento,4.67,161.51,161.51,1 mes
+ES,01,andalucia,andalucia,2,casa entera,4.67,273.81,273.81,1 mes
+ES,01,andalucia,andalucia,2,habitacion compartida,4.52,35.2,35.2,1 mes
+ES,01,andalucia,andalucia,2,habitacion privada,4.58,120.19,120.19,1 mes
+ES,02,aragon,aragon,2,alternativo,4.52,175.04,175.04,1 mes
+ES,02,aragon,aragon,2,apartamento,4.65,143.78,143.78,1 mes
+ES,02,aragon,aragon,2,casa entera,4.63,209.2,209.2,1 mes
+ES,02,aragon,aragon,2,habitacion compartida,4.89,52.25,52.25,1 mes
+ES,02,aragon,aragon,2,habitacion privada,4.39,87.31,87.31,1 mes
+ES,05,canarias,canarias,2,alternativo,4.65,112.15,112.15,1 mes
+ES,05,canarias,canarias,2,apartamento,4.71,135.45,135.45,1 mes
+ES,05,canarias,canarias,2,casa entera,4.71,238.01,238.01,1 mes
+ES,05,canarias,canarias,2,habitacion compartida,4.56,48.29,48.29,1 mes
+ES,05,canarias,canarias,2,habitacion privada,4.66,109.11,109.11,1 mes
+ES,06,cantabria,cantabria,2,alternativo,4.69,212.25,212.25,1 mes
+ES,06,cantabria,cantabria,2,apartamento,4.71,659.23,659.23,1 mes
+ES,06,cantabria,cantabria,2,casa entera,4.69,246.24,246.24,1 mes
+ES,06,cantabria,cantabria,2,habitacion compartida,4.58,43.6,43.6,1 mes
+ES,06,cantabria,cantabria,2,habitacion privada,4.63,114.57,114.57,1 mes
+ES,08,castilla - la mancha,castilla - la mancha,2,alternativo,4.5,195.41,195.41,1 mes
+ES,08,castilla - la mancha,castilla - la mancha,2,apartamento,4.7,151.75,151.75,1 mes
+ES,08,castilla - la mancha,castilla - la mancha,2,casa entera,4.5,219.66,219.66,1 mes
+ES,08,castilla - la mancha,castilla - la mancha,2,habitacion compartida,4.24,78.5,78.5,1 mes
+ES,08,castilla - la mancha,castilla - la mancha,2,habitacion privada,4.3,148.31,148.31,1 mes
+ES,07,castilla y leon,castilla y leon,2,alternativo,4.59,178.66,178.66,1 mes
+ES,07,castilla y leon,castilla y leon,2,apartamento,4.68,112.6,112.6,1 mes
+ES,07,castilla y leon,castilla y leon,2,casa entera,4.58,197.1,197.1,1 mes
+ES,07,castilla y leon,castilla y leon,2,habitacion compartida,4.58,32.32,32.32,1 mes
+ES,07,castilla y leon,castilla y leon,2,habitacion privada,4.46,79.87,79.87,1 mes
+ES,09,cataluna,cataluna,2,alternativo,4.5,213.36,213.36,1 mes
+ES,09,cataluna,cataluna,2,apartamento,4.63,182.16,182.16,1 mes
+ES,09,cataluna,cataluna,2,casa entera,4.59,296.32,296.32,1 mes
+ES,09,cataluna,cataluna,2,habitacion compartida,4.2,48.58,48.58,1 mes
+ES,09,cataluna,cataluna,2,habitacion privada,4.56,107.9,107.9,1 mes
+ES,18,ceuta,ceuta,2,alternativo,4.06,66.0,66.0,1 mes
+ES,18,ceuta,ceuta,2,casa entera,3.43,500.64,500.64,1 mes
+ES,18,ceuta,ceuta,2,habitacion privada,4.01,59.21,59.21,1 mes
+ES,13,comunidad de madrid,madrid,2,alternativo,4.37,137.1,137.1,1 mes
+ES,13,comunidad de madrid,madrid,2,apartamento,4.61,278.92,278.92,1 mes
+ES,13,comunidad de madrid,madrid,2,casa entera,4.56,212.3,212.3,1 mes
+ES,13,comunidad de madrid,madrid,2,habitacion compartida,4.39,52.99,52.99,1 mes
+ES,13,comunidad de madrid,madrid,2,habitacion privada,4.57,95.6,95.6,1 mes
+ES,15,comunidad foral de navarra,navarra,2,alternativo,4.56,204.67,204.67,1 mes
+ES,15,comunidad foral de navarra,navarra,2,apartamento,4.64,159.06,159.06,1 mes
+ES,15,comunidad foral de navarra,navarra,2,casa entera,4.55,252.51,252.51,1 mes
+ES,15,comunidad foral de navarra,navarra,2,habitacion compartida,4.03,199.29,199.29,1 mes
+ES,15,comunidad foral de navarra,navarra,2,habitacion privada,4.49,122.52,122.52,1 mes
+ES,10,comunitat valenciana,comunitat valenciana,2,alternativo,4.41,186.13,186.13,1 mes
+ES,10,comunitat valenciana,comunitat valenciana,2,apartamento,4.64,121.85,121.85,1 mes
+ES,10,comunitat valenciana,comunitat valenciana,2,casa entera,4.63,229.55,229.55,1 mes
+ES,10,comunitat valenciana,comunitat valenciana,2,habitacion compartida,4.26,48.5,48.5,1 mes
+ES,10,comunitat valenciana,comunitat valenciana,2,habitacion privada,4.52,82.43,82.43,1 mes
+ES,11,extremadura,extremadura,2,alternativo,4.01,128.47,128.47,1 mes
+ES,11,extremadura,extremadura,2,apartamento,4.64,112.48,112.48,1 mes
+ES,11,extremadura,extremadura,2,casa entera,4.53,172.93,172.93,1 mes
+ES,11,extremadura,extremadura,2,habitacion compartida,3.98,37.0,37.0,1 mes
+ES,11,extremadura,extremadura,2,habitacion privada,4.24,161.65,161.65,1 mes
+ES,12,galicia,galicia,2,alternativo,4.59,157.71,157.71,1 mes
+ES,12,galicia,galicia,2,apartamento,4.67,125.82,125.82,1 mes
+ES,12,galicia,galicia,2,casa entera,4.72,172.36,172.36,1 mes
+ES,12,galicia,galicia,2,habitacion compartida,4.62,35.24,35.24,1 mes
+ES,12,galicia,galicia,2,habitacion privada,4.46,148.28,148.28,1 mes
+ES,04,illes balears,balears,2,alternativo,4.51,409.67,409.67,1 mes
+ES,04,illes balears,balears,2,apartamento,4.63,296.64,296.64,1 mes
+ES,04,illes balears,balears,2,casa entera,4.69,651.05,651.05,1 mes
+ES,04,illes balears,balears,2,habitacion compartida,2.96,1349.79,1349.79,1 mes
+ES,04,illes balears,balears,2,habitacion privada,4.62,309.72,309.72,1 mes
+ES,17,la rioja,rioja,2,alternativo,4.38,208.8,208.8,1 mes
+ES,17,la rioja,rioja,2,apartamento,4.74,120.73,120.73,1 mes
+ES,17,la rioja,rioja,2,casa entera,4.57,160.81,160.81,1 mes
+ES,17,la rioja,rioja,2,habitacion privada,4.55,99.83,99.83,1 mes
+ES,19,melilla,melilla,2,alternativo,4.93,85.0,85.0,1 mes
+ES,19,melilla,melilla,2,apartamento,4.85,90.92,90.92,1 mes
+ES,19,melilla,melilla,2,casa entera,4.2,103.05,103.05,1 mes
+ES,19,melilla,melilla,2,habitacion privada,4.04,47.11,47.11,1 mes
+ES,16,pais vasco,pais vasco,2,alternativo,4.45,207.12,207.12,1 mes
+ES,16,pais vasco,pais vasco,2,apartamento,4.69,127.19,127.19,1 mes
+ES,16,pais vasco,pais vasco,2,casa entera,4.65,220.02,220.02,1 mes
+ES,16,pais vasco,pais vasco,2,habitacion compartida,4.59,72.03,72.03,1 mes
+ES,16,pais vasco,pais vasco,2,habitacion privada,4.6,96.51,96.51,1 mes
+ES,03,principado de asturias,asturias,2,alternativo,4.54,163.83,163.83,1 mes
+ES,03,principado de asturias,asturias,2,apartamento,4.74,114.25,114.25,1 mes
+ES,03,principado de asturias,asturias,2,casa entera,4.7,188.85,188.85,1 mes
+ES,03,principado de asturias,asturias,2,habitacion compartida,4.67,42.13,42.13,1 mes
+ES,03,principado de asturias,asturias,2,habitacion privada,4.56,110.87,110.87,1 mes
+ES,14,region de murcia,murcia,2,alternativo,4.45,187.2,187.2,1 mes
+ES,14,region de murcia,murcia,2,apartamento,4.66,144.83,144.83,1 mes
+ES,14,region de murcia,murcia,2,casa entera,4.62,248.3,248.3,1 mes
+ES,14,region de murcia,murcia,2,habitacion compartida,4.46,32.36,32.36,1 mes
+ES,14,region de murcia,murcia,2,habitacion privada,4.43,95.86,95.86,1 mes
+ES,01,andalucia,andalucia,3,alternativo,4.58,331.98,331.98,1 mes
+ES,01,andalucia,andalucia,3,apartamento,4.67,155.71,155.71,1 mes
+ES,01,andalucia,andalucia,3,casa entera,4.67,271.09,271.09,1 mes
+ES,01,andalucia,andalucia,3,habitacion compartida,4.4,44.99,44.99,1 mes
+ES,01,andalucia,andalucia,3,habitacion privada,4.58,121.42,121.42,1 mes
+ES,02,aragon,aragon,3,alternativo,4.58,178.05,178.05,1 mes
+ES,02,aragon,aragon,3,apartamento,4.67,150.14,150.14,1 mes
+ES,02,aragon,aragon,3,casa entera,4.61,210.22,210.22,1 mes
+ES,02,aragon,aragon,3,habitacion compartida,4.47,62.83,62.83,1 mes
+ES,02,aragon,aragon,3,habitacion privada,4.35,88.8,88.8,1 mes
+ES,05,canarias,canarias,3,alternativo,4.67,115.23,115.23,1 mes
+ES,05,canarias,canarias,3,apartamento,4.7,134.14,134.14,1 mes
+ES,05,canarias,canarias,3,casa entera,4.71,231.23,231.23,1 mes
+ES,05,canarias,canarias,3,habitacion compartida,4.61,47.96,47.96,1 mes
+ES,05,canarias,canarias,3,habitacion privada,4.66,106.13,106.13,1 mes
+ES,06,cantabria,cantabria,3,alternativo,4.66,207.18,207.18,1 mes
+ES,06,cantabria,cantabria,3,apartamento,4.72,701.45,701.45,1 mes
+ES,06,cantabria,cantabria,3,casa entera,4.69,246.56,246.56,1 mes
+ES,06,cantabria,cantabria,3,habitacion compartida,4.4,50.05,50.05,1 mes
+ES,06,cantabria,cantabria,3,habitacion privada,4.63,116.3,116.3,1 mes
+ES,08,castilla - la mancha,castilla - la mancha,3,alternativo,4.51,201.58,201.58,1 mes
+ES,08,castilla - la mancha,castilla - la mancha,3,apartamento,4.71,156.14,156.14,1 mes
+ES,08,castilla - la mancha,castilla - la mancha,3,casa entera,4.48,224.5,224.5,1 mes
+ES,08,castilla - la mancha,castilla - la mancha,3,habitacion compartida,4.24,80.1,80.1,1 mes
+ES,08,castilla - la mancha,castilla - la mancha,3,habitacion privada,4.29,140.43,140.43,1 mes
+ES,07,castilla y leon,castilla y leon,3,alternativo,4.57,180.44,180.44,1 mes
+ES,07,castilla y leon,castilla y leon,3,apartamento,4.69,111.98,111.98,1 mes
+ES,07,castilla y leon,castilla y leon,3,casa entera,4.57,201.73,201.73,1 mes
+ES,07,castilla y leon,castilla y leon,3,habitacion compartida,4.38,33.03,33.03,1 mes
+ES,07,castilla y leon,castilla y leon,3,habitacion privada,4.46,81.6,81.6,1 mes
+ES,09,cataluna,cataluna,3,alternativo,4.5,213.03,213.03,1 mes
+ES,09,cataluna,cataluna,3,apartamento,4.63,182.69,182.69,1 mes
+ES,09,cataluna,cataluna,3,casa entera,4.59,299.26,299.26,1 mes
+ES,09,cataluna,cataluna,3,habitacion compartida,4.3,60.34,60.34,1 mes
+ES,09,cataluna,cataluna,3,habitacion privada,4.56,110.79,110.79,1 mes
+ES,18,ceuta,ceuta,3,alternativo,4.06,67.17,67.17,1 mes
+ES,18,ceuta,ceuta,3,casa entera,3.44,513.27,513.27,1 mes
+ES,18,ceuta,ceuta,3,habitacion privada,4.04,59.93,59.93,1 mes
+ES,13,comunidad de madrid,madrid,3,alternativo,4.37,141.87,141.87,1 mes
+ES,13,comunidad de madrid,madrid,3,apartamento,4.61,279.67,279.67,1 mes
+ES,13,comunidad de madrid,madrid,3,casa entera,4.55,218.3,218.3,1 mes
+ES,13,comunidad de madrid,madrid,3,habitacion compartida,4.34,51.47,51.47,1 mes
+ES,13,comunidad de madrid,madrid,3,habitacion privada,4.56,97.34,97.34,1 mes
+ES,15,comunidad foral de navarra,navarra,3,alternativo,4.55,206.97,206.97,1 mes
+ES,15,comunidad foral de navarra,navarra,3,apartamento,4.68,167.83,167.83,1 mes
+ES,15,comunidad foral de navarra,navarra,3,casa entera,4.54,250.04,250.04,1 mes
+ES,15,comunidad foral de navarra,navarra,3,habitacion compartida,4.31,201.69,201.69,1 mes
+ES,15,comunidad foral de navarra,navarra,3,habitacion privada,4.49,127.2,127.2,1 mes
+ES,10,comunitat valenciana,comunitat valenciana,3,alternativo,4.35,205.33,205.33,1 mes
+ES,10,comunitat valenciana,comunitat valenciana,3,apartamento,4.65,127.03,127.03,1 mes
+ES,10,comunitat valenciana,comunitat valenciana,3,casa entera,4.63,234.43,234.43,1 mes
+ES,10,comunitat valenciana,comunitat valenciana,3,habitacion compartida,4.37,55.7,55.7,1 mes
+ES,10,comunitat valenciana,comunitat valenciana,3,habitacion privada,4.53,85.53,85.53,1 mes
+ES,11,extremadura,extremadura,3,alternativo,4.01,133.58,133.58,1 mes
+ES,11,extremadura,extremadura,3,apartamento,4.63,118.83,118.83,1 mes
+ES,11,extremadura,extremadura,3,casa entera,4.5,175.78,175.78,1 mes
+ES,11,extremadura,extremadura,3,habitacion compartida,3.97,35.32,35.32,1 mes
+ES,11,extremadura,extremadura,3,habitacion privada,4.25,157.22,157.22,1 mes
+ES,12,galicia,galicia,3,alternativo,4.56,161.56,161.56,1 mes
+ES,12,galicia,galicia,3,apartamento,4.7,130.49,130.49,1 mes
+ES,12,galicia,galicia,3,casa entera,4.72,175.31,175.31,1 mes
+ES,12,galicia,galicia,3,habitacion compartida,4.58,35.46,35.46,1 mes
+ES,12,galicia,galicia,3,habitacion privada,4.43,123.95,123.95,1 mes
+ES,04,illes balears,balears,3,alternativo,4.54,431.32,431.32,1 mes
+ES,04,illes balears,balears,3,apartamento,4.63,294.22,294.22,1 mes
+ES,04,illes balears,balears,3,casa entera,4.69,645.6,645.6,1 mes
+ES,04,illes balears,balears,3,habitacion compartida,2.74,1382.51,1382.51,1 mes
+ES,04,illes balears,balears,3,habitacion privada,4.61,316.29,316.29,1 mes
+ES,17,la rioja,rioja,3,alternativo,4.27,201.6,201.6,1 mes
+ES,17,la rioja,rioja,3,apartamento,4.75,126.22,126.22,1 mes
+ES,17,la rioja,rioja,3,casa entera,4.55,164.24,164.24,1 mes
+ES,17,la rioja,rioja,3,habitacion privada,4.4,98.01,98.01,1 mes
+ES,19,melilla,melilla,3,alternativo,4.93,82.0,82.0,1 mes
+ES,19,melilla,melilla,3,apartamento,4.85,89.17,89.17,1 mes
+ES,19,melilla,melilla,3,casa entera,4.05,96.54,96.54,1 mes
+ES,19,melilla,melilla,3,habitacion privada,4.32,47.78,47.78,1 mes
+ES,16,pais vasco,pais vasco,3,alternativo,4.57,203.91,203.91,1 mes
+ES,16,pais vasco,pais vasco,3,apartamento,4.73,136.02,136.02,1 mes
+ES,16,pais vasco,pais vasco,3,casa entera,4.64,224.49,224.49,1 mes
+ES,16,pais vasco,pais vasco,3,habitacion compartida,4.55,72.3,72.3,1 mes
+ES,16,pais vasco,pais vasco,3,habitacion privada,4.58,102.96,102.96,1 mes
+ES,03,principado de asturias,asturias,3,alternativo,4.62,156.61,156.61,1 mes
+ES,03,principado de asturias,asturias,3,apartamento,4.74,118.85,118.85,1 mes
+ES,03,principado de asturias,asturias,3,casa entera,4.7,191.3,191.3,1 mes
+ES,03,principado de asturias,asturias,3,habitacion compartida,4.55,87.64,87.64,1 mes
+ES,03,principado de asturias,asturias,3,habitacion privada,4.53,109.8,109.8,1 mes
+ES,14,region de murcia,murcia,3,alternativo,4.45,185.99,185.99,1 mes
+ES,14,region de murcia,murcia,3,apartamento,4.63,148.71,148.71,1 mes
+ES,14,region de murcia,murcia,3,casa entera,4.61,232.11,232.11,1 mes
+ES,14,region de murcia,murcia,3,habitacion compartida,4.65,33.02,33.02,1 mes
+ES,14,region de murcia,murcia,3,habitacion privada,4.41,97.24,97.24,1 mes
+ES,01,andalucia,andalucia,4,alternativo,4.58,339.7,339.7,1 mes
+ES,01,andalucia,andalucia,4,apartamento,4.67,163.19,163.19,1 mes
+ES,01,andalucia,andalucia,4,casa entera,4.67,279.52,279.52,1 mes
+ES,01,andalucia,andalucia,4,habitacion compartida,4.46,50.23,50.23,1 mes
+ES,01,andalucia,andalucia,4,habitacion privada,4.58,127.86,127.86,1 mes
+ES,02,aragon,aragon,4,alternativo,4.59,180.41,180.41,1 mes
+ES,02,aragon,aragon,4,apartamento,4.67,151.8,151.8,1 mes
+ES,02,aragon,aragon,4,casa entera,4.62,210.87,210.87,1 mes
+ES,02,aragon,aragon,4,habitacion compartida,4.4,62.5,62.5,1 mes
+ES,02,aragon,aragon,4,habitacion privada,4.38,89.93,89.93,1 mes
+ES,05,canarias,canarias,4,alternativo,4.66,115.96,115.96,1 mes
+ES,05,canarias,canarias,4,apartamento,4.71,133.69,133.69,1 mes
+ES,05,canarias,canarias,4,casa entera,4.71,228.75,228.75,1 mes
+ES,05,canarias,canarias,4,habitacion compartida,4.64,47.45,47.45,1 mes
+ES,05,canarias,canarias,4,habitacion privada,4.66,105.35,105.35,1 mes
+ES,06,cantabria,cantabria,4,alternativo,4.69,212.38,212.38,1 mes
+ES,06,cantabria,cantabria,4,apartamento,4.72,728.35,728.35,1 mes
+ES,06,cantabria,cantabria,4,casa entera,4.69,254.23,254.23,1 mes
+ES,06,cantabria,cantabria,4,habitacion compartida,4.37,50.13,50.13,1 mes
+ES,06,cantabria,cantabria,4,habitacion privada,4.63,123.28,123.28,1 mes
+ES,08,castilla - la mancha,castilla - la mancha,4,alternativo,4.51,204.8,204.8,1 mes
+ES,08,castilla - la mancha,castilla - la mancha,4,apartamento,4.7,166.96,166.96,1 mes
+ES,08,castilla - la mancha,castilla - la mancha,4,casa entera,4.49,233.41,233.41,1 mes
+ES,08,castilla - la mancha,castilla - la mancha,4,habitacion compartida,4.26,80.11,80.11,1 mes
+ES,08,castilla - la mancha,castilla - la mancha,4,habitacion privada,4.31,147.45,147.45,1 mes
+ES,07,castilla y leon,castilla y leon,4,alternativo,4.54,179.36,179.36,1 mes
+ES,07,castilla y leon,castilla y leon,4,apartamento,4.7,117.41,117.41,1 mes
+ES,07,castilla y leon,castilla y leon,4,casa entera,4.57,202.92,202.92,1 mes
+ES,07,castilla y leon,castilla y leon,4,habitacion compartida,4.48,36.66,36.66,1 mes
+ES,07,castilla y leon,castilla y leon,4,habitacion privada,4.46,82.63,82.63,1 mes
+ES,09,cataluna,cataluna,4,alternativo,4.48,217.85,217.85,1 mes
+ES,09,cataluna,cataluna,4,apartamento,4.64,189.98,189.98,1 mes
+ES,09,cataluna,cataluna,4,casa entera,4.59,304.88,304.88,1 mes
+ES,09,cataluna,cataluna,4,habitacion compartida,4.21,56.23,56.23,1 mes
+ES,09,cataluna,cataluna,4,habitacion privada,4.56,116.61,116.61,1 mes
+ES,18,ceuta,ceuta,4,alternativo,4.02,67.25,67.25,1 mes
+ES,18,ceuta,ceuta,4,casa entera,3.54,637.33,637.33,1 mes
+ES,18,ceuta,ceuta,4,habitacion privada,4.11,59.3,59.3,1 mes
+ES,13,comunidad de madrid,madrid,4,alternativo,4.36,148.15,148.15,1 mes
+ES,13,comunidad de madrid,madrid,4,apartamento,4.62,281.81,281.81,1 mes
+ES,13,comunidad de madrid,madrid,4,casa entera,4.55,225.82,225.82,1 mes
+ES,13,comunidad de madrid,madrid,4,habitacion compartida,4.39,52.61,52.61,1 mes
+ES,13,comunidad de madrid,madrid,4,habitacion privada,4.55,100.66,100.66,1 mes
+ES,15,comunidad foral de navarra,navarra,4,alternativo,4.59,220.05,220.05,1 mes
+ES,15,comunidad foral de navarra,navarra,4,apartamento,4.69,171.73,171.73,1 mes
+ES,15,comunidad foral de navarra,navarra,4,casa entera,4.54,260.63,260.63,1 mes
+ES,15,comunidad foral de navarra,navarra,4,habitacion compartida,4.4,190.17,190.17,1 mes
+ES,15,comunidad foral de navarra,navarra,4,habitacion privada,4.5,123.86,123.86,1 mes
+ES,10,comunitat valenciana,comunitat valenciana,4,alternativo,4.37,189.95,189.95,1 mes
+ES,10,comunitat valenciana,comunitat valenciana,4,apartamento,4.65,129.01,129.01,1 mes
+ES,10,comunitat valenciana,comunitat valenciana,4,casa entera,4.63,237.07,237.07,1 mes
+ES,10,comunitat valenciana,comunitat valenciana,4,habitacion compartida,4.33,46.63,46.63,1 mes
+ES,10,comunitat valenciana,comunitat valenciana,4,habitacion privada,4.53,86.2,86.2,1 mes
+ES,11,extremadura,extremadura,4,alternativo,4.01,133.94,133.94,1 mes
+ES,11,extremadura,extremadura,4,apartamento,4.62,120.12,120.12,1 mes
+ES,11,extremadura,extremadura,4,casa entera,4.51,180.24,180.24,1 mes
+ES,11,extremadura,extremadura,4,habitacion compartida,4.81,46.32,46.32,1 mes
+ES,11,extremadura,extremadura,4,habitacion privada,4.23,163.91,163.91,1 mes
+ES,12,galicia,galicia,4,alternativo,4.53,164.25,164.25,1 mes
+ES,12,galicia,galicia,4,apartamento,4.69,134.92,134.92,1 mes
+ES,12,galicia,galicia,4,casa entera,4.72,177.96,177.96,1 mes
+ES,12,galicia,galicia,4,habitacion compartida,4.63,33.82,33.82,1 mes
+ES,12,galicia,galicia,4,habitacion privada,4.43,118.04,118.04,1 mes
+ES,04,illes balears,balears,4,alternativo,4.55,371.43,371.43,1 mes
+ES,04,illes balears,balears,4,apartamento,4.64,285.84,285.84,1 mes
+ES,04,illes balears,balears,4,casa entera,4.69,651.0,651.0,1 mes
+ES,04,illes balears,balears,4,habitacion compartida,2.53,1359.69,1359.69,1 mes
+ES,04,illes balears,balears,4,habitacion privada,4.62,314.26,314.26,1 mes
+ES,17,la rioja,rioja,4,alternativo,4.38,207.61,207.61,1 mes
+ES,17,la rioja,rioja,4,apartamento,4.74,122.34,122.34,1 mes
+ES,17,la rioja,rioja,4,casa entera,4.55,173.01,173.01,1 mes
+ES,17,la rioja,rioja,4,habitacion privada,4.49,102.39,102.39,1 mes
+ES,19,melilla,melilla,4,alternativo,4.89,93.0,93.0,1 mes
+ES,19,melilla,melilla,4,apartamento,4.88,89.15,89.15,1 mes
+ES,19,melilla,melilla,4,casa entera,4.08,99.27,99.27,1 mes
+ES,19,melilla,melilla,4,habitacion privada,4.19,45.67,45.67,1 mes
+ES,16,pais vasco,pais vasco,4,alternativo,4.54,218.72,218.72,1 mes
+ES,16,pais vasco,pais vasco,4,apartamento,4.74,143.34,143.34,1 mes
+ES,16,pais vasco,pais vasco,4,casa entera,4.64,240.15,240.15,1 mes
+ES,16,pais vasco,pais vasco,4,habitacion compartida,3.73,51.38,51.38,1 mes
+ES,16,pais vasco,pais vasco,4,habitacion privada,4.58,107.43,107.43,1 mes
+ES,03,principado de asturias,asturias,4,alternativo,4.66,161.65,161.65,1 mes
+ES,03,principado de asturias,asturias,4,apartamento,4.74,117.68,117.68,1 mes
+ES,03,principado de asturias,asturias,4,casa entera,4.7,193.36,193.36,1 mes
+ES,03,principado de asturias,asturias,4,habitacion compartida,4.45,79.99,79.99,1 mes
+ES,03,principado de asturias,asturias,4,habitacion privada,4.5,108.79,108.79,1 mes
+ES,14,region de murcia,murcia,4,alternativo,4.44,223.14,223.14,1 mes
+ES,14,region de murcia,murcia,4,apartamento,4.65,155.33,155.33,1 mes
+ES,14,region de murcia,murcia,4,casa entera,4.61,238.61,238.61,1 mes
+ES,14,region de murcia,murcia,4,habitacion compartida,4.58,32.12,32.12,1 mes
+ES,14,region de murcia,murcia,4,habitacion privada,4.43,98.76,98.76,1 mes
+ES,01,andalucia,andalucia,5,alternativo,4.57,353.17,353.17,1 mes
+ES,01,andalucia,andalucia,5,apartamento,4.67,160.23,160.23,1 mes
+ES,01,andalucia,andalucia,5,casa entera,4.67,279.49,279.49,1 mes
+ES,01,andalucia,andalucia,5,habitacion compartida,4.47,50.49,50.49,1 mes
+ES,01,andalucia,andalucia,5,habitacion privada,4.58,127.47,127.47,1 mes
+ES,02,aragon,aragon,5,alternativo,4.56,176.29,176.29,1 mes
+ES,02,aragon,aragon,5,apartamento,4.7,150.36,150.36,1 mes
+ES,02,aragon,aragon,5,casa entera,4.62,208.87,208.87,1 mes
+ES,02,aragon,aragon,5,habitacion compartida,4.56,65.6,65.6,1 mes
+ES,02,aragon,aragon,5,habitacion privada,4.38,91.39,91.39,1 mes
+ES,05,canarias,canarias,5,alternativo,4.68,115.8,115.8,1 mes
+ES,05,canarias,canarias,5,apartamento,4.71,134.54,134.54,1 mes
+ES,05,canarias,canarias,5,casa entera,4.71,219.81,219.81,1 mes
+ES,05,canarias,canarias,5,habitacion compartida,4.58,52.09,52.09,1 mes
+ES,05,canarias,canarias,5,habitacion privada,4.65,106.06,106.06,1 mes
+ES,06,cantabria,cantabria,5,alternativo,4.69,213.36,213.36,1 mes
+ES,06,cantabria,cantabria,5,apartamento,4.69,483.66,483.66,1 mes
+ES,06,cantabria,cantabria,5,casa entera,4.68,252.58,252.58,1 mes
+ES,06,cantabria,cantabria,5,habitacion compartida,4.44,49.43,49.43,1 mes
+ES,06,cantabria,cantabria,5,habitacion privada,4.63,118.61,118.61,1 mes
+ES,08,castilla - la mancha,castilla - la mancha,5,alternativo,4.53,204.9,204.9,1 mes
+ES,08,castilla - la mancha,castilla - la mancha,5,apartamento,4.7,160.01,160.01,1 mes
+ES,08,castilla - la mancha,castilla - la mancha,5,casa entera,4.5,232.74,232.74,1 mes
+ES,08,castilla - la mancha,castilla - la mancha,5,habitacion compartida,4.11,97.24,97.24,1 mes
+ES,08,castilla - la mancha,castilla - la mancha,5,habitacion privada,4.31,146.13,146.13,1 mes
+ES,07,castilla y leon,castilla y leon,5,alternativo,4.48,181.37,181.37,1 mes
+ES,07,castilla y leon,castilla y leon,5,apartamento,4.69,115.58,115.58,1 mes
+ES,07,castilla y leon,castilla y leon,5,casa entera,4.57,204.75,204.75,1 mes
+ES,07,castilla y leon,castilla y leon,5,habitacion compartida,4.49,37.87,37.87,1 mes
+ES,07,castilla y leon,castilla y leon,5,habitacion privada,4.48,82.12,82.12,1 mes
+ES,09,cataluna,cataluna,5,alternativo,4.49,215.82,215.82,1 mes
+ES,09,cataluna,cataluna,5,apartamento,4.64,199.88,199.88,1 mes
+ES,09,cataluna,cataluna,5,casa entera,4.59,309.97,309.97,1 mes
+ES,09,cataluna,cataluna,5,habitacion compartida,4.31,57.69,57.69,1 mes
+ES,09,cataluna,cataluna,5,habitacion privada,4.55,121.91,121.91,1 mes
+ES,18,ceuta,ceuta,5,alternativo,4.48,62.25,62.25,1 mes
+ES,18,ceuta,ceuta,5,casa entera,3.47,613.36,613.36,1 mes
+ES,18,ceuta,ceuta,5,habitacion privada,4.08,59.89,59.89,1 mes
+ES,13,comunidad de madrid,madrid,5,alternativo,4.37,152.52,152.52,1 mes
+ES,13,comunidad de madrid,madrid,5,apartamento,4.62,276.92,276.92,1 mes
+ES,13,comunidad de madrid,madrid,5,casa entera,4.55,227.79,227.79,1 mes
+ES,13,comunidad de madrid,madrid,5,habitacion compartida,4.48,77.97,77.97,1 mes
+ES,13,comunidad de madrid,madrid,5,habitacion privada,4.55,103.65,103.65,1 mes
+ES,15,comunidad foral de navarra,navarra,5,alternativo,4.56,233.48,233.48,1 mes
+ES,15,comunidad foral de navarra,navarra,5,apartamento,4.54,171.88,171.88,1 mes
+ES,15,comunidad foral de navarra,navarra,5,casa entera,4.54,260.8,260.8,1 mes
+ES,15,comunidad foral de navarra,navarra,5,habitacion compartida,4.38,176.07,176.07,1 mes
+ES,15,comunidad foral de navarra,navarra,5,habitacion privada,4.53,127.18,127.18,1 mes
+ES,10,comunitat valenciana,comunitat valenciana,5,alternativo,4.38,188.0,188.0,1 mes
+ES,10,comunitat valenciana,comunitat valenciana,5,apartamento,4.65,133.48,133.48,1 mes
+ES,10,comunitat valenciana,comunitat valenciana,5,casa entera,4.63,235.14,235.14,1 mes
+ES,10,comunitat valenciana,comunitat valenciana,5,habitacion compartida,4.5,50.61,50.61,1 mes
+ES,10,comunitat valenciana,comunitat valenciana,5,habitacion privada,4.52,88.64,88.64,1 mes
+ES,11,extremadura,extremadura,5,alternativo,4.12,135.87,135.87,1 mes
+ES,11,extremadura,extremadura,5,apartamento,4.64,122.55,122.55,1 mes
+ES,11,extremadura,extremadura,5,casa entera,4.51,184.12,184.12,1 mes
+ES,11,extremadura,extremadura,5,habitacion compartida,4.72,47.11,47.11,1 mes
+ES,11,extremadura,extremadura,5,habitacion privada,4.27,187.56,187.56,1 mes
+ES,12,galicia,galicia,5,alternativo,4.49,168.16,168.16,1 mes
+ES,12,galicia,galicia,5,apartamento,4.7,131.5,131.5,1 mes
+ES,12,galicia,galicia,5,casa entera,4.71,180.06,180.06,1 mes
+ES,12,galicia,galicia,5,habitacion compartida,4.69,34.31,34.31,1 mes
+ES,12,galicia,galicia,5,habitacion privada,4.43,129.71,129.71,1 mes
+ES,04,illes balears,balears,5,alternativo,4.54,419.43,419.43,1 mes
+ES,04,illes balears,balears,5,apartamento,4.63,298.49,298.49,1 mes
+ES,04,illes balears,balears,5,casa entera,4.69,667.45,667.45,1 mes
+ES,04,illes balears,balears,5,habitacion compartida,3.27,1308.93,1308.93,1 mes
+ES,04,illes balears,balears,5,habitacion privada,4.62,292.1,292.1,1 mes
+ES,17,la rioja,rioja,5,alternativo,4.38,206.82,206.82,1 mes
+ES,17,la rioja,rioja,5,apartamento,4.72,128.74,128.74,1 mes
+ES,17,la rioja,rioja,5,casa entera,4.57,173.99,173.99,1 mes
+ES,17,la rioja,rioja,5,habitacion compartida,4.52,183.0,183.0,1 mes
+ES,17,la rioja,rioja,5,habitacion privada,4.63,101.97,101.97,1 mes
+ES,19,melilla,melilla,5,alternativo,4.89,93.0,93.0,1 mes
+ES,19,melilla,melilla,5,apartamento,4.88,96.9,96.9,1 mes
+ES,19,melilla,melilla,5,casa entera,3.93,100.25,100.25,1 mes
+ES,19,melilla,melilla,5,habitacion privada,4.17,47.22,47.22,1 mes
+ES,16,pais vasco,pais vasco,5,alternativo,4.55,221.25,221.25,1 mes
+ES,16,pais vasco,pais vasco,5,apartamento,4.74,151.92,151.92,1 mes
+ES,16,pais vasco,pais vasco,5,casa entera,4.63,270.39,270.39,1 mes
+ES,16,pais vasco,pais vasco,5,habitacion compartida,4.65,48.7,48.7,1 mes
+ES,16,pais vasco,pais vasco,5,habitacion privada,4.55,130.89,130.89,1 mes
+ES,03,principado de asturias,asturias,5,alternativo,4.61,162.0,162.0,1 mes
+ES,03,principado de asturias,asturias,5,apartamento,4.73,118.2,118.2,1 mes
+ES,03,principado de asturias,asturias,5,casa entera,4.7,197.41,197.41,1 mes
+ES,03,principado de asturias,asturias,5,habitacion compartida,4.61,97.35,97.35,1 mes
+ES,03,principado de asturias,asturias,5,habitacion privada,4.53,123.84,123.84,1 mes
+ES,14,region de murcia,murcia,5,alternativo,4.48,194.8,194.8,1 mes
+ES,14,region de murcia,murcia,5,apartamento,4.65,145.82,145.82,1 mes
+ES,14,region de murcia,murcia,5,casa entera,4.62,220.75,220.75,1 mes
+ES,14,region de murcia,murcia,5,habitacion compartida,4.63,32.36,32.36,1 mes
+ES,14,region de murcia,murcia,5,habitacion privada,4.47,97.16,97.16,1 mes
+ES,01,andalucia,andalucia,6,alternativo,4.58,265.0,265.0,2-3 meses
+ES,01,andalucia,andalucia,6,apartamento,4.68,160.36,160.36,2-3 meses
+ES,01,andalucia,andalucia,6,casa entera,4.67,289.26,289.26,2-3 meses
+ES,01,andalucia,andalucia,6,habitacion compartida,4.44,50.72,50.72,2-3 meses
+ES,01,andalucia,andalucia,6,habitacion privada,4.58,137.2,137.2,2-3 meses
+ES,02,aragon,aragon,6,alternativo,4.64,180.12,180.12,2-3 meses
+ES,02,aragon,aragon,6,apartamento,4.7,155.05,155.05,2-3 meses
+ES,02,aragon,aragon,6,casa entera,4.63,217.14,217.14,2-3 meses
+ES,02,aragon,aragon,6,habitacion compartida,4.43,92.17,92.17,2-3 meses
+ES,02,aragon,aragon,6,habitacion privada,4.43,94.28,94.28,2-3 meses
+ES,05,canarias,canarias,6,alternativo,4.67,117.6,117.6,2-3 meses
+ES,05,canarias,canarias,6,apartamento,4.71,136.7,136.7,2-3 meses
+ES,05,canarias,canarias,6,casa entera,4.71,222.11,222.11,2-3 meses
+ES,05,canarias,canarias,6,habitacion compartida,4.62,55.26,55.26,2-3 meses
+ES,05,canarias,canarias,6,habitacion privada,4.65,106.1,106.1,2-3 meses
+ES,06,cantabria,cantabria,6,alternativo,4.66,222.31,222.31,2-3 meses
+ES,06,cantabria,cantabria,6,apartamento,4.69,695.76,695.76,2-3 meses
+ES,06,cantabria,cantabria,6,casa entera,4.69,267.81,267.81,2-3 meses
+ES,06,cantabria,cantabria,6,habitacion compartida,4.36,53.9,53.9,2-3 meses
+ES,06,cantabria,cantabria,6,habitacion privada,4.63,125.03,125.03,2-3 meses
+ES,08,castilla - la mancha,castilla - la mancha,6,alternativo,4.52,210.55,210.55,2-3 meses
+ES,08,castilla - la mancha,castilla - la mancha,6,apartamento,4.71,170.23,170.23,2-3 meses
+ES,08,castilla - la mancha,castilla - la mancha,6,casa entera,4.51,238.9,238.9,2-3 meses
+ES,08,castilla - la mancha,castilla - la mancha,6,habitacion compartida,4.15,97.78,97.78,2-3 meses
+ES,08,castilla - la mancha,castilla - la mancha,6,habitacion privada,4.31,147.7,147.7,2-3 meses
+ES,07,castilla y leon,castilla y leon,6,alternativo,4.48,182.02,182.02,2-3 meses
+ES,07,castilla y leon,castilla y leon,6,apartamento,4.7,126.57,126.57,2-3 meses
+ES,07,castilla y leon,castilla y leon,6,casa entera,4.58,210.17,210.17,2-3 meses
+ES,07,castilla y leon,castilla y leon,6,habitacion compartida,4.47,37.81,37.81,2-3 meses
+ES,07,castilla y leon,castilla y leon,6,habitacion privada,4.48,83.8,83.8,2-3 meses
+ES,09,cataluna,cataluna,6,alternativo,4.53,221.42,221.42,2-3 meses
+ES,09,cataluna,cataluna,6,apartamento,4.63,196.93,196.93,2-3 meses
+ES,09,cataluna,cataluna,6,casa entera,4.59,320.35,320.35,2-3 meses
+ES,09,cataluna,cataluna,6,habitacion compartida,4.36,57.2,57.2,2-3 meses
+ES,09,cataluna,cataluna,6,habitacion privada,4.56,123.95,123.95,2-3 meses
+ES,18,ceuta,ceuta,6,alternativo,4.42,69.22,69.22,2-3 meses
+ES,18,ceuta,ceuta,6,casa entera,3.59,618.35,618.35,2-3 meses
+ES,18,ceuta,ceuta,6,habitacion privada,4.11,64.5,64.5,2-3 meses
+ES,13,comunidad de madrid,madrid,6,alternativo,4.37,157.31,157.31,2-3 meses
+ES,13,comunidad de madrid,madrid,6,apartamento,4.62,297.17,297.17,2-3 meses
+ES,13,comunidad de madrid,madrid,6,casa entera,4.55,225.57,225.57,2-3 meses
+ES,13,comunidad de madrid,madrid,6,habitacion compartida,4.46,53.84,53.84,2-3 meses
+ES,13,comunidad de madrid,madrid,6,habitacion privada,4.55,103.38,103.38,2-3 meses
+ES,15,comunidad foral de navarra,navarra,6,alternativo,4.48,238.27,238.27,2-3 meses
+ES,15,comunidad foral de navarra,navarra,6,apartamento,4.58,194.41,194.41,2-3 meses
+ES,15,comunidad foral de navarra,navarra,6,casa entera,4.55,266.08,266.08,2-3 meses
+ES,15,comunidad foral de navarra,navarra,6,habitacion compartida,4.46,164.52,164.52,2-3 meses
+ES,15,comunidad foral de navarra,navarra,6,habitacion privada,4.51,132.23,132.23,2-3 meses
+ES,10,comunitat valenciana,comunitat valenciana,6,alternativo,4.45,192.09,192.09,2-3 meses
+ES,10,comunitat valenciana,comunitat valenciana,6,apartamento,4.65,141.86,141.86,2-3 meses
+ES,10,comunitat valenciana,comunitat valenciana,6,casa entera,4.63,249.71,249.71,2-3 meses
+ES,10,comunitat valenciana,comunitat valenciana,6,habitacion compartida,4.22,48.05,48.05,2-3 meses
+ES,10,comunitat valenciana,comunitat valenciana,6,habitacion privada,4.52,91.14,91.14,2-3 meses
+ES,11,extremadura,extremadura,6,alternativo,4.12,138.46,138.46,2-3 meses
+ES,11,extremadura,extremadura,6,apartamento,4.6,122.62,122.62,2-3 meses
+ES,11,extremadura,extremadura,6,casa entera,4.52,184.04,184.04,2-3 meses
+ES,11,extremadura,extremadura,6,habitacion compartida,4.79,47.02,47.02,2-3 meses
+ES,11,extremadura,extremadura,6,habitacion privada,4.32,132.28,132.28,2-3 meses
+ES,12,galicia,galicia,6,alternativo,4.51,169.95,169.95,2-3 meses
+ES,12,galicia,galicia,6,apartamento,4.69,137.41,137.41,2-3 meses
+ES,12,galicia,galicia,6,casa entera,4.71,186.53,186.53,2-3 meses
+ES,12,galicia,galicia,6,habitacion compartida,4.7,35.06,35.06,2-3 meses
+ES,12,galicia,galicia,6,habitacion privada,4.44,119.96,119.96,2-3 meses
+ES,04,illes balears,balears,6,alternativo,4.49,392.18,392.18,2-3 meses
+ES,04,illes balears,balears,6,apartamento,4.65,331.69,331.69,2-3 meses
+ES,04,illes balears,balears,6,casa entera,4.69,697.8,697.8,2-3 meses
+ES,04,illes balears,balears,6,habitacion compartida,3.43,1198.31,1198.31,2-3 meses
+ES,04,illes balears,balears,6,habitacion privada,4.61,297.99,297.99,2-3 meses
+ES,17,la rioja,rioja,6,alternativo,4.42,210.42,210.42,2-3 meses
+ES,17,la rioja,rioja,6,apartamento,4.73,129.24,129.24,2-3 meses
+ES,17,la rioja,rioja,6,casa entera,4.57,177.12,177.12,2-3 meses
+ES,17,la rioja,rioja,6,habitacion compartida,4.52,155.0,155.0,2-3 meses
+ES,17,la rioja,rioja,6,habitacion privada,4.6,101.64,101.64,2-3 meses
+ES,19,melilla,melilla,6,alternativo,4.93,110.33,110.33,2-3 meses
+ES,19,melilla,melilla,6,apartamento,4.88,96.76,96.76,2-3 meses
+ES,19,melilla,melilla,6,casa entera,4.0,105.64,105.64,2-3 meses
+ES,19,melilla,melilla,6,habitacion privada,3.99,45.16,45.16,2-3 meses
+ES,16,pais vasco,pais vasco,6,alternativo,4.61,218.87,218.87,2-3 meses
+ES,16,pais vasco,pais vasco,6,apartamento,4.74,152.77,152.77,2-3 meses
+ES,16,pais vasco,pais vasco,6,casa entera,4.63,267.49,267.49,2-3 meses
+ES,16,pais vasco,pais vasco,6,habitacion compartida,4.68,42.16,42.16,2-3 meses
+ES,16,pais vasco,pais vasco,6,habitacion privada,4.59,122.7,122.7,2-3 meses
+ES,03,principado de asturias,asturias,6,alternativo,4.64,166.45,166.45,2-3 meses
+ES,03,principado de asturias,asturias,6,apartamento,4.73,126.5,126.5,2-3 meses
+ES,03,principado de asturias,asturias,6,casa entera,4.7,206.27,206.27,2-3 meses
+ES,03,principado de asturias,asturias,6,habitacion compartida,4.52,99.83,99.83,2-3 meses
+ES,03,principado de asturias,asturias,6,habitacion privada,4.53,107.0,107.0,2-3 meses
+ES,14,region de murcia,murcia,6,alternativo,4.36,204.73,204.73,2-3 meses
+ES,14,region de murcia,murcia,6,apartamento,4.64,148.59,148.59,2-3 meses
+ES,14,region de murcia,murcia,6,casa entera,4.62,238.35,238.35,2-3 meses
+ES,14,region de murcia,murcia,6,habitacion compartida,4.63,34.67,34.67,2-3 meses
+ES,14,region de murcia,murcia,6,habitacion privada,4.47,98.38,98.38,2-3 meses
+ES,01,andalucia,andalucia,7,alternativo,4.59,225.53,225.53,2-3 meses
+ES,01,andalucia,andalucia,7,apartamento,4.68,123.12,123.12,2-3 meses
+ES,01,andalucia,andalucia,7,casa entera,4.67,280.5,280.5,2-3 meses
+ES,01,andalucia,andalucia,7,habitacion compartida,4.47,42.2,42.2,2-3 meses
+ES,01,andalucia,andalucia,7,habitacion privada,4.56,101.25,101.25,2-3 meses
+ES,02,aragon,aragon,7,alternativo,4.62,125.89,125.89,2-3 meses
+ES,02,aragon,aragon,7,apartamento,4.69,129.96,129.96,2-3 meses
+ES,02,aragon,aragon,7,casa entera,4.62,191.82,191.82,2-3 meses
+ES,02,aragon,aragon,7,habitacion compartida,4.38,43.62,43.62,2-3 meses
+ES,02,aragon,aragon,7,habitacion privada,4.42,70.44,70.44,2-3 meses
+ES,05,canarias,canarias,7,alternativo,4.67,95.27,95.27,2-3 meses
+ES,05,canarias,canarias,7,apartamento,4.71,111.97,111.97,2-3 meses
+ES,05,canarias,canarias,7,casa entera,4.71,213.71,213.71,2-3 meses
+ES,05,canarias,canarias,7,habitacion compartida,4.59,38.56,38.56,2-3 meses
+ES,05,canarias,canarias,7,habitacion privada,4.64,88.22,88.22,2-3 meses
+ES,06,cantabria,cantabria,7,alternativo,4.66,190.32,190.32,2-3 meses
+ES,06,cantabria,cantabria,7,apartamento,4.68,365.03,365.03,2-3 meses
+ES,06,cantabria,cantabria,7,casa entera,4.69,244.58,244.58,2-3 meses
+ES,06,cantabria,cantabria,7,habitacion compartida,4.49,48.91,48.91,2-3 meses
+ES,06,cantabria,cantabria,7,habitacion privada,4.62,102.75,102.75,2-3 meses
+ES,08,castilla - la mancha,castilla - la mancha,7,alternativo,4.54,162.31,162.31,2-3 meses
+ES,08,castilla - la mancha,castilla - la mancha,7,apartamento,4.74,104.28,104.28,2-3 meses
+ES,08,castilla - la mancha,castilla - la mancha,7,casa entera,4.5,192.11,192.11,2-3 meses
+ES,08,castilla - la mancha,castilla - la mancha,7,habitacion compartida,4.15,114.75,114.75,2-3 meses
+ES,08,castilla - la mancha,castilla - la mancha,7,habitacion privada,4.34,106.28,106.28,2-3 meses
+ES,07,castilla y leon,castilla y leon,7,alternativo,4.61,138.35,138.35,2-3 meses
+ES,07,castilla y leon,castilla y leon,7,apartamento,4.68,82.93,82.93,2-3 meses
+ES,07,castilla y leon,castilla y leon,7,casa entera,4.57,169.53,169.53,2-3 meses
+ES,07,castilla y leon,castilla y leon,7,habitacion compartida,4.1,22.63,22.63,2-3 meses
+ES,07,castilla y leon,castilla y leon,7,habitacion privada,4.47,61.77,61.77,2-3 meses
+ES,09,cataluna,cataluna,7,alternativo,4.53,160.65,160.65,2-3 meses
+ES,09,cataluna,cataluna,7,apartamento,4.64,145.08,145.08,2-3 meses
+ES,09,cataluna,cataluna,7,casa entera,4.59,289.82,289.82,2-3 meses
+ES,09,cataluna,cataluna,7,habitacion compartida,4.32,36.48,36.48,2-3 meses
+ES,09,cataluna,cataluna,7,habitacion privada,4.55,96.22,96.22,2-3 meses
+ES,18,ceuta,ceuta,7,alternativo,4.45,81.0,81.0,2-3 meses
+ES,18,ceuta,ceuta,7,casa entera,3.51,408.55,408.55,2-3 meses
+ES,18,ceuta,ceuta,7,habitacion privada,4.13,61.43,61.43,2-3 meses
+ES,13,comunidad de madrid,madrid,7,alternativo,4.34,111.81,111.81,2-3 meses
+ES,13,comunidad de madrid,madrid,7,apartamento,4.62,203.24,203.24,2-3 meses
+ES,13,comunidad de madrid,madrid,7,casa entera,4.54,176.06,176.06,2-3 meses
+ES,13,comunidad de madrid,madrid,7,habitacion compartida,4.45,34.02,34.02,2-3 meses
+ES,13,comunidad de madrid,madrid,7,habitacion privada,4.54,80.29,80.29,2-3 meses
+ES,15,comunidad foral de navarra,navarra,7,alternativo,4.53,166.25,166.25,2-3 meses
+ES,15,comunidad foral de navarra,navarra,7,apartamento,4.59,125.89,125.89,2-3 meses
+ES,15,comunidad foral de navarra,navarra,7,casa entera,4.56,199.08,199.08,2-3 meses
+ES,15,comunidad foral de navarra,navarra,7,habitacion compartida,4.24,184.61,184.61,2-3 meses
+ES,15,comunidad foral de navarra,navarra,7,habitacion privada,4.5,92.0,92.0,2-3 meses
+ES,10,comunitat valenciana,comunitat valenciana,7,alternativo,4.43,160.97,160.97,2-3 meses
+ES,10,comunitat valenciana,comunitat valenciana,7,apartamento,4.66,109.45,109.45,2-3 meses
+ES,10,comunitat valenciana,comunitat valenciana,7,casa entera,4.63,230.59,230.59,2-3 meses
+ES,10,comunitat valenciana,comunitat valenciana,7,habitacion compartida,4.35,48.12,48.12,2-3 meses
+ES,10,comunitat valenciana,comunitat valenciana,7,habitacion privada,4.53,68.46,68.46,2-3 meses
+ES,11,extremadura,extremadura,7,alternativo,4.08,130.68,130.68,2-3 meses
+ES,11,extremadura,extremadura,7,apartamento,4.65,94.89,94.89,2-3 meses
+ES,11,extremadura,extremadura,7,casa entera,4.5,141.65,141.65,2-3 meses
+ES,11,extremadura,extremadura,7,habitacion compartida,4.77,38.35,38.35,2-3 meses
+ES,11,extremadura,extremadura,7,habitacion privada,4.29,106.49,106.49,2-3 meses
+ES,12,galicia,galicia,7,alternativo,4.52,130.29,130.29,2-3 meses
+ES,12,galicia,galicia,7,apartamento,4.7,102.89,102.89,2-3 meses
+ES,12,galicia,galicia,7,casa entera,4.71,166.75,166.75,2-3 meses
+ES,12,galicia,galicia,7,habitacion compartida,4.63,26.23,26.23,2-3 meses
+ES,12,galicia,galicia,7,habitacion privada,4.44,94.82,94.82,2-3 meses
+ES,04,illes balears,balears,7,alternativo,4.45,296.25,296.25,2-3 meses
+ES,04,illes balears,balears,7,apartamento,4.65,266.31,266.31,2-3 meses
+ES,04,illes balears,balears,7,casa entera,4.69,684.21,684.21,2-3 meses
+ES,04,illes balears,balears,7,habitacion compartida,3.22,1637.86,1637.86,2-3 meses
+ES,04,illes balears,balears,7,habitacion privada,4.64,257.8,257.8,2-3 meses
+ES,17,la rioja,rioja,7,alternativo,4.4,146.13,146.13,2-3 meses
+ES,17,la rioja,rioja,7,apartamento,4.76,101.91,101.91,2-3 meses
+ES,17,la rioja,rioja,7,casa entera,4.57,140.7,140.7,2-3 meses
+ES,17,la rioja,rioja,7,habitacion privada,4.69,75.59,75.59,2-3 meses
+ES,19,melilla,melilla,7,alternativo,4.93,100.33,100.33,2-3 meses
+ES,19,melilla,melilla,7,apartamento,4.88,70.21,70.21,2-3 meses
+ES,19,melilla,melilla,7,casa entera,3.97,81.81,81.81,2-3 meses
+ES,19,melilla,melilla,7,habitacion privada,4.4,41.41,41.41,2-3 meses
+ES,16,pais vasco,pais vasco,7,alternativo,4.58,158.81,158.81,2-3 meses
+ES,16,pais vasco,pais vasco,7,apartamento,4.75,97.23,97.23,2-3 meses
+ES,16,pais vasco,pais vasco,7,casa entera,4.63,194.95,194.95,2-3 meses
+ES,16,pais vasco,pais vasco,7,habitacion compartida,4.65,28.55,28.55,2-3 meses
+ES,16,pais vasco,pais vasco,7,habitacion privada,4.6,80.1,80.1,2-3 meses
+ES,03,principado de asturias,asturias,7,alternativo,4.63,134.0,134.0,2-3 meses
+ES,03,principado de asturias,asturias,7,apartamento,4.71,96.33,96.33,2-3 meses
+ES,03,principado de asturias,asturias,7,casa entera,4.7,188.03,188.03,2-3 meses
+ES,03,principado de asturias,asturias,7,habitacion compartida,4.57,29.35,29.35,2-3 meses
+ES,03,principado de asturias,asturias,7,habitacion privada,4.53,87.54,87.54,2-3 meses
+ES,14,region de murcia,murcia,7,alternativo,4.37,175.39,175.39,2-3 meses
+ES,14,region de murcia,murcia,7,apartamento,4.66,124.43,124.43,2-3 meses
+ES,14,region de murcia,murcia,7,casa entera,4.61,233.53,233.53,2-3 meses
+ES,14,region de murcia,murcia,7,habitacion compartida,4.64,23.85,23.85,2-3 meses
+ES,14,region de murcia,murcia,7,habitacion privada,4.45,74.14,74.14,2-3 meses
+ES,01,andalucia,andalucia,8,alternativo,4.48,293.12,293.12,2-3 meses
+ES,01,andalucia,andalucia,8,apartamento,4.66,195.8,195.8,2-3 meses
+ES,01,andalucia,andalucia,8,casa entera,4.68,273.11,273.11,2-3 meses
+ES,01,andalucia,andalucia,8,habitacion compartida,4.14,102.14,102.14,2-3 meses
+ES,01,andalucia,andalucia,8,habitacion privada,4.52,156.52,156.52,2-3 meses
+ES,02,aragon,aragon,8,alternativo,4.47,180.2,180.2,2-3 meses
+ES,02,aragon,aragon,8,apartamento,4.67,155.84,155.84,2-3 meses
+ES,02,aragon,aragon,8,casa entera,4.66,205.56,205.56,2-3 meses
+ES,02,aragon,aragon,8,habitacion compartida,3.65,101.32,101.32,2-3 meses
+ES,02,aragon,aragon,8,habitacion privada,4.35,118.99,118.99,2-3 meses
+ES,05,canarias,canarias,8,alternativo,4.58,127.7,127.7,2-3 meses
+ES,05,canarias,canarias,8,apartamento,4.69,141.89,141.89,2-3 meses
+ES,05,canarias,canarias,8,casa entera,4.71,217.06,217.06,2-3 meses
+ES,05,canarias,canarias,8,habitacion compartida,4.59,82.39,82.39,2-3 meses
+ES,05,canarias,canarias,8,habitacion privada,4.58,120.0,120.0,2-3 meses
+ES,06,cantabria,cantabria,8,alternativo,4.65,225.4,225.4,2-3 meses
+ES,06,cantabria,cantabria,8,apartamento,4.64,339.25,339.25,2-3 meses
+ES,06,cantabria,cantabria,8,casa entera,4.69,257.4,257.4,2-3 meses
+ES,06,cantabria,cantabria,8,habitacion compartida,4.16,101.53,101.53,2-3 meses
+ES,06,cantabria,cantabria,8,habitacion privada,4.6,155.28,155.28,2-3 meses
+ES,08,castilla - la mancha,castilla - la mancha,8,alternativo,4.37,214.46,214.46,2-3 meses
+ES,08,castilla - la mancha,castilla - la mancha,8,apartamento,4.64,150.28,150.28,2-3 meses
+ES,08,castilla - la mancha,castilla - la mancha,8,casa entera,4.56,231.29,231.29,2-3 meses
+ES,08,castilla - la mancha,castilla - la mancha,8,habitacion compartida,3.28,127.53,127.53,2-3 meses
+ES,08,castilla - la mancha,castilla - la mancha,8,habitacion privada,4.2,170.82,170.82,2-3 meses
+ES,07,castilla y leon,castilla y leon,8,alternativo,4.45,186.27,186.27,2-3 meses
+ES,07,castilla y leon,castilla y leon,8,apartamento,4.62,128.05,128.05,2-3 meses
+ES,07,castilla y leon,castilla y leon,8,casa entera,4.63,212.3,212.3,2-3 meses
+ES,07,castilla y leon,castilla y leon,8,habitacion compartida,3.54,75.77,75.77,2-3 meses
+ES,07,castilla y leon,castilla y leon,8,habitacion privada,4.36,97.73,97.73,2-3 meses
+ES,09,cataluna,cataluna,8,alternativo,4.4,233.13,233.13,2-3 meses
+ES,09,cataluna,cataluna,8,apartamento,4.64,219.34,219.34,2-3 meses
+ES,09,cataluna,cataluna,8,casa entera,4.59,288.4,288.4,2-3 meses
+ES,09,cataluna,cataluna,8,habitacion compartida,4.11,92.92,92.92,2-3 meses
+ES,09,cataluna,cataluna,8,habitacion privada,4.51,140.31,140.31,2-3 meses
+ES,18,ceuta,ceuta,8,alternativo,4.38,64.53,64.53,2-3 meses
+ES,18,ceuta,ceuta,8,casa entera,3.78,435.67,435.67,2-3 meses
+ES,18,ceuta,ceuta,8,habitacion compartida,4.88,62.0,62.0,2-3 meses
+ES,18,ceuta,ceuta,8,habitacion privada,4.17,61.37,61.37,2-3 meses
+ES,13,comunidad de madrid,madrid,8,alternativo,3.96,167.82,167.82,2-3 meses
+ES,13,comunidad de madrid,madrid,8,apartamento,4.61,248.96,248.96,2-3 meses
+ES,13,comunidad de madrid,madrid,8,casa entera,4.57,202.86,202.86,2-3 meses
+ES,13,comunidad de madrid,madrid,8,habitacion compartida,4.03,84.6,84.6,2-3 meses
+ES,13,comunidad de madrid,madrid,8,habitacion privada,4.47,121.66,121.66,2-3 meses
+ES,15,comunidad foral de navarra,navarra,8,alternativo,4.5,218.78,218.78,2-3 meses
+ES,15,comunidad foral de navarra,navarra,8,apartamento,4.57,187.35,187.35,2-3 meses
+ES,15,comunidad foral de navarra,navarra,8,casa entera,4.63,249.65,249.65,2-3 meses
+ES,15,comunidad foral de navarra,navarra,8,habitacion compartida,4.2,186.84,186.84,2-3 meses
+ES,15,comunidad foral de navarra,navarra,8,habitacion privada,4.43,156.27,156.27,2-3 meses
+ES,10,comunitat valenciana,comunitat valenciana,8,alternativo,4.22,194.79,194.79,2-3 meses
+ES,10,comunitat valenciana,comunitat valenciana,8,apartamento,4.65,162.24,162.24,2-3 meses
+ES,10,comunitat valenciana,comunitat valenciana,8,casa entera,4.63,234.45,234.45,2-3 meses
+ES,10,comunitat valenciana,comunitat valenciana,8,habitacion compartida,3.71,75.93,75.93,2-3 meses
+ES,10,comunitat valenciana,comunitat valenciana,8,habitacion privada,4.48,114.64,114.64,2-3 meses
+ES,11,extremadura,extremadura,8,alternativo,3.95,161.82,161.82,2-3 meses
+ES,11,extremadura,extremadura,8,apartamento,4.56,133.17,133.17,2-3 meses
+ES,11,extremadura,extremadura,8,casa entera,4.57,189.21,189.21,2-3 meses
+ES,11,extremadura,extremadura,8,habitacion compartida,4.02,80.65,80.65,2-3 meses
+ES,11,extremadura,extremadura,8,habitacion privada,4.1,137.64,137.64,2-3 meses
+ES,12,galicia,galicia,8,alternativo,4.4,173.8,173.8,2-3 meses
+ES,12,galicia,galicia,8,apartamento,4.65,147.89,147.89,2-3 meses
+ES,12,galicia,galicia,8,casa entera,4.74,184.17,184.17,2-3 meses
+ES,12,galicia,galicia,8,habitacion compartida,4.42,63.0,63.0,2-3 meses
+ES,12,galicia,galicia,8,habitacion privada,4.3,148.88,148.88,2-3 meses
+ES,04,illes balears,balears,8,alternativo,4.49,546.94,546.94,2-3 meses
+ES,04,illes balears,balears,8,apartamento,4.63,407.84,407.84,2-3 meses
+ES,04,illes balears,balears,8,casa entera,4.68,611.61,611.61,2-3 meses
+ES,04,illes balears,balears,8,habitacion compartida,2.95,926.52,926.52,2-3 meses
+ES,04,illes balears,balears,8,habitacion privada,4.63,353.96,353.96,2-3 meses
+ES,17,la rioja,rioja,8,alternativo,4.54,197.66,197.66,2-3 meses
+ES,17,la rioja,rioja,8,apartamento,4.75,135.93,135.93,2-3 meses
+ES,17,la rioja,rioja,8,casa entera,4.66,176.42,176.42,2-3 meses
+ES,17,la rioja,rioja,8,habitacion compartida,4.76,121.5,121.5,2-3 meses
+ES,17,la rioja,rioja,8,habitacion privada,4.53,113.85,113.85,2-3 meses
+ES,19,melilla,melilla,8,alternativo,4.95,102.5,102.5,2-3 meses
+ES,19,melilla,melilla,8,apartamento,4.88,96.06,96.06,2-3 meses
+ES,19,melilla,melilla,8,casa entera,4.23,102.19,102.19,2-3 meses
+ES,19,melilla,melilla,8,habitacion privada,3.78,56.25,56.25,2-3 meses
+ES,16,pais vasco,pais vasco,8,alternativo,4.46,226.13,226.13,2-3 meses
+ES,16,pais vasco,pais vasco,8,apartamento,4.7,165.47,165.47,2-3 meses
+ES,16,pais vasco,pais vasco,8,casa entera,4.68,251.15,251.15,2-3 meses
+ES,16,pais vasco,pais vasco,8,habitacion compartida,4.19,79.41,79.41,2-3 meses
+ES,16,pais vasco,pais vasco,8,habitacion privada,4.57,146.89,146.89,2-3 meses
+ES,03,principado de asturias,asturias,8,alternativo,4.5,172.33,172.33,2-3 meses
+ES,03,principado de asturias,asturias,8,apartamento,4.63,144.15,144.15,2-3 meses
+ES,03,principado de asturias,asturias,8,casa entera,4.71,202.1,202.1,2-3 meses
+ES,03,principado de asturias,asturias,8,habitacion compartida,4.48,118.85,118.85,2-3 meses
+ES,03,principado de asturias,asturias,8,habitacion privada,4.49,122.32,122.32,2-3 meses
+ES,14,region de murcia,murcia,8,alternativo,4.14,214.54,214.54,2-3 meses
+ES,14,region de murcia,murcia,8,apartamento,4.63,189.06,189.06,2-3 meses
+ES,14,region de murcia,murcia,8,casa entera,4.64,266.05,266.05,2-3 meses
+ES,14,region de murcia,murcia,8,habitacion compartida,4.13,58.45,58.45,2-3 meses
+ES,14,region de murcia,murcia,8,habitacion privada,4.29,110.37,110.37,2-3 meses
+ES,01,andalucia,andalucia,9,alternativo,4.49,244.97,244.97,1 mes
+ES,01,andalucia,andalucia,9,apartamento,4.66,164.86,164.86,1 mes
+ES,01,andalucia,andalucia,9,casa entera,4.67,267.46,267.46,1 mes
+ES,01,andalucia,andalucia,9,habitacion compartida,4.03,91.72,91.72,1 mes
+ES,01,andalucia,andalucia,9,habitacion privada,4.52,148.99,148.99,1 mes
+ES,02,aragon,aragon,9,alternativo,4.47,174.65,174.65,1 mes
+ES,02,aragon,aragon,9,apartamento,4.67,153.62,153.62,1 mes
+ES,02,aragon,aragon,9,casa entera,4.66,202.4,202.4,1 mes
+ES,02,aragon,aragon,9,habitacion compartida,3.61,99.64,99.64,1 mes
+ES,02,aragon,aragon,9,habitacion privada,4.35,134.15,134.15,1 mes
+ES,05,canarias,canarias,9,alternativo,4.58,129.41,129.41,1 mes
+ES,05,canarias,canarias,9,apartamento,4.69,143.65,143.65,1 mes
+ES,05,canarias,canarias,9,casa entera,4.71,217.8,217.8,1 mes
+ES,05,canarias,canarias,9,habitacion compartida,4.59,81.6,81.6,1 mes
+ES,05,canarias,canarias,9,habitacion privada,4.59,119.1,119.1,1 mes
+ES,06,cantabria,cantabria,9,alternativo,4.6,219.27,219.27,1 mes
+ES,06,cantabria,cantabria,9,apartamento,4.69,674.9,674.9,1 mes
+ES,06,cantabria,cantabria,9,casa entera,4.69,243.02,243.02,1 mes
+ES,06,cantabria,cantabria,9,habitacion compartida,4.05,89.42,89.42,1 mes
+ES,06,cantabria,cantabria,9,habitacion privada,4.6,151.4,151.4,1 mes
+ES,08,castilla - la mancha,castilla - la mancha,9,alternativo,4.4,218.97,218.97,1 mes
+ES,08,castilla - la mancha,castilla - la mancha,9,apartamento,4.66,150.53,150.53,1 mes
+ES,08,castilla - la mancha,castilla - la mancha,9,casa entera,4.57,231.82,231.82,1 mes
+ES,08,castilla - la mancha,castilla - la mancha,9,habitacion compartida,3.3,152.0,152.0,1 mes
+ES,08,castilla - la mancha,castilla - la mancha,9,habitacion privada,4.17,175.35,175.35,1 mes
+ES,07,castilla y leon,castilla y leon,9,alternativo,4.38,186.64,186.64,1 mes
+ES,07,castilla y leon,castilla y leon,9,apartamento,4.64,124.37,124.37,1 mes
+ES,07,castilla y leon,castilla y leon,9,casa entera,4.63,209.72,209.72,1 mes
+ES,07,castilla y leon,castilla y leon,9,habitacion compartida,3.82,85.94,85.94,1 mes
+ES,07,castilla y leon,castilla y leon,9,habitacion privada,4.32,99.04,99.04,1 mes
+ES,09,cataluna,cataluna,9,alternativo,4.39,230.54,230.54,1 mes
+ES,09,cataluna,cataluna,9,apartamento,4.64,191.83,191.83,1 mes
+ES,09,cataluna,cataluna,9,casa entera,4.6,283.7,283.7,1 mes
+ES,09,cataluna,cataluna,9,habitacion compartida,3.97,91.01,91.01,1 mes
+ES,09,cataluna,cataluna,9,habitacion privada,4.5,143.73,143.73,1 mes
+ES,18,ceuta,ceuta,9,alternativo,4.37,64.78,64.78,1 mes
+ES,18,ceuta,ceuta,9,casa entera,3.67,458.33,458.33,1 mes
+ES,18,ceuta,ceuta,9,habitacion privada,4.21,61.55,61.55,1 mes
+ES,13,comunidad de madrid,madrid,9,alternativo,3.97,166.8,166.8,1 mes
+ES,13,comunidad de madrid,madrid,9,apartamento,4.61,271.88,271.88,1 mes
+ES,13,comunidad de madrid,madrid,9,casa entera,4.57,214.41,214.41,1 mes
+ES,13,comunidad de madrid,madrid,9,habitacion compartida,4.05,87.79,87.79,1 mes
+ES,13,comunidad de madrid,madrid,9,habitacion privada,4.47,121.37,121.37,1 mes
+ES,15,comunidad foral de navarra,navarra,9,alternativo,4.53,221.3,221.3,1 mes
+ES,15,comunidad foral de navarra,navarra,9,apartamento,4.62,179.85,179.85,1 mes
+ES,15,comunidad foral de navarra,navarra,9,casa entera,4.63,244.1,244.1,1 mes
+ES,15,comunidad foral de navarra,navarra,9,habitacion compartida,4.15,197.03,197.03,1 mes
+ES,15,comunidad foral de navarra,navarra,9,habitacion privada,4.41,153.88,153.88,1 mes
+ES,10,comunitat valenciana,comunitat valenciana,9,alternativo,4.24,194.6,194.6,1 mes
+ES,10,comunitat valenciana,comunitat valenciana,9,apartamento,4.65,147.31,147.31,1 mes
+ES,10,comunitat valenciana,comunitat valenciana,9,casa entera,4.63,219.99,219.99,1 mes
+ES,10,comunitat valenciana,comunitat valenciana,9,habitacion compartida,3.72,78.84,78.84,1 mes
+ES,10,comunitat valenciana,comunitat valenciana,9,habitacion privada,4.48,107.45,107.45,1 mes
+ES,11,extremadura,extremadura,9,alternativo,4.01,168.25,168.25,1 mes
+ES,11,extremadura,extremadura,9,apartamento,4.58,127.36,127.36,1 mes
+ES,11,extremadura,extremadura,9,casa entera,4.57,190.65,190.65,1 mes
+ES,11,extremadura,extremadura,9,habitacion compartida,3.24,77.05,77.05,1 mes
+ES,11,extremadura,extremadura,9,habitacion privada,4.14,140.67,140.67,1 mes
+ES,12,galicia,galicia,9,alternativo,4.48,168.84,168.84,1 mes
+ES,12,galicia,galicia,9,apartamento,4.62,137.94,137.94,1 mes
+ES,12,galicia,galicia,9,casa entera,4.73,179.46,179.46,1 mes
+ES,12,galicia,galicia,9,habitacion compartida,4.53,63.47,63.47,1 mes
+ES,12,galicia,galicia,9,habitacion privada,4.35,151.2,151.2,1 mes
+ES,04,illes balears,balears,9,alternativo,4.47,535.15,535.15,1 mes
+ES,04,illes balears,balears,9,apartamento,4.64,376.45,376.45,1 mes
+ES,04,illes balears,balears,9,casa entera,4.69,589.74,589.74,1 mes
+ES,04,illes balears,balears,9,habitacion compartida,2.74,871.95,871.95,1 mes
+ES,04,illes balears,balears,9,habitacion privada,4.62,359.39,359.39,1 mes
+ES,17,la rioja,rioja,9,alternativo,4.47,198.2,198.2,1 mes
+ES,17,la rioja,rioja,9,apartamento,4.8,130.75,130.75,1 mes
+ES,17,la rioja,rioja,9,casa entera,4.64,172.1,172.1,1 mes
+ES,17,la rioja,rioja,9,habitacion compartida,2.5,82.0,82.0,1 mes
+ES,17,la rioja,rioja,9,habitacion privada,4.27,116.37,116.37,1 mes
+ES,19,melilla,melilla,9,alternativo,4.95,102.5,102.5,1 mes
+ES,19,melilla,melilla,9,apartamento,4.89,96.06,96.06,1 mes
+ES,19,melilla,melilla,9,casa entera,4.26,102.22,102.22,1 mes
+ES,19,melilla,melilla,9,habitacion privada,3.78,65.86,65.86,1 mes
+ES,16,pais vasco,pais vasco,9,alternativo,4.49,222.18,222.18,1 mes
+ES,16,pais vasco,pais vasco,9,apartamento,4.72,161.68,161.68,1 mes
+ES,16,pais vasco,pais vasco,9,casa entera,4.68,228.73,228.73,1 mes
+ES,16,pais vasco,pais vasco,9,habitacion compartida,4.12,79.54,79.54,1 mes
+ES,16,pais vasco,pais vasco,9,habitacion privada,4.56,143.99,143.99,1 mes
+ES,03,principado de asturias,asturias,9,alternativo,4.53,170.27,170.27,1 mes
+ES,03,principado de asturias,asturias,9,apartamento,4.65,132.78,132.78,1 mes
+ES,03,principado de asturias,asturias,9,casa entera,4.71,189.99,189.99,1 mes
+ES,03,principado de asturias,asturias,9,habitacion compartida,4.48,99.73,99.73,1 mes
+ES,03,principado de asturias,asturias,9,habitacion privada,4.5,119.54,119.54,1 mes
+ES,14,region de murcia,murcia,9,alternativo,4.16,249.88,249.88,1 mes
+ES,14,region de murcia,murcia,9,apartamento,4.58,168.76,168.76,1 mes
+ES,14,region de murcia,murcia,9,casa entera,4.64,252.01,252.01,1 mes
+ES,14,region de murcia,murcia,9,habitacion compartida,4.03,57.85,57.85,1 mes
+ES,14,region de murcia,murcia,9,habitacion privada,4.23,115.73,115.73,1 mes
+ES,01,andalucia,andalucia,10,alternativo,4.48,257.28,257.28,1 mes
+ES,01,andalucia,andalucia,10,apartamento,4.66,173.29,173.29,1 mes
+ES,01,andalucia,andalucia,10,casa entera,4.68,260.46,260.46,1 mes
+ES,01,andalucia,andalucia,10,habitacion compartida,4.07,98.67,98.67,1 mes
+ES,01,andalucia,andalucia,10,habitacion privada,4.52,150.14,150.14,1 mes
+ES,02,aragon,aragon,10,alternativo,4.34,173.71,173.71,1 mes
+ES,02,aragon,aragon,10,apartamento,4.66,148.73,148.73,1 mes
+ES,02,aragon,aragon,10,casa entera,4.65,201.94,201.94,1 mes
+ES,02,aragon,aragon,10,habitacion compartida,3.5,100.16,100.16,1 mes
+ES,02,aragon,aragon,10,habitacion privada,4.33,100.83,100.83,1 mes
+ES,05,canarias,canarias,10,alternativo,4.62,130.71,130.71,1 mes
+ES,05,canarias,canarias,10,apartamento,4.69,144.27,144.27,1 mes
+ES,05,canarias,canarias,10,casa entera,4.71,218.03,218.03,1 mes
+ES,05,canarias,canarias,10,habitacion compartida,4.33,71.19,71.19,1 mes
+ES,05,canarias,canarias,10,habitacion privada,4.6,178.17,178.17,1 mes
+ES,06,cantabria,cantabria,10,alternativo,4.65,213.63,213.63,1 mes
+ES,06,cantabria,cantabria,10,apartamento,4.67,608.55,608.55,1 mes
+ES,06,cantabria,cantabria,10,casa entera,4.7,241.9,241.9,1 mes
+ES,06,cantabria,cantabria,10,habitacion compartida,4.26,101.6,101.6,1 mes
+ES,06,cantabria,cantabria,10,habitacion privada,4.59,162.35,162.35,1 mes
+ES,08,castilla - la mancha,castilla - la mancha,10,alternativo,4.36,220.6,220.6,1 mes
+ES,08,castilla - la mancha,castilla - la mancha,10,apartamento,4.67,146.45,146.45,1 mes
+ES,08,castilla - la mancha,castilla - la mancha,10,casa entera,4.57,228.14,228.14,1 mes
+ES,08,castilla - la mancha,castilla - la mancha,10,habitacion compartida,3.18,128.95,128.95,1 mes
+ES,08,castilla - la mancha,castilla - la mancha,10,habitacion privada,4.21,156.7,156.7,1 mes
+ES,07,castilla y leon,castilla y leon,10,alternativo,4.48,183.03,183.03,1 mes
+ES,07,castilla y leon,castilla y leon,10,apartamento,4.65,120.84,120.84,1 mes
+ES,07,castilla y leon,castilla y leon,10,casa entera,4.63,211.07,211.07,1 mes
+ES,07,castilla y leon,castilla y leon,10,habitacion compartida,3.64,80.21,80.21,1 mes
+ES,07,castilla y leon,castilla y leon,10,habitacion privada,4.33,153.85,153.85,1 mes
+ES,09,cataluna,cataluna,10,alternativo,4.37,227.13,227.13,1 mes
+ES,09,cataluna,cataluna,10,apartamento,4.64,186.43,186.43,1 mes
+ES,09,cataluna,cataluna,10,casa entera,4.6,282.43,282.43,1 mes
+ES,09,cataluna,cataluna,10,habitacion compartida,4.07,91.76,91.76,1 mes
+ES,09,cataluna,cataluna,10,habitacion privada,4.49,138.3,138.3,1 mes
+ES,18,ceuta,ceuta,10,alternativo,4.48,64.36,64.36,1 mes
+ES,18,ceuta,ceuta,10,casa entera,3.75,435.72,435.72,1 mes
+ES,18,ceuta,ceuta,10,habitacion privada,4.23,59.94,59.94,1 mes
+ES,13,comunidad de madrid,madrid,10,alternativo,3.99,164.8,164.8,1 mes
+ES,13,comunidad de madrid,madrid,10,apartamento,4.59,274.76,274.76,1 mes
+ES,13,comunidad de madrid,madrid,10,casa entera,4.57,212.76,212.76,1 mes
+ES,13,comunidad de madrid,madrid,10,habitacion compartida,4.15,82.3,82.3,1 mes
+ES,13,comunidad de madrid,madrid,10,habitacion privada,4.49,125.26,125.26,1 mes
+ES,15,comunidad foral de navarra,navarra,10,alternativo,4.59,216.99,216.99,1 mes
+ES,15,comunidad foral de navarra,navarra,10,apartamento,4.62,172.66,172.66,1 mes
+ES,15,comunidad foral de navarra,navarra,10,casa entera,4.63,250.37,250.37,1 mes
+ES,15,comunidad foral de navarra,navarra,10,habitacion compartida,4.25,192.64,192.64,1 mes
+ES,15,comunidad foral de navarra,navarra,10,habitacion privada,4.43,150.2,150.2,1 mes
+ES,10,comunitat valenciana,comunitat valenciana,10,alternativo,4.26,199.16,199.16,1 mes
+ES,10,comunitat valenciana,comunitat valenciana,10,apartamento,4.66,136.23,136.23,1 mes
+ES,10,comunitat valenciana,comunitat valenciana,10,casa entera,4.64,218.63,218.63,1 mes
+ES,10,comunitat valenciana,comunitat valenciana,10,habitacion compartida,3.65,66.06,66.06,1 mes
+ES,10,comunitat valenciana,comunitat valenciana,10,habitacion privada,4.48,108.55,108.55,1 mes
+ES,11,extremadura,extremadura,10,alternativo,4.05,173.03,173.03,1 mes
+ES,11,extremadura,extremadura,10,apartamento,4.58,125.92,125.92,1 mes
+ES,11,extremadura,extremadura,10,casa entera,4.57,184.72,184.72,1 mes
+ES,11,extremadura,extremadura,10,habitacion compartida,3.67,77.6,77.6,1 mes
+ES,11,extremadura,extremadura,10,habitacion privada,4.11,138.47,138.47,1 mes
+ES,12,galicia,galicia,10,alternativo,4.48,168.79,168.79,1 mes
+ES,12,galicia,galicia,10,apartamento,4.64,137.51,137.51,1 mes
+ES,12,galicia,galicia,10,casa entera,4.73,179.64,179.64,1 mes
+ES,12,galicia,galicia,10,habitacion compartida,4.46,61.1,61.1,1 mes
+ES,12,galicia,galicia,10,habitacion privada,4.31,138.99,138.99,1 mes
+ES,04,illes balears,balears,10,alternativo,4.47,460.68,460.68,1 mes
+ES,04,illes balears,balears,10,apartamento,4.63,369.72,369.72,1 mes
+ES,04,illes balears,balears,10,casa entera,4.69,597.05,597.05,1 mes
+ES,04,illes balears,balears,10,habitacion compartida,3.12,1165.8,1165.8,1 mes
+ES,04,illes balears,balears,10,habitacion privada,4.59,421.77,421.77,1 mes
+ES,17,la rioja,rioja,10,alternativo,4.55,188.23,188.23,1 mes
+ES,17,la rioja,rioja,10,apartamento,4.75,126.96,126.96,1 mes
+ES,17,la rioja,rioja,10,casa entera,4.65,168.05,168.05,1 mes
+ES,17,la rioja,rioja,10,habitacion compartida,0.67,80.33,80.33,1 mes
+ES,17,la rioja,rioja,10,habitacion privada,4.48,113.31,113.31,1 mes
+ES,19,melilla,melilla,10,alternativo,4.94,93.0,93.0,1 mes
+ES,19,melilla,melilla,10,apartamento,4.89,93.28,93.28,1 mes
+ES,19,melilla,melilla,10,casa entera,4.31,102.54,102.54,1 mes
+ES,19,melilla,melilla,10,habitacion privada,3.79,62.78,62.78,1 mes
+ES,16,pais vasco,pais vasco,10,alternativo,4.48,217.86,217.86,1 mes
+ES,16,pais vasco,pais vasco,10,apartamento,4.69,152.72,152.72,1 mes
+ES,16,pais vasco,pais vasco,10,casa entera,4.68,221.44,221.44,1 mes
+ES,16,pais vasco,pais vasco,10,habitacion compartida,4.15,72.46,72.46,1 mes
+ES,16,pais vasco,pais vasco,10,habitacion privada,4.55,134.99,134.99,1 mes
+ES,03,principado de asturias,asturias,10,alternativo,4.53,163.21,163.21,1 mes
+ES,03,principado de asturias,asturias,10,apartamento,4.62,129.75,129.75,1 mes
+ES,03,principado de asturias,asturias,10,casa entera,4.71,191.11,191.11,1 mes
+ES,03,principado de asturias,asturias,10,habitacion compartida,4.46,120.59,120.59,1 mes
+ES,03,principado de asturias,asturias,10,habitacion privada,4.47,117.29,117.29,1 mes
+ES,14,region de murcia,murcia,10,alternativo,4.35,200.88,200.88,1 mes
+ES,14,region de murcia,murcia,10,apartamento,4.66,159.03,159.03,1 mes
+ES,14,region de murcia,murcia,10,casa entera,4.64,238.44,238.44,1 mes
+ES,14,region de murcia,murcia,10,habitacion compartida,3.81,67.98,67.98,1 mes
+ES,14,region de murcia,murcia,10,habitacion privada,4.31,101.49,101.49,1 mes
+ES,01,andalucia,andalucia,11,alternativo,4.48,268.22,268.22,1 mes
+ES,01,andalucia,andalucia,11,apartamento,4.66,140.3,140.3,1 mes
+ES,01,andalucia,andalucia,11,casa entera,4.68,254.83,254.83,1 mes
+ES,01,andalucia,andalucia,11,habitacion compartida,4.14,52.96,52.96,1 mes
+ES,01,andalucia,andalucia,11,habitacion privada,4.52,122.03,122.03,1 mes
+ES,02,aragon,aragon,11,alternativo,4.44,164.8,164.8,1 mes
+ES,02,aragon,aragon,11,apartamento,4.65,144.95,144.95,1 mes
+ES,02,aragon,aragon,11,casa entera,4.65,198.94,198.94,1 mes
+ES,02,aragon,aragon,11,habitacion compartida,3.64,66.9,66.9,1 mes
+ES,02,aragon,aragon,11,habitacion privada,4.3,93.72,93.72,1 mes
+ES,05,canarias,canarias,11,alternativo,4.62,115.15,115.15,1 mes
+ES,05,canarias,canarias,11,apartamento,4.7,136.75,136.75,1 mes
+ES,05,canarias,canarias,11,casa entera,4.72,224.72,224.72,1 mes
+ES,05,canarias,canarias,11,habitacion compartida,4.57,43.09,43.09,1 mes
+ES,05,canarias,canarias,11,habitacion privada,4.61,138.28,138.28,1 mes
+ES,06,cantabria,cantabria,11,alternativo,4.64,208.62,208.62,1 mes
+ES,06,cantabria,cantabria,11,apartamento,4.68,1753.37,1753.37,1 mes
+ES,06,cantabria,cantabria,11,casa entera,4.7,250.48,250.48,1 mes
+ES,06,cantabria,cantabria,11,habitacion compartida,4.08,52.31,52.31,1 mes
+ES,06,cantabria,cantabria,11,habitacion privada,4.59,136.42,136.42,1 mes
+ES,08,castilla - la mancha,castilla - la mancha,11,alternativo,4.38,207.19,207.19,1 mes
+ES,08,castilla - la mancha,castilla - la mancha,11,apartamento,4.68,144.71,144.71,1 mes
+ES,08,castilla - la mancha,castilla - la mancha,11,casa entera,4.57,226.87,226.87,1 mes
+ES,08,castilla - la mancha,castilla - la mancha,11,habitacion compartida,3.1,77.64,77.64,1 mes
+ES,08,castilla - la mancha,castilla - la mancha,11,habitacion privada,4.21,149.46,149.46,1 mes
+ES,07,castilla y leon,castilla y leon,11,alternativo,4.51,180.13,180.13,1 mes
+ES,07,castilla y leon,castilla y leon,11,apartamento,4.62,111.02,111.02,1 mes
+ES,07,castilla y leon,castilla y leon,11,casa entera,4.63,211.78,211.78,1 mes
+ES,07,castilla y leon,castilla y leon,11,habitacion compartida,3.87,56.39,56.39,1 mes
+ES,07,castilla y leon,castilla y leon,11,habitacion privada,4.32,84.47,84.47,1 mes
+ES,09,cataluna,cataluna,11,alternativo,4.39,208.88,208.88,1 mes
+ES,09,cataluna,cataluna,11,apartamento,4.65,171.04,171.04,1 mes
+ES,09,cataluna,cataluna,11,casa entera,4.61,281.64,281.64,1 mes
+ES,09,cataluna,cataluna,11,habitacion compartida,4.14,45.74,45.74,1 mes
+ES,09,cataluna,cataluna,11,habitacion privada,4.49,109.14,109.14,1 mes
+ES,18,ceuta,ceuta,11,alternativo,4.12,62.83,62.83,1 mes
+ES,18,ceuta,ceuta,11,casa entera,3.76,445.25,445.25,1 mes
+ES,18,ceuta,ceuta,11,habitacion privada,4.26,58.78,58.78,1 mes
+ES,13,comunidad de madrid,madrid,11,alternativo,4.03,163.14,163.14,1 mes
+ES,13,comunidad de madrid,madrid,11,apartamento,4.61,278.0,278.0,1 mes
+ES,13,comunidad de madrid,madrid,11,casa entera,4.57,211.92,211.92,1 mes
+ES,13,comunidad de madrid,madrid,11,habitacion compartida,4.09,57.89,57.89,1 mes
+ES,13,comunidad de madrid,madrid,11,habitacion privada,4.48,106.47,106.47,1 mes
+ES,15,comunidad foral de navarra,navarra,11,alternativo,4.61,209.98,209.98,1 mes
+ES,15,comunidad foral de navarra,navarra,11,apartamento,4.63,150.4,150.4,1 mes
+ES,15,comunidad foral de navarra,navarra,11,casa entera,4.63,244.88,244.88,1 mes
+ES,15,comunidad foral de navarra,navarra,11,habitacion compartida,4.16,197.44,197.44,1 mes
+ES,15,comunidad foral de navarra,navarra,11,habitacion privada,4.42,128.48,128.48,1 mes
+ES,10,comunitat valenciana,comunitat valenciana,11,alternativo,4.24,184.36,184.36,1 mes
+ES,10,comunitat valenciana,comunitat valenciana,11,apartamento,4.66,119.82,119.82,1 mes
+ES,10,comunitat valenciana,comunitat valenciana,11,casa entera,4.64,215.02,215.02,1 mes
+ES,10,comunitat valenciana,comunitat valenciana,11,habitacion compartida,3.59,48.71,48.71,1 mes
+ES,10,comunitat valenciana,comunitat valenciana,11,habitacion privada,4.47,85.71,85.71,1 mes
+ES,11,extremadura,extremadura,11,alternativo,3.99,131.52,131.52,1 mes
+ES,11,extremadura,extremadura,11,apartamento,4.6,117.15,117.15,1 mes
+ES,11,extremadura,extremadura,11,casa entera,4.57,178.12,178.12,1 mes
+ES,11,extremadura,extremadura,11,habitacion compartida,3.44,57.58,57.58,1 mes
+ES,11,extremadura,extremadura,11,habitacion privada,4.04,148.64,148.64,1 mes
+ES,12,galicia,galicia,11,alternativo,4.5,159.07,159.07,1 mes
+ES,12,galicia,galicia,11,apartamento,4.65,133.63,133.63,1 mes
+ES,12,galicia,galicia,11,casa entera,4.74,181.16,181.16,1 mes
+ES,12,galicia,galicia,11,habitacion compartida,4.48,33.55,33.55,1 mes
+ES,12,galicia,galicia,11,habitacion privada,4.27,113.82,113.82,1 mes
+ES,04,illes balears,balears,11,alternativo,4.43,400.74,400.74,1 mes
+ES,04,illes balears,balears,11,apartamento,4.56,428.95,428.95,1 mes
+ES,04,illes balears,balears,11,casa entera,4.69,606.36,606.36,1 mes
+ES,04,illes balears,balears,11,habitacion compartida,2.64,1080.62,1080.62,1 mes
+ES,04,illes balears,balears,11,habitacion privada,4.58,398.03,398.03,1 mes
+ES,17,la rioja,rioja,11,alternativo,4.37,201.63,201.63,1 mes
+ES,17,la rioja,rioja,11,apartamento,4.77,116.52,116.52,1 mes
+ES,17,la rioja,rioja,11,casa entera,4.64,168.03,168.03,1 mes
+ES,17,la rioja,rioja,11,habitacion compartida,1.0,40.0,40.0,1 mes
+ES,17,la rioja,rioja,11,habitacion privada,4.5,92.03,92.03,1 mes
+ES,19,melilla,melilla,11,alternativo,4.94,83.0,83.0,1 mes
+ES,19,melilla,melilla,11,apartamento,4.88,90.78,90.78,1 mes
+ES,19,melilla,melilla,11,casa entera,4.15,100.5,100.5,1 mes
+ES,19,melilla,melilla,11,habitacion privada,3.63,41.68,41.68,1 mes
+ES,16,pais vasco,pais vasco,11,alternativo,4.44,230.02,230.02,1 mes
+ES,16,pais vasco,pais vasco,11,apartamento,4.74,139.3,139.3,1 mes
+ES,16,pais vasco,pais vasco,11,casa entera,4.69,220.96,220.96,1 mes
+ES,16,pais vasco,pais vasco,11,habitacion compartida,4.12,38.72,38.72,1 mes
+ES,16,pais vasco,pais vasco,11,habitacion privada,4.56,113.06,113.06,1 mes
+ES,03,principado de asturias,asturias,11,alternativo,4.51,157.18,157.18,1 mes
+ES,03,principado de asturias,asturias,11,apartamento,4.67,116.46,116.46,1 mes
+ES,03,principado de asturias,asturias,11,casa entera,4.72,186.89,186.89,1 mes
+ES,03,principado de asturias,asturias,11,habitacion compartida,4.4,38.74,38.74,1 mes
+ES,03,principado de asturias,asturias,11,habitacion privada,4.43,126.25,126.25,1 mes
+ES,14,region de murcia,murcia,11,alternativo,4.36,167.95,167.95,1 mes
+ES,14,region de murcia,murcia,11,apartamento,4.66,131.45,131.45,1 mes
+ES,14,region de murcia,murcia,11,casa entera,4.64,236.14,236.14,1 mes
+ES,14,region de murcia,murcia,11,habitacion compartida,3.94,35.64,35.64,1 mes
+ES,14,region de murcia,murcia,11,habitacion privada,4.37,82.9,82.9,1 mes
+ES,01,andalucia,andalucia,12,alternativo,4.49,353.0,353.0,2-3 meses
+ES,01,andalucia,andalucia,12,apartamento,4.66,160.84,160.84,2-3 meses
+ES,01,andalucia,andalucia,12,casa entera,4.68,293.09,293.09,2-3 meses
+ES,01,andalucia,andalucia,12,habitacion compartida,4.17,46.27,46.27,2-3 meses
+ES,01,andalucia,andalucia,12,habitacion privada,4.52,125.68,125.68,2-3 meses
+ES,02,aragon,aragon,12,alternativo,4.41,181.71,181.71,2-3 meses
+ES,02,aragon,aragon,12,apartamento,4.66,151.59,151.59,2-3 meses
+ES,02,aragon,aragon,12,casa entera,4.66,210.56,210.56,2-3 meses
+ES,02,aragon,aragon,12,habitacion compartida,3.63,78.5,78.5,2-3 meses
+ES,02,aragon,aragon,12,habitacion privada,4.28,93.65,93.65,2-3 meses
+ES,05,canarias,canarias,12,alternativo,4.62,123.08,123.08,2-3 meses
+ES,05,canarias,canarias,12,apartamento,4.72,144.5,144.5,2-3 meses
+ES,05,canarias,canarias,12,casa entera,4.72,207.19,207.19,2-3 meses
+ES,05,canarias,canarias,12,habitacion compartida,4.5,48.61,48.61,2-3 meses
+ES,05,canarias,canarias,12,habitacion privada,4.62,110.14,110.14,2-3 meses
+ES,06,cantabria,cantabria,12,alternativo,4.64,244.56,244.56,2-3 meses
+ES,06,cantabria,cantabria,12,apartamento,4.69,573.72,573.72,2-3 meses
+ES,06,cantabria,cantabria,12,casa entera,4.7,246.16,246.16,2-3 meses
+ES,06,cantabria,cantabria,12,habitacion compartida,4.29,55.29,55.29,2-3 meses
+ES,06,cantabria,cantabria,12,habitacion privada,4.57,111.58,111.58,2-3 meses
+ES,08,castilla - la mancha,castilla - la mancha,12,alternativo,4.42,210.17,210.17,2-3 meses
+ES,08,castilla - la mancha,castilla - la mancha,12,apartamento,4.68,149.62,149.62,2-3 meses
+ES,08,castilla - la mancha,castilla - la mancha,12,casa entera,4.57,236.3,236.3,2-3 meses
+ES,08,castilla - la mancha,castilla - la mancha,12,habitacion compartida,3.19,83.96,83.96,2-3 meses
+ES,08,castilla - la mancha,castilla - la mancha,12,habitacion privada,4.19,135.92,135.92,2-3 meses
+ES,07,castilla y leon,castilla y leon,12,alternativo,4.51,188.56,188.56,2-3 meses
+ES,07,castilla y leon,castilla y leon,12,apartamento,4.64,115.89,115.89,2-3 meses
+ES,07,castilla y leon,castilla y leon,12,casa entera,4.63,207.61,207.61,2-3 meses
+ES,07,castilla y leon,castilla y leon,12,habitacion compartida,3.78,64.38,64.38,2-3 meses
+ES,07,castilla y leon,castilla y leon,12,habitacion privada,4.3,87.94,87.94,2-3 meses
+ES,09,cataluna,cataluna,12,alternativo,4.38,214.73,214.73,2-3 meses
+ES,09,cataluna,cataluna,12,apartamento,4.65,177.75,177.75,2-3 meses
+ES,09,cataluna,cataluna,12,casa entera,4.61,281.78,281.78,2-3 meses
+ES,09,cataluna,cataluna,12,habitacion compartida,4.14,46.91,46.91,2-3 meses
+ES,09,cataluna,cataluna,12,habitacion privada,4.5,110.52,110.52,2-3 meses
+ES,18,ceuta,ceuta,12,alternativo,4.12,61.33,61.33,2-3 meses
+ES,18,ceuta,ceuta,12,casa entera,3.76,424.83,424.83,2-3 meses
+ES,18,ceuta,ceuta,12,habitacion privada,4.27,57.11,57.11,2-3 meses
+ES,13,comunidad de madrid,madrid,12,alternativo,4.08,146.14,146.14,2-3 meses
+ES,13,comunidad de madrid,madrid,12,apartamento,4.61,298.79,298.79,2-3 meses
+ES,13,comunidad de madrid,madrid,12,casa entera,4.57,221.09,221.09,2-3 meses
+ES,13,comunidad de madrid,madrid,12,habitacion compartida,4.17,56.63,56.63,2-3 meses
+ES,13,comunidad de madrid,madrid,12,habitacion privada,4.48,113.1,113.1,2-3 meses
+ES,15,comunidad foral de navarra,navarra,12,alternativo,4.58,236.79,236.79,2-3 meses
+ES,15,comunidad foral de navarra,navarra,12,apartamento,4.55,184.51,184.51,2-3 meses
+ES,15,comunidad foral de navarra,navarra,12,casa entera,4.62,258.28,258.28,2-3 meses
+ES,15,comunidad foral de navarra,navarra,12,habitacion compartida,4.22,208.09,208.09,2-3 meses
+ES,15,comunidad foral de navarra,navarra,12,habitacion privada,4.39,133.65,133.65,2-3 meses
+ES,10,comunitat valenciana,comunitat valenciana,12,alternativo,4.22,193.86,193.86,2-3 meses
+ES,10,comunitat valenciana,comunitat valenciana,12,apartamento,4.66,125.03,125.03,2-3 meses
+ES,10,comunitat valenciana,comunitat valenciana,12,casa entera,4.64,216.34,216.34,2-3 meses
+ES,10,comunitat valenciana,comunitat valenciana,12,habitacion compartida,3.35,91.26,91.26,2-3 meses
+ES,10,comunitat valenciana,comunitat valenciana,12,habitacion privada,4.46,89.47,89.47,2-3 meses
+ES,11,extremadura,extremadura,12,alternativo,3.95,136.29,136.29,2-3 meses
+ES,11,extremadura,extremadura,12,apartamento,4.58,124.03,124.03,2-3 meses
+ES,11,extremadura,extremadura,12,casa entera,4.56,185.76,185.76,2-3 meses
+ES,11,extremadura,extremadura,12,habitacion compartida,3.0,63.07,63.07,2-3 meses
+ES,11,extremadura,extremadura,12,habitacion privada,4.12,157.75,157.75,2-3 meses
+ES,12,galicia,galicia,12,alternativo,4.49,171.25,171.25,2-3 meses
+ES,12,galicia,galicia,12,apartamento,4.64,131.53,131.53,2-3 meses
+ES,12,galicia,galicia,12,casa entera,4.74,178.58,178.58,2-3 meses
+ES,12,galicia,galicia,12,habitacion compartida,4.19,83.71,83.71,2-3 meses
+ES,12,galicia,galicia,12,habitacion privada,4.27,146.41,146.41,2-3 meses
+ES,04,illes balears,balears,12,alternativo,4.48,493.48,493.48,2-3 meses
+ES,04,illes balears,balears,12,apartamento,4.48,291.4,291.4,2-3 meses
+ES,04,illes balears,balears,12,casa entera,4.69,549.2,549.2,2-3 meses
+ES,04,illes balears,balears,12,habitacion compartida,2.44,1084.99,1084.99,2-3 meses
+ES,04,illes balears,balears,12,habitacion privada,4.57,422.84,422.84,2-3 meses
+ES,17,la rioja,rioja,12,alternativo,4.36,196.75,196.75,2-3 meses
+ES,17,la rioja,rioja,12,apartamento,4.77,126.98,126.98,2-3 meses
+ES,17,la rioja,rioja,12,casa entera,4.64,172.24,172.24,2-3 meses
+ES,17,la rioja,rioja,12,habitacion compartida,0.5,134.0,134.0,2-3 meses
+ES,17,la rioja,rioja,12,habitacion privada,4.44,95.91,95.91,2-3 meses
+ES,19,melilla,melilla,12,alternativo,4.96,75.0,75.0,2-3 meses
+ES,19,melilla,melilla,12,apartamento,4.88,99.61,99.61,2-3 meses
+ES,19,melilla,melilla,12,casa entera,4.2,105.44,105.44,2-3 meses
+ES,19,melilla,melilla,12,habitacion privada,3.69,42.66,42.66,2-3 meses
+ES,16,pais vasco,pais vasco,12,alternativo,4.34,215.33,215.33,2-3 meses
+ES,16,pais vasco,pais vasco,12,apartamento,4.57,148.22,148.22,2-3 meses
+ES,16,pais vasco,pais vasco,12,casa entera,4.68,228.83,228.83,2-3 meses
+ES,16,pais vasco,pais vasco,12,habitacion compartida,4.08,51.26,51.26,2-3 meses
+ES,16,pais vasco,pais vasco,12,habitacion privada,4.54,109.86,109.86,2-3 meses
+ES,03,principado de asturias,asturias,12,alternativo,4.51,186.89,186.89,2-3 meses
+ES,03,principado de asturias,asturias,12,apartamento,4.66,117.2,117.2,2-3 meses
+ES,03,principado de asturias,asturias,12,casa entera,4.72,182.19,182.19,2-3 meses
+ES,03,principado de asturias,asturias,12,habitacion compartida,4.5,40.72,40.72,2-3 meses
+ES,03,principado de asturias,asturias,12,habitacion privada,4.44,104.98,104.98,2-3 meses
+ES,14,region de murcia,murcia,12,alternativo,4.31,171.57,171.57,2-3 meses
+ES,14,region de murcia,murcia,12,apartamento,4.63,134.93,134.93,2-3 meses
+ES,14,region de murcia,murcia,12,casa entera,4.65,212.57,212.57,2-3 meses
+ES,14,region de murcia,murcia,12,habitacion compartida,3.79,31.2,31.2,2-3 meses
+ES,14,region de murcia,murcia,12,habitacion privada,4.38,87.13,87.13,2-3 meses

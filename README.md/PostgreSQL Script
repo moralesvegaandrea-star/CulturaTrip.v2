@@ -1,0 +1,455 @@
+/*
+===============================================================================
+PROYECTO: CulturaTrip
+BASE DE DATOS: culturatrip (PostgreSQL / Supabase)
+AUTOR: Equipo TFM Big Data & BI
+DESCRIPCIÓN:
+
+Este script crea la estructura dimensional del modelo CulturaTrip,
+incluyendo tablas dimensionales y tablas de hechos relacionadas con:
+
+- División político-administrativa de España
+- Georreferenciación municipal (OSM)
+- Alojamiento turístico
+- Actividades culturales
+
+El modelo está optimizado bajo principios de:
+- Integridad referencial
+- Tipificación eficiente
+- Precisión financiera (NUMERIC en lugar de FLOAT)
+- Escalabilidad futura
+
+Este script debe ejecutarse en un entorno limpio o validando previamente
+la existencia del esquema.
+===============================================================================
+*/
+
+/*
+===========================
+INSTRUCCIONES DE EJECUCIÓN
+===========================
+
+1. Crear el esquema del proyecto:
+
+2. Ejecutar este script completo para crear las tablas.
+
+3. Verificar creación correcta:
+   SELECT table_name
+   FROM information_schema.tables
+   WHERE table_schema = 'culturatrip';
+
+4. Confirmar relaciones:
+   SELECT conname, contype
+   FROM pg_constraint
+   WHERE connamespace = 'culturatrip'::regnamespace;
+
+5. Cargar datos respetando el siguiente orden (por dependencias):
+
+   a) dim_pais
+   b) dim_ccaa
+   c) dim_provincia
+   d) dim_isla
+   e) dim_municipio
+   f) rel_municipio_isla
+   g) dim_geografia_municipio_osm
+   h) fact_alojamientos
+   i) fact_actividades
+
+6. Validar integridad posterior a carga:
+   - Verificar registros huérfanos
+   - Validar que mes esté entre 1 y 12
+   - Confirmar ausencia de nulos en claves primarias
+*/
+/*
+===========================
+CARGA DE DATOS (CSV)
+===========================
+
+Opción 1 — Desde Supabase UI:
+- Ir a Table Editor
+- Seleccionar tabla
+- Import Data → CSV
+- Mapear columnas
+- Confirmar tipos
+
+Opción 2 — Desde SQL:
+
+COPY dim_pais(id_pais, pais_nombre)
+FROM '/ruta/dim_pais.csv'
+DELIMITER ','
+CSV HEADER;
+
+NOTA:
+En Supabase cloud no se puede usar COPY desde ruta local,
+por lo que se recomienda la carga desde la interfaz gráfica.
+*/
+
+/*
+===========================
+VALIDACIONES POST-CARGA
+===========================
+
+-- Verificar mes válido
+SELECT COUNT(*)
+FROM fact_alojamientos
+WHERE mes NOT BETWEEN 1 AND 12;
+
+-- Verificar duplicados en PK
+SELECT id_municipio, COUNT(*)
+FROM dim_municipio
+GROUP BY id_municipio
+HAVING COUNT(*) > 1;
+
+-- Verificar claves huérfanas
+SELECT a.id_ccaa
+FROM dim_municipio a
+LEFT JOIN dim_ccaa b ON a.id_ccaa = b.id_ccaa
+WHERE b.id_ccaa IS NULL;
+*/
+
+/*
+==================================================
+Paso_1 Crear el esquema del proyecto
+==================================================
+*/
+
+CREATE SCHEMA IF NOT EXISTS  culturatrip;
+SET search_path TO culturatrip;
+
+/*
+==================================================
+Paso_2 Crear Tablas
+==================================================
+*/
+/*
+==================================================
+Dimensión: dim_pais
+Descripción: Tabla maestra de países
+Grano: 1 fila por país
+Uso: Base para jerarquía geográfica
+==================================================
+*/
+DROP TABLE IF EXISTS culturatrip.dim_pais cascade;
+
+CREATE TABLE culturatrip.dim_pais (
+    id_pais CHAR(2) PRIMARY KEY,
+    pais VARCHAR(60) NOT NULL,
+    lat NUMERIC(10,7),
+    lon NUMERIC(10,7),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+/*
+==================================================
+Dimensión: dim_ccaa_base
+Descripción: Tabla maestra de comuidades autonomas
+==================================================
+*/
+DROP TABLE IF EXISTS culturatrip.dim_ccaa_base cascade;
+
+CREATE TABLE culturatrip.dim_ccaa_base (
+   id_ccaa CHAR(2) NOT NULL PRIMARY KEY,
+   id_pais CHAR(2) NOT NULL,
+    gid_ccaa VARCHAR(5),
+    ccaa_nombre VARCHAR(40) NOT NULL,
+
+    CONSTRAINT fk_ccaa_pais
+        FOREIGN KEY (id_pais)
+        REFERENCES culturatrip.dim_pais(id_pais)
+        ON DELETE RESTRICT,
+
+    CONSTRAINT unique_ccaa_por_pais
+        UNIQUE (id_pais, ccaa_nombre)
+);
+/*
+==================================================
+Dimensión: dim_provincia
+Descripción: Tabla maestra de provincias
+==================================================
+*/
+DROP TABLE IF EXISTS culturatrip.dim_provincia cascade;
+
+CREATE TABLE culturatrip.dim_provincia (
+    id_pais CHAR(2) NOT NULL,
+    id_provincia CHAR(2) NOT NULL,
+    gid_provincia VARCHAR(5),
+    provincia_nombre VARCHAR(30) NOT NULL,
+
+    PRIMARY KEY (id_provincia),
+
+    CONSTRAINT fk_provincia_pais
+        FOREIGN KEY (id_pais)
+        REFERENCES culturatrip.dim_pais(id_pais)
+        ON DELETE RESTRICT,
+
+    CONSTRAINT unique_provincia_por_pais
+        UNIQUE (id_pais, provincia_nombre)
+);
+/*
+==================================================
+Dimensión: dim_isla
+Descripción: Tabla maestra de islas
+==================================================
+*/
+DROP TABLE IF EXISTS culturatrip.dim_isla cascade;
+CREATE TABLE culturatrip.dim_isla (
+    id_pais CHAR(2) NOT NULL,
+    id_isla CHAR(5) NOT NULL,
+    id_provincia CHAR(2) NOT NULL,
+    gid_isla VARCHAR(8),
+    isla VARCHAR(20),
+    provincia_header VARCHAR(30),
+
+    PRIMARY KEY (id_isla),
+
+    CONSTRAINT fk_isla_pais
+        FOREIGN KEY (id_pais)
+        REFERENCES culturatrip.dim_pais(id_pais)
+        ON DELETE RESTRICT,
+
+    CONSTRAINT fk_isla_provincia
+        FOREIGN KEY (id_provincia)
+        REFERENCES culturatrip.dim_provincia(id_provincia)
+        ON DELETE RESTRICT
+);
+
+/*
+==================================================
+Dimensión: dim_municipio
+Descripción: Tabla de municipios de Region
+==================================================
+*/
+DROP TABLE IF EXISTS culturatrip.dim_municipio cascade;
+
+CREATE TABLE culturatrip.dim_municipio (
+    id_pais CHAR(2) NOT NULL,
+    id_municipio CHAR(8) NOT NULL,
+    id_municipio_parcial CHAR(6) NOT NULL,
+    id_provincia CHAR(2) NOT NULL,
+    id_ccaa CHAR(2) NOT NULL,
+    id_isla CHAR(5),
+    nombre VARCHAR(60) NOT NULL,
+    provincia_nombre VARCHAR(30) NOT NULL,
+    ccaa_nombre VARCHAR(40) NOT NULL,
+    isla VARCHAR(30),
+    gid_municipio CHAR(20) NOT NULL,
+    gid_provincia CHAR(8) NOT NULL,
+    gid_ccaa CHAR(8) NOT NULL,
+    gid_isla CHAR(8),
+
+    PRIMARY KEY (id_municipio),
+
+    CONSTRAINT fk_muni_pais
+        FOREIGN KEY (id_pais)
+        REFERENCES culturatrip.dim_pais(id_pais)
+        ON DELETE RESTRICT,
+
+    CONSTRAINT fk_muni_ccaa
+        FOREIGN KEY (id_ccaa)
+        REFERENCES culturatrip.dim_ccaa_base(id_ccaa)
+        ON DELETE RESTRICT,
+
+    CONSTRAINT fk_muni_provincia
+        FOREIGN KEY (id_provincia)
+        REFERENCES culturatrip.dim_provincia(id_provincia)
+        ON DELETE RESTRICT,
+
+    CONSTRAINT fk_muni_isla
+        FOREIGN KEY (id_isla)
+        REFERENCES culturatrip.dim_isla(id_isla)
+        ON DELETE RESTRICT
+);
+
+/*
+==================================================
+Dimensión: rel_municipio_isla
+Descripción: Tabla puente
+==================================================
+*/
+DROP TABLE IF EXISTS culturatrip.rel_municipio_isla cascade;
+
+CREATE TABLE culturatrip.rel_municipio_isla (
+    id_pais CHAR(2) NOT NULL,
+    id_municipio CHAR(8) NOT NULL,
+    id_municipio_parcial CHAR(6),
+    id_isla CHAR(5) NOT NULL,
+    gid_isla VARCHAR(8),
+    isla VARCHAR(20),
+    gid_municipio VARCHAR(11),
+
+    PRIMARY KEY (id_municipio, id_isla),
+
+    CONSTRAINT fk_rel_pais
+        FOREIGN KEY (id_pais)
+        REFERENCES culturatrip.dim_pais(id_pais)
+        ON DELETE RESTRICT,
+
+    CONSTRAINT fk_rel_municipio
+        FOREIGN KEY (id_municipio)
+        REFERENCES culturatrip.dim_municipio(id_municipio)
+        ON DELETE RESTRICT,
+
+    CONSTRAINT fk_rel_isla
+        FOREIGN KEY (id_isla)
+        REFERENCES culturatrip.dim_isla(id_isla)
+        ON DELETE RESTRICT
+);
+/*
+==================================================
+Dimensión: dim_geografia_municipio_osm
+Descripción: Tabla geoespacial
+==================================================
+*/
+DROP TABLE IF EXISTS culturatrip.dim_geografia_municipio_osm cascade;
+CREATE TABLE culturatrip.dim_geografia_municipio_osm (
+    id_municipio CHAR(8) PRIMARY KEY NOT null,
+
+    osm_id VARCHAR(11) NOT NULL,
+    osm_type VARCHAR(8) NOT NULL,
+    osm_query_usada VARCHAR(95) NOT NULL,
+    osm_pass VARCHAR(100) NOT NULL,
+
+    lat NUMERIC(10,7) NOT NULL,
+    lon NUMERIC(10,7) NOT NULL,
+
+    CONSTRAINT fk_geo_municipio
+        FOREIGN KEY (id_municipio)
+        REFERENCES culturatrip.dim_municipio(id_municipio)
+        ON DELETE RESTRICT
+);
+/*
+==================================================
+Dimensión: dim_actividades
+Descripción: Tabla actividades sociales region
+==================================================
+*/
+DROP TABLE IF EXISTS culturatrip.fact_actividades cascade;
+
+CREATE TABLE culturatrip.fact_actividades (
+    id_actividad INTEGER PRIMARY KEY NOT NULL,
+    id_pais CHAR(2) NOT NULL,
+    id_ccaa CHAR(2) NOT NULL,
+    id_provincia CHAR(2) NOT NULL,
+    mes SMALLINT NOT NULL CHECK (mes BETWEEN 1 AND 12),
+    categoria VARCHAR(40) NOT NULL,
+    producto VARCHAR(40) NOT NULL,
+    subcategoria VARCHAR(40) NOT NULL,
+    comunidad_autonoma VARCHAR(40) NOT NULL,
+    provincia VARCHAR(40) NOT NULL,
+    gasto_total_promedio NUMERIC(12,2) NOT NULL,
+    precio_medio_entrada_promedio NUMERIC(10,2) NOT NULL,
+    valoracion_por_categoria_promedio NUMERIC(3,2),
+    valoracion_general_promedio NUMERIC(3,2),
+    total_opiniones_categoria_promedio integer,
+    hay_valoracion BOOLEAN NOT NULL,
+
+    CONSTRAINT fk_fact_act_pais
+        FOREIGN KEY (id_pais)
+        REFERENCES culturatrip.dim_pais(id_pais)
+        ON DELETE RESTRICT,
+
+    CONSTRAINT fk_fact_act_ccaa
+        FOREIGN KEY (id_ccaa)
+        REFERENCES culturatrip.dim_ccaa_base(id_ccaa)
+        ON DELETE RESTRICT,
+
+    CONSTRAINT fk_fact_act_provincia
+        FOREIGN KEY (id_provincia)
+        REFERENCES culturatrip.dim_provincia(id_provincia)
+        ON DELETE RESTRICT
+);
+/*
+==================================================
+Dimensión: dim_alojamientos
+Descripción: Tabla alojamientos por region
+==================================================
+*/
+DROP TABLE IF EXISTS culturatrip.fact_alojamientos cascade;
+CREATE TABLE culturatrip.fact_alojamientos (
+    id_alojamiento INTEGER PRIMARY KEY,
+
+    id_pais CHAR(2) NOT NULL,
+    id_ccaa CHAR(2) NOT NULL,
+    id_provincia CHAR(2) NOT NULL,
+
+    mes SMALLINT NOT NULL CHECK (mes BETWEEN 1 AND 12),
+
+    categoria_alojamiento VARCHAR(30),
+    periodo_antelacion VARCHAR(40),
+
+    fuente VARCHAR(40),
+    granularidad_origen VARCHAR(30),
+    nivel_geografico VARCHAR(30),
+
+    precio_checkin_entre_semana NUMERIC(10,2),
+    precio_checkin_fin_semana NUMERIC(10,2),
+
+    valoraciones_norm NUMERIC(5,2),
+
+    tiene_valoraciones BOOLEAN,
+    es_dato_replicado BOOLEAN,
+
+    CONSTRAINT fk_fact_aloj_pais
+        FOREIGN KEY (id_pais)
+        REFERENCES culturatrip.dim_pais(id_pais)
+        ON DELETE RESTRICT,
+
+    CONSTRAINT fk_fact_aloj_ccaa
+        FOREIGN KEY (id_ccaa)
+        REFERENCES culturatrip.dim_ccaa_base(id_ccaa)
+        ON DELETE RESTRICT,
+
+    CONSTRAINT fk_fact_aloj_provincia
+        FOREIGN KEY (id_provincia)
+        REFERENCES culturatrip.dim_provincia(id_provincia)
+        ON DELETE RESTRICT
+);
+-- ==================================================
+-- FIN DEL SCRIPT
+-- Modelo CulturaTrip listo para carga de datos
+-- ==================================================
+/*
+==================================================
+Consulta 1 — Métricas territoriales del país (base para Pantalla 1)
+Necesidad: Mostrar “¿Sabías que…?” con conteos de municipios, provincias, CCAA e islas.
+==================================================
+*/
+SELECT
+  p.pais,
+  (SELECT COUNT(*) FROM culturatrip.dim_municipio  m  WHERE m.id_pais = p.id_pais) AS n_municipios,
+  (SELECT COUNT(*) FROM culturatrip.dim_provincia  pr WHERE pr.id_pais = p.id_pais) AS n_provincias,
+  (SELECT COUNT(*) FROM culturatrip.dim_ccaa_base  c  WHERE c.id_pais = p.id_pais) AS n_ccaa,
+  (SELECT COUNT(*) FROM culturatrip.dim_isla       i  WHERE i.id_pais = p.id_pais) AS n_islas
+FROM culturatrip.dim_pais p
+WHERE p.id_pais = 'ES';
+
+/*
+==================================================
+Consulta  — Consultas de Validación (Control de Calidad)
+Validar rango de mes
+==================================================
+*/
+SELECT *
+FROM culturatrip.fact_alojamientos
+WHERE mes NOT BETWEEN 1 AND 12;
+/*
+==================================================
+Consulta  — Detectar municipios sin geolocalización
+Detectar municipios sin geolocalización
+==================================================
+*/
+SELECT m.id_municipio, m.nombre
+FROM culturatrip.dim_municipio m
+LEFT JOIN culturatrip.dim_geografia_municipio_osm g
+ON m.id_municipio = g.id_municipio
+WHERE g.id_municipio IS NULL;
+
+/*
+==================================================
+Consulta  — Detectar municipios sin geolocalización
+Verificar actividades sin valoración
+==================================================
+*/
+SELECT COUNT(*)
+FROM culturatrip.fact_actividades
+WHERE hay_valoracion = FALSE;

@@ -1,0 +1,345 @@
+﻿id_pais,id_provincia,gid_provincia,categoria,comunidad_autonoma,provincia,valoracion_por_categoria_promedio,valoracion_general_promedio,total_opiniones_categoria_promedio,provincia_nombre
+ES,04,ES-04,comida y bebida,andalucia,almeria,5.0,4.19,6.0,almería
+ES,11,ES-11,comida y bebida,andalucia,cadiz,4.57,4.26,47.0,cádiz
+ES,14,ES-14,comida y bebida,andalucia,cordoba,4.97,4.29,16.0,córdoba
+ES,18,ES-18,comida y bebida,andalucia,granada,4.81,4.37,771.0,granada
+ES,21,ES-21,comida y bebida,andalucia,huelva,1.0,4.11,2.0,huelva
+ES,23,ES-23,comida y bebida,andalucia,jaen,5.0,4.33,9.0,jaén
+ES,29,ES-29,comida y bebida,andalucia,malaga,4.84,4.43,1395.0,málaga
+ES,41,ES-41,comida y bebida,andalucia,sevilla,4.76,4.34,8170.0,sevilla
+ES,22,ES-22,comida y bebida,aragon,huesca,4.6,4.25,40.0,huesca
+ES,50,ES-50,comida y bebida,aragon,zaragoza,4.03,4.21,35.0,zaragoza
+ES,35,ES-35,comida y bebida,canarias,las palmas,3.71,4.28,443.0,las palmas
+ES,38,ES-38,comida y bebida,canarias,santa cruz de tenerife,4.31,4.26,72.0,santa cruz de tenerife
+ES,39,ES-39,comida y bebida,cantabria,cantabria,4.65,4.27,26.0,cantabria
+ES,02,ES-02,comida y bebida,castilla - la mancha,albacete,4.88,4.15,33.0,albacete
+ES,13,ES-13,comida y bebida,castilla - la mancha,ciudad real,5.0,4.29,41.0,ciudad real
+ES,16,ES-16,comida y bebida,castilla - la mancha,cuenca,4.68,4.19,102.0,cuenca
+ES,19,ES-19,comida y bebida,castilla - la mancha,guadalajara,3.0,4.04,4.0,guadalajara
+ES,45,ES-45,comida y bebida,castilla - la mancha,toledo,4.94,4.18,180.0,toledo
+ES,05,ES-05,comida y bebida,castilla y leon,avila,4.72,4.23,20.0,ávila
+ES,09,ES-09,comida y bebida,castilla y leon,burgos,4.9,4.28,158.0,burgos
+ES,24,ES-24,comida y bebida,castilla y leon,leon,4.94,4.21,231.0,león
+ES,37,ES-37,comida y bebida,castilla y leon,salamanca,4.84,4.17,54.0,salamanca
+ES,40,ES-40,comida y bebida,castilla y leon,segovia,5.0,4.07,3.0,segovia
+ES,42,ES-42,comida y bebida,castilla y leon,soria,4.5,3.97,4.0,soria
+ES,47,ES-47,comida y bebida,castilla y leon,valladolid,4.44,4.06,252.0,valladolid
+ES,08,ES-08,comida y bebida,cataluna,barcelona,4.67,4.05,3911.0,barcelona
+ES,17,ES-17,comida y bebida,cataluna,girona,4.57,4.24,183.0,girona
+ES,25,ES-25,comida y bebida,cataluna,lleida,4.81,4.27,19.0,lleida
+ES,43,ES-43,comida y bebida,cataluna,tarragona,4.67,4.2,481.0,tarragona
+ES,28,ES-28,comida y bebida,comunidad de madrid,madrid,4.71,4.1,5856.0,madrid
+ES,31,ES-31,comida y bebida,comunidad foral de navarra,navarra,4.63,4.23,135.0,navarra
+ES,03,ES-03,comida y bebida,comunitat valenciana,alicante/alacant,4.52,4.28,760.0,alicante/alacant
+ES,46,ES-46,comida y bebida,comunitat valenciana,valencia/valencia,4.79,4.15,369.0,valencia/valència
+ES,10,ES-10,comida y bebida,extremadura,caceres,4.5,4.33,6.0,cáceres
+ES,15,ES-15,comida y bebida,galicia,a coruna,4.21,4.21,75.0,a coruña
+ES,27,ES-27,comida y bebida,galicia,lugo,4.4,4.28,10.0,lugo
+ES,36,ES-36,comida y bebida,galicia,pontevedra,4.41,4.17,237.0,pontevedra
+ES,07,ES-07,comida y bebida,illes balears,illes balears,4.86,4.33,2196.0,illes balears
+ES,26,ES-26,comida y bebida,la rioja,la rioja,4.62,4.31,110.0,la rioja
+ES,01,ES-01,comida y bebida,pais vasco,araba/alava,4.37,4.41,303.0,araba/álava
+ES,48,ES-48,comida y bebida,pais vasco,bizkaia,4.31,4.31,319.0,bizkaia
+ES,20,ES-20,comida y bebida,pais vasco,gipuzkoa,4.44,4.41,1099.0,gipuzkoa
+ES,33,ES-33,comida y bebida,principado de asturias,asturias,4.33,4.35,124.0,asturias
+ES,30,ES-30,comida y bebida,region de murcia,murcia,3.99,4.2,320.0,murcia
+ES,04,ES-04,compras,andalucia,almeria,4.23,4.19,2490.0,almería
+ES,11,ES-11,compras,andalucia,cadiz,4.16,4.26,1319.0,cádiz
+ES,14,ES-14,compras,andalucia,cordoba,4.28,4.29,1822.0,córdoba
+ES,18,ES-18,compras,andalucia,granada,4.34,4.37,7661.0,granada
+ES,21,ES-21,compras,andalucia,huelva,4.15,4.11,1395.0,huelva
+ES,23,ES-23,compras,andalucia,jaen,4.55,4.33,484.0,jaén
+ES,29,ES-29,compras,andalucia,malaga,4.36,4.43,19512.0,málaga
+ES,41,ES-41,compras,andalucia,sevilla,3.84,4.34,7574.0,sevilla
+ES,22,ES-22,compras,aragon,huesca,4.25,4.25,279.0,huesca
+ES,44,ES-44,compras,aragon,teruel,4.16,4.28,129.0,teruel
+ES,50,ES-50,compras,aragon,zaragoza,4.41,4.21,3119.0,zaragoza
+ES,35,ES-35,compras,canarias,las palmas,3.9,4.28,20086.0,las palmas
+ES,38,ES-38,compras,canarias,santa cruz de tenerife,4.07,4.26,9442.0,santa cruz de tenerife
+ES,39,ES-39,compras,cantabria,cantabria,4.07,4.27,1328.0,cantabria
+ES,02,ES-02,compras,castilla - la mancha,albacete,3.36,4.15,90.0,albacete
+ES,13,ES-13,compras,castilla - la mancha,ciudad real,4.64,4.29,147.0,ciudad real
+ES,16,ES-16,compras,castilla - la mancha,cuenca,4.52,4.19,59.0,cuenca
+ES,19,ES-19,compras,castilla - la mancha,guadalajara,4.49,4.04,88.0,guadalajara
+ES,45,ES-45,compras,castilla - la mancha,toledo,4.76,4.18,2638.0,toledo
+ES,05,ES-05,compras,castilla y leon,avila,3.71,4.23,82.0,ávila
+ES,09,ES-09,compras,castilla y leon,burgos,4.13,4.28,148.0,burgos
+ES,24,ES-24,compras,castilla y leon,leon,4.31,4.21,389.0,león
+ES,34,ES-34,compras,castilla y leon,palencia,4.38,4.35,146.0,palencia
+ES,37,ES-37,compras,castilla y leon,salamanca,4.47,4.17,470.0,salamanca
+ES,40,ES-40,compras,castilla y leon,segovia,4.57,4.07,395.0,segovia
+ES,42,ES-42,compras,castilla y leon,soria,4.51,3.97,56.0,soria
+ES,47,ES-47,compras,castilla y leon,valladolid,4.08,4.06,485.0,valladolid
+ES,49,ES-49,compras,castilla y leon,zamora,4.36,4.17,242.0,zamora
+ES,08,ES-08,compras,cataluna,barcelona,3.75,4.05,95381.0,barcelona
+ES,17,ES-17,compras,cataluna,girona,4.09,4.24,3158.0,girona
+ES,25,ES-25,compras,cataluna,lleida,4.4,4.27,233.0,lleida
+ES,43,ES-43,compras,cataluna,tarragona,4.19,4.2,2200.0,tarragona
+ES,28,ES-28,compras,comunidad de madrid,madrid,3.83,4.1,89796.0,madrid
+ES,31,ES-31,compras,comunidad foral de navarra,navarra,4.29,4.23,798.0,navarra
+ES,03,ES-03,compras,comunitat valenciana,alicante/alacant,4.22,4.28,12577.0,alicante/alacant
+ES,12,ES-12,compras,comunitat valenciana,castellon/castello,4.41,4.2,773.0,castellón/castelló
+ES,46,ES-46,compras,comunitat valenciana,valencia/valencia,3.72,4.15,81279.0,valencia/valència
+ES,06,ES-06,compras,extremadura,badajoz,4.56,4.29,605.0,badajoz
+ES,10,ES-10,compras,extremadura,caceres,4.54,4.33,545.0,cáceres
+ES,15,ES-15,compras,galicia,a coruna,3.99,4.21,5636.0,a coruña
+ES,27,ES-27,compras,galicia,lugo,4.37,4.28,221.0,lugo
+ES,32,ES-32,compras,galicia,ourense,3.69,4.15,192.0,ourense
+ES,36,ES-36,compras,galicia,pontevedra,4.27,4.17,3054.0,pontevedra
+ES,07,ES-07,compras,illes balears,illes balears,4.17,4.33,22175.0,illes balears
+ES,26,ES-26,compras,la rioja,la rioja,4.36,4.31,872.0,la rioja
+ES,01,ES-01,compras,pais vasco,araba/alava,3.88,4.41,300.0,araba/álava
+ES,48,ES-48,compras,pais vasco,bizkaia,3.8,4.31,694.0,bizkaia
+ES,20,ES-20,compras,pais vasco,gipuzkoa,4.35,4.41,2233.0,gipuzkoa
+ES,33,ES-33,compras,principado de asturias,asturias,4.23,4.35,2445.0,asturias
+ES,30,ES-30,compras,region de murcia,murcia,3.89,4.2,1222.0,murcia
+ES,04,ES-04,otros,andalucia,almeria,4.31,4.19,238.0,almería
+ES,11,ES-11,otros,andalucia,cadiz,4.12,4.26,284.0,cádiz
+ES,14,ES-14,otros,andalucia,cordoba,4.46,4.29,478.0,córdoba
+ES,18,ES-18,otros,andalucia,granada,4.48,4.37,161.0,granada
+ES,21,ES-21,otros,andalucia,huelva,4.09,4.11,164.0,huelva
+ES,23,ES-23,otros,andalucia,jaen,4.24,4.33,765.0,jaén
+ES,29,ES-29,otros,andalucia,malaga,4.25,4.43,1156.0,málaga
+ES,41,ES-41,otros,andalucia,sevilla,3.68,4.34,431.0,sevilla
+ES,22,ES-22,otros,aragon,huesca,4.26,4.25,61.0,huesca
+ES,44,ES-44,otros,aragon,teruel,4.17,4.28,5064.0,teruel
+ES,50,ES-50,otros,aragon,zaragoza,3.75,4.21,158.0,zaragoza
+ES,35,ES-35,otros,canarias,las palmas,4.32,4.28,176.5,las palmas
+ES,38,ES-38,otros,canarias,santa cruz de tenerife,4.6,4.26,927.0,santa cruz de tenerife
+ES,39,ES-39,otros,cantabria,cantabria,4.29,4.27,232.0,cantabria
+ES,02,ES-02,otros,castilla - la mancha,albacete,3.41,4.15,78.0,albacete
+ES,13,ES-13,otros,castilla - la mancha,ciudad real,4.21,4.29,156.0,ciudad real
+ES,16,ES-16,otros,castilla - la mancha,cuenca,4.51,4.19,3406.0,cuenca
+ES,19,ES-19,otros,castilla - la mancha,guadalajara,3.98,4.04,45.0,guadalajara
+ES,45,ES-45,otros,castilla - la mancha,toledo,4.06,4.18,82.0,toledo
+ES,05,ES-05,otros,castilla y leon,avila,3.61,4.23,173.0,ávila
+ES,09,ES-09,otros,castilla y leon,burgos,4.53,4.28,428.0,burgos
+ES,24,ES-24,otros,castilla y leon,leon,3.98,4.21,146.0,león
+ES,34,ES-34,otros,castilla y leon,palencia,5.0,4.35,16.0,palencia
+ES,37,ES-37,otros,castilla y leon,salamanca,4.17,4.17,760.0,salamanca
+ES,40,ES-40,otros,castilla y leon,segovia,4.22,4.07,248.0,segovia
+ES,42,ES-42,otros,castilla y leon,soria,3.82,3.97,60.0,soria
+ES,47,ES-47,otros,castilla y leon,valladolid,4.45,4.06,83.0,valladolid
+ES,49,ES-49,otros,castilla y leon,zamora,3.68,4.17,378.0,zamora
+ES,08,ES-08,otros,cataluna,barcelona,3.9,4.05,2019.0,barcelona
+ES,17,ES-17,otros,cataluna,girona,4.07,4.24,798.0,girona
+ES,25,ES-25,otros,cataluna,lleida,3.88,4.27,79.0,lleida
+ES,43,ES-43,otros,cataluna,tarragona,4.01,4.2,1769.0,tarragona
+ES,28,ES-28,otros,comunidad de madrid,madrid,3.97,4.1,1624.0,madrid
+ES,31,ES-31,otros,comunidad foral de navarra,navarra,4.27,4.23,500.0,navarra
+ES,03,ES-03,otros,comunitat valenciana,alicante/alacant,4.26,4.28,392.0,alicante/alacant
+ES,12,ES-12,otros,comunitat valenciana,castellon/castello,3.95,4.2,247.0,castellón/castelló
+ES,46,ES-46,otros,comunitat valenciana,valencia/valencia,4.49,4.15,621.0,valencia/valència
+ES,06,ES-06,otros,extremadura,badajoz,3.9,4.29,311.0,badajoz
+ES,10,ES-10,otros,extremadura,caceres,4.42,4.33,727.0,cáceres
+ES,15,ES-15,otros,galicia,a coruna,4.09,4.21,200.0,a coruña
+ES,27,ES-27,otros,galicia,lugo,3.88,4.28,192.0,lugo
+ES,32,ES-32,otros,galicia,ourense,4.73,4.15,26.0,ourense
+ES,36,ES-36,otros,galicia,pontevedra,4.43,4.17,119.0,pontevedra
+ES,07,ES-07,otros,illes balears,illes balears,4.21,4.33,295.5,illes balears
+ES,26,ES-26,otros,la rioja,la rioja,4.09,4.31,363.0,la rioja
+ES,48,ES-48,otros,pais vasco,bizkaia,4.87,4.31,794.0,bizkaia
+ES,20,ES-20,otros,pais vasco,gipuzkoa,4.01,4.41,57.0,gipuzkoa
+ES,33,ES-33,otros,principado de asturias,asturias,4.4,4.35,92.0,asturias
+ES,30,ES-30,otros,region de murcia,murcia,3.14,4.2,7.0,murcia
+ES,04,ES-04,paisaje naturaleza,andalucia,almeria,4.32,4.19,23376.0,almería
+ES,11,ES-11,paisaje naturaleza,andalucia,cadiz,4.27,4.26,12349.5,cádiz
+ES,14,ES-14,paisaje naturaleza,andalucia,cordoba,4.32,4.29,3767.0,córdoba
+ES,18,ES-18,paisaje naturaleza,andalucia,granada,4.52,4.37,18491.5,granada
+ES,21,ES-21,paisaje naturaleza,andalucia,huelva,4.12,4.11,8395.5,huelva
+ES,23,ES-23,paisaje naturaleza,andalucia,jaen,4.44,4.33,4366.0,jaén
+ES,29,ES-29,paisaje naturaleza,andalucia,malaga,4.44,4.43,109647.5,málaga
+ES,41,ES-41,paisaje naturaleza,andalucia,sevilla,4.47,4.34,21476.5,sevilla
+ES,22,ES-22,paisaje naturaleza,aragon,huesca,4.56,4.25,17445.0,huesca
+ES,44,ES-44,paisaje naturaleza,aragon,teruel,4.32,4.28,3578.5,teruel
+ES,50,ES-50,paisaje naturaleza,aragon,zaragoza,4.36,4.21,5887.5,zaragoza
+ES,35,ES-35,paisaje naturaleza,canarias,las palmas,4.34,4.28,200377.5,las palmas
+ES,38,ES-38,paisaje naturaleza,canarias,santa cruz de tenerife,4.31,4.26,190067.0,santa cruz de tenerife
+ES,39,ES-39,paisaje naturaleza,cantabria,cantabria,4.36,4.27,37946.0,cantabria
+ES,02,ES-02,paisaje naturaleza,castilla - la mancha,albacete,4.38,4.15,3169.0,albacete
+ES,13,ES-13,paisaje naturaleza,castilla - la mancha,ciudad real,4.36,4.29,3026.5,ciudad real
+ES,16,ES-16,paisaje naturaleza,castilla - la mancha,cuenca,4.42,4.19,3251.0,cuenca
+ES,19,ES-19,paisaje naturaleza,castilla - la mancha,guadalajara,4.19,4.04,1303.0,guadalajara
+ES,45,ES-45,paisaje naturaleza,castilla - la mancha,toledo,4.16,4.18,1715.0,toledo
+ES,05,ES-05,paisaje naturaleza,castilla y leon,avila,4.56,4.23,1873.5,ávila
+ES,09,ES-09,paisaje naturaleza,castilla y leon,burgos,4.44,4.28,6285.0,burgos
+ES,24,ES-24,paisaje naturaleza,castilla y leon,leon,4.52,4.21,4506.5,león
+ES,34,ES-34,paisaje naturaleza,castilla y leon,palencia,4.36,4.35,398.5,palencia
+ES,37,ES-37,paisaje naturaleza,castilla y leon,salamanca,4.39,4.17,3319.0,salamanca
+ES,40,ES-40,paisaje naturaleza,castilla y leon,segovia,4.14,4.07,4583.0,segovia
+ES,42,ES-42,paisaje naturaleza,castilla y leon,soria,4.14,3.97,2792.0,soria
+ES,47,ES-47,paisaje naturaleza,castilla y leon,valladolid,4.18,4.06,8696.5,valladolid
+ES,49,ES-49,paisaje naturaleza,castilla y leon,zamora,4.38,4.17,2116.0,zamora
+ES,08,ES-08,paisaje naturaleza,cataluna,barcelona,4.13,4.05,200444.0,barcelona
+ES,17,ES-17,paisaje naturaleza,cataluna,girona,4.38,4.24,61683.0,girona
+ES,25,ES-25,paisaje naturaleza,cataluna,lleida,4.38,4.27,9898.0,lleida
+ES,43,ES-43,paisaje naturaleza,cataluna,tarragona,4.26,4.2,33701.0,tarragona
+ES,51,ES-51,paisaje naturaleza,ceuta,ceuta,3.67,3.67,7.0,ceuta
+ES,28,ES-28,paisaje naturaleza,comunidad de madrid,madrid,4.19,4.1,121795.0,madrid
+ES,31,ES-31,paisaje naturaleza,comunidad foral de navarra,navarra,4.33,4.23,7007.0,navarra
+ES,03,ES-03,paisaje naturaleza,comunitat valenciana,alicante/alacant,4.36,4.28,82423.5,alicante/alacant
+ES,12,ES-12,paisaje naturaleza,comunitat valenciana,castellon/castello,4.22,4.2,6933.5,castellón/castelló
+ES,46,ES-46,paisaje naturaleza,comunitat valenciana,valencia/valencia,4.23,4.15,90775.5,valencia/valència
+ES,06,ES-06,paisaje naturaleza,extremadura,badajoz,4.4,4.29,1116.0,badajoz
+ES,10,ES-10,paisaje naturaleza,extremadura,caceres,4.5,4.33,5814.0,cáceres
+ES,15,ES-15,paisaje naturaleza,galicia,a coruna,4.39,4.21,18973.5,a coruña
+ES,27,ES-27,paisaje naturaleza,galicia,lugo,4.57,4.28,8089.0,lugo
+ES,32,ES-32,paisaje naturaleza,galicia,ourense,4.42,4.15,1840.5,ourense
+ES,36,ES-36,paisaje naturaleza,galicia,pontevedra,4.29,4.17,15699.0,pontevedra
+ES,07,ES-07,paisaje naturaleza,illes balears,illes balears,4.42,4.33,203636.0,illes balears
+ES,26,ES-26,paisaje naturaleza,la rioja,la rioja,4.4,4.31,18299.5,la rioja
+ES,52,ES-52,paisaje naturaleza,melilla,melilla,4.83,3.94,39.0,melilla
+ES,01,ES-01,paisaje naturaleza,pais vasco,araba/alava,4.66,4.41,11468.0,araba/álava
+ES,48,ES-48,paisaje naturaleza,pais vasco,bizkaia,4.38,4.31,7925.0,bizkaia
+ES,20,ES-20,paisaje naturaleza,pais vasco,gipuzkoa,4.61,4.41,26976.5,gipuzkoa
+ES,33,ES-33,paisaje naturaleza,principado de asturias,asturias,4.42,4.35,44006.5,asturias
+ES,30,ES-30,paisaje naturaleza,region de murcia,murcia,4.4,4.2,2633.0,murcia
+ES,04,ES-04,paisaje urbano,andalucia,almeria,4.25,4.19,14317.666666666666,almería
+ES,11,ES-11,paisaje urbano,andalucia,cadiz,4.35,4.26,8809.0,cádiz
+ES,14,ES-14,paisaje urbano,andalucia,cordoba,4.3,4.29,93962.0,córdoba
+ES,18,ES-18,paisaje urbano,andalucia,granada,4.35,4.37,153042.0,granada
+ES,21,ES-21,paisaje urbano,andalucia,huelva,4.23,4.11,9984.0,huelva
+ES,23,ES-23,paisaje urbano,andalucia,jaen,4.3,4.33,16236.333333333334,jaén
+ES,29,ES-29,paisaje urbano,andalucia,malaga,4.43,4.43,158253.0,málaga
+ES,41,ES-41,paisaje urbano,andalucia,sevilla,4.41,4.34,218278.66666666666,sevilla
+ES,22,ES-22,paisaje urbano,aragon,huesca,4.12,4.25,10915.666666666666,huesca
+ES,44,ES-44,paisaje urbano,aragon,teruel,4.27,4.28,11014.666666666666,teruel
+ES,50,ES-50,paisaje urbano,aragon,zaragoza,4.34,4.21,41351.666666666664,zaragoza
+ES,35,ES-35,paisaje urbano,canarias,las palmas,4.27,4.28,51395.0,las palmas
+ES,38,ES-38,paisaje urbano,canarias,santa cruz de tenerife,4.28,4.26,66584.0,santa cruz de tenerife
+ES,39,ES-39,paisaje urbano,cantabria,cantabria,4.28,4.27,27506.666666666668,cantabria
+ES,02,ES-02,paisaje urbano,castilla - la mancha,albacete,4.09,4.15,3662.6666666666665,albacete
+ES,13,ES-13,paisaje urbano,castilla - la mancha,ciudad real,4.33,4.29,7266.333333333333,ciudad real
+ES,16,ES-16,paisaje urbano,castilla - la mancha,cuenca,4.27,4.19,13771.333333333334,cuenca
+ES,19,ES-19,paisaje urbano,castilla - la mancha,guadalajara,4.18,4.04,6159.333333333333,guadalajara
+ES,45,ES-45,paisaje urbano,castilla - la mancha,toledo,4.19,4.18,55768.666666666664,toledo
+ES,05,ES-05,paisaje urbano,castilla y leon,avila,4.42,4.23,13406.666666666666,ávila
+ES,09,ES-09,paisaje urbano,castilla y leon,burgos,4.35,4.28,19775.666666666668,burgos
+ES,24,ES-24,paisaje urbano,castilla y leon,leon,4.22,4.21,19169.333333333332,león
+ES,34,ES-34,paisaje urbano,castilla y leon,palencia,4.45,4.35,4983.666666666667,palencia
+ES,37,ES-37,paisaje urbano,castilla y leon,salamanca,4.24,4.17,31971.666666666668,salamanca
+ES,40,ES-40,paisaje urbano,castilla y leon,segovia,4.12,4.07,27927.666666666668,segovia
+ES,42,ES-42,paisaje urbano,castilla y leon,soria,4.17,3.97,6300.333333333333,soria
+ES,47,ES-47,paisaje urbano,castilla y leon,valladolid,4.14,4.06,13695.0,valladolid
+ES,49,ES-49,paisaje urbano,castilla y leon,zamora,4.19,4.17,5871.666666666667,zamora
+ES,08,ES-08,paisaje urbano,cataluna,barcelona,4.07,4.05,732080.0,barcelona
+ES,17,ES-17,paisaje urbano,cataluna,girona,4.24,4.24,50915.333333333336,girona
+ES,25,ES-25,paisaje urbano,cataluna,lleida,4.29,4.27,7170.666666666667,lleida
+ES,43,ES-43,paisaje urbano,cataluna,tarragona,4.23,4.2,53439.0,tarragona
+ES,28,ES-28,paisaje urbano,comunidad de madrid,madrid,4.15,4.1,458465.6666666667,madrid
+ES,31,ES-31,paisaje urbano,comunidad foral de navarra,navarra,4.25,4.23,19679.666666666668,navarra
+ES,03,ES-03,paisaje urbano,comunitat valenciana,alicante/alacant,4.28,4.28,67887.66666666667,alicante/alacant
+ES,12,ES-12,paisaje urbano,comunitat valenciana,castellon/castello,4.14,4.2,13212.0,castellón/castelló
+ES,46,ES-46,paisaje urbano,comunitat valenciana,valencia/valencia,4.25,4.15,114505.33333333333,valencia/valència
+ES,06,ES-06,paisaje urbano,extremadura,badajoz,4.26,4.29,18348.0,badajoz
+ES,10,ES-10,paisaje urbano,extremadura,caceres,4.31,4.33,23513.666666666668,cáceres
+ES,15,ES-15,paisaje urbano,galicia,a coruna,4.26,4.21,50198.333333333336,a coruña
+ES,27,ES-27,paisaje urbano,galicia,lugo,4.33,4.28,8871.666666666666,lugo
+ES,32,ES-32,paisaje urbano,galicia,ourense,4.18,4.15,6494.666666666667,ourense
+ES,36,ES-36,paisaje urbano,galicia,pontevedra,4.07,4.17,15891.666666666666,pontevedra
+ES,07,ES-07,paisaje urbano,illes balears,illes balears,4.21,4.33,107418.0,illes balears
+ES,26,ES-26,paisaje urbano,la rioja,la rioja,4.29,4.31,11493.0,la rioja
+ES,52,ES-52,paisaje urbano,melilla,melilla,4.0,3.94,2.0,melilla
+ES,01,ES-01,paisaje urbano,pais vasco,araba/alava,4.46,4.41,7810.666666666667,araba/álava
+ES,48,ES-48,paisaje urbano,pais vasco,bizkaia,4.38,4.31,56425.0,bizkaia
+ES,20,ES-20,paisaje urbano,pais vasco,gipuzkoa,4.43,4.41,26949.0,gipuzkoa
+ES,33,ES-33,paisaje urbano,principado de asturias,asturias,4.37,4.35,40762.333333333336,asturias
+ES,30,ES-30,paisaje urbano,region de murcia,murcia,4.32,4.2,9308.333333333334,murcia
+ES,04,ES-04,servicios,andalucia,almeria,4.19,4.19,430.0,almería
+ES,11,ES-11,servicios,andalucia,cadiz,4.74,4.26,39.0,cádiz
+ES,14,ES-14,servicios,andalucia,cordoba,4.3,4.29,22.0,córdoba
+ES,18,ES-18,servicios,andalucia,granada,4.47,4.37,1868.0,granada
+ES,21,ES-21,servicios,andalucia,huelva,4.05,4.11,99.0,huelva
+ES,23,ES-23,servicios,andalucia,jaen,4.34,4.33,84.0,jaén
+ES,29,ES-29,servicios,andalucia,malaga,4.62,4.43,51898.0,málaga
+ES,41,ES-41,servicios,andalucia,sevilla,4.06,4.34,4859.0,sevilla
+ES,22,ES-22,servicios,aragon,huesca,4.88,4.25,533.0,huesca
+ES,44,ES-44,servicios,aragon,teruel,4.1,4.28,21.0,teruel
+ES,50,ES-50,servicios,aragon,zaragoza,4.05,4.21,61.0,zaragoza
+ES,35,ES-35,servicios,canarias,las palmas,3.72,4.28,2863.0,las palmas
+ES,38,ES-38,servicios,canarias,santa cruz de tenerife,3.86,4.26,3753.0,santa cruz de tenerife
+ES,39,ES-39,servicios,cantabria,cantabria,3.94,4.27,4877.0,cantabria
+ES,02,ES-02,servicios,castilla - la mancha,albacete,4.08,4.15,9.0,albacete
+ES,13,ES-13,servicios,castilla - la mancha,ciudad real,3.0,4.29,3.0,ciudad real
+ES,16,ES-16,servicios,castilla - la mancha,cuenca,5.0,4.19,6.0,cuenca
+ES,19,ES-19,servicios,castilla - la mancha,guadalajara,5.0,4.04,1.0,guadalajara
+ES,45,ES-45,servicios,castilla - la mancha,toledo,3.33,4.18,29.0,toledo
+ES,09,ES-09,servicios,castilla y leon,burgos,2.32,4.28,12.0,burgos
+ES,24,ES-24,servicios,castilla y leon,leon,3.51,4.21,307.0,león
+ES,34,ES-34,servicios,castilla y leon,palencia,5.0,4.35,4.0,palencia
+ES,37,ES-37,servicios,castilla y leon,salamanca,3.87,4.17,1337.0,salamanca
+ES,40,ES-40,servicios,castilla y leon,segovia,3.39,4.07,141.0,segovia
+ES,42,ES-42,servicios,castilla y leon,soria,2.0,3.97,2.0,soria
+ES,47,ES-47,servicios,castilla y leon,valladolid,2.7,4.06,292.0,valladolid
+ES,49,ES-49,servicios,castilla y leon,zamora,5.0,4.17,2.0,zamora
+ES,08,ES-08,servicios,cataluna,barcelona,4.03,4.05,159935.0,barcelona
+ES,17,ES-17,servicios,cataluna,girona,3.82,4.24,1146.0,girona
+ES,25,ES-25,servicios,cataluna,lleida,3.81,4.27,313.0,lleida
+ES,43,ES-43,servicios,cataluna,tarragona,3.44,4.2,9269.0,tarragona
+ES,28,ES-28,servicios,comunidad de madrid,madrid,3.92,4.1,42370.0,madrid
+ES,31,ES-31,servicios,comunidad foral de navarra,navarra,1.93,4.23,108.0,navarra
+ES,03,ES-03,servicios,comunitat valenciana,alicante/alacant,3.73,4.28,29657.0,alicante/alacant
+ES,12,ES-12,servicios,comunitat valenciana,castellon/castello,4.44,4.2,373.0,castellón/castelló
+ES,46,ES-46,servicios,comunitat valenciana,valencia/valencia,4.56,4.15,7124.0,valencia/valència
+ES,10,ES-10,servicios,extremadura,caceres,4.99,4.33,60.0,cáceres
+ES,15,ES-15,servicios,galicia,a coruna,4.04,4.21,605.0,a coruña
+ES,27,ES-27,servicios,galicia,lugo,4.19,4.28,560.0,lugo
+ES,32,ES-32,servicios,galicia,ourense,3.34,4.15,37.0,ourense
+ES,36,ES-36,servicios,galicia,pontevedra,4.14,4.17,1424.0,pontevedra
+ES,07,ES-07,servicios,illes balears,illes balears,4.23,4.33,46354.0,illes balears
+ES,26,ES-26,servicios,la rioja,la rioja,4.81,4.31,10.0,la rioja
+ES,01,ES-01,servicios,pais vasco,araba/alava,5.0,4.41,18.0,araba/álava
+ES,48,ES-48,servicios,pais vasco,bizkaia,4.03,4.31,13509.0,bizkaia
+ES,20,ES-20,servicios,pais vasco,gipuzkoa,3.84,4.41,140.0,gipuzkoa
+ES,33,ES-33,servicios,principado de asturias,asturias,3.91,4.35,2389.0,asturias
+ES,30,ES-30,servicios,region de murcia,murcia,2.83,4.2,6.0,murcia
+ES,04,ES-04,vida nocturna,andalucia,almeria,3.72,4.19,5362.0,almería
+ES,11,ES-11,vida nocturna,andalucia,cadiz,4.08,4.26,2343.0,cádiz
+ES,14,ES-14,vida nocturna,andalucia,cordoba,4.3,4.29,1908.0,córdoba
+ES,18,ES-18,vida nocturna,andalucia,granada,3.92,4.37,10900.0,granada
+ES,21,ES-21,vida nocturna,andalucia,huelva,4.03,4.11,1623.0,huelva
+ES,23,ES-23,vida nocturna,andalucia,jaen,4.0,4.33,992.0,jaén
+ES,29,ES-29,vida nocturna,andalucia,malaga,4.3,4.43,56036.0,málaga
+ES,41,ES-41,vida nocturna,andalucia,sevilla,4.05,4.34,39053.0,sevilla
+ES,22,ES-22,vida nocturna,aragon,huesca,3.85,4.25,1293.0,huesca
+ES,44,ES-44,vida nocturna,aragon,teruel,4.35,4.28,950.0,teruel
+ES,50,ES-50,vida nocturna,aragon,zaragoza,3.75,4.21,1614.0,zaragoza
+ES,35,ES-35,vida nocturna,canarias,las palmas,4.24,4.28,129544.0,las palmas
+ES,38,ES-38,vida nocturna,canarias,santa cruz de tenerife,4.06,4.26,62671.0,santa cruz de tenerife
+ES,39,ES-39,vida nocturna,cantabria,cantabria,4.02,4.27,5819.0,cantabria
+ES,02,ES-02,vida nocturna,castilla - la mancha,albacete,4.21,4.15,573.0,albacete
+ES,13,ES-13,vida nocturna,castilla - la mancha,ciudad real,4.17,4.29,385.0,ciudad real
+ES,16,ES-16,vida nocturna,castilla - la mancha,cuenca,3.91,4.19,760.0,cuenca
+ES,19,ES-19,vida nocturna,castilla - la mancha,guadalajara,3.23,4.04,447.0,guadalajara
+ES,45,ES-45,vida nocturna,castilla - la mancha,toledo,3.99,4.18,434.0,toledo
+ES,05,ES-05,vida nocturna,castilla y leon,avila,4.04,4.23,397.0,ávila
+ES,09,ES-09,vida nocturna,castilla y leon,burgos,3.95,4.28,970.0,burgos
+ES,24,ES-24,vida nocturna,castilla y leon,leon,3.97,4.21,1480.0,león
+ES,34,ES-34,vida nocturna,castilla y leon,palencia,4.23,4.35,379.0,palencia
+ES,37,ES-37,vida nocturna,castilla y leon,salamanca,3.66,4.17,3701.0,salamanca
+ES,40,ES-40,vida nocturna,castilla y leon,segovia,3.91,4.07,263.0,segovia
+ES,42,ES-42,vida nocturna,castilla y leon,soria,4.2,3.97,154.0,soria
+ES,47,ES-47,vida nocturna,castilla y leon,valladolid,4.01,4.06,1293.0,valladolid
+ES,49,ES-49,vida nocturna,castilla y leon,zamora,4.27,4.17,462.0,zamora
+ES,08,ES-08,vida nocturna,cataluna,barcelona,3.95,4.05,119743.0,barcelona
+ES,17,ES-17,vida nocturna,cataluna,girona,3.8,4.24,12856.0,girona
+ES,25,ES-25,vida nocturna,cataluna,lleida,3.84,4.27,1184.0,lleida
+ES,43,ES-43,vida nocturna,cataluna,tarragona,4.1,4.2,22730.0,tarragona
+ES,28,ES-28,vida nocturna,comunidad de madrid,madrid,3.85,4.1,100430.0,madrid
+ES,31,ES-31,vida nocturna,comunidad foral de navarra,navarra,3.72,4.23,2565.0,navarra
+ES,03,ES-03,vida nocturna,comunitat valenciana,alicante/alacant,4.03,4.28,84389.0,alicante/alacant
+ES,12,ES-12,vida nocturna,comunitat valenciana,castellon/castello,3.88,4.2,2406.0,castellón/castelló
+ES,46,ES-46,vida nocturna,comunitat valenciana,valencia/valencia,3.72,4.15,9307.0,valencia/valència
+ES,06,ES-06,vida nocturna,extremadura,badajoz,4.31,4.29,2109.0,badajoz
+ES,10,ES-10,vida nocturna,extremadura,caceres,3.95,4.33,1377.0,cáceres
+ES,15,ES-15,vida nocturna,galicia,a coruna,3.74,4.21,5653.0,a coruña
+ES,27,ES-27,vida nocturna,galicia,lugo,4.18,4.28,502.0,lugo
+ES,32,ES-32,vida nocturna,galicia,ourense,3.7,4.15,660.0,ourense
+ES,36,ES-36,vida nocturna,galicia,pontevedra,4.0,4.17,3092.0,pontevedra
+ES,07,ES-07,vida nocturna,illes balears,illes balears,4.12,4.33,122452.0,illes balears
+ES,26,ES-26,vida nocturna,la rioja,la rioja,3.69,4.31,1866.0,la rioja
+ES,01,ES-01,vida nocturna,pais vasco,araba/alava,3.82,4.41,1138.0,araba/álava
+ES,48,ES-48,vida nocturna,pais vasco,bizkaia,4.21,4.31,5615.0,bizkaia
+ES,20,ES-20,vida nocturna,pais vasco,gipuzkoa,4.14,4.41,5503.0,gipuzkoa
+ES,33,ES-33,vida nocturna,principado de asturias,asturias,4.18,4.35,9626.0,asturias
+ES,30,ES-30,vida nocturna,region de murcia,murcia,3.62,4.2,1488.0,murcia

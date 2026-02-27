@@ -1,0 +1,20 @@
+﻿id_pais,id_ccaa,ccaa_nombre,gid_ccaa
+ES,01,Andalucía,ES-01
+ES,02,Aragón,ES-02
+ES,03,"Asturias, Principado de",ES-03
+ES,04,"Balears, Illes",ES-04
+ES,05,Canarias,ES-05
+ES,06,Cantabria,ES-06
+ES,07,Castilla y León,ES-07
+ES,08,Castilla - La Mancha,ES-08
+ES,09,Cataluña,ES-09
+ES,10,Comunitat Valenciana,ES-10
+ES,11,Extremadura,ES-11
+ES,12,Galicia,ES-12
+ES,13,"Madrid, Comunidad de",ES-13
+ES,14,"Murcia, Región de",ES-14
+ES,15,"Navarra, Comunidad Foral de",ES-15
+ES,16,País Vasco,ES-16
+ES,17,"Rioja, La",ES-17
+ES,18,Ceuta,ES-18
+ES,19,Melilla,ES-19

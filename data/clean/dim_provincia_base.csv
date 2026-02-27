@@ -1,0 +1,53 @@
+﻿id_pais,id_provincia,provincia_nombre,gid_provincia
+ES,01,araba/álava,ES-01
+ES,02,albacete,ES-02
+ES,03,alicante/alacant,ES-03
+ES,04,almería,ES-04
+ES,05,ávila,ES-05
+ES,06,badajoz,ES-06
+ES,07,illes balears,ES-07
+ES,08,barcelona,ES-08
+ES,09,burgos,ES-09
+ES,10,cáceres,ES-10
+ES,11,cádiz,ES-11
+ES,12,castellón/castelló,ES-12
+ES,13,ciudad real,ES-13
+ES,14,córdoba,ES-14
+ES,15,a coruña,ES-15
+ES,16,cuenca,ES-16
+ES,17,girona,ES-17
+ES,18,granada,ES-18
+ES,19,guadalajara,ES-19
+ES,20,gipuzkoa,ES-20
+ES,21,huelva,ES-21
+ES,22,huesca,ES-22
+ES,23,jaén,ES-23
+ES,24,león,ES-24
+ES,25,lleida,ES-25
+ES,26,la rioja,ES-26
+ES,27,lugo,ES-27
+ES,28,madrid,ES-28
+ES,29,málaga,ES-29
+ES,30,murcia,ES-30
+ES,31,navarra,ES-31
+ES,32,ourense,ES-32
+ES,33,asturias,ES-33
+ES,34,palencia,ES-34
+ES,35,las palmas,ES-35
+ES,36,pontevedra,ES-36
+ES,37,salamanca,ES-37
+ES,38,santa cruz de tenerife,ES-38
+ES,39,cantabria,ES-39
+ES,40,segovia,ES-40
+ES,41,sevilla,ES-41
+ES,42,soria,ES-42
+ES,43,tarragona,ES-43
+ES,44,teruel,ES-44
+ES,45,toledo,ES-45
+ES,46,valencia/valència,ES-46
+ES,47,valladolid,ES-47
+ES,48,bizkaia,ES-48
+ES,49,zamora,ES-49
+ES,50,zaragoza,ES-50
+ES,51,ceuta,ES-51
+ES,52,melilla,ES-52

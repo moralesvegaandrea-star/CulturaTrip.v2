@@ -1,0 +1,55 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:16
+    container_name: culturatrip_db
+    restart: always
+    environment:
+      POSTGRES_USER: culturatrip
+      POSTGRES_PASSWORD: culturatrip
+      POSTGRES_DB: culturatrip
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./sql:/docker-entrypoint-initdb.d
+
+  app:
+    build: .
+    container_name: culturatrip_app
+    depends_on:
+      - db
+    ports:
+      - "8501:8501"
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: culturatrip
+      DB_USER: culturatrip
+      DB_PASSWORD: culturatrip
+
+  notebook:
+    build: .
+    container_name: culturatrip_notebook
+    depends_on:
+      - db
+    ports:
+      - "8888:8888"
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: culturatrip
+      DB_USER: culturatrip
+      DB_PASSWORD: culturatrip
+    command: >
+      jupyter notebook
+      --ip=0.0.0.0
+      --port=8888
+      --no-browser
+      --allow-root
+      --NotebookApp.token=''
+      --NotebookApp.password=''
+
+volumes:
+  postgres_data:

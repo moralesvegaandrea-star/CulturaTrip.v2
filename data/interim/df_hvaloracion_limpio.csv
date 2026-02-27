@@ -1,0 +1,2401 @@
+﻿id_pais,id_ccaa,id_provincia,ccaa,ccaa_key,provincia,mes,categoria_alojamiento,valoraciones
+ES,01,04,andalucia,andalucia,almeria,1,hotel 3 estrellas,75.19
+ES,01,04,andalucia,andalucia,almeria,1,hotel 4 estrellas,64.8
+ES,01,04,andalucia,andalucia,almeria,1,hotel 5 estrellas,75.43
+ES,01,04,andalucia,andalucia,almeria,1,total,70.89
+ES,01,11,andalucia,andalucia,cadiz,1,hotel 3 estrellas,74.4
+ES,01,11,andalucia,andalucia,cadiz,1,hotel 4 estrellas,70.22
+ES,01,11,andalucia,andalucia,cadiz,1,hotel 5 estrellas,79.38
+ES,01,11,andalucia,andalucia,cadiz,1,total,73.09
+ES,01,14,andalucia,andalucia,cordoba,1,hotel 3 estrellas,82.3
+ES,01,14,andalucia,andalucia,cordoba,1,hotel 4 estrellas,82.22
+ES,01,14,andalucia,andalucia,cordoba,1,hotel 5 estrellas,79.23
+ES,01,14,andalucia,andalucia,cordoba,1,total,82.36
+ES,01,18,andalucia,andalucia,granada,1,hotel 3 estrellas,70.1
+ES,01,18,andalucia,andalucia,granada,1,hotel 4 estrellas,71.5
+ES,01,18,andalucia,andalucia,granada,1,hotel 5 estrellas,78.94
+ES,01,18,andalucia,andalucia,granada,1,total,73.3
+ES,01,21,andalucia,andalucia,huelva,1,hotel 3 estrellas,70.34
+ES,01,21,andalucia,andalucia,huelva,1,hotel 4 estrellas,70.47
+ES,01,21,andalucia,andalucia,huelva,1,hotel 5 estrellas,75.43
+ES,01,21,andalucia,andalucia,huelva,1,total,64.89
+ES,01,23,andalucia,andalucia,jaen,1,hotel 3 estrellas,76.63
+ES,01,23,andalucia,andalucia,jaen,1,hotel 4 estrellas,78.82
+ES,01,23,andalucia,andalucia,jaen,1,hotel 5 estrellas,55.88
+ES,01,23,andalucia,andalucia,jaen,1,total,73.76
+ES,01,29,andalucia,andalucia,malaga,1,hotel 3 estrellas,71.45
+ES,01,29,andalucia,andalucia,malaga,1,hotel 4 estrellas,75.78
+ES,01,29,andalucia,andalucia,malaga,1,hotel 5 estrellas,80.62
+ES,01,29,andalucia,andalucia,malaga,1,total,74.22
+ES,01,41,andalucia,andalucia,sevilla,1,hotel 3 estrellas,73.85
+ES,01,41,andalucia,andalucia,sevilla,1,hotel 4 estrellas,81.16
+ES,01,41,andalucia,andalucia,sevilla,1,hotel 5 estrellas,78.54
+ES,01,41,andalucia,andalucia,sevilla,1,total,78.73
+ES,02,22,aragon,aragon,huesca,1,hotel 3 estrellas,75.05
+ES,02,22,aragon,aragon,huesca,1,hotel 4 estrellas,68.77
+ES,02,22,aragon,aragon,huesca,1,hotel 5 estrellas,83.86
+ES,02,22,aragon,aragon,huesca,1,total,73.66
+ES,02,44,aragon,aragon,teruel,1,hotel 3 estrellas,69.78
+ES,02,44,aragon,aragon,teruel,1,hotel 4 estrellas,80.99
+ES,02,44,aragon,aragon,teruel,1,hotel 5 estrellas,83.86
+ES,02,44,aragon,aragon,teruel,1,total,69.71
+ES,02,50,aragon,aragon,zaragoza,1,hotel 3 estrellas,80.45
+ES,02,50,aragon,aragon,zaragoza,1,hotel 4 estrellas,75.29
+ES,02,50,aragon,aragon,zaragoza,1,hotel 5 estrellas,83.86
+ES,02,50,aragon,aragon,zaragoza,1,total,77.23
+ES,03,33,"asturias, principado de",asturias,asturias,1,hotel 3 estrellas,77.52
+ES,03,33,"asturias, principado de",asturias,asturias,1,hotel 4 estrellas,77.78
+ES,03,33,"asturias, principado de",asturias,asturias,1,hotel 5 estrellas,86.55
+ES,03,33,"asturias, principado de",asturias,asturias,1,total,80.4
+ES,04,07,"balears, illes",balears,illes balears,1,hotel 3 estrellas,69.14
+ES,04,07,"balears, illes",balears,illes balears,1,hotel 4 estrellas,79.18
+ES,04,07,"balears, illes",balears,illes balears,1,hotel 5 estrellas,82.52
+ES,04,07,"balears, illes",balears,illes balears,1,total,77.53
+ES,05,35,canarias,canarias,las palmas,1,hotel 3 estrellas,60.42
+ES,05,35,canarias,canarias,las palmas,1,hotel 4 estrellas,60.5
+ES,05,35,canarias,canarias,las palmas,1,hotel 5 estrellas,76.12
+ES,05,35,canarias,canarias,las palmas,1,total,62.41
+ES,05,38,canarias,canarias,santa cruz de tenerife,1,hotel 3 estrellas,59.07
+ES,05,38,canarias,canarias,santa cruz de tenerife,1,hotel 4 estrellas,50.19
+ES,05,38,canarias,canarias,santa cruz de tenerife,1,hotel 5 estrellas,73.27
+ES,05,38,canarias,canarias,santa cruz de tenerife,1,total,57.3
+ES,06,39,cantabria,cantabria,cantabria,1,hotel 3 estrellas,83.19
+ES,06,39,cantabria,cantabria,cantabria,1,hotel 4 estrellas,87.59
+ES,06,39,cantabria,cantabria,cantabria,1,hotel 5 estrellas,76.98
+ES,06,39,cantabria,cantabria,cantabria,1,total,86.25
+ES,07,05,castilla y leon,castilla y leon,avila,1,hotel 3 estrellas,85.56
+ES,07,05,castilla y leon,castilla y leon,avila,1,hotel 4 estrellas,79.3
+ES,07,05,castilla y leon,castilla y leon,avila,1,hotel 5 estrellas,99.53
+ES,07,05,castilla y leon,castilla y leon,avila,1,total,80.84
+ES,07,09,castilla y leon,castilla y leon,burgos,1,hotel 3 estrellas,74.97
+ES,07,09,castilla y leon,castilla y leon,burgos,1,hotel 4 estrellas,79.81
+ES,07,09,castilla y leon,castilla y leon,burgos,1,hotel 5 estrellas,93.02
+ES,07,09,castilla y leon,castilla y leon,burgos,1,total,77.39
+ES,07,24,castilla y leon,castilla y leon,leon,1,hotel 3 estrellas,88.3
+ES,07,24,castilla y leon,castilla y leon,leon,1,hotel 4 estrellas,86.92
+ES,07,24,castilla y leon,castilla y leon,leon,1,hotel 5 estrellas,86.25
+ES,07,24,castilla y leon,castilla y leon,leon,1,total,84.78
+ES,07,34,castilla y leon,castilla y leon,palencia,1,hotel 3 estrellas,83.36
+ES,07,34,castilla y leon,castilla y leon,palencia,1,hotel 4 estrellas,73.42
+ES,07,34,castilla y leon,castilla y leon,palencia,1,hotel 5 estrellas,86.25
+ES,07,34,castilla y leon,castilla y leon,palencia,1,total,73.57
+ES,07,37,castilla y leon,castilla y leon,salamanca,1,hotel 3 estrellas,78.9
+ES,07,37,castilla y leon,castilla y leon,salamanca,1,hotel 4 estrellas,69.71
+ES,07,37,castilla y leon,castilla y leon,salamanca,1,hotel 5 estrellas,85.27
+ES,07,37,castilla y leon,castilla y leon,salamanca,1,total,79.43
+ES,07,40,castilla y leon,castilla y leon,segovia,1,hotel 3 estrellas,85.87
+ES,07,40,castilla y leon,castilla y leon,segovia,1,hotel 4 estrellas,80.68
+ES,07,40,castilla y leon,castilla y leon,segovia,1,hotel 5 estrellas,80.69
+ES,07,40,castilla y leon,castilla y leon,segovia,1,total,78.34
+ES,07,42,castilla y leon,castilla y leon,soria,1,hotel 3 estrellas,87.1
+ES,07,42,castilla y leon,castilla y leon,soria,1,hotel 4 estrellas,84.18
+ES,07,42,castilla y leon,castilla y leon,soria,1,hotel 5 estrellas,86.25
+ES,07,42,castilla y leon,castilla y leon,soria,1,total,87.34
+ES,07,47,castilla y leon,castilla y leon,valladolid,1,hotel 3 estrellas,86.02
+ES,07,47,castilla y leon,castilla y leon,valladolid,1,hotel 4 estrellas,69.19
+ES,07,47,castilla y leon,castilla y leon,valladolid,1,hotel 5 estrellas,94.25
+ES,07,47,castilla y leon,castilla y leon,valladolid,1,total,76.81
+ES,07,49,castilla y leon,castilla y leon,zamora,1,hotel 3 estrellas,81.05
+ES,07,49,castilla y leon,castilla y leon,zamora,1,hotel 4 estrellas,75.13
+ES,07,49,castilla y leon,castilla y leon,zamora,1,hotel 5 estrellas,64.71
+ES,07,49,castilla y leon,castilla y leon,zamora,1,total,67.5
+ES,08,02,castilla-la mancha,castilla-la mancha,albacete,1,hotel 3 estrellas,57.66
+ES,08,02,castilla-la mancha,castilla-la mancha,albacete,1,hotel 4 estrellas,67.08
+ES,08,02,castilla-la mancha,castilla-la mancha,albacete,1,hotel 5 estrellas,87.94
+ES,08,02,castilla-la mancha,castilla-la mancha,albacete,1,total,63.73
+ES,08,13,castilla-la mancha,castilla-la mancha,ciudad real,1,hotel 3 estrellas,90.2
+ES,08,13,castilla-la mancha,castilla-la mancha,ciudad real,1,hotel 4 estrellas,80.87
+ES,08,13,castilla-la mancha,castilla-la mancha,ciudad real,1,hotel 5 estrellas,98.05
+ES,08,13,castilla-la mancha,castilla-la mancha,ciudad real,1,total,85.36
+ES,08,16,castilla-la mancha,castilla-la mancha,cuenca,1,hotel 3 estrellas,73.46
+ES,08,16,castilla-la mancha,castilla-la mancha,cuenca,1,hotel 4 estrellas,87.01
+ES,08,16,castilla-la mancha,castilla-la mancha,cuenca,1,hotel 5 estrellas,87.94
+ES,08,16,castilla-la mancha,castilla-la mancha,cuenca,1,total,77.38
+ES,08,19,castilla-la mancha,castilla-la mancha,guadalajara,1,hotel 3 estrellas,76.66
+ES,08,19,castilla-la mancha,castilla-la mancha,guadalajara,1,hotel 4 estrellas,76.52
+ES,08,19,castilla-la mancha,castilla-la mancha,guadalajara,1,hotel 5 estrellas,87.94
+ES,08,19,castilla-la mancha,castilla-la mancha,guadalajara,1,total,67.12
+ES,08,45,castilla-la mancha,castilla-la mancha,toledo,1,hotel 3 estrellas,73.97
+ES,08,45,castilla-la mancha,castilla-la mancha,toledo,1,hotel 4 estrellas,69.62
+ES,08,45,castilla-la mancha,castilla-la mancha,toledo,1,hotel 5 estrellas,77.84
+ES,08,45,castilla-la mancha,castilla-la mancha,toledo,1,total,70.22
+ES,09,08,cataluna,cataluna,barcelona,1,hotel 3 estrellas,74.41
+ES,09,08,cataluna,cataluna,barcelona,1,hotel 4 estrellas,73.64
+ES,09,08,cataluna,cataluna,barcelona,1,hotel 5 estrellas,75.38
+ES,09,08,cataluna,cataluna,barcelona,1,total,74.06
+ES,09,17,cataluna,cataluna,girona,1,hotel 3 estrellas,78.39
+ES,09,17,cataluna,cataluna,girona,1,hotel 4 estrellas,74.04
+ES,09,17,cataluna,cataluna,girona,1,hotel 5 estrellas,81.27
+ES,09,17,cataluna,cataluna,girona,1,total,79.09
+ES,09,25,cataluna,cataluna,lleida,1,hotel 3 estrellas,83.7
+ES,09,25,cataluna,cataluna,lleida,1,hotel 4 estrellas,61.71
+ES,09,25,cataluna,cataluna,lleida,1,hotel 5 estrellas,77.49
+ES,09,25,cataluna,cataluna,lleida,1,total,73.01
+ES,09,43,cataluna,cataluna,tarragona,1,hotel 3 estrellas,71.92
+ES,09,43,cataluna,cataluna,tarragona,1,hotel 4 estrellas,65.33
+ES,09,43,cataluna,cataluna,tarragona,1,hotel 5 estrellas,84.44
+ES,09,43,cataluna,cataluna,tarragona,1,total,67.0
+ES,10,03,comunitat valenciana,comunitat valenciana,alicante/alacant,1,hotel 3 estrellas,69.47
+ES,10,03,comunitat valenciana,comunitat valenciana,alicante/alacant,1,hotel 4 estrellas,68.71
+ES,10,03,comunitat valenciana,comunitat valenciana,alicante/alacant,1,hotel 5 estrellas,73.57
+ES,10,03,comunitat valenciana,comunitat valenciana,alicante/alacant,1,total,66.48
+ES,10,12,comunitat valenciana,comunitat valenciana,castellon/castello,1,hotel 3 estrellas,69.45
+ES,10,12,comunitat valenciana,comunitat valenciana,castellon/castello,1,hotel 4 estrellas,75.82
+ES,10,12,comunitat valenciana,comunitat valenciana,castellon/castello,1,hotel 5 estrellas,77.13
+ES,10,12,comunitat valenciana,comunitat valenciana,castellon/castello,1,total,70.97
+ES,10,46,comunitat valenciana,comunitat valenciana,valencia/valencia,1,hotel 3 estrellas,75.14
+ES,10,46,comunitat valenciana,comunitat valenciana,valencia/valencia,1,hotel 4 estrellas,76.65
+ES,10,46,comunitat valenciana,comunitat valenciana,valencia/valencia,1,hotel 5 estrellas,80.7
+ES,10,46,comunitat valenciana,comunitat valenciana,valencia/valencia,1,total,78.79
+ES,11,06,extremadura,extremadura,badajoz,1,hotel 3 estrellas,69.32
+ES,11,06,extremadura,extremadura,badajoz,1,hotel 4 estrellas,69.33
+ES,11,06,extremadura,extremadura,badajoz,1,hotel 5 estrellas,89.83
+ES,11,06,extremadura,extremadura,badajoz,1,total,69.44
+ES,11,10,extremadura,extremadura,caceres,1,hotel 3 estrellas,71.13
+ES,11,10,extremadura,extremadura,caceres,1,hotel 4 estrellas,73.05
+ES,11,10,extremadura,extremadura,caceres,1,hotel 5 estrellas,87.37
+ES,11,10,extremadura,extremadura,caceres,1,total,78.02
+ES,12,15,galicia,galicia,a coruna,1,hotel 3 estrellas,79.67
+ES,12,15,galicia,galicia,a coruna,1,hotel 4 estrellas,87.78
+ES,12,15,galicia,galicia,a coruna,1,hotel 5 estrellas,74.72
+ES,12,15,galicia,galicia,a coruna,1,total,84.2
+ES,12,27,galicia,galicia,lugo,1,hotel 3 estrellas,75.75
+ES,12,27,galicia,galicia,lugo,1,hotel 4 estrellas,78.78
+ES,12,27,galicia,galicia,lugo,1,hotel 5 estrellas,81.64
+ES,12,27,galicia,galicia,lugo,1,total,81.65
+ES,12,32,galicia,galicia,ourense,1,hotel 3 estrellas,71.42
+ES,12,32,galicia,galicia,ourense,1,hotel 4 estrellas,60.42
+ES,12,32,galicia,galicia,ourense,1,hotel 5 estrellas,81.64
+ES,12,32,galicia,galicia,ourense,1,total,63.06
+ES,12,36,galicia,galicia,pontevedra,1,hotel 3 estrellas,66.32
+ES,12,36,galicia,galicia,pontevedra,1,hotel 4 estrellas,82.6
+ES,12,36,galicia,galicia,pontevedra,1,hotel 5 estrellas,88.57
+ES,12,36,galicia,galicia,pontevedra,1,total,75.65
+ES,13,28,"madrid, comunidad de",madrid,madrid,1,hotel 3 estrellas,67.26
+ES,13,28,"madrid, comunidad de",madrid,madrid,1,hotel 4 estrellas,75.9
+ES,13,28,"madrid, comunidad de",madrid,madrid,1,hotel 5 estrellas,77.81
+ES,13,28,"madrid, comunidad de",madrid,madrid,1,total,73.0
+ES,14,30,"murcia, region de",murcia,murcia,1,hotel 3 estrellas,71.79
+ES,14,30,"murcia, region de",murcia,murcia,1,hotel 4 estrellas,73.39
+ES,14,30,"murcia, region de",murcia,murcia,1,hotel 5 estrellas,85.24
+ES,14,30,"murcia, region de",murcia,murcia,1,total,75.56
+ES,15,31,"navarra, comunidad foral de",navarra,navarra,1,hotel 3 estrellas,77.92
+ES,15,31,"navarra, comunidad foral de",navarra,navarra,1,hotel 4 estrellas,79.81
+ES,15,31,"navarra, comunidad foral de",navarra,navarra,1,hotel 5 estrellas,96.16
+ES,15,31,"navarra, comunidad foral de",navarra,navarra,1,total,79.81
+ES,16,01,pais vasco,pais vasco,araba/alava,1,hotel 3 estrellas,83.72
+ES,16,01,pais vasco,pais vasco,araba/alava,1,hotel 4 estrellas,73.23
+ES,16,01,pais vasco,pais vasco,araba/alava,1,hotel 5 estrellas,84.57
+ES,16,01,pais vasco,pais vasco,araba/alava,1,total,79.71
+ES,16,48,pais vasco,pais vasco,bizkaia,1,hotel 3 estrellas,75.25
+ES,16,48,pais vasco,pais vasco,bizkaia,1,hotel 4 estrellas,90.08
+ES,16,48,pais vasco,pais vasco,bizkaia,1,hotel 5 estrellas,76.82
+ES,16,48,pais vasco,pais vasco,bizkaia,1,total,85.69
+ES,16,20,pais vasco,pais vasco,gipuzkoa,1,hotel 3 estrellas,75.81
+ES,16,20,pais vasco,pais vasco,gipuzkoa,1,hotel 4 estrellas,84.06
+ES,16,20,pais vasco,pais vasco,gipuzkoa,1,hotel 5 estrellas,87.44
+ES,16,20,pais vasco,pais vasco,gipuzkoa,1,total,82.7
+ES,17,26,"rioja, la",rioja,la rioja,1,hotel 3 estrellas,77.54
+ES,17,26,"rioja, la",rioja,la rioja,1,hotel 4 estrellas,73.61
+ES,17,26,"rioja, la",rioja,la rioja,1,hotel 5 estrellas,64.96
+ES,17,26,"rioja, la",rioja,la rioja,1,total,76.47
+ES,01,04,andalucia,andalucia,almeria,2,hotel 3 estrellas,73.42
+ES,01,04,andalucia,andalucia,almeria,2,hotel 4 estrellas,66.48
+ES,01,04,andalucia,andalucia,almeria,2,hotel 5 estrellas,81.06
+ES,01,04,andalucia,andalucia,almeria,2,total,68.65
+ES,01,11,andalucia,andalucia,cadiz,2,hotel 3 estrellas,71.32
+ES,01,11,andalucia,andalucia,cadiz,2,hotel 4 estrellas,71.64
+ES,01,11,andalucia,andalucia,cadiz,2,hotel 5 estrellas,76.33
+ES,01,11,andalucia,andalucia,cadiz,2,total,71.38
+ES,01,14,andalucia,andalucia,cordoba,2,hotel 3 estrellas,81.85
+ES,01,14,andalucia,andalucia,cordoba,2,hotel 4 estrellas,80.99
+ES,01,14,andalucia,andalucia,cordoba,2,hotel 5 estrellas,88.36
+ES,01,14,andalucia,andalucia,cordoba,2,total,82.26
+ES,01,18,andalucia,andalucia,granada,2,hotel 3 estrellas,69.86
+ES,01,18,andalucia,andalucia,granada,2,hotel 4 estrellas,75.0
+ES,01,18,andalucia,andalucia,granada,2,hotel 5 estrellas,83.9
+ES,01,18,andalucia,andalucia,granada,2,total,73.81
+ES,01,21,andalucia,andalucia,huelva,2,hotel 3 estrellas,76.26
+ES,01,21,andalucia,andalucia,huelva,2,hotel 4 estrellas,62.72
+ES,01,21,andalucia,andalucia,huelva,2,hotel 5 estrellas,81.06
+ES,01,21,andalucia,andalucia,huelva,2,total,71.36
+ES,01,23,andalucia,andalucia,jaen,2,hotel 3 estrellas,81.33
+ES,01,23,andalucia,andalucia,jaen,2,hotel 4 estrellas,81.72
+ES,01,23,andalucia,andalucia,jaen,2,hotel 5 estrellas,74.69
+ES,01,23,andalucia,andalucia,jaen,2,total,83.25
+ES,01,29,andalucia,andalucia,malaga,2,hotel 3 estrellas,70.62
+ES,01,29,andalucia,andalucia,malaga,2,hotel 4 estrellas,77.88
+ES,01,29,andalucia,andalucia,malaga,2,hotel 5 estrellas,84.83
+ES,01,29,andalucia,andalucia,malaga,2,total,75.34
+ES,01,41,andalucia,andalucia,sevilla,2,hotel 3 estrellas,67.69
+ES,01,41,andalucia,andalucia,sevilla,2,hotel 4 estrellas,80.71
+ES,01,41,andalucia,andalucia,sevilla,2,hotel 5 estrellas,78.21
+ES,01,41,andalucia,andalucia,sevilla,2,total,77.42
+ES,02,22,aragon,aragon,huesca,2,hotel 3 estrellas,71.74
+ES,02,22,aragon,aragon,huesca,2,hotel 4 estrellas,80.68
+ES,02,22,aragon,aragon,huesca,2,hotel 5 estrellas,88.33
+ES,02,22,aragon,aragon,huesca,2,total,67.99
+ES,02,44,aragon,aragon,teruel,2,hotel 3 estrellas,79.98
+ES,02,44,aragon,aragon,teruel,2,hotel 4 estrellas,75.96
+ES,02,44,aragon,aragon,teruel,2,hotel 5 estrellas,88.33
+ES,02,44,aragon,aragon,teruel,2,total,79.33
+ES,02,50,aragon,aragon,zaragoza,2,hotel 3 estrellas,77.0
+ES,02,50,aragon,aragon,zaragoza,2,hotel 4 estrellas,69.33
+ES,02,50,aragon,aragon,zaragoza,2,hotel 5 estrellas,88.33
+ES,02,50,aragon,aragon,zaragoza,2,total,72.45
+ES,03,33,"asturias, principado de",asturias,asturias,2,hotel 3 estrellas,80.61
+ES,03,33,"asturias, principado de",asturias,asturias,2,hotel 4 estrellas,82.44
+ES,03,33,"asturias, principado de",asturias,asturias,2,hotel 5 estrellas,87.19
+ES,03,33,"asturias, principado de",asturias,asturias,2,total,80.87
+ES,04,07,"balears, illes",balears,illes balears,2,hotel 3 estrellas,75.11
+ES,04,07,"balears, illes",balears,illes balears,2,hotel 4 estrellas,78.88
+ES,04,07,"balears, illes",balears,illes balears,2,hotel 5 estrellas,86.22
+ES,04,07,"balears, illes",balears,illes balears,2,total,78.33
+ES,05,35,canarias,canarias,las palmas,2,hotel 3 estrellas,63.55
+ES,05,35,canarias,canarias,las palmas,2,hotel 4 estrellas,66.17
+ES,05,35,canarias,canarias,las palmas,2,hotel 5 estrellas,74.01
+ES,05,35,canarias,canarias,las palmas,2,total,65.92
+ES,05,38,canarias,canarias,santa cruz de tenerife,2,hotel 3 estrellas,55.94
+ES,05,38,canarias,canarias,santa cruz de tenerife,2,hotel 4 estrellas,58.76
+ES,05,38,canarias,canarias,santa cruz de tenerife,2,hotel 5 estrellas,73.36
+ES,05,38,canarias,canarias,santa cruz de tenerife,2,total,60.79
+ES,06,39,cantabria,cantabria,cantabria,2,hotel 3 estrellas,83.5
+ES,06,39,cantabria,cantabria,cantabria,2,hotel 4 estrellas,89.03
+ES,06,39,cantabria,cantabria,cantabria,2,hotel 5 estrellas,98.49
+ES,06,39,cantabria,cantabria,cantabria,2,total,89.23
+ES,07,05,castilla y leon,castilla y leon,avila,2,hotel 3 estrellas,83.91
+ES,07,05,castilla y leon,castilla y leon,avila,2,hotel 4 estrellas,71.6
+ES,07,05,castilla y leon,castilla y leon,avila,2,hotel 5 estrellas,78.29
+ES,07,05,castilla y leon,castilla y leon,avila,2,total,75.15
+ES,07,09,castilla y leon,castilla y leon,burgos,2,hotel 3 estrellas,78.4
+ES,07,09,castilla y leon,castilla y leon,burgos,2,hotel 4 estrellas,82.75
+ES,07,09,castilla y leon,castilla y leon,burgos,2,hotel 5 estrellas,81.4
+ES,07,09,castilla y leon,castilla y leon,burgos,2,total,79.49
+ES,07,24,castilla y leon,castilla y leon,leon,2,hotel 3 estrellas,76.64
+ES,07,24,castilla y leon,castilla y leon,leon,2,hotel 4 estrellas,84.29
+ES,07,24,castilla y leon,castilla y leon,leon,2,hotel 5 estrellas,68.51
+ES,07,24,castilla y leon,castilla y leon,leon,2,total,81.95
+ES,07,34,castilla y leon,castilla y leon,palencia,2,hotel 3 estrellas,82.84
+ES,07,34,castilla y leon,castilla y leon,palencia,2,hotel 4 estrellas,73.56
+ES,07,34,castilla y leon,castilla y leon,palencia,2,hotel 5 estrellas,80.23
+ES,07,34,castilla y leon,castilla y leon,palencia,2,total,73.65
+ES,07,37,castilla y leon,castilla y leon,salamanca,2,hotel 3 estrellas,78.25
+ES,07,37,castilla y leon,castilla y leon,salamanca,2,hotel 4 estrellas,63.38
+ES,07,37,castilla y leon,castilla y leon,salamanca,2,hotel 5 estrellas,90.94
+ES,07,37,castilla y leon,castilla y leon,salamanca,2,total,78.64
+ES,07,40,castilla y leon,castilla y leon,segovia,2,hotel 3 estrellas,86.16
+ES,07,40,castilla y leon,castilla y leon,segovia,2,hotel 4 estrellas,76.77
+ES,07,40,castilla y leon,castilla y leon,segovia,2,hotel 5 estrellas,89.05
+ES,07,40,castilla y leon,castilla y leon,segovia,2,total,86.3
+ES,07,42,castilla y leon,castilla y leon,soria,2,hotel 3 estrellas,79.38
+ES,07,42,castilla y leon,castilla y leon,soria,2,hotel 4 estrellas,82.57
+ES,07,42,castilla y leon,castilla y leon,soria,2,hotel 5 estrellas,80.23
+ES,07,42,castilla y leon,castilla y leon,soria,2,total,81.25
+ES,07,47,castilla y leon,castilla y leon,valladolid,2,hotel 3 estrellas,80.22
+ES,07,47,castilla y leon,castilla y leon,valladolid,2,hotel 4 estrellas,81.29
+ES,07,47,castilla y leon,castilla y leon,valladolid,2,hotel 5 estrellas,80.36
+ES,07,47,castilla y leon,castilla y leon,valladolid,2,total,82.94
+ES,07,49,castilla y leon,castilla y leon,zamora,2,hotel 3 estrellas,84.66
+ES,07,49,castilla y leon,castilla y leon,zamora,2,hotel 4 estrellas,79.39
+ES,07,49,castilla y leon,castilla y leon,zamora,2,hotel 5 estrellas,73.06
+ES,07,49,castilla y leon,castilla y leon,zamora,2,total,82.12
+ES,08,02,castilla-la mancha,castilla-la mancha,albacete,2,hotel 3 estrellas,62.55
+ES,08,02,castilla-la mancha,castilla-la mancha,albacete,2,hotel 4 estrellas,72.41
+ES,08,02,castilla-la mancha,castilla-la mancha,albacete,2,hotel 5 estrellas,86.36
+ES,08,02,castilla-la mancha,castilla-la mancha,albacete,2,total,75.28
+ES,08,13,castilla-la mancha,castilla-la mancha,ciudad real,2,hotel 3 estrellas,85.32
+ES,08,13,castilla-la mancha,castilla-la mancha,ciudad real,2,hotel 4 estrellas,75.25
+ES,08,13,castilla-la mancha,castilla-la mancha,ciudad real,2,hotel 5 estrellas,84.26
+ES,08,13,castilla-la mancha,castilla-la mancha,ciudad real,2,total,81.06
+ES,08,16,castilla-la mancha,castilla-la mancha,cuenca,2,hotel 3 estrellas,61.05
+ES,08,16,castilla-la mancha,castilla-la mancha,cuenca,2,hotel 4 estrellas,73.35
+ES,08,16,castilla-la mancha,castilla-la mancha,cuenca,2,hotel 5 estrellas,86.36
+ES,08,16,castilla-la mancha,castilla-la mancha,cuenca,2,total,71.4
+ES,08,19,castilla-la mancha,castilla-la mancha,guadalajara,2,hotel 3 estrellas,81.38
+ES,08,19,castilla-la mancha,castilla-la mancha,guadalajara,2,hotel 4 estrellas,82.01
+ES,08,19,castilla-la mancha,castilla-la mancha,guadalajara,2,hotel 5 estrellas,86.36
+ES,08,19,castilla-la mancha,castilla-la mancha,guadalajara,2,total,81.31
+ES,08,45,castilla-la mancha,castilla-la mancha,toledo,2,hotel 3 estrellas,73.52
+ES,08,45,castilla-la mancha,castilla-la mancha,toledo,2,hotel 4 estrellas,79.15
+ES,08,45,castilla-la mancha,castilla-la mancha,toledo,2,hotel 5 estrellas,88.47
+ES,08,45,castilla-la mancha,castilla-la mancha,toledo,2,total,76.89
+ES,09,08,cataluna,cataluna,barcelona,2,hotel 3 estrellas,73.34
+ES,09,08,cataluna,cataluna,barcelona,2,hotel 4 estrellas,75.09
+ES,09,08,cataluna,cataluna,barcelona,2,hotel 5 estrellas,78.94
+ES,09,08,cataluna,cataluna,barcelona,2,total,74.69
+ES,09,17,cataluna,cataluna,girona,2,hotel 3 estrellas,71.99
+ES,09,17,cataluna,cataluna,girona,2,hotel 4 estrellas,71.62
+ES,09,17,cataluna,cataluna,girona,2,hotel 5 estrellas,75.99
+ES,09,17,cataluna,cataluna,girona,2,total,73.77
+ES,09,25,cataluna,cataluna,lleida,2,hotel 3 estrellas,82.34
+ES,09,25,cataluna,cataluna,lleida,2,hotel 4 estrellas,66.21
+ES,09,25,cataluna,cataluna,lleida,2,hotel 5 estrellas,80.69
+ES,09,25,cataluna,cataluna,lleida,2,total,74.58
+ES,09,43,cataluna,cataluna,tarragona,2,hotel 3 estrellas,66.78
+ES,09,43,cataluna,cataluna,tarragona,2,hotel 4 estrellas,62.18
+ES,09,43,cataluna,cataluna,tarragona,2,hotel 5 estrellas,78.54
+ES,09,43,cataluna,cataluna,tarragona,2,total,67.41
+ES,10,03,comunitat valenciana,comunitat valenciana,alicante/alacant,2,hotel 3 estrellas,67.23
+ES,10,03,comunitat valenciana,comunitat valenciana,alicante/alacant,2,hotel 4 estrellas,65.74
+ES,10,03,comunitat valenciana,comunitat valenciana,alicante/alacant,2,hotel 5 estrellas,84.98
+ES,10,03,comunitat valenciana,comunitat valenciana,alicante/alacant,2,total,67.07
+ES,10,12,comunitat valenciana,comunitat valenciana,castellon/castello,2,hotel 3 estrellas,70.76
+ES,10,12,comunitat valenciana,comunitat valenciana,castellon/castello,2,hotel 4 estrellas,80.37
+ES,10,12,comunitat valenciana,comunitat valenciana,castellon/castello,2,hotel 5 estrellas,77.38
+ES,10,12,comunitat valenciana,comunitat valenciana,castellon/castello,2,total,74.62
+ES,10,46,comunitat valenciana,comunitat valenciana,valencia/valencia,2,hotel 3 estrellas,75.09
+ES,10,46,comunitat valenciana,comunitat valenciana,valencia/valencia,2,hotel 4 estrellas,75.02
+ES,10,46,comunitat valenciana,comunitat valenciana,valencia/valencia,2,hotel 5 estrellas,69.77
+ES,10,46,comunitat valenciana,comunitat valenciana,valencia/valencia,2,total,74.98
+ES,11,06,extremadura,extremadura,badajoz,2,hotel 3 estrellas,57.49
+ES,11,06,extremadura,extremadura,badajoz,2,hotel 4 estrellas,69.59
+ES,11,06,extremadura,extremadura,badajoz,2,hotel 5 estrellas,80.04
+ES,11,06,extremadura,extremadura,badajoz,2,total,66.38
+ES,11,10,extremadura,extremadura,caceres,2,hotel 3 estrellas,69.05
+ES,11,10,extremadura,extremadura,caceres,2,hotel 4 estrellas,86.0
+ES,11,10,extremadura,extremadura,caceres,2,hotel 5 estrellas,94.46
+ES,11,10,extremadura,extremadura,caceres,2,total,84.21
+ES,12,15,galicia,galicia,a coruna,2,hotel 3 estrellas,84.26
+ES,12,15,galicia,galicia,a coruna,2,hotel 4 estrellas,79.32
+ES,12,15,galicia,galicia,a coruna,2,hotel 5 estrellas,88.78
+ES,12,15,galicia,galicia,a coruna,2,total,86.29
+ES,12,27,galicia,galicia,lugo,2,hotel 3 estrellas,83.49
+ES,12,27,galicia,galicia,lugo,2,hotel 4 estrellas,82.67
+ES,12,27,galicia,galicia,lugo,2,hotel 5 estrellas,90.19
+ES,12,27,galicia,galicia,lugo,2,total,79.57
+ES,12,32,galicia,galicia,ourense,2,hotel 3 estrellas,62.2
+ES,12,32,galicia,galicia,ourense,2,hotel 4 estrellas,77.2
+ES,12,32,galicia,galicia,ourense,2,hotel 5 estrellas,90.19
+ES,12,32,galicia,galicia,ourense,2,total,73.06
+ES,12,36,galicia,galicia,pontevedra,2,hotel 3 estrellas,68.04
+ES,12,36,galicia,galicia,pontevedra,2,hotel 4 estrellas,84.23
+ES,12,36,galicia,galicia,pontevedra,2,hotel 5 estrellas,91.61
+ES,12,36,galicia,galicia,pontevedra,2,total,82.28
+ES,13,28,"madrid, comunidad de",madrid,madrid,2,hotel 3 estrellas,69.77
+ES,13,28,"madrid, comunidad de",madrid,madrid,2,hotel 4 estrellas,75.48
+ES,13,28,"madrid, comunidad de",madrid,madrid,2,hotel 5 estrellas,79.46
+ES,13,28,"madrid, comunidad de",madrid,madrid,2,total,73.87
+ES,14,30,"murcia, region de",murcia,murcia,2,hotel 3 estrellas,72.84
+ES,14,30,"murcia, region de",murcia,murcia,2,hotel 4 estrellas,70.87
+ES,14,30,"murcia, region de",murcia,murcia,2,hotel 5 estrellas,57.31
+ES,14,30,"murcia, region de",murcia,murcia,2,total,69.58
+ES,15,31,"navarra, comunidad foral de",navarra,navarra,2,hotel 3 estrellas,79.1
+ES,15,31,"navarra, comunidad foral de",navarra,navarra,2,hotel 4 estrellas,90.11
+ES,15,31,"navarra, comunidad foral de",navarra,navarra,2,hotel 5 estrellas,89.53
+ES,15,31,"navarra, comunidad foral de",navarra,navarra,2,total,86.43
+ES,16,01,pais vasco,pais vasco,araba/alava,2,hotel 3 estrellas,73.56
+ES,16,01,pais vasco,pais vasco,araba/alava,2,hotel 4 estrellas,78.62
+ES,16,01,pais vasco,pais vasco,araba/alava,2,hotel 5 estrellas,70.32
+ES,16,01,pais vasco,pais vasco,araba/alava,2,total,70.82
+ES,16,48,pais vasco,pais vasco,bizkaia,2,hotel 3 estrellas,76.61
+ES,16,48,pais vasco,pais vasco,bizkaia,2,hotel 4 estrellas,84.53
+ES,16,48,pais vasco,pais vasco,bizkaia,2,hotel 5 estrellas,84.79
+ES,16,48,pais vasco,pais vasco,bizkaia,2,total,83.4
+ES,16,20,pais vasco,pais vasco,gipuzkoa,2,hotel 3 estrellas,85.37
+ES,16,20,pais vasco,pais vasco,gipuzkoa,2,hotel 4 estrellas,88.24
+ES,16,20,pais vasco,pais vasco,gipuzkoa,2,hotel 5 estrellas,92.84
+ES,16,20,pais vasco,pais vasco,gipuzkoa,2,total,88.41
+ES,17,26,"rioja, la",rioja,la rioja,2,hotel 3 estrellas,75.04
+ES,17,26,"rioja, la",rioja,la rioja,2,hotel 4 estrellas,80.76
+ES,17,26,"rioja, la",rioja,la rioja,2,hotel 5 estrellas,99.52
+ES,17,26,"rioja, la",rioja,la rioja,2,total,82.25
+ES,01,04,andalucia,andalucia,almeria,3,hotel 3 estrellas,69.44
+ES,01,04,andalucia,andalucia,almeria,3,hotel 4 estrellas,65.76
+ES,01,04,andalucia,andalucia,almeria,3,hotel 5 estrellas,76.1
+ES,01,04,andalucia,andalucia,almeria,3,total,66.55
+ES,01,11,andalucia,andalucia,cadiz,3,hotel 3 estrellas,77.42
+ES,01,11,andalucia,andalucia,cadiz,3,hotel 4 estrellas,76.1
+ES,01,11,andalucia,andalucia,cadiz,3,hotel 5 estrellas,83.82
+ES,01,11,andalucia,andalucia,cadiz,3,total,78.44
+ES,01,14,andalucia,andalucia,cordoba,3,hotel 3 estrellas,81.66
+ES,01,14,andalucia,andalucia,cordoba,3,hotel 4 estrellas,79.81
+ES,01,14,andalucia,andalucia,cordoba,3,hotel 5 estrellas,69.7
+ES,01,14,andalucia,andalucia,cordoba,3,total,80.5
+ES,01,18,andalucia,andalucia,granada,3,hotel 3 estrellas,73.78
+ES,01,18,andalucia,andalucia,granada,3,hotel 4 estrellas,75.48
+ES,01,18,andalucia,andalucia,granada,3,hotel 5 estrellas,75.75
+ES,01,18,andalucia,andalucia,granada,3,total,75.37
+ES,01,21,andalucia,andalucia,huelva,3,hotel 3 estrellas,60.38
+ES,01,21,andalucia,andalucia,huelva,3,hotel 4 estrellas,70.03
+ES,01,21,andalucia,andalucia,huelva,3,hotel 5 estrellas,76.1
+ES,01,21,andalucia,andalucia,huelva,3,total,68.08
+ES,01,23,andalucia,andalucia,jaen,3,hotel 3 estrellas,71.3
+ES,01,23,andalucia,andalucia,jaen,3,hotel 4 estrellas,80.55
+ES,01,23,andalucia,andalucia,jaen,3,hotel 5 estrellas,64.37
+ES,01,23,andalucia,andalucia,jaen,3,total,76.93
+ES,01,29,andalucia,andalucia,malaga,3,hotel 3 estrellas,71.54
+ES,01,29,andalucia,andalucia,malaga,3,hotel 4 estrellas,73.43
+ES,01,29,andalucia,andalucia,malaga,3,hotel 5 estrellas,82.0
+ES,01,29,andalucia,andalucia,malaga,3,total,73.06
+ES,01,41,andalucia,andalucia,sevilla,3,hotel 3 estrellas,74.23
+ES,01,41,andalucia,andalucia,sevilla,3,hotel 4 estrellas,79.46
+ES,01,41,andalucia,andalucia,sevilla,3,hotel 5 estrellas,80.97
+ES,01,41,andalucia,andalucia,sevilla,3,total,77.25
+ES,02,22,aragon,aragon,huesca,3,hotel 3 estrellas,74.37
+ES,02,22,aragon,aragon,huesca,3,hotel 4 estrellas,73.83
+ES,02,22,aragon,aragon,huesca,3,hotel 5 estrellas,81.07
+ES,02,22,aragon,aragon,huesca,3,total,73.87
+ES,02,44,aragon,aragon,teruel,3,hotel 3 estrellas,79.24
+ES,02,44,aragon,aragon,teruel,3,hotel 4 estrellas,76.89
+ES,02,44,aragon,aragon,teruel,3,hotel 5 estrellas,81.07
+ES,02,44,aragon,aragon,teruel,3,total,83.6
+ES,02,50,aragon,aragon,zaragoza,3,hotel 3 estrellas,73.53
+ES,02,50,aragon,aragon,zaragoza,3,hotel 4 estrellas,71.49
+ES,02,50,aragon,aragon,zaragoza,3,hotel 5 estrellas,81.07
+ES,02,50,aragon,aragon,zaragoza,3,total,72.59
+ES,03,33,"asturias, principado de",asturias,asturias,3,hotel 3 estrellas,83.01
+ES,03,33,"asturias, principado de",asturias,asturias,3,hotel 4 estrellas,79.36
+ES,03,33,"asturias, principado de",asturias,asturias,3,hotel 5 estrellas,91.48
+ES,03,33,"asturias, principado de",asturias,asturias,3,total,83.24
+ES,04,07,"balears, illes",balears,illes balears,3,hotel 3 estrellas,80.12
+ES,04,07,"balears, illes",balears,illes balears,3,hotel 4 estrellas,76.28
+ES,04,07,"balears, illes",balears,illes balears,3,hotel 5 estrellas,87.13
+ES,04,07,"balears, illes",balears,illes balears,3,total,78.6
+ES,05,35,canarias,canarias,las palmas,3,hotel 3 estrellas,65.47
+ES,05,35,canarias,canarias,las palmas,3,hotel 4 estrellas,68.27
+ES,05,35,canarias,canarias,las palmas,3,hotel 5 estrellas,79.6
+ES,05,35,canarias,canarias,las palmas,3,total,68.51
+ES,05,38,canarias,canarias,santa cruz de tenerife,3,hotel 3 estrellas,59.03
+ES,05,38,canarias,canarias,santa cruz de tenerife,3,hotel 4 estrellas,58.07
+ES,05,38,canarias,canarias,santa cruz de tenerife,3,hotel 5 estrellas,75.76
+ES,05,38,canarias,canarias,santa cruz de tenerife,3,total,58.62
+ES,06,39,cantabria,cantabria,cantabria,3,hotel 3 estrellas,84.86
+ES,06,39,cantabria,cantabria,cantabria,3,hotel 4 estrellas,84.7
+ES,06,39,cantabria,cantabria,cantabria,3,hotel 5 estrellas,78.97
+ES,06,39,cantabria,cantabria,cantabria,3,total,86.92
+ES,07,05,castilla y leon,castilla y leon,avila,3,hotel 3 estrellas,77.31
+ES,07,05,castilla y leon,castilla y leon,avila,3,hotel 4 estrellas,80.41
+ES,07,05,castilla y leon,castilla y leon,avila,3,hotel 5 estrellas,99.22
+ES,07,05,castilla y leon,castilla y leon,avila,3,total,82.1
+ES,07,09,castilla y leon,castilla y leon,burgos,3,hotel 3 estrellas,76.8
+ES,07,09,castilla y leon,castilla y leon,burgos,3,hotel 4 estrellas,85.5
+ES,07,09,castilla y leon,castilla y leon,burgos,3,hotel 5 estrellas,90.78
+ES,07,09,castilla y leon,castilla y leon,burgos,3,total,78.65
+ES,07,24,castilla y leon,castilla y leon,leon,3,hotel 3 estrellas,84.66
+ES,07,24,castilla y leon,castilla y leon,leon,3,hotel 4 estrellas,71.37
+ES,07,24,castilla y leon,castilla y leon,leon,3,hotel 5 estrellas,29.47
+ES,07,24,castilla y leon,castilla y leon,leon,3,total,81.93
+ES,07,34,castilla y leon,castilla y leon,palencia,3,hotel 3 estrellas,74.54
+ES,07,34,castilla y leon,castilla y leon,palencia,3,hotel 4 estrellas,83.05
+ES,07,34,castilla y leon,castilla y leon,palencia,3,hotel 5 estrellas,82.42
+ES,07,34,castilla y leon,castilla y leon,palencia,3,total,74.9
+ES,07,37,castilla y leon,castilla y leon,salamanca,3,hotel 3 estrellas,73.2
+ES,07,37,castilla y leon,castilla y leon,salamanca,3,hotel 4 estrellas,74.11
+ES,07,37,castilla y leon,castilla y leon,salamanca,3,hotel 5 estrellas,89.08
+ES,07,37,castilla y leon,castilla y leon,salamanca,3,total,76.77
+ES,07,40,castilla y leon,castilla y leon,segovia,3,hotel 3 estrellas,89.21
+ES,07,40,castilla y leon,castilla y leon,segovia,3,hotel 4 estrellas,79.9
+ES,07,40,castilla y leon,castilla y leon,segovia,3,hotel 5 estrellas,89.3
+ES,07,40,castilla y leon,castilla y leon,segovia,3,total,80.69
+ES,07,42,castilla y leon,castilla y leon,soria,3,hotel 3 estrellas,78.9
+ES,07,42,castilla y leon,castilla y leon,soria,3,hotel 4 estrellas,82.49
+ES,07,42,castilla y leon,castilla y leon,soria,3,hotel 5 estrellas,82.42
+ES,07,42,castilla y leon,castilla y leon,soria,3,total,80.81
+ES,07,47,castilla y leon,castilla y leon,valladolid,3,hotel 3 estrellas,79.6
+ES,07,47,castilla y leon,castilla y leon,valladolid,3,hotel 4 estrellas,75.88
+ES,07,47,castilla y leon,castilla y leon,valladolid,3,hotel 5 estrellas,84.86
+ES,07,47,castilla y leon,castilla y leon,valladolid,3,total,74.66
+ES,07,49,castilla y leon,castilla y leon,zamora,3,hotel 3 estrellas,85.28
+ES,07,49,castilla y leon,castilla y leon,zamora,3,hotel 4 estrellas,74.82
+ES,07,49,castilla y leon,castilla y leon,zamora,3,hotel 5 estrellas,94.26
+ES,07,49,castilla y leon,castilla y leon,zamora,3,total,80.6
+ES,08,02,castilla-la mancha,castilla-la mancha,albacete,3,hotel 3 estrellas,71.06
+ES,08,02,castilla-la mancha,castilla-la mancha,albacete,3,hotel 4 estrellas,66.03
+ES,08,02,castilla-la mancha,castilla-la mancha,albacete,3,hotel 5 estrellas,93.75
+ES,08,02,castilla-la mancha,castilla-la mancha,albacete,3,total,63.79
+ES,08,13,castilla-la mancha,castilla-la mancha,ciudad real,3,hotel 3 estrellas,82.32
+ES,08,13,castilla-la mancha,castilla-la mancha,ciudad real,3,hotel 4 estrellas,68.08
+ES,08,13,castilla-la mancha,castilla-la mancha,ciudad real,3,hotel 5 estrellas,98.5
+ES,08,13,castilla-la mancha,castilla-la mancha,ciudad real,3,total,75.17
+ES,08,16,castilla-la mancha,castilla-la mancha,cuenca,3,hotel 3 estrellas,69.84
+ES,08,16,castilla-la mancha,castilla-la mancha,cuenca,3,hotel 4 estrellas,81.72
+ES,08,16,castilla-la mancha,castilla-la mancha,cuenca,3,hotel 5 estrellas,93.75
+ES,08,16,castilla-la mancha,castilla-la mancha,cuenca,3,total,76.18
+ES,08,19,castilla-la mancha,castilla-la mancha,guadalajara,3,hotel 3 estrellas,74.0
+ES,08,19,castilla-la mancha,castilla-la mancha,guadalajara,3,hotel 4 estrellas,76.94
+ES,08,19,castilla-la mancha,castilla-la mancha,guadalajara,3,hotel 5 estrellas,93.75
+ES,08,19,castilla-la mancha,castilla-la mancha,guadalajara,3,total,68.46
+ES,08,45,castilla-la mancha,castilla-la mancha,toledo,3,hotel 3 estrellas,70.4
+ES,08,45,castilla-la mancha,castilla-la mancha,toledo,3,hotel 4 estrellas,74.65
+ES,08,45,castilla-la mancha,castilla-la mancha,toledo,3,hotel 5 estrellas,89.0
+ES,08,45,castilla-la mancha,castilla-la mancha,toledo,3,total,74.81
+ES,09,08,cataluna,cataluna,barcelona,3,hotel 3 estrellas,71.77
+ES,09,08,cataluna,cataluna,barcelona,3,hotel 4 estrellas,73.83
+ES,09,08,cataluna,cataluna,barcelona,3,hotel 5 estrellas,78.38
+ES,09,08,cataluna,cataluna,barcelona,3,total,73.22
+ES,09,17,cataluna,cataluna,girona,3,hotel 3 estrellas,82.77
+ES,09,17,cataluna,cataluna,girona,3,hotel 4 estrellas,74.1
+ES,09,17,cataluna,cataluna,girona,3,hotel 5 estrellas,79.64
+ES,09,17,cataluna,cataluna,girona,3,total,79.31
+ES,09,25,cataluna,cataluna,lleida,3,hotel 3 estrellas,87.98
+ES,09,25,cataluna,cataluna,lleida,3,hotel 4 estrellas,70.36
+ES,09,25,cataluna,cataluna,lleida,3,hotel 5 estrellas,78.46
+ES,09,25,cataluna,cataluna,lleida,3,total,74.01
+ES,09,43,cataluna,cataluna,tarragona,3,hotel 3 estrellas,69.26
+ES,09,43,cataluna,cataluna,tarragona,3,hotel 4 estrellas,74.21
+ES,09,43,cataluna,cataluna,tarragona,3,hotel 5 estrellas,52.76
+ES,09,43,cataluna,cataluna,tarragona,3,total,72.43
+ES,10,03,comunitat valenciana,comunitat valenciana,alicante/alacant,3,hotel 3 estrellas,64.49
+ES,10,03,comunitat valenciana,comunitat valenciana,alicante/alacant,3,hotel 4 estrellas,71.56
+ES,10,03,comunitat valenciana,comunitat valenciana,alicante/alacant,3,hotel 5 estrellas,73.84
+ES,10,03,comunitat valenciana,comunitat valenciana,alicante/alacant,3,total,69.27
+ES,10,12,comunitat valenciana,comunitat valenciana,castellon/castello,3,hotel 3 estrellas,74.4
+ES,10,12,comunitat valenciana,comunitat valenciana,castellon/castello,3,hotel 4 estrellas,76.6
+ES,10,12,comunitat valenciana,comunitat valenciana,castellon/castello,3,hotel 5 estrellas,75.51
+ES,10,12,comunitat valenciana,comunitat valenciana,castellon/castello,3,total,76.45
+ES,10,46,comunitat valenciana,comunitat valenciana,valencia/valencia,3,hotel 3 estrellas,73.48
+ES,10,46,comunitat valenciana,comunitat valenciana,valencia/valencia,3,hotel 4 estrellas,70.88
+ES,10,46,comunitat valenciana,comunitat valenciana,valencia/valencia,3,hotel 5 estrellas,77.17
+ES,10,46,comunitat valenciana,comunitat valenciana,valencia/valencia,3,total,74.58
+ES,11,06,extremadura,extremadura,badajoz,3,hotel 3 estrellas,59.34
+ES,11,06,extremadura,extremadura,badajoz,3,hotel 4 estrellas,74.63
+ES,11,06,extremadura,extremadura,badajoz,3,hotel 5 estrellas,86.84
+ES,11,06,extremadura,extremadura,badajoz,3,total,71.7
+ES,11,10,extremadura,extremadura,caceres,3,hotel 3 estrellas,69.41
+ES,11,10,extremadura,extremadura,caceres,3,hotel 4 estrellas,80.29
+ES,11,10,extremadura,extremadura,caceres,3,hotel 5 estrellas,87.62
+ES,11,10,extremadura,extremadura,caceres,3,total,79.75
+ES,12,15,galicia,galicia,a coruna,3,hotel 3 estrellas,87.53
+ES,12,15,galicia,galicia,a coruna,3,hotel 4 estrellas,86.61
+ES,12,15,galicia,galicia,a coruna,3,hotel 5 estrellas,84.13
+ES,12,15,galicia,galicia,a coruna,3,total,87.32
+ES,12,27,galicia,galicia,lugo,3,hotel 3 estrellas,79.14
+ES,12,27,galicia,galicia,lugo,3,hotel 4 estrellas,89.22
+ES,12,27,galicia,galicia,lugo,3,hotel 5 estrellas,89.96
+ES,12,27,galicia,galicia,lugo,3,total,86.37
+ES,12,32,galicia,galicia,ourense,3,hotel 3 estrellas,64.05
+ES,12,32,galicia,galicia,ourense,3,hotel 4 estrellas,72.13
+ES,12,32,galicia,galicia,ourense,3,hotel 5 estrellas,89.96
+ES,12,32,galicia,galicia,ourense,3,total,69.05
+ES,12,36,galicia,galicia,pontevedra,3,hotel 3 estrellas,77.72
+ES,12,36,galicia,galicia,pontevedra,3,hotel 4 estrellas,82.08
+ES,12,36,galicia,galicia,pontevedra,3,hotel 5 estrellas,95.78
+ES,12,36,galicia,galicia,pontevedra,3,total,82.75
+ES,13,28,"madrid, comunidad de",madrid,madrid,3,hotel 3 estrellas,67.97
+ES,13,28,"madrid, comunidad de",madrid,madrid,3,hotel 4 estrellas,76.54
+ES,13,28,"madrid, comunidad de",madrid,madrid,3,hotel 5 estrellas,78.98
+ES,13,28,"madrid, comunidad de",madrid,madrid,3,total,73.76
+ES,14,30,"murcia, region de",murcia,murcia,3,hotel 3 estrellas,79.34
+ES,14,30,"murcia, region de",murcia,murcia,3,hotel 4 estrellas,71.26
+ES,14,30,"murcia, region de",murcia,murcia,3,hotel 5 estrellas,78.02
+ES,14,30,"murcia, region de",murcia,murcia,3,total,75.1
+ES,15,31,"navarra, comunidad foral de",navarra,navarra,3,hotel 3 estrellas,73.7
+ES,15,31,"navarra, comunidad foral de",navarra,navarra,3,hotel 4 estrellas,85.87
+ES,15,31,"navarra, comunidad foral de",navarra,navarra,3,hotel 5 estrellas,84.28
+ES,15,31,"navarra, comunidad foral de",navarra,navarra,3,total,81.14
+ES,16,01,pais vasco,pais vasco,araba/alava,3,hotel 3 estrellas,72.07
+ES,16,01,pais vasco,pais vasco,araba/alava,3,hotel 4 estrellas,84.75
+ES,16,01,pais vasco,pais vasco,araba/alava,3,hotel 5 estrellas,58.77
+ES,16,01,pais vasco,pais vasco,araba/alava,3,total,77.75
+ES,16,48,pais vasco,pais vasco,bizkaia,3,hotel 3 estrellas,78.18
+ES,16,48,pais vasco,pais vasco,bizkaia,3,hotel 4 estrellas,87.26
+ES,16,48,pais vasco,pais vasco,bizkaia,3,hotel 5 estrellas,84.24
+ES,16,48,pais vasco,pais vasco,bizkaia,3,total,82.64
+ES,16,20,pais vasco,pais vasco,gipuzkoa,3,hotel 3 estrellas,84.7
+ES,16,20,pais vasco,pais vasco,gipuzkoa,3,hotel 4 estrellas,88.42
+ES,16,20,pais vasco,pais vasco,gipuzkoa,3,hotel 5 estrellas,88.92
+ES,16,20,pais vasco,pais vasco,gipuzkoa,3,total,87.62
+ES,17,26,"rioja, la",rioja,la rioja,3,hotel 3 estrellas,82.06
+ES,17,26,"rioja, la",rioja,la rioja,3,hotel 4 estrellas,74.89
+ES,17,26,"rioja, la",rioja,la rioja,3,hotel 5 estrellas,79.11
+ES,17,26,"rioja, la",rioja,la rioja,3,total,82.16
+ES,01,04,andalucia,andalucia,almeria,4,hotel 3 estrellas,71.6
+ES,01,04,andalucia,andalucia,almeria,4,hotel 4 estrellas,64.94
+ES,01,04,andalucia,andalucia,almeria,4,hotel 5 estrellas,74.58
+ES,01,04,andalucia,andalucia,almeria,4,total,65.41
+ES,01,11,andalucia,andalucia,cadiz,4,hotel 3 estrellas,75.82
+ES,01,11,andalucia,andalucia,cadiz,4,hotel 4 estrellas,77.66
+ES,01,11,andalucia,andalucia,cadiz,4,hotel 5 estrellas,83.33
+ES,01,11,andalucia,andalucia,cadiz,4,total,77.26
+ES,01,14,andalucia,andalucia,cordoba,4,hotel 3 estrellas,76.01
+ES,01,14,andalucia,andalucia,cordoba,4,hotel 4 estrellas,73.22
+ES,01,14,andalucia,andalucia,cordoba,4,hotel 5 estrellas,87.42
+ES,01,14,andalucia,andalucia,cordoba,4,total,75.16
+ES,01,18,andalucia,andalucia,granada,4,hotel 3 estrellas,74.38
+ES,01,18,andalucia,andalucia,granada,4,hotel 4 estrellas,72.0
+ES,01,18,andalucia,andalucia,granada,4,hotel 5 estrellas,72.12
+ES,01,18,andalucia,andalucia,granada,4,total,73.35
+ES,01,21,andalucia,andalucia,huelva,4,hotel 3 estrellas,68.85
+ES,01,21,andalucia,andalucia,huelva,4,hotel 4 estrellas,73.33
+ES,01,21,andalucia,andalucia,huelva,4,hotel 5 estrellas,74.58
+ES,01,21,andalucia,andalucia,huelva,4,total,69.72
+ES,01,23,andalucia,andalucia,jaen,4,hotel 3 estrellas,81.96
+ES,01,23,andalucia,andalucia,jaen,4,hotel 4 estrellas,83.77
+ES,01,23,andalucia,andalucia,jaen,4,hotel 5 estrellas,53.59
+ES,01,23,andalucia,andalucia,jaen,4,total,80.23
+ES,01,29,andalucia,andalucia,malaga,4,hotel 3 estrellas,69.37
+ES,01,29,andalucia,andalucia,malaga,4,hotel 4 estrellas,74.48
+ES,01,29,andalucia,andalucia,malaga,4,hotel 5 estrellas,75.26
+ES,01,29,andalucia,andalucia,malaga,4,total,72.28
+ES,01,41,andalucia,andalucia,sevilla,4,hotel 3 estrellas,67.14
+ES,01,41,andalucia,andalucia,sevilla,4,hotel 4 estrellas,75.38
+ES,01,41,andalucia,andalucia,sevilla,4,hotel 5 estrellas,75.73
+ES,01,41,andalucia,andalucia,sevilla,4,total,73.04
+ES,02,22,aragon,aragon,huesca,4,hotel 3 estrellas,78.37
+ES,02,22,aragon,aragon,huesca,4,hotel 4 estrellas,76.12
+ES,02,22,aragon,aragon,huesca,4,hotel 5 estrellas,84.29
+ES,02,22,aragon,aragon,huesca,4,total,78.31
+ES,02,44,aragon,aragon,teruel,4,hotel 3 estrellas,69.53
+ES,02,44,aragon,aragon,teruel,4,hotel 4 estrellas,79.76
+ES,02,44,aragon,aragon,teruel,4,hotel 5 estrellas,84.29
+ES,02,44,aragon,aragon,teruel,4,total,73.99
+ES,02,50,aragon,aragon,zaragoza,4,hotel 3 estrellas,70.67
+ES,02,50,aragon,aragon,zaragoza,4,hotel 4 estrellas,73.22
+ES,02,50,aragon,aragon,zaragoza,4,hotel 5 estrellas,84.29
+ES,02,50,aragon,aragon,zaragoza,4,total,71.51
+ES,03,33,"asturias, principado de",asturias,asturias,4,hotel 3 estrellas,84.53
+ES,03,33,"asturias, principado de",asturias,asturias,4,hotel 4 estrellas,79.94
+ES,03,33,"asturias, principado de",asturias,asturias,4,hotel 5 estrellas,88.6
+ES,03,33,"asturias, principado de",asturias,asturias,4,total,83.2
+ES,04,07,"balears, illes",balears,illes balears,4,hotel 3 estrellas,71.37
+ES,04,07,"balears, illes",balears,illes balears,4,hotel 4 estrellas,79.22
+ES,04,07,"balears, illes",balears,illes balears,4,hotel 5 estrellas,81.25
+ES,04,07,"balears, illes",balears,illes balears,4,total,76.3
+ES,05,35,canarias,canarias,las palmas,4,hotel 3 estrellas,67.94
+ES,05,35,canarias,canarias,las palmas,4,hotel 4 estrellas,67.08
+ES,05,35,canarias,canarias,las palmas,4,hotel 5 estrellas,76.89
+ES,05,35,canarias,canarias,las palmas,4,total,68.48
+ES,05,38,canarias,canarias,santa cruz de tenerife,4,hotel 3 estrellas,66.13
+ES,05,38,canarias,canarias,santa cruz de tenerife,4,hotel 4 estrellas,62.04
+ES,05,38,canarias,canarias,santa cruz de tenerife,4,hotel 5 estrellas,75.62
+ES,05,38,canarias,canarias,santa cruz de tenerife,4,total,64.92
+ES,06,39,cantabria,cantabria,cantabria,4,hotel 3 estrellas,85.51
+ES,06,39,cantabria,cantabria,cantabria,4,hotel 4 estrellas,87.2
+ES,06,39,cantabria,cantabria,cantabria,4,hotel 5 estrellas,96.08
+ES,06,39,cantabria,cantabria,cantabria,4,total,86.7
+ES,07,05,castilla y leon,castilla y leon,avila,4,hotel 3 estrellas,83.46
+ES,07,05,castilla y leon,castilla y leon,avila,4,hotel 4 estrellas,80.34
+ES,07,05,castilla y leon,castilla y leon,avila,4,hotel 5 estrellas,99.0
+ES,07,05,castilla y leon,castilla y leon,avila,4,total,82.54
+ES,07,09,castilla y leon,castilla y leon,burgos,4,hotel 3 estrellas,76.51
+ES,07,09,castilla y leon,castilla y leon,burgos,4,hotel 4 estrellas,80.12
+ES,07,09,castilla y leon,castilla y leon,burgos,4,hotel 5 estrellas,88.57
+ES,07,09,castilla y leon,castilla y leon,burgos,4,total,77.61
+ES,07,24,castilla y leon,castilla y leon,leon,4,hotel 3 estrellas,84.41
+ES,07,24,castilla y leon,castilla y leon,leon,4,hotel 4 estrellas,87.44
+ES,07,24,castilla y leon,castilla y leon,leon,4,hotel 5 estrellas,10.0
+ES,07,24,castilla y leon,castilla y leon,leon,4,total,85.19
+ES,07,34,castilla y leon,castilla y leon,palencia,4,hotel 3 estrellas,71.32
+ES,07,34,castilla y leon,castilla y leon,palencia,4,hotel 4 estrellas,73.74
+ES,07,34,castilla y leon,castilla y leon,palencia,4,hotel 5 estrellas,76.83
+ES,07,34,castilla y leon,castilla y leon,palencia,4,total,71.36
+ES,07,37,castilla y leon,castilla y leon,salamanca,4,hotel 3 estrellas,78.55
+ES,07,37,castilla y leon,castilla y leon,salamanca,4,hotel 4 estrellas,69.75
+ES,07,37,castilla y leon,castilla y leon,salamanca,4,hotel 5 estrellas,82.39
+ES,07,37,castilla y leon,castilla y leon,salamanca,4,total,77.13
+ES,07,40,castilla y leon,castilla y leon,segovia,4,hotel 3 estrellas,82.81
+ES,07,40,castilla y leon,castilla y leon,segovia,4,hotel 4 estrellas,70.98
+ES,07,40,castilla y leon,castilla y leon,segovia,4,hotel 5 estrellas,84.07
+ES,07,40,castilla y leon,castilla y leon,segovia,4,total,76.46
+ES,07,42,castilla y leon,castilla y leon,soria,4,hotel 3 estrellas,83.18
+ES,07,42,castilla y leon,castilla y leon,soria,4,hotel 4 estrellas,80.73
+ES,07,42,castilla y leon,castilla y leon,soria,4,hotel 5 estrellas,76.83
+ES,07,42,castilla y leon,castilla y leon,soria,4,total,78.88
+ES,07,47,castilla y leon,castilla y leon,valladolid,4,hotel 3 estrellas,58.31
+ES,07,47,castilla y leon,castilla y leon,valladolid,4,hotel 4 estrellas,67.38
+ES,07,47,castilla y leon,castilla y leon,valladolid,4,hotel 5 estrellas,85.51
+ES,07,47,castilla y leon,castilla y leon,valladolid,4,total,70.56
+ES,07,49,castilla y leon,castilla y leon,zamora,4,hotel 3 estrellas,80.81
+ES,07,49,castilla y leon,castilla y leon,zamora,4,hotel 4 estrellas,73.68
+ES,07,49,castilla y leon,castilla y leon,zamora,4,hotel 5 estrellas,88.3
+ES,07,49,castilla y leon,castilla y leon,zamora,4,total,73.22
+ES,08,02,castilla-la mancha,castilla-la mancha,albacete,4,hotel 3 estrellas,67.63
+ES,08,02,castilla-la mancha,castilla-la mancha,albacete,4,hotel 4 estrellas,75.48
+ES,08,02,castilla-la mancha,castilla-la mancha,albacete,4,hotel 5 estrellas,85.98
+ES,08,02,castilla-la mancha,castilla-la mancha,albacete,4,total,60.19
+ES,08,13,castilla-la mancha,castilla-la mancha,ciudad real,4,hotel 3 estrellas,80.17
+ES,08,13,castilla-la mancha,castilla-la mancha,ciudad real,4,hotel 4 estrellas,66.71
+ES,08,13,castilla-la mancha,castilla-la mancha,ciudad real,4,hotel 5 estrellas,84.25
+ES,08,13,castilla-la mancha,castilla-la mancha,ciudad real,4,total,74.25
+ES,08,16,castilla-la mancha,castilla-la mancha,cuenca,4,hotel 3 estrellas,57.49
+ES,08,16,castilla-la mancha,castilla-la mancha,cuenca,4,hotel 4 estrellas,74.92
+ES,08,16,castilla-la mancha,castilla-la mancha,cuenca,4,hotel 5 estrellas,85.98
+ES,08,16,castilla-la mancha,castilla-la mancha,cuenca,4,total,71.06
+ES,08,19,castilla-la mancha,castilla-la mancha,guadalajara,4,hotel 3 estrellas,77.78
+ES,08,19,castilla-la mancha,castilla-la mancha,guadalajara,4,hotel 4 estrellas,68.69
+ES,08,19,castilla-la mancha,castilla-la mancha,guadalajara,4,hotel 5 estrellas,85.98
+ES,08,19,castilla-la mancha,castilla-la mancha,guadalajara,4,total,74.21
+ES,08,45,castilla-la mancha,castilla-la mancha,toledo,4,hotel 3 estrellas,69.99
+ES,08,45,castilla-la mancha,castilla-la mancha,toledo,4,hotel 4 estrellas,71.64
+ES,08,45,castilla-la mancha,castilla-la mancha,toledo,4,hotel 5 estrellas,87.71
+ES,08,45,castilla-la mancha,castilla-la mancha,toledo,4,total,69.41
+ES,09,08,cataluna,cataluna,barcelona,4,hotel 3 estrellas,69.35
+ES,09,08,cataluna,cataluna,barcelona,4,hotel 4 estrellas,71.86
+ES,09,08,cataluna,cataluna,barcelona,4,hotel 5 estrellas,79.57
+ES,09,08,cataluna,cataluna,barcelona,4,total,71.37
+ES,09,17,cataluna,cataluna,girona,4,hotel 3 estrellas,70.06
+ES,09,17,cataluna,cataluna,girona,4,hotel 4 estrellas,72.49
+ES,09,17,cataluna,cataluna,girona,4,hotel 5 estrellas,83.03
+ES,09,17,cataluna,cataluna,girona,4,total,72.88
+ES,09,25,cataluna,cataluna,lleida,4,hotel 3 estrellas,85.04
+ES,09,25,cataluna,cataluna,lleida,4,hotel 4 estrellas,69.63
+ES,09,25,cataluna,cataluna,lleida,4,hotel 5 estrellas,82.37
+ES,09,25,cataluna,cataluna,lleida,4,total,78.36
+ES,09,43,cataluna,cataluna,tarragona,4,hotel 3 estrellas,64.64
+ES,09,43,cataluna,cataluna,tarragona,4,hotel 4 estrellas,64.66
+ES,09,43,cataluna,cataluna,tarragona,4,hotel 5 estrellas,56.61
+ES,09,43,cataluna,cataluna,tarragona,4,total,64.69
+ES,10,03,comunitat valenciana,comunitat valenciana,alicante/alacant,4,hotel 3 estrellas,64.51
+ES,10,03,comunitat valenciana,comunitat valenciana,alicante/alacant,4,hotel 4 estrellas,73.68
+ES,10,03,comunitat valenciana,comunitat valenciana,alicante/alacant,4,hotel 5 estrellas,73.18
+ES,10,03,comunitat valenciana,comunitat valenciana,alicante/alacant,4,total,68.35
+ES,10,12,comunitat valenciana,comunitat valenciana,castellon/castello,4,hotel 3 estrellas,71.07
+ES,10,12,comunitat valenciana,comunitat valenciana,castellon/castello,4,hotel 4 estrellas,75.9
+ES,10,12,comunitat valenciana,comunitat valenciana,castellon/castello,4,hotel 5 estrellas,77.39
+ES,10,12,comunitat valenciana,comunitat valenciana,castellon/castello,4,total,73.03
+ES,10,46,comunitat valenciana,comunitat valenciana,valencia/valencia,4,hotel 3 estrellas,69.59
+ES,10,46,comunitat valenciana,comunitat valenciana,valencia/valencia,4,hotel 4 estrellas,72.29
+ES,10,46,comunitat valenciana,comunitat valenciana,valencia/valencia,4,hotel 5 estrellas,81.61
+ES,10,46,comunitat valenciana,comunitat valenciana,valencia/valencia,4,total,71.77
+ES,11,06,extremadura,extremadura,badajoz,4,hotel 3 estrellas,48.08
+ES,11,06,extremadura,extremadura,badajoz,4,hotel 4 estrellas,70.81
+ES,11,06,extremadura,extremadura,badajoz,4,hotel 5 estrellas,81.56
+ES,11,06,extremadura,extremadura,badajoz,4,total,64.28
+ES,11,10,extremadura,extremadura,caceres,4,hotel 3 estrellas,70.61
+ES,11,10,extremadura,extremadura,caceres,4,hotel 4 estrellas,74.81
+ES,11,10,extremadura,extremadura,caceres,4,hotel 5 estrellas,93.59
+ES,11,10,extremadura,extremadura,caceres,4,total,78.21
+ES,12,15,galicia,galicia,a coruna,4,hotel 3 estrellas,83.86
+ES,12,15,galicia,galicia,a coruna,4,hotel 4 estrellas,82.72
+ES,12,15,galicia,galicia,a coruna,4,hotel 5 estrellas,88.81
+ES,12,15,galicia,galicia,a coruna,4,total,83.41
+ES,12,27,galicia,galicia,lugo,4,hotel 3 estrellas,77.7
+ES,12,27,galicia,galicia,lugo,4,hotel 4 estrellas,87.34
+ES,12,27,galicia,galicia,lugo,4,hotel 5 estrellas,98.65
+ES,12,27,galicia,galicia,lugo,4,total,86.23
+ES,12,32,galicia,galicia,ourense,4,hotel 3 estrellas,60.29
+ES,12,32,galicia,galicia,ourense,4,hotel 4 estrellas,86.04
+ES,12,32,galicia,galicia,ourense,4,hotel 5 estrellas,89.9
+ES,12,32,galicia,galicia,ourense,4,total,78.35
+ES,12,36,galicia,galicia,pontevedra,4,hotel 3 estrellas,73.91
+ES,12,36,galicia,galicia,pontevedra,4,hotel 4 estrellas,78.72
+ES,12,36,galicia,galicia,pontevedra,4,hotel 5 estrellas,82.24
+ES,12,36,galicia,galicia,pontevedra,4,total,78.07
+ES,13,28,"madrid, comunidad de",madrid,madrid,4,hotel 3 estrellas,65.4
+ES,13,28,"madrid, comunidad de",madrid,madrid,4,hotel 4 estrellas,75.12
+ES,13,28,"madrid, comunidad de",madrid,madrid,4,hotel 5 estrellas,73.8
+ES,13,28,"madrid, comunidad de",madrid,madrid,4,total,71.51
+ES,14,30,"murcia, region de",murcia,murcia,4,hotel 3 estrellas,75.07
+ES,14,30,"murcia, region de",murcia,murcia,4,hotel 4 estrellas,72.91
+ES,14,30,"murcia, region de",murcia,murcia,4,hotel 5 estrellas,48.33
+ES,14,30,"murcia, region de",murcia,murcia,4,total,73.03
+ES,15,31,"navarra, comunidad foral de",navarra,navarra,4,hotel 3 estrellas,79.78
+ES,15,31,"navarra, comunidad foral de",navarra,navarra,4,hotel 4 estrellas,82.55
+ES,15,31,"navarra, comunidad foral de",navarra,navarra,4,hotel 5 estrellas,85.18
+ES,15,31,"navarra, comunidad foral de",navarra,navarra,4,total,80.63
+ES,16,01,pais vasco,pais vasco,araba/alava,4,hotel 3 estrellas,74.06
+ES,16,01,pais vasco,pais vasco,araba/alava,4,hotel 4 estrellas,84.39
+ES,16,01,pais vasco,pais vasco,araba/alava,4,hotel 5 estrellas,46.47
+ES,16,01,pais vasco,pais vasco,araba/alava,4,total,81.14
+ES,16,48,pais vasco,pais vasco,bizkaia,4,hotel 3 estrellas,74.86
+ES,16,48,pais vasco,pais vasco,bizkaia,4,hotel 4 estrellas,84.93
+ES,16,48,pais vasco,pais vasco,bizkaia,4,hotel 5 estrellas,76.71
+ES,16,48,pais vasco,pais vasco,bizkaia,4,total,81.36
+ES,16,20,pais vasco,pais vasco,gipuzkoa,4,hotel 3 estrellas,78.65
+ES,16,20,pais vasco,pais vasco,gipuzkoa,4,hotel 4 estrellas,84.99
+ES,16,20,pais vasco,pais vasco,gipuzkoa,4,hotel 5 estrellas,88.89
+ES,16,20,pais vasco,pais vasco,gipuzkoa,4,total,83.76
+ES,17,26,"rioja, la",rioja,la rioja,4,hotel 3 estrellas,80.31
+ES,17,26,"rioja, la",rioja,la rioja,4,hotel 4 estrellas,75.18
+ES,17,26,"rioja, la",rioja,la rioja,4,hotel 5 estrellas,98.52
+ES,17,26,"rioja, la",rioja,la rioja,4,total,81.72
+ES,01,04,andalucia,andalucia,almeria,5,hotel 3 estrellas,74.29
+ES,01,04,andalucia,andalucia,almeria,5,hotel 4 estrellas,73.62
+ES,01,04,andalucia,andalucia,almeria,5,hotel 5 estrellas,72.8
+ES,01,04,andalucia,andalucia,almeria,5,total,73.53
+ES,01,11,andalucia,andalucia,cadiz,5,hotel 3 estrellas,75.64
+ES,01,11,andalucia,andalucia,cadiz,5,hotel 4 estrellas,75.91
+ES,01,11,andalucia,andalucia,cadiz,5,hotel 5 estrellas,89.5
+ES,01,11,andalucia,andalucia,cadiz,5,total,76.24
+ES,01,14,andalucia,andalucia,cordoba,5,hotel 3 estrellas,69.62
+ES,01,14,andalucia,andalucia,cordoba,5,hotel 4 estrellas,70.66
+ES,01,14,andalucia,andalucia,cordoba,5,hotel 5 estrellas,81.93
+ES,01,14,andalucia,andalucia,cordoba,5,total,72.17
+ES,01,18,andalucia,andalucia,granada,5,hotel 3 estrellas,76.92
+ES,01,18,andalucia,andalucia,granada,5,hotel 4 estrellas,76.58
+ES,01,18,andalucia,andalucia,granada,5,hotel 5 estrellas,75.11
+ES,01,18,andalucia,andalucia,granada,5,total,76.96
+ES,01,21,andalucia,andalucia,huelva,5,hotel 3 estrellas,70.0
+ES,01,21,andalucia,andalucia,huelva,5,hotel 4 estrellas,69.15
+ES,01,21,andalucia,andalucia,huelva,5,hotel 5 estrellas,76.7
+ES,01,21,andalucia,andalucia,huelva,5,total,72.52
+ES,01,23,andalucia,andalucia,jaen,5,hotel 3 estrellas,75.71
+ES,01,23,andalucia,andalucia,jaen,5,hotel 4 estrellas,67.19
+ES,01,23,andalucia,andalucia,jaen,5,hotel 5 estrellas,59.98
+ES,01,23,andalucia,andalucia,jaen,5,total,70.22
+ES,01,29,andalucia,andalucia,malaga,5,hotel 3 estrellas,66.6
+ES,01,29,andalucia,andalucia,malaga,5,hotel 4 estrellas,71.74
+ES,01,29,andalucia,andalucia,malaga,5,hotel 5 estrellas,76.89
+ES,01,29,andalucia,andalucia,malaga,5,total,69.76
+ES,01,41,andalucia,andalucia,sevilla,5,hotel 3 estrellas,67.82
+ES,01,41,andalucia,andalucia,sevilla,5,hotel 4 estrellas,74.74
+ES,01,41,andalucia,andalucia,sevilla,5,hotel 5 estrellas,80.69
+ES,01,41,andalucia,andalucia,sevilla,5,total,73.9
+ES,02,22,aragon,aragon,huesca,5,hotel 3 estrellas,78.88
+ES,02,22,aragon,aragon,huesca,5,hotel 4 estrellas,77.18
+ES,02,22,aragon,aragon,huesca,5,hotel 5 estrellas,76.36
+ES,02,22,aragon,aragon,huesca,5,total,79.62
+ES,02,44,aragon,aragon,teruel,5,hotel 3 estrellas,84.12
+ES,02,44,aragon,aragon,teruel,5,hotel 4 estrellas,70.54
+ES,02,44,aragon,aragon,teruel,5,hotel 5 estrellas,76.36
+ES,02,44,aragon,aragon,teruel,5,total,75.01
+ES,02,50,aragon,aragon,zaragoza,5,hotel 3 estrellas,77.22
+ES,02,50,aragon,aragon,zaragoza,5,hotel 4 estrellas,71.89
+ES,02,50,aragon,aragon,zaragoza,5,hotel 5 estrellas,76.36
+ES,02,50,aragon,aragon,zaragoza,5,total,76.62
+ES,03,33,"asturias, principado de",asturias,asturias,5,hotel 3 estrellas,85.6
+ES,03,33,"asturias, principado de",asturias,asturias,5,hotel 4 estrellas,79.9
+ES,03,33,"asturias, principado de",asturias,asturias,5,hotel 5 estrellas,87.64
+ES,03,33,"asturias, principado de",asturias,asturias,5,total,83.56
+ES,04,07,"balears, illes",balears,illes balears,5,hotel 3 estrellas,69.27
+ES,04,07,"balears, illes",balears,illes balears,5,hotel 4 estrellas,76.01
+ES,04,07,"balears, illes",balears,illes balears,5,hotel 5 estrellas,78.46
+ES,04,07,"balears, illes",balears,illes balears,5,total,73.24
+ES,05,35,canarias,canarias,las palmas,5,hotel 3 estrellas,67.9
+ES,05,35,canarias,canarias,las palmas,5,hotel 4 estrellas,73.96
+ES,05,35,canarias,canarias,las palmas,5,hotel 5 estrellas,80.13
+ES,05,35,canarias,canarias,las palmas,5,total,72.72
+ES,05,38,canarias,canarias,santa cruz de tenerife,5,hotel 3 estrellas,65.59
+ES,05,38,canarias,canarias,santa cruz de tenerife,5,hotel 4 estrellas,63.16
+ES,05,38,canarias,canarias,santa cruz de tenerife,5,hotel 5 estrellas,83.33
+ES,05,38,canarias,canarias,santa cruz de tenerife,5,total,69.14
+ES,06,39,cantabria,cantabria,cantabria,5,hotel 3 estrellas,82.08
+ES,06,39,cantabria,cantabria,cantabria,5,hotel 4 estrellas,85.23
+ES,06,39,cantabria,cantabria,cantabria,5,hotel 5 estrellas,90.96
+ES,06,39,cantabria,cantabria,cantabria,5,total,83.87
+ES,07,05,castilla y leon,castilla y leon,avila,5,hotel 3 estrellas,75.18
+ES,07,05,castilla y leon,castilla y leon,avila,5,hotel 4 estrellas,75.29
+ES,07,05,castilla y leon,castilla y leon,avila,5,hotel 5 estrellas,98.97
+ES,07,05,castilla y leon,castilla y leon,avila,5,total,78.63
+ES,07,09,castilla y leon,castilla y leon,burgos,5,hotel 3 estrellas,75.26
+ES,07,09,castilla y leon,castilla y leon,burgos,5,hotel 4 estrellas,81.34
+ES,07,09,castilla y leon,castilla y leon,burgos,5,hotel 5 estrellas,65.89
+ES,07,09,castilla y leon,castilla y leon,burgos,5,total,75.58
+ES,07,24,castilla y leon,castilla y leon,leon,5,hotel 3 estrellas,78.23
+ES,07,24,castilla y leon,castilla y leon,leon,5,hotel 4 estrellas,79.22
+ES,07,24,castilla y leon,castilla y leon,leon,5,hotel 5 estrellas,92.81
+ES,07,24,castilla y leon,castilla y leon,leon,5,total,80.61
+ES,07,34,castilla y leon,castilla y leon,palencia,5,hotel 3 estrellas,83.98
+ES,07,34,castilla y leon,castilla y leon,palencia,5,hotel 4 estrellas,72.76
+ES,07,34,castilla y leon,castilla y leon,palencia,5,hotel 5 estrellas,83.7
+ES,07,34,castilla y leon,castilla y leon,palencia,5,total,78.7
+ES,07,37,castilla y leon,castilla y leon,salamanca,5,hotel 3 estrellas,77.16
+ES,07,37,castilla y leon,castilla y leon,salamanca,5,hotel 4 estrellas,70.71
+ES,07,37,castilla y leon,castilla y leon,salamanca,5,hotel 5 estrellas,87.21
+ES,07,37,castilla y leon,castilla y leon,salamanca,5,total,76.19
+ES,07,40,castilla y leon,castilla y leon,segovia,5,hotel 3 estrellas,82.31
+ES,07,40,castilla y leon,castilla y leon,segovia,5,hotel 4 estrellas,78.2
+ES,07,40,castilla y leon,castilla y leon,segovia,5,hotel 5 estrellas,87.71
+ES,07,40,castilla y leon,castilla y leon,segovia,5,total,79.53
+ES,07,42,castilla y leon,castilla y leon,soria,5,hotel 3 estrellas,68.83
+ES,07,42,castilla y leon,castilla y leon,soria,5,hotel 4 estrellas,90.14
+ES,07,42,castilla y leon,castilla y leon,soria,5,hotel 5 estrellas,83.7
+ES,07,42,castilla y leon,castilla y leon,soria,5,total,81.66
+ES,07,47,castilla y leon,castilla y leon,valladolid,5,hotel 3 estrellas,75.03
+ES,07,47,castilla y leon,castilla y leon,valladolid,5,hotel 4 estrellas,74.38
+ES,07,47,castilla y leon,castilla y leon,valladolid,5,hotel 5 estrellas,80.34
+ES,07,47,castilla y leon,castilla y leon,valladolid,5,total,74.76
+ES,07,49,castilla y leon,castilla y leon,zamora,5,hotel 3 estrellas,83.86
+ES,07,49,castilla y leon,castilla y leon,zamora,5,hotel 4 estrellas,73.96
+ES,07,49,castilla y leon,castilla y leon,zamora,5,hotel 5 estrellas,72.99
+ES,07,49,castilla y leon,castilla y leon,zamora,5,total,81.41
+ES,08,02,castilla-la mancha,castilla-la mancha,albacete,5,hotel 3 estrellas,71.5
+ES,08,02,castilla-la mancha,castilla-la mancha,albacete,5,hotel 4 estrellas,73.24
+ES,08,02,castilla-la mancha,castilla-la mancha,albacete,5,hotel 5 estrellas,89.89
+ES,08,02,castilla-la mancha,castilla-la mancha,albacete,5,total,70.47
+ES,08,13,castilla-la mancha,castilla-la mancha,ciudad real,5,hotel 3 estrellas,86.22
+ES,08,13,castilla-la mancha,castilla-la mancha,ciudad real,5,hotel 4 estrellas,71.57
+ES,08,13,castilla-la mancha,castilla-la mancha,ciudad real,5,hotel 5 estrellas,100.0
+ES,08,13,castilla-la mancha,castilla-la mancha,ciudad real,5,total,78.87
+ES,08,16,castilla-la mancha,castilla-la mancha,cuenca,5,hotel 3 estrellas,54.78
+ES,08,16,castilla-la mancha,castilla-la mancha,cuenca,5,hotel 4 estrellas,74.93
+ES,08,16,castilla-la mancha,castilla-la mancha,cuenca,5,hotel 5 estrellas,89.89
+ES,08,16,castilla-la mancha,castilla-la mancha,cuenca,5,total,72.1
+ES,08,19,castilla-la mancha,castilla-la mancha,guadalajara,5,hotel 3 estrellas,70.44
+ES,08,19,castilla-la mancha,castilla-la mancha,guadalajara,5,hotel 4 estrellas,69.04
+ES,08,19,castilla-la mancha,castilla-la mancha,guadalajara,5,hotel 5 estrellas,89.89
+ES,08,19,castilla-la mancha,castilla-la mancha,guadalajara,5,total,78.38
+ES,08,45,castilla-la mancha,castilla-la mancha,toledo,5,hotel 3 estrellas,59.07
+ES,08,45,castilla-la mancha,castilla-la mancha,toledo,5,hotel 4 estrellas,79.3
+ES,08,45,castilla-la mancha,castilla-la mancha,toledo,5,hotel 5 estrellas,79.78
+ES,08,45,castilla-la mancha,castilla-la mancha,toledo,5,total,69.48
+ES,09,08,cataluna,cataluna,barcelona,5,hotel 3 estrellas,66.79
+ES,09,08,cataluna,cataluna,barcelona,5,hotel 4 estrellas,69.64
+ES,09,08,cataluna,cataluna,barcelona,5,hotel 5 estrellas,70.73
+ES,09,08,cataluna,cataluna,barcelona,5,total,68.63
+ES,09,17,cataluna,cataluna,girona,5,hotel 3 estrellas,72.51
+ES,09,17,cataluna,cataluna,girona,5,hotel 4 estrellas,73.56
+ES,09,17,cataluna,cataluna,girona,5,hotel 5 estrellas,73.73
+ES,09,17,cataluna,cataluna,girona,5,total,72.83
+ES,09,25,cataluna,cataluna,lleida,5,hotel 3 estrellas,81.52
+ES,09,25,cataluna,cataluna,lleida,5,hotel 4 estrellas,65.27
+ES,09,25,cataluna,cataluna,lleida,5,hotel 5 estrellas,76.38
+ES,09,25,cataluna,cataluna,lleida,5,total,72.75
+ES,09,43,cataluna,cataluna,tarragona,5,hotel 3 estrellas,62.8
+ES,09,43,cataluna,cataluna,tarragona,5,hotel 4 estrellas,65.84
+ES,09,43,cataluna,cataluna,tarragona,5,hotel 5 estrellas,57.34
+ES,09,43,cataluna,cataluna,tarragona,5,total,66.69
+ES,10,03,comunitat valenciana,comunitat valenciana,alicante/alacant,5,hotel 3 estrellas,64.49
+ES,10,03,comunitat valenciana,comunitat valenciana,alicante/alacant,5,hotel 4 estrellas,67.48
+ES,10,03,comunitat valenciana,comunitat valenciana,alicante/alacant,5,hotel 5 estrellas,82.87
+ES,10,03,comunitat valenciana,comunitat valenciana,alicante/alacant,5,total,67.3
+ES,10,12,comunitat valenciana,comunitat valenciana,castellon/castello,5,hotel 3 estrellas,81.73
+ES,10,12,comunitat valenciana,comunitat valenciana,castellon/castello,5,hotel 4 estrellas,77.43
+ES,10,12,comunitat valenciana,comunitat valenciana,castellon/castello,5,hotel 5 estrellas,79.29
+ES,10,12,comunitat valenciana,comunitat valenciana,castellon/castello,5,total,77.61
+ES,10,46,comunitat valenciana,comunitat valenciana,valencia/valencia,5,hotel 3 estrellas,69.2
+ES,10,46,comunitat valenciana,comunitat valenciana,valencia/valencia,5,hotel 4 estrellas,72.52
+ES,10,46,comunitat valenciana,comunitat valenciana,valencia/valencia,5,hotel 5 estrellas,75.71
+ES,10,46,comunitat valenciana,comunitat valenciana,valencia/valencia,5,total,71.61
+ES,11,06,extremadura,extremadura,badajoz,5,hotel 3 estrellas,58.49
+ES,11,06,extremadura,extremadura,badajoz,5,hotel 4 estrellas,65.39
+ES,11,06,extremadura,extremadura,badajoz,5,hotel 5 estrellas,77.77
+ES,11,06,extremadura,extremadura,badajoz,5,total,66.44
+ES,11,10,extremadura,extremadura,caceres,5,hotel 3 estrellas,74.17
+ES,11,10,extremadura,extremadura,caceres,5,hotel 4 estrellas,82.04
+ES,11,10,extremadura,extremadura,caceres,5,hotel 5 estrellas,92.81
+ES,11,10,extremadura,extremadura,caceres,5,total,79.85
+ES,12,15,galicia,galicia,a coruna,5,hotel 3 estrellas,77.94
+ES,12,15,galicia,galicia,a coruna,5,hotel 4 estrellas,78.56
+ES,12,15,galicia,galicia,a coruna,5,hotel 5 estrellas,74.92
+ES,12,15,galicia,galicia,a coruna,5,total,78.14
+ES,12,27,galicia,galicia,lugo,5,hotel 3 estrellas,81.52
+ES,12,27,galicia,galicia,lugo,5,hotel 4 estrellas,72.53
+ES,12,27,galicia,galicia,lugo,5,hotel 5 estrellas,100.0
+ES,12,27,galicia,galicia,lugo,5,total,76.33
+ES,12,32,galicia,galicia,ourense,5,hotel 3 estrellas,49.23
+ES,12,32,galicia,galicia,ourense,5,hotel 4 estrellas,79.43
+ES,12,32,galicia,galicia,ourense,5,hotel 5 estrellas,84.58
+ES,12,32,galicia,galicia,ourense,5,total,79.71
+ES,12,36,galicia,galicia,pontevedra,5,hotel 3 estrellas,68.66
+ES,12,36,galicia,galicia,pontevedra,5,hotel 4 estrellas,76.11
+ES,12,36,galicia,galicia,pontevedra,5,hotel 5 estrellas,78.83
+ES,12,36,galicia,galicia,pontevedra,5,total,73.7
+ES,13,28,"madrid, comunidad de",madrid,madrid,5,hotel 3 estrellas,62.11
+ES,13,28,"madrid, comunidad de",madrid,madrid,5,hotel 4 estrellas,73.14
+ES,13,28,"madrid, comunidad de",madrid,madrid,5,hotel 5 estrellas,73.92
+ES,13,28,"madrid, comunidad de",madrid,madrid,5,total,68.95
+ES,14,30,"murcia, region de",murcia,murcia,5,hotel 3 estrellas,71.82
+ES,14,30,"murcia, region de",murcia,murcia,5,hotel 4 estrellas,71.82
+ES,14,30,"murcia, region de",murcia,murcia,5,hotel 5 estrellas,59.09
+ES,14,30,"murcia, region de",murcia,murcia,5,total,72.14
+ES,15,31,"navarra, comunidad foral de",navarra,navarra,5,hotel 3 estrellas,69.94
+ES,15,31,"navarra, comunidad foral de",navarra,navarra,5,hotel 4 estrellas,82.6
+ES,15,31,"navarra, comunidad foral de",navarra,navarra,5,hotel 5 estrellas,79.04
+ES,15,31,"navarra, comunidad foral de",navarra,navarra,5,total,77.24
+ES,16,01,pais vasco,pais vasco,araba/alava,5,hotel 3 estrellas,75.55
+ES,16,01,pais vasco,pais vasco,araba/alava,5,hotel 4 estrellas,78.27
+ES,16,01,pais vasco,pais vasco,araba/alava,5,hotel 5 estrellas,72.19
+ES,16,01,pais vasco,pais vasco,araba/alava,5,total,73.41
+ES,16,48,pais vasco,pais vasco,bizkaia,5,hotel 3 estrellas,66.1
+ES,16,48,pais vasco,pais vasco,bizkaia,5,hotel 4 estrellas,82.07
+ES,16,48,pais vasco,pais vasco,bizkaia,5,hotel 5 estrellas,75.46
+ES,16,48,pais vasco,pais vasco,bizkaia,5,total,78.23
+ES,16,20,pais vasco,pais vasco,gipuzkoa,5,hotel 3 estrellas,75.77
+ES,16,20,pais vasco,pais vasco,gipuzkoa,5,hotel 4 estrellas,75.84
+ES,16,20,pais vasco,pais vasco,gipuzkoa,5,hotel 5 estrellas,94.56
+ES,16,20,pais vasco,pais vasco,gipuzkoa,5,total,75.08
+ES,17,26,"rioja, la",rioja,la rioja,5,hotel 3 estrellas,80.49
+ES,17,26,"rioja, la",rioja,la rioja,5,hotel 4 estrellas,69.41
+ES,17,26,"rioja, la",rioja,la rioja,5,hotel 5 estrellas,83.42
+ES,17,26,"rioja, la",rioja,la rioja,5,total,77.39
+ES,01,04,andalucia,andalucia,almeria,6,hotel 3 estrellas,70.5
+ES,01,04,andalucia,andalucia,almeria,6,hotel 4 estrellas,60.28
+ES,01,04,andalucia,andalucia,almeria,6,hotel 5 estrellas,39.43
+ES,01,04,andalucia,andalucia,almeria,6,total,62.96
+ES,01,11,andalucia,andalucia,cadiz,6,hotel 3 estrellas,75.16
+ES,01,11,andalucia,andalucia,cadiz,6,hotel 4 estrellas,74.4
+ES,01,11,andalucia,andalucia,cadiz,6,hotel 5 estrellas,90.02
+ES,01,11,andalucia,andalucia,cadiz,6,total,75.82
+ES,01,14,andalucia,andalucia,cordoba,6,hotel 3 estrellas,85.81
+ES,01,14,andalucia,andalucia,cordoba,6,hotel 4 estrellas,84.46
+ES,01,14,andalucia,andalucia,cordoba,6,hotel 5 estrellas,80.42
+ES,01,14,andalucia,andalucia,cordoba,6,total,85.01
+ES,01,18,andalucia,andalucia,granada,6,hotel 3 estrellas,78.97
+ES,01,18,andalucia,andalucia,granada,6,hotel 4 estrellas,76.76
+ES,01,18,andalucia,andalucia,granada,6,hotel 5 estrellas,79.91
+ES,01,18,andalucia,andalucia,granada,6,total,78.54
+ES,01,21,andalucia,andalucia,huelva,6,hotel 3 estrellas,73.46
+ES,01,21,andalucia,andalucia,huelva,6,hotel 4 estrellas,70.5
+ES,01,21,andalucia,andalucia,huelva,6,hotel 5 estrellas,73.05
+ES,01,21,andalucia,andalucia,huelva,6,total,68.32
+ES,01,23,andalucia,andalucia,jaen,6,hotel 3 estrellas,68.75
+ES,01,23,andalucia,andalucia,jaen,6,hotel 4 estrellas,66.37
+ES,01,23,andalucia,andalucia,jaen,6,hotel 5 estrellas,65.12
+ES,01,23,andalucia,andalucia,jaen,6,total,70.5
+ES,01,29,andalucia,andalucia,malaga,6,hotel 3 estrellas,69.26
+ES,01,29,andalucia,andalucia,malaga,6,hotel 4 estrellas,69.35
+ES,01,29,andalucia,andalucia,malaga,6,hotel 5 estrellas,70.87
+ES,01,29,andalucia,andalucia,malaga,6,total,69.65
+ES,01,41,andalucia,andalucia,sevilla,6,hotel 3 estrellas,73.96
+ES,01,41,andalucia,andalucia,sevilla,6,hotel 4 estrellas,82.13
+ES,01,41,andalucia,andalucia,sevilla,6,hotel 5 estrellas,85.6
+ES,01,41,andalucia,andalucia,sevilla,6,total,79.15
+ES,02,22,aragon,aragon,huesca,6,hotel 3 estrellas,77.56
+ES,02,22,aragon,aragon,huesca,6,hotel 4 estrellas,74.03
+ES,02,22,aragon,aragon,huesca,6,hotel 5 estrellas,86.46
+ES,02,22,aragon,aragon,huesca,6,total,75.11
+ES,02,44,aragon,aragon,teruel,6,hotel 3 estrellas,80.36
+ES,02,44,aragon,aragon,teruel,6,hotel 4 estrellas,77.15
+ES,02,44,aragon,aragon,teruel,6,hotel 5 estrellas,86.46
+ES,02,44,aragon,aragon,teruel,6,total,74.17
+ES,02,50,aragon,aragon,zaragoza,6,hotel 3 estrellas,76.43
+ES,02,50,aragon,aragon,zaragoza,6,hotel 4 estrellas,76.77
+ES,02,50,aragon,aragon,zaragoza,6,hotel 5 estrellas,86.46
+ES,02,50,aragon,aragon,zaragoza,6,total,77.04
+ES,03,33,"asturias, principado de",asturias,asturias,6,hotel 3 estrellas,83.67
+ES,03,33,"asturias, principado de",asturias,asturias,6,hotel 4 estrellas,74.81
+ES,03,33,"asturias, principado de",asturias,asturias,6,hotel 5 estrellas,88.57
+ES,03,33,"asturias, principado de",asturias,asturias,6,total,81.66
+ES,04,07,"balears, illes",balears,illes balears,6,hotel 3 estrellas,66.26
+ES,04,07,"balears, illes",balears,illes balears,6,hotel 4 estrellas,72.49
+ES,04,07,"balears, illes",balears,illes balears,6,hotel 5 estrellas,77.6
+ES,04,07,"balears, illes",balears,illes balears,6,total,70.06
+ES,05,35,canarias,canarias,las palmas,6,hotel 3 estrellas,68.24
+ES,05,35,canarias,canarias,las palmas,6,hotel 4 estrellas,71.04
+ES,05,35,canarias,canarias,las palmas,6,hotel 5 estrellas,85.51
+ES,05,35,canarias,canarias,las palmas,6,total,70.22
+ES,05,38,canarias,canarias,santa cruz de tenerife,6,hotel 3 estrellas,59.63
+ES,05,38,canarias,canarias,santa cruz de tenerife,6,hotel 4 estrellas,64.16
+ES,05,38,canarias,canarias,santa cruz de tenerife,6,hotel 5 estrellas,83.46
+ES,05,38,canarias,canarias,santa cruz de tenerife,6,total,67.62
+ES,06,39,cantabria,cantabria,cantabria,6,hotel 3 estrellas,80.02
+ES,06,39,cantabria,cantabria,cantabria,6,hotel 4 estrellas,82.22
+ES,06,39,cantabria,cantabria,cantabria,6,hotel 5 estrellas,85.35
+ES,06,39,cantabria,cantabria,cantabria,6,total,81.43
+ES,07,05,castilla y leon,castilla y leon,avila,6,hotel 3 estrellas,83.58
+ES,07,05,castilla y leon,castilla y leon,avila,6,hotel 4 estrellas,74.98
+ES,07,05,castilla y leon,castilla y leon,avila,6,hotel 5 estrellas,82.27
+ES,07,05,castilla y leon,castilla y leon,avila,6,total,75.74
+ES,07,09,castilla y leon,castilla y leon,burgos,6,hotel 3 estrellas,70.04
+ES,07,09,castilla y leon,castilla y leon,burgos,6,hotel 4 estrellas,77.45
+ES,07,09,castilla y leon,castilla y leon,burgos,6,hotel 5 estrellas,76.18
+ES,07,09,castilla y leon,castilla y leon,burgos,6,total,73.23
+ES,07,24,castilla y leon,castilla y leon,leon,6,hotel 3 estrellas,81.21
+ES,07,24,castilla y leon,castilla y leon,leon,6,hotel 4 estrellas,73.32
+ES,07,24,castilla y leon,castilla y leon,leon,6,hotel 5 estrellas,72.99
+ES,07,24,castilla y leon,castilla y leon,leon,6,total,79.62
+ES,07,34,castilla y leon,castilla y leon,palencia,6,hotel 3 estrellas,76.39
+ES,07,34,castilla y leon,castilla y leon,palencia,6,hotel 4 estrellas,66.89
+ES,07,34,castilla y leon,castilla y leon,palencia,6,hotel 5 estrellas,80.84
+ES,07,34,castilla y leon,castilla y leon,palencia,6,total,70.32
+ES,07,37,castilla y leon,castilla y leon,salamanca,6,hotel 3 estrellas,83.41
+ES,07,37,castilla y leon,castilla y leon,salamanca,6,hotel 4 estrellas,72.66
+ES,07,37,castilla y leon,castilla y leon,salamanca,6,hotel 5 estrellas,86.57
+ES,07,37,castilla y leon,castilla y leon,salamanca,6,total,80.58
+ES,07,40,castilla y leon,castilla y leon,segovia,6,hotel 3 estrellas,81.6
+ES,07,40,castilla y leon,castilla y leon,segovia,6,hotel 4 estrellas,70.24
+ES,07,40,castilla y leon,castilla y leon,segovia,6,hotel 5 estrellas,85.2
+ES,07,40,castilla y leon,castilla y leon,segovia,6,total,76.51
+ES,07,42,castilla y leon,castilla y leon,soria,6,hotel 3 estrellas,76.6
+ES,07,42,castilla y leon,castilla y leon,soria,6,hotel 4 estrellas,77.68
+ES,07,42,castilla y leon,castilla y leon,soria,6,hotel 5 estrellas,100.0
+ES,07,42,castilla y leon,castilla y leon,soria,6,total,73.69
+ES,07,47,castilla y leon,castilla y leon,valladolid,6,hotel 3 estrellas,68.37
+ES,07,47,castilla y leon,castilla y leon,valladolid,6,hotel 4 estrellas,71.41
+ES,07,47,castilla y leon,castilla y leon,valladolid,6,hotel 5 estrellas,80.97
+ES,07,47,castilla y leon,castilla y leon,valladolid,6,total,72.63
+ES,07,49,castilla y leon,castilla y leon,zamora,6,hotel 3 estrellas,76.57
+ES,07,49,castilla y leon,castilla y leon,zamora,6,hotel 4 estrellas,78.56
+ES,07,49,castilla y leon,castilla y leon,zamora,6,hotel 5 estrellas,62.54
+ES,07,49,castilla y leon,castilla y leon,zamora,6,total,80.02
+ES,08,02,castilla-la mancha,castilla-la mancha,albacete,6,hotel 3 estrellas,67.22
+ES,08,02,castilla-la mancha,castilla-la mancha,albacete,6,hotel 4 estrellas,58.62
+ES,08,02,castilla-la mancha,castilla-la mancha,albacete,6,hotel 5 estrellas,92.64
+ES,08,02,castilla-la mancha,castilla-la mancha,albacete,6,total,59.38
+ES,08,13,castilla-la mancha,castilla-la mancha,ciudad real,6,hotel 3 estrellas,78.75
+ES,08,13,castilla-la mancha,castilla-la mancha,ciudad real,6,hotel 4 estrellas,82.15
+ES,08,13,castilla-la mancha,castilla-la mancha,ciudad real,6,hotel 5 estrellas,99.02
+ES,08,13,castilla-la mancha,castilla-la mancha,ciudad real,6,total,82.92
+ES,08,16,castilla-la mancha,castilla-la mancha,cuenca,6,hotel 3 estrellas,41.52
+ES,08,16,castilla-la mancha,castilla-la mancha,cuenca,6,hotel 4 estrellas,76.22
+ES,08,16,castilla-la mancha,castilla-la mancha,cuenca,6,hotel 5 estrellas,92.64
+ES,08,16,castilla-la mancha,castilla-la mancha,cuenca,6,total,72.18
+ES,08,19,castilla-la mancha,castilla-la mancha,guadalajara,6,hotel 3 estrellas,67.09
+ES,08,19,castilla-la mancha,castilla-la mancha,guadalajara,6,hotel 4 estrellas,70.49
+ES,08,19,castilla-la mancha,castilla-la mancha,guadalajara,6,hotel 5 estrellas,92.64
+ES,08,19,castilla-la mancha,castilla-la mancha,guadalajara,6,total,68.99
+ES,08,45,castilla-la mancha,castilla-la mancha,toledo,6,hotel 3 estrellas,69.08
+ES,08,45,castilla-la mancha,castilla-la mancha,toledo,6,hotel 4 estrellas,74.88
+ES,08,45,castilla-la mancha,castilla-la mancha,toledo,6,hotel 5 estrellas,86.25
+ES,08,45,castilla-la mancha,castilla-la mancha,toledo,6,total,72.38
+ES,09,08,cataluna,cataluna,barcelona,6,hotel 3 estrellas,64.28
+ES,09,08,cataluna,cataluna,barcelona,6,hotel 4 estrellas,69.47
+ES,09,08,cataluna,cataluna,barcelona,6,hotel 5 estrellas,64.22
+ES,09,08,cataluna,cataluna,barcelona,6,total,67.36
+ES,09,17,cataluna,cataluna,girona,6,hotel 3 estrellas,67.92
+ES,09,17,cataluna,cataluna,girona,6,hotel 4 estrellas,76.7
+ES,09,17,cataluna,cataluna,girona,6,hotel 5 estrellas,83.74
+ES,09,17,cataluna,cataluna,girona,6,total,72.97
+ES,09,25,cataluna,cataluna,lleida,6,hotel 3 estrellas,79.67
+ES,09,25,cataluna,cataluna,lleida,6,hotel 4 estrellas,54.75
+ES,09,25,cataluna,cataluna,lleida,6,hotel 5 estrellas,75.82
+ES,09,25,cataluna,cataluna,lleida,6,total,73.11
+ES,09,43,cataluna,cataluna,tarragona,6,hotel 3 estrellas,60.25
+ES,09,43,cataluna,cataluna,tarragona,6,hotel 4 estrellas,62.15
+ES,09,43,cataluna,cataluna,tarragona,6,hotel 5 estrellas,65.54
+ES,09,43,cataluna,cataluna,tarragona,6,total,61.73
+ES,10,03,comunitat valenciana,comunitat valenciana,alicante/alacant,6,hotel 3 estrellas,61.39
+ES,10,03,comunitat valenciana,comunitat valenciana,alicante/alacant,6,hotel 4 estrellas,68.0
+ES,10,03,comunitat valenciana,comunitat valenciana,alicante/alacant,6,hotel 5 estrellas,79.3
+ES,10,03,comunitat valenciana,comunitat valenciana,alicante/alacant,6,total,65.47
+ES,10,12,comunitat valenciana,comunitat valenciana,castellon/castello,6,hotel 3 estrellas,74.86
+ES,10,12,comunitat valenciana,comunitat valenciana,castellon/castello,6,hotel 4 estrellas,72.16
+ES,10,12,comunitat valenciana,comunitat valenciana,castellon/castello,6,hotel 5 estrellas,82.92
+ES,10,12,comunitat valenciana,comunitat valenciana,castellon/castello,6,total,73.95
+ES,10,46,comunitat valenciana,comunitat valenciana,valencia/valencia,6,hotel 3 estrellas,69.06
+ES,10,46,comunitat valenciana,comunitat valenciana,valencia/valencia,6,hotel 4 estrellas,74.79
+ES,10,46,comunitat valenciana,comunitat valenciana,valencia/valencia,6,hotel 5 estrellas,86.55
+ES,10,46,comunitat valenciana,comunitat valenciana,valencia/valencia,6,total,73.07
+ES,11,06,extremadura,extremadura,badajoz,6,hotel 3 estrellas,58.24
+ES,11,06,extremadura,extremadura,badajoz,6,hotel 4 estrellas,66.11
+ES,11,06,extremadura,extremadura,badajoz,6,hotel 5 estrellas,86.94
+ES,11,06,extremadura,extremadura,badajoz,6,total,67.65
+ES,11,10,extremadura,extremadura,caceres,6,hotel 3 estrellas,78.4
+ES,11,10,extremadura,extremadura,caceres,6,hotel 4 estrellas,83.92
+ES,11,10,extremadura,extremadura,caceres,6,hotel 5 estrellas,95.66
+ES,11,10,extremadura,extremadura,caceres,6,total,83.48
+ES,12,15,galicia,galicia,a coruna,6,hotel 3 estrellas,74.43
+ES,12,15,galicia,galicia,a coruna,6,hotel 4 estrellas,77.15
+ES,12,15,galicia,galicia,a coruna,6,hotel 5 estrellas,67.55
+ES,12,15,galicia,galicia,a coruna,6,total,76.09
+ES,12,27,galicia,galicia,lugo,6,hotel 3 estrellas,83.15
+ES,12,27,galicia,galicia,lugo,6,hotel 4 estrellas,78.39
+ES,12,27,galicia,galicia,lugo,6,hotel 5 estrellas,72.47
+ES,12,27,galicia,galicia,lugo,6,total,81.83
+ES,12,32,galicia,galicia,ourense,6,hotel 3 estrellas,64.54
+ES,12,32,galicia,galicia,ourense,6,hotel 4 estrellas,60.49
+ES,12,32,galicia,galicia,ourense,6,hotel 5 estrellas,70.78
+ES,12,32,galicia,galicia,ourense,6,total,73.32
+ES,12,36,galicia,galicia,pontevedra,6,hotel 3 estrellas,62.78
+ES,12,36,galicia,galicia,pontevedra,6,hotel 4 estrellas,75.76
+ES,12,36,galicia,galicia,pontevedra,6,hotel 5 estrellas,72.32
+ES,12,36,galicia,galicia,pontevedra,6,total,70.19
+ES,13,28,"madrid, comunidad de",madrid,madrid,6,hotel 3 estrellas,63.53
+ES,13,28,"madrid, comunidad de",madrid,madrid,6,hotel 4 estrellas,73.4
+ES,13,28,"madrid, comunidad de",madrid,madrid,6,hotel 5 estrellas,74.3
+ES,13,28,"madrid, comunidad de",madrid,madrid,6,total,69.39
+ES,14,30,"murcia, region de",murcia,murcia,6,hotel 3 estrellas,75.55
+ES,14,30,"murcia, region de",murcia,murcia,6,hotel 4 estrellas,68.48
+ES,14,30,"murcia, region de",murcia,murcia,6,hotel 5 estrellas,70.98
+ES,14,30,"murcia, region de",murcia,murcia,6,total,71.34
+ES,15,31,"navarra, comunidad foral de",navarra,navarra,6,hotel 3 estrellas,74.11
+ES,15,31,"navarra, comunidad foral de",navarra,navarra,6,hotel 4 estrellas,83.51
+ES,15,31,"navarra, comunidad foral de",navarra,navarra,6,hotel 5 estrellas,91.8
+ES,15,31,"navarra, comunidad foral de",navarra,navarra,6,total,78.29
+ES,16,01,pais vasco,pais vasco,araba/alava,6,hotel 3 estrellas,65.43
+ES,16,01,pais vasco,pais vasco,araba/alava,6,hotel 4 estrellas,79.8
+ES,16,01,pais vasco,pais vasco,araba/alava,6,hotel 5 estrellas,61.08
+ES,16,01,pais vasco,pais vasco,araba/alava,6,total,75.59
+ES,16,48,pais vasco,pais vasco,bizkaia,6,hotel 3 estrellas,67.87
+ES,16,48,pais vasco,pais vasco,bizkaia,6,hotel 4 estrellas,84.67
+ES,16,48,pais vasco,pais vasco,bizkaia,6,hotel 5 estrellas,72.2
+ES,16,48,pais vasco,pais vasco,bizkaia,6,total,76.79
+ES,16,20,pais vasco,pais vasco,gipuzkoa,6,hotel 3 estrellas,72.9
+ES,16,20,pais vasco,pais vasco,gipuzkoa,6,hotel 4 estrellas,79.21
+ES,16,20,pais vasco,pais vasco,gipuzkoa,6,hotel 5 estrellas,85.85
+ES,16,20,pais vasco,pais vasco,gipuzkoa,6,total,78.76
+ES,17,26,"rioja, la",rioja,la rioja,6,hotel 3 estrellas,80.65
+ES,17,26,"rioja, la",rioja,la rioja,6,hotel 4 estrellas,74.79
+ES,17,26,"rioja, la",rioja,la rioja,6,hotel 5 estrellas,85.92
+ES,17,26,"rioja, la",rioja,la rioja,6,total,80.03
+ES,01,04,andalucia,andalucia,almeria,7,hotel 3 estrellas,62.56
+ES,01,04,andalucia,andalucia,almeria,7,hotel 4 estrellas,57.09
+ES,01,04,andalucia,andalucia,almeria,7,hotel 5 estrellas,60.86
+ES,01,04,andalucia,andalucia,almeria,7,total,57.22
+ES,01,11,andalucia,andalucia,cadiz,7,hotel 3 estrellas,73.71
+ES,01,11,andalucia,andalucia,cadiz,7,hotel 4 estrellas,71.07
+ES,01,11,andalucia,andalucia,cadiz,7,hotel 5 estrellas,80.89
+ES,01,11,andalucia,andalucia,cadiz,7,total,73.73
+ES,01,14,andalucia,andalucia,cordoba,7,hotel 3 estrellas,89.14
+ES,01,14,andalucia,andalucia,cordoba,7,hotel 4 estrellas,87.45
+ES,01,14,andalucia,andalucia,cordoba,7,hotel 5 estrellas,91.87
+ES,01,14,andalucia,andalucia,cordoba,7,total,87.94
+ES,01,18,andalucia,andalucia,granada,7,hotel 3 estrellas,79.03
+ES,01,18,andalucia,andalucia,granada,7,hotel 4 estrellas,79.64
+ES,01,18,andalucia,andalucia,granada,7,hotel 5 estrellas,85.5
+ES,01,18,andalucia,andalucia,granada,7,total,80.26
+ES,01,21,andalucia,andalucia,huelva,7,hotel 3 estrellas,76.91
+ES,01,21,andalucia,andalucia,huelva,7,hotel 4 estrellas,74.65
+ES,01,21,andalucia,andalucia,huelva,7,hotel 5 estrellas,82.08
+ES,01,21,andalucia,andalucia,huelva,7,total,79.03
+ES,01,23,andalucia,andalucia,jaen,7,hotel 3 estrellas,78.4
+ES,01,23,andalucia,andalucia,jaen,7,hotel 4 estrellas,82.84
+ES,01,23,andalucia,andalucia,jaen,7,hotel 5 estrellas,93.8
+ES,01,23,andalucia,andalucia,jaen,7,total,80.98
+ES,01,29,andalucia,andalucia,malaga,7,hotel 3 estrellas,67.88
+ES,01,29,andalucia,andalucia,malaga,7,hotel 4 estrellas,68.81
+ES,01,29,andalucia,andalucia,malaga,7,hotel 5 estrellas,73.24
+ES,01,29,andalucia,andalucia,malaga,7,total,68.74
+ES,01,41,andalucia,andalucia,sevilla,7,hotel 3 estrellas,82.77
+ES,01,41,andalucia,andalucia,sevilla,7,hotel 4 estrellas,84.4
+ES,01,41,andalucia,andalucia,sevilla,7,hotel 5 estrellas,88.4
+ES,01,41,andalucia,andalucia,sevilla,7,total,84.15
+ES,02,22,aragon,aragon,huesca,7,hotel 3 estrellas,71.91
+ES,02,22,aragon,aragon,huesca,7,hotel 4 estrellas,79.94
+ES,02,22,aragon,aragon,huesca,7,hotel 5 estrellas,81.32
+ES,02,22,aragon,aragon,huesca,7,total,76.44
+ES,02,44,aragon,aragon,teruel,7,hotel 3 estrellas,80.91
+ES,02,44,aragon,aragon,teruel,7,hotel 4 estrellas,77.43
+ES,02,44,aragon,aragon,teruel,7,hotel 5 estrellas,81.32
+ES,02,44,aragon,aragon,teruel,7,total,81.79
+ES,02,50,aragon,aragon,zaragoza,7,hotel 3 estrellas,77.12
+ES,02,50,aragon,aragon,zaragoza,7,hotel 4 estrellas,83.56
+ES,02,50,aragon,aragon,zaragoza,7,hotel 5 estrellas,81.32
+ES,02,50,aragon,aragon,zaragoza,7,total,81.13
+ES,03,33,"asturias, principado de",asturias,asturias,7,hotel 3 estrellas,80.47
+ES,03,33,"asturias, principado de",asturias,asturias,7,hotel 4 estrellas,74.08
+ES,03,33,"asturias, principado de",asturias,asturias,7,hotel 5 estrellas,86.53
+ES,03,33,"asturias, principado de",asturias,asturias,7,total,78.25
+ES,04,07,"balears, illes",balears,illes balears,7,hotel 3 estrellas,62.41
+ES,04,07,"balears, illes",balears,illes balears,7,hotel 4 estrellas,70.27
+ES,04,07,"balears, illes",balears,illes balears,7,hotel 5 estrellas,76.76
+ES,04,07,"balears, illes",balears,illes balears,7,total,67.23
+ES,05,35,canarias,canarias,las palmas,7,hotel 3 estrellas,64.04
+ES,05,35,canarias,canarias,las palmas,7,hotel 4 estrellas,67.46
+ES,05,35,canarias,canarias,las palmas,7,hotel 5 estrellas,85.02
+ES,05,35,canarias,canarias,las palmas,7,total,68.05
+ES,05,38,canarias,canarias,santa cruz de tenerife,7,hotel 3 estrellas,54.47
+ES,05,38,canarias,canarias,santa cruz de tenerife,7,hotel 4 estrellas,58.72
+ES,05,38,canarias,canarias,santa cruz de tenerife,7,hotel 5 estrellas,77.74
+ES,05,38,canarias,canarias,santa cruz de tenerife,7,total,60.6
+ES,06,39,cantabria,cantabria,cantabria,7,hotel 3 estrellas,72.91
+ES,06,39,cantabria,cantabria,cantabria,7,hotel 4 estrellas,77.34
+ES,06,39,cantabria,cantabria,cantabria,7,hotel 5 estrellas,89.37
+ES,06,39,cantabria,cantabria,cantabria,7,total,74.76
+ES,07,05,castilla y leon,castilla y leon,avila,7,hotel 3 estrellas,84.36
+ES,07,05,castilla y leon,castilla y leon,avila,7,hotel 4 estrellas,79.83
+ES,07,05,castilla y leon,castilla y leon,avila,7,hotel 5 estrellas,75.65
+ES,07,05,castilla y leon,castilla y leon,avila,7,total,80.29
+ES,07,09,castilla y leon,castilla y leon,burgos,7,hotel 3 estrellas,73.74
+ES,07,09,castilla y leon,castilla y leon,burgos,7,hotel 4 estrellas,72.92
+ES,07,09,castilla y leon,castilla y leon,burgos,7,hotel 5 estrellas,84.16
+ES,07,09,castilla y leon,castilla y leon,burgos,7,total,73.2
+ES,07,24,castilla y leon,castilla y leon,leon,7,hotel 3 estrellas,84.6
+ES,07,24,castilla y leon,castilla y leon,leon,7,hotel 4 estrellas,80.63
+ES,07,24,castilla y leon,castilla y leon,leon,7,hotel 5 estrellas,94.88
+ES,07,24,castilla y leon,castilla y leon,leon,7,total,83.89
+ES,07,34,castilla y leon,castilla y leon,palencia,7,hotel 3 estrellas,77.76
+ES,07,34,castilla y leon,castilla y leon,palencia,7,hotel 4 estrellas,65.86
+ES,07,34,castilla y leon,castilla y leon,palencia,7,hotel 5 estrellas,84.03
+ES,07,34,castilla y leon,castilla y leon,palencia,7,total,72.68
+ES,07,37,castilla y leon,castilla y leon,salamanca,7,hotel 3 estrellas,78.22
+ES,07,37,castilla y leon,castilla y leon,salamanca,7,hotel 4 estrellas,74.54
+ES,07,37,castilla y leon,castilla y leon,salamanca,7,hotel 5 estrellas,83.15
+ES,07,37,castilla y leon,castilla y leon,salamanca,7,total,78.92
+ES,07,40,castilla y leon,castilla y leon,segovia,7,hotel 3 estrellas,80.68
+ES,07,40,castilla y leon,castilla y leon,segovia,7,hotel 4 estrellas,78.9
+ES,07,40,castilla y leon,castilla y leon,segovia,7,hotel 5 estrellas,81.62
+ES,07,40,castilla y leon,castilla y leon,segovia,7,total,81.4
+ES,07,42,castilla y leon,castilla y leon,soria,7,hotel 3 estrellas,79.22
+ES,07,42,castilla y leon,castilla y leon,soria,7,hotel 4 estrellas,92.32
+ES,07,42,castilla y leon,castilla y leon,soria,7,hotel 5 estrellas,93.49
+ES,07,42,castilla y leon,castilla y leon,soria,7,total,74.93
+ES,07,47,castilla y leon,castilla y leon,valladolid,7,hotel 3 estrellas,75.54
+ES,07,47,castilla y leon,castilla y leon,valladolid,7,hotel 4 estrellas,76.66
+ES,07,47,castilla y leon,castilla y leon,valladolid,7,hotel 5 estrellas,77.51
+ES,07,47,castilla y leon,castilla y leon,valladolid,7,total,75.98
+ES,07,49,castilla y leon,castilla y leon,zamora,7,hotel 3 estrellas,74.43
+ES,07,49,castilla y leon,castilla y leon,zamora,7,hotel 4 estrellas,86.23
+ES,07,49,castilla y leon,castilla y leon,zamora,7,hotel 5 estrellas,81.81
+ES,07,49,castilla y leon,castilla y leon,zamora,7,total,79.92
+ES,08,02,castilla-la mancha,castilla-la mancha,albacete,7,hotel 3 estrellas,65.09
+ES,08,02,castilla-la mancha,castilla-la mancha,albacete,7,hotel 4 estrellas,73.38
+ES,08,02,castilla-la mancha,castilla-la mancha,albacete,7,hotel 5 estrellas,80.62
+ES,08,02,castilla-la mancha,castilla-la mancha,albacete,7,total,71.55
+ES,08,13,castilla-la mancha,castilla-la mancha,ciudad real,7,hotel 3 estrellas,77.34
+ES,08,13,castilla-la mancha,castilla-la mancha,ciudad real,7,hotel 4 estrellas,77.76
+ES,08,13,castilla-la mancha,castilla-la mancha,ciudad real,7,hotel 5 estrellas,82.57
+ES,08,13,castilla-la mancha,castilla-la mancha,ciudad real,7,total,77.56
+ES,08,16,castilla-la mancha,castilla-la mancha,cuenca,7,hotel 3 estrellas,68.44
+ES,08,16,castilla-la mancha,castilla-la mancha,cuenca,7,hotel 4 estrellas,83.55
+ES,08,16,castilla-la mancha,castilla-la mancha,cuenca,7,hotel 5 estrellas,80.62
+ES,08,16,castilla-la mancha,castilla-la mancha,cuenca,7,total,81.47
+ES,08,19,castilla-la mancha,castilla-la mancha,guadalajara,7,hotel 3 estrellas,72.09
+ES,08,19,castilla-la mancha,castilla-la mancha,guadalajara,7,hotel 4 estrellas,76.02
+ES,08,19,castilla-la mancha,castilla-la mancha,guadalajara,7,hotel 5 estrellas,80.62
+ES,08,19,castilla-la mancha,castilla-la mancha,guadalajara,7,total,76.26
+ES,08,45,castilla-la mancha,castilla-la mancha,toledo,7,hotel 3 estrellas,71.35
+ES,08,45,castilla-la mancha,castilla-la mancha,toledo,7,hotel 4 estrellas,80.18
+ES,08,45,castilla-la mancha,castilla-la mancha,toledo,7,hotel 5 estrellas,78.66
+ES,08,45,castilla-la mancha,castilla-la mancha,toledo,7,total,75.74
+ES,09,08,cataluna,cataluna,barcelona,7,hotel 3 estrellas,65.29
+ES,09,08,cataluna,cataluna,barcelona,7,hotel 4 estrellas,70.35
+ES,09,08,cataluna,cataluna,barcelona,7,hotel 5 estrellas,70.5
+ES,09,08,cataluna,cataluna,barcelona,7,total,68.43
+ES,09,17,cataluna,cataluna,girona,7,hotel 3 estrellas,67.3
+ES,09,17,cataluna,cataluna,girona,7,hotel 4 estrellas,71.75
+ES,09,17,cataluna,cataluna,girona,7,hotel 5 estrellas,76.06
+ES,09,17,cataluna,cataluna,girona,7,total,69.86
+ES,09,25,cataluna,cataluna,lleida,7,hotel 3 estrellas,84.9
+ES,09,25,cataluna,cataluna,lleida,7,hotel 4 estrellas,62.83
+ES,09,25,cataluna,cataluna,lleida,7,hotel 5 estrellas,83.37
+ES,09,25,cataluna,cataluna,lleida,7,total,75.77
+ES,09,43,cataluna,cataluna,tarragona,7,hotel 3 estrellas,49.07
+ES,09,43,cataluna,cataluna,tarragona,7,hotel 4 estrellas,57.72
+ES,09,43,cataluna,cataluna,tarragona,7,hotel 5 estrellas,65.16
+ES,09,43,cataluna,cataluna,tarragona,7,total,55.88
+ES,10,03,comunitat valenciana,comunitat valenciana,alicante/alacant,7,hotel 3 estrellas,60.26
+ES,10,03,comunitat valenciana,comunitat valenciana,alicante/alacant,7,hotel 4 estrellas,66.14
+ES,10,03,comunitat valenciana,comunitat valenciana,alicante/alacant,7,hotel 5 estrellas,77.23
+ES,10,03,comunitat valenciana,comunitat valenciana,alicante/alacant,7,total,63.18
+ES,10,12,comunitat valenciana,comunitat valenciana,castellon/castello,7,hotel 3 estrellas,74.89
+ES,10,12,comunitat valenciana,comunitat valenciana,castellon/castello,7,hotel 4 estrellas,73.37
+ES,10,12,comunitat valenciana,comunitat valenciana,castellon/castello,7,hotel 5 estrellas,63.15
+ES,10,12,comunitat valenciana,comunitat valenciana,castellon/castello,7,total,72.97
+ES,10,46,comunitat valenciana,comunitat valenciana,valencia/valencia,7,hotel 3 estrellas,68.22
+ES,10,46,comunitat valenciana,comunitat valenciana,valencia/valencia,7,hotel 4 estrellas,74.65
+ES,10,46,comunitat valenciana,comunitat valenciana,valencia/valencia,7,hotel 5 estrellas,80.33
+ES,10,46,comunitat valenciana,comunitat valenciana,valencia/valencia,7,total,72.3
+ES,11,06,extremadura,extremadura,badajoz,7,hotel 3 estrellas,41.35
+ES,11,06,extremadura,extremadura,badajoz,7,hotel 4 estrellas,77.32
+ES,11,06,extremadura,extremadura,badajoz,7,hotel 5 estrellas,84.52
+ES,11,06,extremadura,extremadura,badajoz,7,total,71.93
+ES,11,10,extremadura,extremadura,caceres,7,hotel 3 estrellas,79.55
+ES,11,10,extremadura,extremadura,caceres,7,hotel 4 estrellas,87.06
+ES,11,10,extremadura,extremadura,caceres,7,hotel 5 estrellas,94.48
+ES,11,10,extremadura,extremadura,caceres,7,total,84.38
+ES,12,15,galicia,galicia,a coruna,7,hotel 3 estrellas,77.04
+ES,12,15,galicia,galicia,a coruna,7,hotel 4 estrellas,79.11
+ES,12,15,galicia,galicia,a coruna,7,hotel 5 estrellas,81.78
+ES,12,15,galicia,galicia,a coruna,7,total,76.49
+ES,12,27,galicia,galicia,lugo,7,hotel 3 estrellas,79.26
+ES,12,27,galicia,galicia,lugo,7,hotel 4 estrellas,79.95
+ES,12,27,galicia,galicia,lugo,7,hotel 5 estrellas,93.16
+ES,12,27,galicia,galicia,lugo,7,total,77.7
+ES,12,32,galicia,galicia,ourense,7,hotel 3 estrellas,50.54
+ES,12,32,galicia,galicia,ourense,7,hotel 4 estrellas,78.26
+ES,12,32,galicia,galicia,ourense,7,hotel 5 estrellas,86.06
+ES,12,32,galicia,galicia,ourense,7,total,67.18
+ES,12,36,galicia,galicia,pontevedra,7,hotel 3 estrellas,57.96
+ES,12,36,galicia,galicia,pontevedra,7,hotel 4 estrellas,79.01
+ES,12,36,galicia,galicia,pontevedra,7,hotel 5 estrellas,83.26
+ES,12,36,galicia,galicia,pontevedra,7,total,71.9
+ES,13,28,"madrid, comunidad de",madrid,madrid,7,hotel 3 estrellas,71.33
+ES,13,28,"madrid, comunidad de",madrid,madrid,7,hotel 4 estrellas,76.75
+ES,13,28,"madrid, comunidad de",madrid,madrid,7,hotel 5 estrellas,73.4
+ES,13,28,"madrid, comunidad de",madrid,madrid,7,total,74.84
+ES,14,30,"murcia, region de",murcia,murcia,7,hotel 3 estrellas,70.15
+ES,14,30,"murcia, region de",murcia,murcia,7,hotel 4 estrellas,69.25
+ES,14,30,"murcia, region de",murcia,murcia,7,hotel 5 estrellas,74.8
+ES,14,30,"murcia, region de",murcia,murcia,7,total,69.46
+ES,15,31,"navarra, comunidad foral de",navarra,navarra,7,hotel 3 estrellas,78.39
+ES,15,31,"navarra, comunidad foral de",navarra,navarra,7,hotel 4 estrellas,85.22
+ES,15,31,"navarra, comunidad foral de",navarra,navarra,7,hotel 5 estrellas,89.61
+ES,15,31,"navarra, comunidad foral de",navarra,navarra,7,total,80.68
+ES,16,01,pais vasco,pais vasco,araba/alava,7,hotel 3 estrellas,66.86
+ES,16,01,pais vasco,pais vasco,araba/alava,7,hotel 4 estrellas,75.97
+ES,16,01,pais vasco,pais vasco,araba/alava,7,hotel 5 estrellas,69.06
+ES,16,01,pais vasco,pais vasco,araba/alava,7,total,70.58
+ES,16,48,pais vasco,pais vasco,bizkaia,7,hotel 3 estrellas,71.78
+ES,16,48,pais vasco,pais vasco,bizkaia,7,hotel 4 estrellas,84.2
+ES,16,48,pais vasco,pais vasco,bizkaia,7,hotel 5 estrellas,75.04
+ES,16,48,pais vasco,pais vasco,bizkaia,7,total,80.85
+ES,16,20,pais vasco,pais vasco,gipuzkoa,7,hotel 3 estrellas,70.87
+ES,16,20,pais vasco,pais vasco,gipuzkoa,7,hotel 4 estrellas,74.55
+ES,16,20,pais vasco,pais vasco,gipuzkoa,7,hotel 5 estrellas,75.62
+ES,16,20,pais vasco,pais vasco,gipuzkoa,7,total,73.74
+ES,17,26,"rioja, la",rioja,la rioja,7,hotel 3 estrellas,82.23
+ES,17,26,"rioja, la",rioja,la rioja,7,hotel 4 estrellas,78.9
+ES,17,26,"rioja, la",rioja,la rioja,7,hotel 5 estrellas,64.69
+ES,17,26,"rioja, la",rioja,la rioja,7,total,80.1
+ES,01,04,andalucia,andalucia,almeria,8,hotel 3 estrellas,56.1
+ES,01,04,andalucia,andalucia,almeria,8,hotel 4 estrellas,56.0
+ES,01,04,andalucia,andalucia,almeria,8,hotel 5 estrellas,58.68
+ES,01,04,andalucia,andalucia,almeria,8,total,54.78
+ES,01,11,andalucia,andalucia,cadiz,8,hotel 3 estrellas,63.36
+ES,01,11,andalucia,andalucia,cadiz,8,hotel 4 estrellas,58.76
+ES,01,11,andalucia,andalucia,cadiz,8,hotel 5 estrellas,79.22
+ES,01,11,andalucia,andalucia,cadiz,8,total,61.47
+ES,01,14,andalucia,andalucia,cordoba,8,hotel 3 estrellas,85.6
+ES,01,14,andalucia,andalucia,cordoba,8,hotel 4 estrellas,85.73
+ES,01,14,andalucia,andalucia,cordoba,8,hotel 5 estrellas,89.02
+ES,01,14,andalucia,andalucia,cordoba,8,total,86.06
+ES,01,18,andalucia,andalucia,granada,8,hotel 3 estrellas,78.52
+ES,01,18,andalucia,andalucia,granada,8,hotel 4 estrellas,79.09
+ES,01,18,andalucia,andalucia,granada,8,hotel 5 estrellas,86.13
+ES,01,18,andalucia,andalucia,granada,8,total,78.73
+ES,01,21,andalucia,andalucia,huelva,8,hotel 3 estrellas,61.96
+ES,01,21,andalucia,andalucia,huelva,8,hotel 4 estrellas,69.93
+ES,01,21,andalucia,andalucia,huelva,8,hotel 5 estrellas,79.07
+ES,01,21,andalucia,andalucia,huelva,8,total,69.24
+ES,01,23,andalucia,andalucia,jaen,8,hotel 3 estrellas,71.01
+ES,01,23,andalucia,andalucia,jaen,8,hotel 4 estrellas,71.2
+ES,01,23,andalucia,andalucia,jaen,8,hotel 5 estrellas,77.62
+ES,01,23,andalucia,andalucia,jaen,8,total,73.05
+ES,01,29,andalucia,andalucia,malaga,8,hotel 3 estrellas,60.87
+ES,01,29,andalucia,andalucia,malaga,8,hotel 4 estrellas,64.73
+ES,01,29,andalucia,andalucia,malaga,8,hotel 5 estrellas,72.78
+ES,01,29,andalucia,andalucia,malaga,8,total,63.69
+ES,01,41,andalucia,andalucia,sevilla,8,hotel 3 estrellas,81.67
+ES,01,41,andalucia,andalucia,sevilla,8,hotel 4 estrellas,82.33
+ES,01,41,andalucia,andalucia,sevilla,8,hotel 5 estrellas,90.04
+ES,01,41,andalucia,andalucia,sevilla,8,total,82.04
+ES,02,22,aragon,aragon,huesca,8,hotel 3 estrellas,66.55
+ES,02,22,aragon,aragon,huesca,8,hotel 4 estrellas,63.31
+ES,02,22,aragon,aragon,huesca,8,hotel 5 estrellas,67.93
+ES,02,22,aragon,aragon,huesca,8,total,64.75
+ES,02,44,aragon,aragon,teruel,8,hotel 3 estrellas,67.55
+ES,02,44,aragon,aragon,teruel,8,hotel 4 estrellas,77.97
+ES,02,44,aragon,aragon,teruel,8,hotel 5 estrellas,100.0
+ES,02,44,aragon,aragon,teruel,8,total,73.3
+ES,02,50,aragon,aragon,zaragoza,8,hotel 3 estrellas,79.33
+ES,02,50,aragon,aragon,zaragoza,8,hotel 4 estrellas,79.12
+ES,02,50,aragon,aragon,zaragoza,8,hotel 5 estrellas,83.97
+ES,02,50,aragon,aragon,zaragoza,8,total,77.36
+ES,03,33,"asturias, principado de",asturias,asturias,8,hotel 3 estrellas,64.57
+ES,03,33,"asturias, principado de",asturias,asturias,8,hotel 4 estrellas,60.14
+ES,03,33,"asturias, principado de",asturias,asturias,8,hotel 5 estrellas,86.82
+ES,03,33,"asturias, principado de",asturias,asturias,8,total,65.75
+ES,04,07,"balears, illes",balears,illes balears,8,hotel 3 estrellas,56.38
+ES,04,07,"balears, illes",balears,illes balears,8,hotel 4 estrellas,69.07
+ES,04,07,"balears, illes",balears,illes balears,8,hotel 5 estrellas,69.57
+ES,04,07,"balears, illes",balears,illes balears,8,total,63.91
+ES,05,35,canarias,canarias,las palmas,8,hotel 3 estrellas,57.97
+ES,05,35,canarias,canarias,las palmas,8,hotel 4 estrellas,64.19
+ES,05,35,canarias,canarias,las palmas,8,hotel 5 estrellas,76.88
+ES,05,35,canarias,canarias,las palmas,8,total,62.22
+ES,05,38,canarias,canarias,santa cruz de tenerife,8,hotel 3 estrellas,45.11
+ES,05,38,canarias,canarias,santa cruz de tenerife,8,hotel 4 estrellas,54.89
+ES,05,38,canarias,canarias,santa cruz de tenerife,8,hotel 5 estrellas,74.68
+ES,05,38,canarias,canarias,santa cruz de tenerife,8,total,58.47
+ES,06,39,cantabria,cantabria,cantabria,8,hotel 3 estrellas,56.73
+ES,06,39,cantabria,cantabria,cantabria,8,hotel 4 estrellas,65.99
+ES,06,39,cantabria,cantabria,cantabria,8,hotel 5 estrellas,68.8
+ES,06,39,cantabria,cantabria,cantabria,8,total,59.53
+ES,07,05,castilla y leon,castilla y leon,avila,8,hotel 3 estrellas,79.93
+ES,07,05,castilla y leon,castilla y leon,avila,8,hotel 4 estrellas,75.07
+ES,07,05,castilla y leon,castilla y leon,avila,8,hotel 5 estrellas,95.79
+ES,07,05,castilla y leon,castilla y leon,avila,8,total,74.59
+ES,07,09,castilla y leon,castilla y leon,burgos,8,hotel 3 estrellas,62.23
+ES,07,09,castilla y leon,castilla y leon,burgos,8,hotel 4 estrellas,63.59
+ES,07,09,castilla y leon,castilla y leon,burgos,8,hotel 5 estrellas,54.33
+ES,07,09,castilla y leon,castilla y leon,burgos,8,total,63.23
+ES,07,24,castilla y leon,castilla y leon,leon,8,hotel 3 estrellas,79.37
+ES,07,24,castilla y leon,castilla y leon,leon,8,hotel 4 estrellas,78.89
+ES,07,24,castilla y leon,castilla y leon,leon,8,hotel 5 estrellas,78.43
+ES,07,24,castilla y leon,castilla y leon,leon,8,total,78.66
+ES,07,34,castilla y leon,castilla y leon,palencia,8,hotel 3 estrellas,68.55
+ES,07,34,castilla y leon,castilla y leon,palencia,8,hotel 4 estrellas,66.17
+ES,07,34,castilla y leon,castilla y leon,palencia,8,hotel 5 estrellas,82.82
+ES,07,34,castilla y leon,castilla y leon,palencia,8,total,68.01
+ES,07,37,castilla y leon,castilla y leon,salamanca,8,hotel 3 estrellas,76.93
+ES,07,37,castilla y leon,castilla y leon,salamanca,8,hotel 4 estrellas,75.73
+ES,07,37,castilla y leon,castilla y leon,salamanca,8,hotel 5 estrellas,83.05
+ES,07,37,castilla y leon,castilla y leon,salamanca,8,total,78.22
+ES,07,40,castilla y leon,castilla y leon,segovia,8,hotel 3 estrellas,75.77
+ES,07,40,castilla y leon,castilla y leon,segovia,8,hotel 4 estrellas,75.29
+ES,07,40,castilla y leon,castilla y leon,segovia,8,hotel 5 estrellas,82.16
+ES,07,40,castilla y leon,castilla y leon,segovia,8,total,75.81
+ES,07,42,castilla y leon,castilla y leon,soria,8,hotel 3 estrellas,75.1
+ES,07,42,castilla y leon,castilla y leon,soria,8,hotel 4 estrellas,83.77
+ES,07,42,castilla y leon,castilla y leon,soria,8,hotel 5 estrellas,100.0
+ES,07,42,castilla y leon,castilla y leon,soria,8,total,74.2
+ES,07,47,castilla y leon,castilla y leon,valladolid,8,hotel 3 estrellas,76.95
+ES,07,47,castilla y leon,castilla y leon,valladolid,8,hotel 4 estrellas,79.64
+ES,07,47,castilla y leon,castilla y leon,valladolid,8,hotel 5 estrellas,79.58
+ES,07,47,castilla y leon,castilla y leon,valladolid,8,total,79.32
+ES,07,49,castilla y leon,castilla y leon,zamora,8,hotel 3 estrellas,58.92
+ES,07,49,castilla y leon,castilla y leon,zamora,8,hotel 4 estrellas,75.73
+ES,07,49,castilla y leon,castilla y leon,zamora,8,hotel 5 estrellas,89.26
+ES,07,49,castilla y leon,castilla y leon,zamora,8,total,68.42
+ES,08,02,castilla-la mancha,castilla-la mancha,albacete,8,hotel 3 estrellas,77.96
+ES,08,02,castilla-la mancha,castilla-la mancha,albacete,8,hotel 4 estrellas,63.04
+ES,08,02,castilla-la mancha,castilla-la mancha,albacete,8,hotel 5 estrellas,86.19
+ES,08,02,castilla-la mancha,castilla-la mancha,albacete,8,total,71.75
+ES,08,13,castilla-la mancha,castilla-la mancha,ciudad real,8,hotel 3 estrellas,74.93
+ES,08,13,castilla-la mancha,castilla-la mancha,ciudad real,8,hotel 4 estrellas,74.31
+ES,08,13,castilla-la mancha,castilla-la mancha,ciudad real,8,hotel 5 estrellas,86.99
+ES,08,13,castilla-la mancha,castilla-la mancha,ciudad real,8,total,72.18
+ES,08,16,castilla-la mancha,castilla-la mancha,cuenca,8,hotel 3 estrellas,59.15
+ES,08,16,castilla-la mancha,castilla-la mancha,cuenca,8,hotel 4 estrellas,79.39
+ES,08,16,castilla-la mancha,castilla-la mancha,cuenca,8,hotel 5 estrellas,86.19
+ES,08,16,castilla-la mancha,castilla-la mancha,cuenca,8,total,70.62
+ES,08,19,castilla-la mancha,castilla-la mancha,guadalajara,8,hotel 3 estrellas,68.71
+ES,08,19,castilla-la mancha,castilla-la mancha,guadalajara,8,hotel 4 estrellas,78.57
+ES,08,19,castilla-la mancha,castilla-la mancha,guadalajara,8,hotel 5 estrellas,86.19
+ES,08,19,castilla-la mancha,castilla-la mancha,guadalajara,8,total,72.93
+ES,08,45,castilla-la mancha,castilla-la mancha,toledo,8,hotel 3 estrellas,71.05
+ES,08,45,castilla-la mancha,castilla-la mancha,toledo,8,hotel 4 estrellas,75.63
+ES,08,45,castilla-la mancha,castilla-la mancha,toledo,8,hotel 5 estrellas,85.39
+ES,08,45,castilla-la mancha,castilla-la mancha,toledo,8,total,74.32
+ES,09,08,cataluna,cataluna,barcelona,8,hotel 3 estrellas,65.78
+ES,09,08,cataluna,cataluna,barcelona,8,hotel 4 estrellas,70.58
+ES,09,08,cataluna,cataluna,barcelona,8,hotel 5 estrellas,69.1
+ES,09,08,cataluna,cataluna,barcelona,8,total,68.63
+ES,09,17,cataluna,cataluna,girona,8,hotel 3 estrellas,50.93
+ES,09,17,cataluna,cataluna,girona,8,hotel 4 estrellas,57.32
+ES,09,17,cataluna,cataluna,girona,8,hotel 5 estrellas,69.95
+ES,09,17,cataluna,cataluna,girona,8,total,53.6
+ES,09,25,cataluna,cataluna,lleida,8,hotel 3 estrellas,80.98
+ES,09,25,cataluna,cataluna,lleida,8,hotel 4 estrellas,65.34
+ES,09,25,cataluna,cataluna,lleida,8,hotel 5 estrellas,57.81
+ES,09,25,cataluna,cataluna,lleida,8,total,75.32
+ES,09,43,cataluna,cataluna,tarragona,8,hotel 3 estrellas,42.44
+ES,09,43,cataluna,cataluna,tarragona,8,hotel 4 estrellas,43.22
+ES,09,43,cataluna,cataluna,tarragona,8,hotel 5 estrellas,52.34
+ES,09,43,cataluna,cataluna,tarragona,8,total,44.32
+ES,10,03,comunitat valenciana,comunitat valenciana,alicante/alacant,8,hotel 3 estrellas,51.91
+ES,10,03,comunitat valenciana,comunitat valenciana,alicante/alacant,8,hotel 4 estrellas,62.55
+ES,10,03,comunitat valenciana,comunitat valenciana,alicante/alacant,8,hotel 5 estrellas,79.27
+ES,10,03,comunitat valenciana,comunitat valenciana,alicante/alacant,8,total,58.47
+ES,10,12,comunitat valenciana,comunitat valenciana,castellon/castello,8,hotel 3 estrellas,66.52
+ES,10,12,comunitat valenciana,comunitat valenciana,castellon/castello,8,hotel 4 estrellas,55.41
+ES,10,12,comunitat valenciana,comunitat valenciana,castellon/castello,8,hotel 5 estrellas,51.96
+ES,10,12,comunitat valenciana,comunitat valenciana,castellon/castello,8,total,59.97
+ES,10,46,comunitat valenciana,comunitat valenciana,valencia/valencia,8,hotel 3 estrellas,68.28
+ES,10,46,comunitat valenciana,comunitat valenciana,valencia/valencia,8,hotel 4 estrellas,68.31
+ES,10,46,comunitat valenciana,comunitat valenciana,valencia/valencia,8,hotel 5 estrellas,84.65
+ES,10,46,comunitat valenciana,comunitat valenciana,valencia/valencia,8,total,69.01
+ES,11,06,extremadura,extremadura,badajoz,8,hotel 3 estrellas,49.9
+ES,11,06,extremadura,extremadura,badajoz,8,hotel 4 estrellas,74.33
+ES,11,06,extremadura,extremadura,badajoz,8,hotel 5 estrellas,83.58
+ES,11,06,extremadura,extremadura,badajoz,8,total,72.22
+ES,11,10,extremadura,extremadura,caceres,8,hotel 3 estrellas,74.53
+ES,11,10,extremadura,extremadura,caceres,8,hotel 4 estrellas,86.46
+ES,11,10,extremadura,extremadura,caceres,8,hotel 5 estrellas,93.24
+ES,11,10,extremadura,extremadura,caceres,8,total,83.39
+ES,12,15,galicia,galicia,a coruna,8,hotel 3 estrellas,72.25
+ES,12,15,galicia,galicia,a coruna,8,hotel 4 estrellas,76.31
+ES,12,15,galicia,galicia,a coruna,8,hotel 5 estrellas,74.77
+ES,12,15,galicia,galicia,a coruna,8,total,75.6
+ES,12,27,galicia,galicia,lugo,8,hotel 3 estrellas,60.31
+ES,12,27,galicia,galicia,lugo,8,hotel 4 estrellas,77.76
+ES,12,27,galicia,galicia,lugo,8,hotel 5 estrellas,82.48
+ES,12,27,galicia,galicia,lugo,8,total,75.28
+ES,12,32,galicia,galicia,ourense,8,hotel 3 estrellas,59.21
+ES,12,32,galicia,galicia,ourense,8,hotel 4 estrellas,82.04
+ES,12,32,galicia,galicia,ourense,8,hotel 5 estrellas,82.59
+ES,12,32,galicia,galicia,ourense,8,total,72.42
+ES,12,36,galicia,galicia,pontevedra,8,hotel 3 estrellas,50.11
+ES,12,36,galicia,galicia,pontevedra,8,hotel 4 estrellas,69.61
+ES,12,36,galicia,galicia,pontevedra,8,hotel 5 estrellas,90.52
+ES,12,36,galicia,galicia,pontevedra,8,total,60.36
+ES,13,28,"madrid, comunidad de",madrid,madrid,8,hotel 3 estrellas,77.06
+ES,13,28,"madrid, comunidad de",madrid,madrid,8,hotel 4 estrellas,79.58
+ES,13,28,"madrid, comunidad de",madrid,madrid,8,hotel 5 estrellas,81.02
+ES,13,28,"madrid, comunidad de",madrid,madrid,8,total,78.84
+ES,14,30,"murcia, region de",murcia,murcia,8,hotel 3 estrellas,70.66
+ES,14,30,"murcia, region de",murcia,murcia,8,hotel 4 estrellas,66.94
+ES,14,30,"murcia, region de",murcia,murcia,8,hotel 5 estrellas,59.03
+ES,14,30,"murcia, region de",murcia,murcia,8,total,69.69
+ES,15,31,"navarra, comunidad foral de",navarra,navarra,8,hotel 3 estrellas,76.76
+ES,15,31,"navarra, comunidad foral de",navarra,navarra,8,hotel 4 estrellas,81.87
+ES,15,31,"navarra, comunidad foral de",navarra,navarra,8,hotel 5 estrellas,84.74
+ES,15,31,"navarra, comunidad foral de",navarra,navarra,8,total,80.66
+ES,16,01,pais vasco,pais vasco,araba/alava,8,hotel 3 estrellas,61.89
+ES,16,01,pais vasco,pais vasco,araba/alava,8,hotel 4 estrellas,76.01
+ES,16,01,pais vasco,pais vasco,araba/alava,8,hotel 5 estrellas,66.85
+ES,16,01,pais vasco,pais vasco,araba/alava,8,total,70.96
+ES,16,48,pais vasco,pais vasco,bizkaia,8,hotel 3 estrellas,72.26
+ES,16,48,pais vasco,pais vasco,bizkaia,8,hotel 4 estrellas,80.93
+ES,16,48,pais vasco,pais vasco,bizkaia,8,hotel 5 estrellas,74.56
+ES,16,48,pais vasco,pais vasco,bizkaia,8,total,78.41
+ES,16,20,pais vasco,pais vasco,gipuzkoa,8,hotel 3 estrellas,60.63
+ES,16,20,pais vasco,pais vasco,gipuzkoa,8,hotel 4 estrellas,72.96
+ES,16,20,pais vasco,pais vasco,gipuzkoa,8,hotel 5 estrellas,85.18
+ES,16,20,pais vasco,pais vasco,gipuzkoa,8,total,68.51
+ES,17,26,"rioja, la",rioja,la rioja,8,hotel 3 estrellas,84.51
+ES,17,26,"rioja, la",rioja,la rioja,8,hotel 4 estrellas,78.75
+ES,17,26,"rioja, la",rioja,la rioja,8,hotel 5 estrellas,88.63
+ES,17,26,"rioja, la",rioja,la rioja,8,total,83.1
+ES,01,04,andalucia,andalucia,almeria,9,hotel 3 estrellas,71.21
+ES,01,04,andalucia,andalucia,almeria,9,hotel 4 estrellas,50.54
+ES,01,04,andalucia,andalucia,almeria,9,hotel 5 estrellas,64.31
+ES,01,04,andalucia,andalucia,almeria,9,total,59.65
+ES,01,11,andalucia,andalucia,cadiz,9,hotel 3 estrellas,70.45
+ES,01,11,andalucia,andalucia,cadiz,9,hotel 4 estrellas,70.68
+ES,01,11,andalucia,andalucia,cadiz,9,hotel 5 estrellas,82.06
+ES,01,11,andalucia,andalucia,cadiz,9,total,71.71
+ES,01,14,andalucia,andalucia,cordoba,9,hotel 3 estrellas,86.18
+ES,01,14,andalucia,andalucia,cordoba,9,hotel 4 estrellas,85.33
+ES,01,14,andalucia,andalucia,cordoba,9,hotel 5 estrellas,79.98
+ES,01,14,andalucia,andalucia,cordoba,9,total,85.36
+ES,01,18,andalucia,andalucia,granada,9,hotel 3 estrellas,78.46
+ES,01,18,andalucia,andalucia,granada,9,hotel 4 estrellas,75.14
+ES,01,18,andalucia,andalucia,granada,9,hotel 5 estrellas,80.32
+ES,01,18,andalucia,andalucia,granada,9,total,77.27
+ES,01,21,andalucia,andalucia,huelva,9,hotel 3 estrellas,69.18
+ES,01,21,andalucia,andalucia,huelva,9,hotel 4 estrellas,76.52
+ES,01,21,andalucia,andalucia,huelva,9,hotel 5 estrellas,76.8
+ES,01,21,andalucia,andalucia,huelva,9,total,74.34
+ES,01,23,andalucia,andalucia,jaen,9,hotel 3 estrellas,78.25
+ES,01,23,andalucia,andalucia,jaen,9,hotel 4 estrellas,73.82
+ES,01,23,andalucia,andalucia,jaen,9,hotel 5 estrellas,73.34
+ES,01,23,andalucia,andalucia,jaen,9,total,72.84
+ES,01,29,andalucia,andalucia,malaga,9,hotel 3 estrellas,62.82
+ES,01,29,andalucia,andalucia,malaga,9,hotel 4 estrellas,68.46
+ES,01,29,andalucia,andalucia,malaga,9,hotel 5 estrellas,74.07
+ES,01,29,andalucia,andalucia,malaga,9,total,66.27
+ES,01,41,andalucia,andalucia,sevilla,9,hotel 3 estrellas,71.89
+ES,01,41,andalucia,andalucia,sevilla,9,hotel 4 estrellas,81.15
+ES,01,41,andalucia,andalucia,sevilla,9,hotel 5 estrellas,83.53
+ES,01,41,andalucia,andalucia,sevilla,9,total,78.93
+ES,02,22,aragon,aragon,huesca,9,hotel 3 estrellas,78.0
+ES,02,22,aragon,aragon,huesca,9,hotel 4 estrellas,76.01
+ES,02,22,aragon,aragon,huesca,9,hotel 5 estrellas,71.9
+ES,02,22,aragon,aragon,huesca,9,total,76.87
+ES,02,44,aragon,aragon,teruel,9,hotel 3 estrellas,66.74
+ES,02,44,aragon,aragon,teruel,9,hotel 4 estrellas,77.08
+ES,02,44,aragon,aragon,teruel,9,hotel 5 estrellas,92.99
+ES,02,44,aragon,aragon,teruel,9,total,72.89
+ES,02,50,aragon,aragon,zaragoza,9,hotel 3 estrellas,77.45
+ES,02,50,aragon,aragon,zaragoza,9,hotel 4 estrellas,76.86
+ES,02,50,aragon,aragon,zaragoza,9,hotel 5 estrellas,82.44
+ES,02,50,aragon,aragon,zaragoza,9,total,77.27
+ES,03,33,"asturias, principado de",asturias,asturias,9,hotel 3 estrellas,79.4
+ES,03,33,"asturias, principado de",asturias,asturias,9,hotel 4 estrellas,71.53
+ES,03,33,"asturias, principado de",asturias,asturias,9,hotel 5 estrellas,90.54
+ES,03,33,"asturias, principado de",asturias,asturias,9,total,78.29
+ES,04,07,"balears, illes",balears,illes balears,9,hotel 3 estrellas,59.41
+ES,04,07,"balears, illes",balears,illes balears,9,hotel 4 estrellas,69.37
+ES,04,07,"balears, illes",balears,illes balears,9,hotel 5 estrellas,77.99
+ES,04,07,"balears, illes",balears,illes balears,9,total,65.29
+ES,05,35,canarias,canarias,las palmas,9,hotel 3 estrellas,62.04
+ES,05,35,canarias,canarias,las palmas,9,hotel 4 estrellas,65.02
+ES,05,35,canarias,canarias,las palmas,9,hotel 5 estrellas,82.66
+ES,05,35,canarias,canarias,las palmas,9,total,66.79
+ES,05,38,canarias,canarias,santa cruz de tenerife,9,hotel 3 estrellas,48.64
+ES,05,38,canarias,canarias,santa cruz de tenerife,9,hotel 4 estrellas,57.55
+ES,05,38,canarias,canarias,santa cruz de tenerife,9,hotel 5 estrellas,80.85
+ES,05,38,canarias,canarias,santa cruz de tenerife,9,total,57.35
+ES,06,39,cantabria,cantabria,cantabria,9,hotel 3 estrellas,73.34
+ES,06,39,cantabria,cantabria,cantabria,9,hotel 4 estrellas,77.53
+ES,06,39,cantabria,cantabria,cantabria,9,hotel 5 estrellas,67.97
+ES,06,39,cantabria,cantabria,cantabria,9,total,76.41
+ES,07,05,castilla y leon,castilla y leon,avila,9,hotel 3 estrellas,73.3
+ES,07,05,castilla y leon,castilla y leon,avila,9,hotel 4 estrellas,79.66
+ES,07,05,castilla y leon,castilla y leon,avila,9,hotel 5 estrellas,90.83
+ES,07,05,castilla y leon,castilla y leon,avila,9,total,81.11
+ES,07,09,castilla y leon,castilla y leon,burgos,9,hotel 3 estrellas,73.82
+ES,07,09,castilla y leon,castilla y leon,burgos,9,hotel 4 estrellas,72.49
+ES,07,09,castilla y leon,castilla y leon,burgos,9,hotel 5 estrellas,79.12
+ES,07,09,castilla y leon,castilla y leon,burgos,9,total,73.97
+ES,07,24,castilla y leon,castilla y leon,leon,9,hotel 3 estrellas,82.62
+ES,07,24,castilla y leon,castilla y leon,leon,9,hotel 4 estrellas,80.26
+ES,07,24,castilla y leon,castilla y leon,leon,9,hotel 5 estrellas,97.7
+ES,07,24,castilla y leon,castilla y leon,leon,9,total,81.91
+ES,07,34,castilla y leon,castilla y leon,palencia,9,hotel 3 estrellas,63.46
+ES,07,34,castilla y leon,castilla y leon,palencia,9,hotel 4 estrellas,68.76
+ES,07,34,castilla y leon,castilla y leon,palencia,9,hotel 5 estrellas,84.65
+ES,07,34,castilla y leon,castilla y leon,palencia,9,total,67.01
+ES,07,37,castilla y leon,castilla y leon,salamanca,9,hotel 3 estrellas,79.9
+ES,07,37,castilla y leon,castilla y leon,salamanca,9,hotel 4 estrellas,75.13
+ES,07,37,castilla y leon,castilla y leon,salamanca,9,hotel 5 estrellas,78.41
+ES,07,37,castilla y leon,castilla y leon,salamanca,9,total,78.72
+ES,07,40,castilla y leon,castilla y leon,segovia,9,hotel 3 estrellas,81.5
+ES,07,40,castilla y leon,castilla y leon,segovia,9,hotel 4 estrellas,64.85
+ES,07,40,castilla y leon,castilla y leon,segovia,9,hotel 5 estrellas,78.86
+ES,07,40,castilla y leon,castilla y leon,segovia,9,total,74.6
+ES,07,42,castilla y leon,castilla y leon,soria,9,hotel 3 estrellas,84.4
+ES,07,42,castilla y leon,castilla y leon,soria,9,hotel 4 estrellas,83.09
+ES,07,42,castilla y leon,castilla y leon,soria,9,hotel 5 estrellas,84.65
+ES,07,42,castilla y leon,castilla y leon,soria,9,total,82.56
+ES,07,47,castilla y leon,castilla y leon,valladolid,9,hotel 3 estrellas,70.0
+ES,07,47,castilla y leon,castilla y leon,valladolid,9,hotel 4 estrellas,77.65
+ES,07,47,castilla y leon,castilla y leon,valladolid,9,hotel 5 estrellas,83.49
+ES,07,47,castilla y leon,castilla y leon,valladolid,9,total,76.63
+ES,07,49,castilla y leon,castilla y leon,zamora,9,hotel 3 estrellas,73.8
+ES,07,49,castilla y leon,castilla y leon,zamora,9,hotel 4 estrellas,76.26
+ES,07,49,castilla y leon,castilla y leon,zamora,9,hotel 5 estrellas,84.17
+ES,07,49,castilla y leon,castilla y leon,zamora,9,total,75.23
+ES,08,02,castilla-la mancha,castilla-la mancha,albacete,9,hotel 3 estrellas,66.64
+ES,08,02,castilla-la mancha,castilla-la mancha,albacete,9,hotel 4 estrellas,73.87
+ES,08,02,castilla-la mancha,castilla-la mancha,albacete,9,hotel 5 estrellas,90.58
+ES,08,02,castilla-la mancha,castilla-la mancha,albacete,9,total,61.38
+ES,08,13,castilla-la mancha,castilla-la mancha,ciudad real,9,hotel 3 estrellas,77.57
+ES,08,13,castilla-la mancha,castilla-la mancha,ciudad real,9,hotel 4 estrellas,71.63
+ES,08,13,castilla-la mancha,castilla-la mancha,ciudad real,9,hotel 5 estrellas,98.56
+ES,08,13,castilla-la mancha,castilla-la mancha,ciudad real,9,total,77.66
+ES,08,16,castilla-la mancha,castilla-la mancha,cuenca,9,hotel 3 estrellas,68.88
+ES,08,16,castilla-la mancha,castilla-la mancha,cuenca,9,hotel 4 estrellas,77.27
+ES,08,16,castilla-la mancha,castilla-la mancha,cuenca,9,hotel 5 estrellas,90.58
+ES,08,16,castilla-la mancha,castilla-la mancha,cuenca,9,total,76.21
+ES,08,19,castilla-la mancha,castilla-la mancha,guadalajara,9,hotel 3 estrellas,75.27
+ES,08,19,castilla-la mancha,castilla-la mancha,guadalajara,9,hotel 4 estrellas,78.9
+ES,08,19,castilla-la mancha,castilla-la mancha,guadalajara,9,hotel 5 estrellas,90.58
+ES,08,19,castilla-la mancha,castilla-la mancha,guadalajara,9,total,76.1
+ES,08,45,castilla-la mancha,castilla-la mancha,toledo,9,hotel 3 estrellas,72.12
+ES,08,45,castilla-la mancha,castilla-la mancha,toledo,9,hotel 4 estrellas,78.15
+ES,08,45,castilla-la mancha,castilla-la mancha,toledo,9,hotel 5 estrellas,82.6
+ES,08,45,castilla-la mancha,castilla-la mancha,toledo,9,total,74.2
+ES,09,08,cataluna,cataluna,barcelona,9,hotel 3 estrellas,66.07
+ES,09,08,cataluna,cataluna,barcelona,9,hotel 4 estrellas,70.07
+ES,09,08,cataluna,cataluna,barcelona,9,hotel 5 estrellas,68.17
+ES,09,08,cataluna,cataluna,barcelona,9,total,68.39
+ES,09,17,cataluna,cataluna,girona,9,hotel 3 estrellas,60.42
+ES,09,17,cataluna,cataluna,girona,9,hotel 4 estrellas,68.06
+ES,09,17,cataluna,cataluna,girona,9,hotel 5 estrellas,55.12
+ES,09,17,cataluna,cataluna,girona,9,total,65.15
+ES,09,25,cataluna,cataluna,lleida,9,hotel 3 estrellas,85.22
+ES,09,25,cataluna,cataluna,lleida,9,hotel 4 estrellas,68.48
+ES,09,25,cataluna,cataluna,lleida,9,hotel 5 estrellas,92.32
+ES,09,25,cataluna,cataluna,lleida,9,total,75.8
+ES,09,43,cataluna,cataluna,tarragona,9,hotel 3 estrellas,55.89
+ES,09,43,cataluna,cataluna,tarragona,9,hotel 4 estrellas,57.0
+ES,09,43,cataluna,cataluna,tarragona,9,hotel 5 estrellas,54.29
+ES,09,43,cataluna,cataluna,tarragona,9,total,58.44
+ES,10,03,comunitat valenciana,comunitat valenciana,alicante/alacant,9,hotel 3 estrellas,56.99
+ES,10,03,comunitat valenciana,comunitat valenciana,alicante/alacant,9,hotel 4 estrellas,66.95
+ES,10,03,comunitat valenciana,comunitat valenciana,alicante/alacant,9,hotel 5 estrellas,83.62
+ES,10,03,comunitat valenciana,comunitat valenciana,alicante/alacant,9,total,63.07
+ES,10,12,comunitat valenciana,comunitat valenciana,castellon/castello,9,hotel 3 estrellas,73.6
+ES,10,12,comunitat valenciana,comunitat valenciana,castellon/castello,9,hotel 4 estrellas,75.78
+ES,10,12,comunitat valenciana,comunitat valenciana,castellon/castello,9,hotel 5 estrellas,56.13
+ES,10,12,comunitat valenciana,comunitat valenciana,castellon/castello,9,total,75.16
+ES,10,46,comunitat valenciana,comunitat valenciana,valencia/valencia,9,hotel 3 estrellas,70.39
+ES,10,46,comunitat valenciana,comunitat valenciana,valencia/valencia,9,hotel 4 estrellas,74.97
+ES,10,46,comunitat valenciana,comunitat valenciana,valencia/valencia,9,hotel 5 estrellas,81.28
+ES,10,46,comunitat valenciana,comunitat valenciana,valencia/valencia,9,total,73.62
+ES,11,06,extremadura,extremadura,badajoz,9,hotel 3 estrellas,57.22
+ES,11,06,extremadura,extremadura,badajoz,9,hotel 4 estrellas,71.02
+ES,11,06,extremadura,extremadura,badajoz,9,hotel 5 estrellas,87.27
+ES,11,06,extremadura,extremadura,badajoz,9,total,72.55
+ES,11,10,extremadura,extremadura,caceres,9,hotel 3 estrellas,70.94
+ES,11,10,extremadura,extremadura,caceres,9,hotel 4 estrellas,81.01
+ES,11,10,extremadura,extremadura,caceres,9,hotel 5 estrellas,88.75
+ES,11,10,extremadura,extremadura,caceres,9,total,79.32
+ES,12,15,galicia,galicia,a coruna,9,hotel 3 estrellas,73.2
+ES,12,15,galicia,galicia,a coruna,9,hotel 4 estrellas,78.34
+ES,12,15,galicia,galicia,a coruna,9,hotel 5 estrellas,73.22
+ES,12,15,galicia,galicia,a coruna,9,total,77.56
+ES,12,27,galicia,galicia,lugo,9,hotel 3 estrellas,75.25
+ES,12,27,galicia,galicia,lugo,9,hotel 4 estrellas,85.1
+ES,12,27,galicia,galicia,lugo,9,hotel 5 estrellas,81.25
+ES,12,27,galicia,galicia,lugo,9,total,80.7
+ES,12,32,galicia,galicia,ourense,9,hotel 3 estrellas,73.38
+ES,12,32,galicia,galicia,ourense,9,hotel 4 estrellas,86.03
+ES,12,32,galicia,galicia,ourense,9,hotel 5 estrellas,78.45
+ES,12,32,galicia,galicia,ourense,9,total,76.66
+ES,12,36,galicia,galicia,pontevedra,9,hotel 3 estrellas,54.02
+ES,12,36,galicia,galicia,pontevedra,9,hotel 4 estrellas,72.54
+ES,12,36,galicia,galicia,pontevedra,9,hotel 5 estrellas,80.88
+ES,12,36,galicia,galicia,pontevedra,9,total,66.18
+ES,13,28,"madrid, comunidad de",madrid,madrid,9,hotel 3 estrellas,67.92
+ES,13,28,"madrid, comunidad de",madrid,madrid,9,hotel 4 estrellas,73.49
+ES,13,28,"madrid, comunidad de",madrid,madrid,9,hotel 5 estrellas,76.46
+ES,13,28,"madrid, comunidad de",madrid,madrid,9,total,71.31
+ES,14,30,"murcia, region de",murcia,murcia,9,hotel 3 estrellas,74.38
+ES,14,30,"murcia, region de",murcia,murcia,9,hotel 4 estrellas,64.23
+ES,14,30,"murcia, region de",murcia,murcia,9,hotel 5 estrellas,66.89
+ES,14,30,"murcia, region de",murcia,murcia,9,total,70.46
+ES,15,31,"navarra, comunidad foral de",navarra,navarra,9,hotel 3 estrellas,77.78
+ES,15,31,"navarra, comunidad foral de",navarra,navarra,9,hotel 4 estrellas,82.3
+ES,15,31,"navarra, comunidad foral de",navarra,navarra,9,hotel 5 estrellas,93.0
+ES,15,31,"navarra, comunidad foral de",navarra,navarra,9,total,80.46
+ES,16,01,pais vasco,pais vasco,araba/alava,9,hotel 3 estrellas,70.39
+ES,16,01,pais vasco,pais vasco,araba/alava,9,hotel 4 estrellas,71.51
+ES,16,01,pais vasco,pais vasco,araba/alava,9,hotel 5 estrellas,56.58
+ES,16,01,pais vasco,pais vasco,araba/alava,9,total,70.24
+ES,16,48,pais vasco,pais vasco,bizkaia,9,hotel 3 estrellas,64.4
+ES,16,48,pais vasco,pais vasco,bizkaia,9,hotel 4 estrellas,82.36
+ES,16,48,pais vasco,pais vasco,bizkaia,9,hotel 5 estrellas,81.42
+ES,16,48,pais vasco,pais vasco,bizkaia,9,total,79.1
+ES,16,20,pais vasco,pais vasco,gipuzkoa,9,hotel 3 estrellas,72.58
+ES,16,20,pais vasco,pais vasco,gipuzkoa,9,hotel 4 estrellas,75.6
+ES,16,20,pais vasco,pais vasco,gipuzkoa,9,hotel 5 estrellas,70.74
+ES,16,20,pais vasco,pais vasco,gipuzkoa,9,total,74.9
+ES,17,26,"rioja, la",rioja,la rioja,9,hotel 3 estrellas,77.21
+ES,17,26,"rioja, la",rioja,la rioja,9,hotel 4 estrellas,69.71
+ES,17,26,"rioja, la",rioja,la rioja,9,hotel 5 estrellas,98.9
+ES,17,26,"rioja, la",rioja,la rioja,9,total,76.64
+ES,01,04,andalucia,andalucia,almeria,10,hotel 3 estrellas,77.66
+ES,01,04,andalucia,andalucia,almeria,10,hotel 4 estrellas,68.84
+ES,01,04,andalucia,andalucia,almeria,10,hotel 5 estrellas,46.29
+ES,01,04,andalucia,andalucia,almeria,10,total,68.48
+ES,01,11,andalucia,andalucia,cadiz,10,hotel 3 estrellas,74.09
+ES,01,11,andalucia,andalucia,cadiz,10,hotel 4 estrellas,76.1
+ES,01,11,andalucia,andalucia,cadiz,10,hotel 5 estrellas,85.65
+ES,01,11,andalucia,andalucia,cadiz,10,total,76.91
+ES,01,14,andalucia,andalucia,cordoba,10,hotel 3 estrellas,77.56
+ES,01,14,andalucia,andalucia,cordoba,10,hotel 4 estrellas,80.93
+ES,01,14,andalucia,andalucia,cordoba,10,hotel 5 estrellas,78.89
+ES,01,14,andalucia,andalucia,cordoba,10,total,81.23
+ES,01,18,andalucia,andalucia,granada,10,hotel 3 estrellas,71.72
+ES,01,18,andalucia,andalucia,granada,10,hotel 4 estrellas,75.28
+ES,01,18,andalucia,andalucia,granada,10,hotel 5 estrellas,83.39
+ES,01,18,andalucia,andalucia,granada,10,total,73.94
+ES,01,21,andalucia,andalucia,huelva,10,hotel 3 estrellas,68.51
+ES,01,21,andalucia,andalucia,huelva,10,hotel 4 estrellas,74.35
+ES,01,21,andalucia,andalucia,huelva,10,hotel 5 estrellas,74.2
+ES,01,21,andalucia,andalucia,huelva,10,total,71.36
+ES,01,23,andalucia,andalucia,jaen,10,hotel 3 estrellas,74.53
+ES,01,23,andalucia,andalucia,jaen,10,hotel 4 estrellas,75.01
+ES,01,23,andalucia,andalucia,jaen,10,hotel 5 estrellas,70.04
+ES,01,23,andalucia,andalucia,jaen,10,total,77.28
+ES,01,29,andalucia,andalucia,malaga,10,hotel 3 estrellas,67.85
+ES,01,29,andalucia,andalucia,malaga,10,hotel 4 estrellas,71.53
+ES,01,29,andalucia,andalucia,malaga,10,hotel 5 estrellas,77.81
+ES,01,29,andalucia,andalucia,malaga,10,total,70.39
+ES,01,41,andalucia,andalucia,sevilla,10,hotel 3 estrellas,70.54
+ES,01,41,andalucia,andalucia,sevilla,10,hotel 4 estrellas,78.02
+ES,01,41,andalucia,andalucia,sevilla,10,hotel 5 estrellas,77.35
+ES,01,41,andalucia,andalucia,sevilla,10,total,74.75
+ES,02,22,aragon,aragon,huesca,10,hotel 3 estrellas,79.81
+ES,02,22,aragon,aragon,huesca,10,hotel 4 estrellas,71.65
+ES,02,22,aragon,aragon,huesca,10,hotel 5 estrellas,89.81
+ES,02,22,aragon,aragon,huesca,10,total,75.64
+ES,02,44,aragon,aragon,teruel,10,hotel 3 estrellas,60.84
+ES,02,44,aragon,aragon,teruel,10,hotel 4 estrellas,70.04
+ES,02,44,aragon,aragon,teruel,10,hotel 5 estrellas,64.67
+ES,02,44,aragon,aragon,teruel,10,total,60.7
+ES,02,50,aragon,aragon,zaragoza,10,hotel 3 estrellas,68.13
+ES,02,50,aragon,aragon,zaragoza,10,hotel 4 estrellas,73.42
+ES,02,50,aragon,aragon,zaragoza,10,hotel 5 estrellas,77.24
+ES,02,50,aragon,aragon,zaragoza,10,total,71.39
+ES,03,33,"asturias, principado de",asturias,asturias,10,hotel 3 estrellas,81.15
+ES,03,33,"asturias, principado de",asturias,asturias,10,hotel 4 estrellas,79.29
+ES,03,33,"asturias, principado de",asturias,asturias,10,hotel 5 estrellas,89.99
+ES,03,33,"asturias, principado de",asturias,asturias,10,total,81.82
+ES,04,07,"balears, illes",balears,illes balears,10,hotel 3 estrellas,67.23
+ES,04,07,"balears, illes",balears,illes balears,10,hotel 4 estrellas,73.77
+ES,04,07,"balears, illes",balears,illes balears,10,hotel 5 estrellas,79.64
+ES,04,07,"balears, illes",balears,illes balears,10,total,71.39
+ES,05,35,canarias,canarias,las palmas,10,hotel 3 estrellas,62.09
+ES,05,35,canarias,canarias,las palmas,10,hotel 4 estrellas,64.96
+ES,05,35,canarias,canarias,las palmas,10,hotel 5 estrellas,80.9
+ES,05,35,canarias,canarias,las palmas,10,total,65.8
+ES,05,38,canarias,canarias,santa cruz de tenerife,10,hotel 3 estrellas,50.78
+ES,05,38,canarias,canarias,santa cruz de tenerife,10,hotel 4 estrellas,55.64
+ES,05,38,canarias,canarias,santa cruz de tenerife,10,hotel 5 estrellas,71.36
+ES,05,38,canarias,canarias,santa cruz de tenerife,10,total,60.38
+ES,06,39,cantabria,cantabria,cantabria,10,hotel 3 estrellas,79.3
+ES,06,39,cantabria,cantabria,cantabria,10,hotel 4 estrellas,82.16
+ES,06,39,cantabria,cantabria,cantabria,10,hotel 5 estrellas,75.79
+ES,06,39,cantabria,cantabria,cantabria,10,total,80.68
+ES,07,05,castilla y leon,castilla y leon,avila,10,hotel 3 estrellas,79.39
+ES,07,05,castilla y leon,castilla y leon,avila,10,hotel 4 estrellas,82.73
+ES,07,05,castilla y leon,castilla y leon,avila,10,hotel 5 estrellas,93.96
+ES,07,05,castilla y leon,castilla y leon,avila,10,total,81.37
+ES,07,09,castilla y leon,castilla y leon,burgos,10,hotel 3 estrellas,73.0
+ES,07,09,castilla y leon,castilla y leon,burgos,10,hotel 4 estrellas,67.42
+ES,07,09,castilla y leon,castilla y leon,burgos,10,hotel 5 estrellas,75.84
+ES,07,09,castilla y leon,castilla y leon,burgos,10,total,73.89
+ES,07,24,castilla y leon,castilla y leon,leon,10,hotel 3 estrellas,78.15
+ES,07,24,castilla y leon,castilla y leon,leon,10,hotel 4 estrellas,71.58
+ES,07,24,castilla y leon,castilla y leon,leon,10,hotel 5 estrellas,76.93
+ES,07,24,castilla y leon,castilla y leon,leon,10,total,75.58
+ES,07,34,castilla y leon,castilla y leon,palencia,10,hotel 3 estrellas,59.96
+ES,07,34,castilla y leon,castilla y leon,palencia,10,hotel 4 estrellas,62.84
+ES,07,34,castilla y leon,castilla y leon,palencia,10,hotel 5 estrellas,76.93
+ES,07,34,castilla y leon,castilla y leon,palencia,10,total,66.87
+ES,07,37,castilla y leon,castilla y leon,salamanca,10,hotel 3 estrellas,70.05
+ES,07,37,castilla y leon,castilla y leon,salamanca,10,hotel 4 estrellas,65.1
+ES,07,37,castilla y leon,castilla y leon,salamanca,10,hotel 5 estrellas,80.65
+ES,07,37,castilla y leon,castilla y leon,salamanca,10,total,72.3
+ES,07,40,castilla y leon,castilla y leon,segovia,10,hotel 3 estrellas,73.1
+ES,07,40,castilla y leon,castilla y leon,segovia,10,hotel 4 estrellas,74.17
+ES,07,40,castilla y leon,castilla y leon,segovia,10,hotel 5 estrellas,82.15
+ES,07,40,castilla y leon,castilla y leon,segovia,10,total,71.77
+ES,07,42,castilla y leon,castilla y leon,soria,10,hotel 3 estrellas,80.14
+ES,07,42,castilla y leon,castilla y leon,soria,10,hotel 4 estrellas,90.78
+ES,07,42,castilla y leon,castilla y leon,soria,10,hotel 5 estrellas,76.93
+ES,07,42,castilla y leon,castilla y leon,soria,10,total,85.09
+ES,07,47,castilla y leon,castilla y leon,valladolid,10,hotel 3 estrellas,63.66
+ES,07,47,castilla y leon,castilla y leon,valladolid,10,hotel 4 estrellas,70.32
+ES,07,47,castilla y leon,castilla y leon,valladolid,10,hotel 5 estrellas,58.01
+ES,07,47,castilla y leon,castilla y leon,valladolid,10,total,71.45
+ES,07,49,castilla y leon,castilla y leon,zamora,10,hotel 3 estrellas,78.58
+ES,07,49,castilla y leon,castilla y leon,zamora,10,hotel 4 estrellas,78.72
+ES,07,49,castilla y leon,castilla y leon,zamora,10,hotel 5 estrellas,71.01
+ES,07,49,castilla y leon,castilla y leon,zamora,10,total,81.76
+ES,08,02,castilla-la mancha,castilla-la mancha,albacete,10,hotel 3 estrellas,69.04
+ES,08,02,castilla-la mancha,castilla-la mancha,albacete,10,hotel 4 estrellas,62.77
+ES,08,02,castilla-la mancha,castilla-la mancha,albacete,10,hotel 5 estrellas,74.68
+ES,08,02,castilla-la mancha,castilla-la mancha,albacete,10,total,66.98
+ES,08,13,castilla-la mancha,castilla-la mancha,ciudad real,10,hotel 3 estrellas,81.71
+ES,08,13,castilla-la mancha,castilla-la mancha,ciudad real,10,hotel 4 estrellas,79.65
+ES,08,13,castilla-la mancha,castilla-la mancha,ciudad real,10,hotel 5 estrellas,79.04
+ES,08,13,castilla-la mancha,castilla-la mancha,ciudad real,10,total,78.81
+ES,08,16,castilla-la mancha,castilla-la mancha,cuenca,10,hotel 3 estrellas,57.38
+ES,08,16,castilla-la mancha,castilla-la mancha,cuenca,10,hotel 4 estrellas,67.63
+ES,08,16,castilla-la mancha,castilla-la mancha,cuenca,10,hotel 5 estrellas,74.68
+ES,08,16,castilla-la mancha,castilla-la mancha,cuenca,10,total,70.47
+ES,08,19,castilla-la mancha,castilla-la mancha,guadalajara,10,hotel 3 estrellas,63.51
+ES,08,19,castilla-la mancha,castilla-la mancha,guadalajara,10,hotel 4 estrellas,62.85
+ES,08,19,castilla-la mancha,castilla-la mancha,guadalajara,10,hotel 5 estrellas,74.68
+ES,08,19,castilla-la mancha,castilla-la mancha,guadalajara,10,total,62.92
+ES,08,45,castilla-la mancha,castilla-la mancha,toledo,10,hotel 3 estrellas,60.62
+ES,08,45,castilla-la mancha,castilla-la mancha,toledo,10,hotel 4 estrellas,68.9
+ES,08,45,castilla-la mancha,castilla-la mancha,toledo,10,hotel 5 estrellas,70.33
+ES,08,45,castilla-la mancha,castilla-la mancha,toledo,10,total,64.77
+ES,09,08,cataluna,cataluna,barcelona,10,hotel 3 estrellas,67.28
+ES,09,08,cataluna,cataluna,barcelona,10,hotel 4 estrellas,69.1
+ES,09,08,cataluna,cataluna,barcelona,10,hotel 5 estrellas,67.96
+ES,09,08,cataluna,cataluna,barcelona,10,total,68.52
+ES,09,17,cataluna,cataluna,girona,10,hotel 3 estrellas,70.73
+ES,09,17,cataluna,cataluna,girona,10,hotel 4 estrellas,77.1
+ES,09,17,cataluna,cataluna,girona,10,hotel 5 estrellas,77.44
+ES,09,17,cataluna,cataluna,girona,10,total,74.45
+ES,09,25,cataluna,cataluna,lleida,10,hotel 3 estrellas,80.9
+ES,09,25,cataluna,cataluna,lleida,10,hotel 4 estrellas,55.37
+ES,09,25,cataluna,cataluna,lleida,10,hotel 5 estrellas,89.41
+ES,09,25,cataluna,cataluna,lleida,10,total,67.49
+ES,09,43,cataluna,cataluna,tarragona,10,hotel 3 estrellas,64.54
+ES,09,43,cataluna,cataluna,tarragona,10,hotel 4 estrellas,67.95
+ES,09,43,cataluna,cataluna,tarragona,10,hotel 5 estrellas,67.26
+ES,09,43,cataluna,cataluna,tarragona,10,total,68.64
+ES,10,03,comunitat valenciana,comunitat valenciana,alicante/alacant,10,hotel 3 estrellas,64.12
+ES,10,03,comunitat valenciana,comunitat valenciana,alicante/alacant,10,hotel 4 estrellas,70.15
+ES,10,03,comunitat valenciana,comunitat valenciana,alicante/alacant,10,hotel 5 estrellas,79.76
+ES,10,03,comunitat valenciana,comunitat valenciana,alicante/alacant,10,total,67.95
+ES,10,12,comunitat valenciana,comunitat valenciana,castellon/castello,10,hotel 3 estrellas,82.86
+ES,10,12,comunitat valenciana,comunitat valenciana,castellon/castello,10,hotel 4 estrellas,72.04
+ES,10,12,comunitat valenciana,comunitat valenciana,castellon/castello,10,hotel 5 estrellas,80.17
+ES,10,12,comunitat valenciana,comunitat valenciana,castellon/castello,10,total,78.5
+ES,10,46,comunitat valenciana,comunitat valenciana,valencia/valencia,10,hotel 3 estrellas,64.68
+ES,10,46,comunitat valenciana,comunitat valenciana,valencia/valencia,10,hotel 4 estrellas,73.2
+ES,10,46,comunitat valenciana,comunitat valenciana,valencia/valencia,10,hotel 5 estrellas,80.58
+ES,10,46,comunitat valenciana,comunitat valenciana,valencia/valencia,10,total,70.14
+ES,11,06,extremadura,extremadura,badajoz,10,hotel 3 estrellas,66.81
+ES,11,06,extremadura,extremadura,badajoz,10,hotel 4 estrellas,70.42
+ES,11,06,extremadura,extremadura,badajoz,10,hotel 5 estrellas,77.39
+ES,11,06,extremadura,extremadura,badajoz,10,total,75.75
+ES,11,10,extremadura,extremadura,caceres,10,hotel 3 estrellas,78.08
+ES,11,10,extremadura,extremadura,caceres,10,hotel 4 estrellas,77.96
+ES,11,10,extremadura,extremadura,caceres,10,hotel 5 estrellas,93.98
+ES,11,10,extremadura,extremadura,caceres,10,total,80.99
+ES,12,15,galicia,galicia,a coruna,10,hotel 3 estrellas,77.73
+ES,12,15,galicia,galicia,a coruna,10,hotel 4 estrellas,78.93
+ES,12,15,galicia,galicia,a coruna,10,hotel 5 estrellas,69.49
+ES,12,15,galicia,galicia,a coruna,10,total,76.93
+ES,12,27,galicia,galicia,lugo,10,hotel 3 estrellas,76.15
+ES,12,27,galicia,galicia,lugo,10,hotel 4 estrellas,80.18
+ES,12,27,galicia,galicia,lugo,10,hotel 5 estrellas,95.67
+ES,12,27,galicia,galicia,lugo,10,total,79.01
+ES,12,32,galicia,galicia,ourense,10,hotel 3 estrellas,51.56
+ES,12,32,galicia,galicia,ourense,10,hotel 4 estrellas,52.63
+ES,12,32,galicia,galicia,ourense,10,hotel 5 estrellas,81.86
+ES,12,32,galicia,galicia,ourense,10,total,57.2
+ES,12,36,galicia,galicia,pontevedra,10,hotel 3 estrellas,59.73
+ES,12,36,galicia,galicia,pontevedra,10,hotel 4 estrellas,76.08
+ES,12,36,galicia,galicia,pontevedra,10,hotel 5 estrellas,80.41
+ES,12,36,galicia,galicia,pontevedra,10,total,67.68
+ES,13,28,"madrid, comunidad de",madrid,madrid,10,hotel 3 estrellas,58.97
+ES,13,28,"madrid, comunidad de",madrid,madrid,10,hotel 4 estrellas,71.26
+ES,13,28,"madrid, comunidad de",madrid,madrid,10,hotel 5 estrellas,68.54
+ES,13,28,"madrid, comunidad de",madrid,madrid,10,total,66.19
+ES,14,30,"murcia, region de",murcia,murcia,10,hotel 3 estrellas,77.42
+ES,14,30,"murcia, region de",murcia,murcia,10,hotel 4 estrellas,70.25
+ES,14,30,"murcia, region de",murcia,murcia,10,hotel 5 estrellas,55.99
+ES,14,30,"murcia, region de",murcia,murcia,10,total,74.65
+ES,15,31,"navarra, comunidad foral de",navarra,navarra,10,hotel 3 estrellas,74.78
+ES,15,31,"navarra, comunidad foral de",navarra,navarra,10,hotel 4 estrellas,85.2
+ES,15,31,"navarra, comunidad foral de",navarra,navarra,10,hotel 5 estrellas,97.52
+ES,15,31,"navarra, comunidad foral de",navarra,navarra,10,total,78.84
+ES,16,01,pais vasco,pais vasco,araba/alava,10,hotel 3 estrellas,68.92
+ES,16,01,pais vasco,pais vasco,araba/alava,10,hotel 4 estrellas,79.74
+ES,16,01,pais vasco,pais vasco,araba/alava,10,hotel 5 estrellas,68.52
+ES,16,01,pais vasco,pais vasco,araba/alava,10,total,74.41
+ES,16,48,pais vasco,pais vasco,bizkaia,10,hotel 3 estrellas,65.8
+ES,16,48,pais vasco,pais vasco,bizkaia,10,hotel 4 estrellas,81.4
+ES,16,48,pais vasco,pais vasco,bizkaia,10,hotel 5 estrellas,79.9
+ES,16,48,pais vasco,pais vasco,bizkaia,10,total,77.7
+ES,16,20,pais vasco,pais vasco,gipuzkoa,10,hotel 3 estrellas,78.21
+ES,16,20,pais vasco,pais vasco,gipuzkoa,10,hotel 4 estrellas,81.49
+ES,16,20,pais vasco,pais vasco,gipuzkoa,10,hotel 5 estrellas,83.9
+ES,16,20,pais vasco,pais vasco,gipuzkoa,10,total,77.37
+ES,17,26,"rioja, la",rioja,la rioja,10,hotel 3 estrellas,82.56
+ES,17,26,"rioja, la",rioja,la rioja,10,hotel 4 estrellas,72.8
+ES,17,26,"rioja, la",rioja,la rioja,10,hotel 5 estrellas,71.31
+ES,17,26,"rioja, la",rioja,la rioja,10,total,79.47
+ES,01,04,andalucia,andalucia,almeria,11,hotel 3 estrellas,64.16
+ES,01,04,andalucia,andalucia,almeria,11,hotel 4 estrellas,70.85
+ES,01,04,andalucia,andalucia,almeria,11,hotel 5 estrellas,80.59
+ES,01,04,andalucia,andalucia,almeria,11,total,65.15
+ES,01,11,andalucia,andalucia,cadiz,11,hotel 3 estrellas,73.81
+ES,01,11,andalucia,andalucia,cadiz,11,hotel 4 estrellas,76.62
+ES,01,11,andalucia,andalucia,cadiz,11,hotel 5 estrellas,89.48
+ES,01,11,andalucia,andalucia,cadiz,11,total,76.26
+ES,01,14,andalucia,andalucia,cordoba,11,hotel 3 estrellas,78.19
+ES,01,14,andalucia,andalucia,cordoba,11,hotel 4 estrellas,80.98
+ES,01,14,andalucia,andalucia,cordoba,11,hotel 5 estrellas,79.91
+ES,01,14,andalucia,andalucia,cordoba,11,total,80.57
+ES,01,18,andalucia,andalucia,granada,11,hotel 3 estrellas,78.78
+ES,01,18,andalucia,andalucia,granada,11,hotel 4 estrellas,75.19
+ES,01,18,andalucia,andalucia,granada,11,hotel 5 estrellas,80.99
+ES,01,18,andalucia,andalucia,granada,11,total,78.11
+ES,01,21,andalucia,andalucia,huelva,11,hotel 3 estrellas,68.58
+ES,01,21,andalucia,andalucia,huelva,11,hotel 4 estrellas,69.52
+ES,01,21,andalucia,andalucia,huelva,11,hotel 5 estrellas,80.59
+ES,01,21,andalucia,andalucia,huelva,11,total,70.64
+ES,01,23,andalucia,andalucia,jaen,11,hotel 3 estrellas,79.05
+ES,01,23,andalucia,andalucia,jaen,11,hotel 4 estrellas,75.58
+ES,01,23,andalucia,andalucia,jaen,11,hotel 5 estrellas,75.93
+ES,01,23,andalucia,andalucia,jaen,11,total,79.36
+ES,01,29,andalucia,andalucia,malaga,11,hotel 3 estrellas,71.46
+ES,01,29,andalucia,andalucia,malaga,11,hotel 4 estrellas,73.98
+ES,01,29,andalucia,andalucia,malaga,11,hotel 5 estrellas,78.72
+ES,01,29,andalucia,andalucia,malaga,11,total,73.04
+ES,01,41,andalucia,andalucia,sevilla,11,hotel 3 estrellas,67.31
+ES,01,41,andalucia,andalucia,sevilla,11,hotel 4 estrellas,78.33
+ES,01,41,andalucia,andalucia,sevilla,11,hotel 5 estrellas,78.5
+ES,01,41,andalucia,andalucia,sevilla,11,total,75.19
+ES,02,22,aragon,aragon,huesca,11,hotel 3 estrellas,78.15
+ES,02,22,aragon,aragon,huesca,11,hotel 4 estrellas,79.13
+ES,02,22,aragon,aragon,huesca,11,hotel 5 estrellas,85.01
+ES,02,22,aragon,aragon,huesca,11,total,80.94
+ES,02,44,aragon,aragon,teruel,11,hotel 3 estrellas,78.97
+ES,02,44,aragon,aragon,teruel,11,hotel 4 estrellas,78.31
+ES,02,44,aragon,aragon,teruel,11,hotel 5 estrellas,98.22
+ES,02,44,aragon,aragon,teruel,11,total,77.34
+ES,02,50,aragon,aragon,zaragoza,11,hotel 3 estrellas,75.59
+ES,02,50,aragon,aragon,zaragoza,11,hotel 4 estrellas,68.28
+ES,02,50,aragon,aragon,zaragoza,11,hotel 5 estrellas,91.62
+ES,02,50,aragon,aragon,zaragoza,11,total,69.86
+ES,03,33,"asturias, principado de",asturias,asturias,11,hotel 3 estrellas,81.75
+ES,03,33,"asturias, principado de",asturias,asturias,11,hotel 4 estrellas,74.26
+ES,03,33,"asturias, principado de",asturias,asturias,11,hotel 5 estrellas,91.36
+ES,03,33,"asturias, principado de",asturias,asturias,11,total,78.97
+ES,04,07,"balears, illes",balears,illes balears,11,hotel 3 estrellas,70.28
+ES,04,07,"balears, illes",balears,illes balears,11,hotel 4 estrellas,77.99
+ES,04,07,"balears, illes",balears,illes balears,11,hotel 5 estrellas,79.49
+ES,04,07,"balears, illes",balears,illes balears,11,total,75.73
+ES,05,35,canarias,canarias,las palmas,11,hotel 3 estrellas,64.98
+ES,05,35,canarias,canarias,las palmas,11,hotel 4 estrellas,66.69
+ES,05,35,canarias,canarias,las palmas,11,hotel 5 estrellas,74.56
+ES,05,35,canarias,canarias,las palmas,11,total,65.55
+ES,05,38,canarias,canarias,santa cruz de tenerife,11,hotel 3 estrellas,59.05
+ES,05,38,canarias,canarias,santa cruz de tenerife,11,hotel 4 estrellas,56.89
+ES,05,38,canarias,canarias,santa cruz de tenerife,11,hotel 5 estrellas,72.89
+ES,05,38,canarias,canarias,santa cruz de tenerife,11,total,60.3
+ES,06,39,cantabria,cantabria,cantabria,11,hotel 3 estrellas,84.05
+ES,06,39,cantabria,cantabria,cantabria,11,hotel 4 estrellas,88.06
+ES,06,39,cantabria,cantabria,cantabria,11,hotel 5 estrellas,76.26
+ES,06,39,cantabria,cantabria,cantabria,11,total,86.08
+ES,07,05,castilla y leon,castilla y leon,avila,11,hotel 3 estrellas,77.01
+ES,07,05,castilla y leon,castilla y leon,avila,11,hotel 4 estrellas,81.41
+ES,07,05,castilla y leon,castilla y leon,avila,11,hotel 5 estrellas,98.74
+ES,07,05,castilla y leon,castilla y leon,avila,11,total,81.99
+ES,07,09,castilla y leon,castilla y leon,burgos,11,hotel 3 estrellas,77.45
+ES,07,09,castilla y leon,castilla y leon,burgos,11,hotel 4 estrellas,86.62
+ES,07,09,castilla y leon,castilla y leon,burgos,11,hotel 5 estrellas,85.67
+ES,07,09,castilla y leon,castilla y leon,burgos,11,total,80.38
+ES,07,24,castilla y leon,castilla y leon,leon,11,hotel 3 estrellas,82.07
+ES,07,24,castilla y leon,castilla y leon,leon,11,hotel 4 estrellas,86.86
+ES,07,24,castilla y leon,castilla y leon,leon,11,hotel 5 estrellas,87.38
+ES,07,24,castilla y leon,castilla y leon,leon,11,total,84.21
+ES,07,34,castilla y leon,castilla y leon,palencia,11,hotel 3 estrellas,60.07
+ES,07,34,castilla y leon,castilla y leon,palencia,11,hotel 4 estrellas,80.96
+ES,07,34,castilla y leon,castilla y leon,palencia,11,hotel 5 estrellas,83.4
+ES,07,34,castilla y leon,castilla y leon,palencia,11,total,75.29
+ES,07,37,castilla y leon,castilla y leon,salamanca,11,hotel 3 estrellas,77.9
+ES,07,37,castilla y leon,castilla y leon,salamanca,11,hotel 4 estrellas,64.04
+ES,07,37,castilla y leon,castilla y leon,salamanca,11,hotel 5 estrellas,84.18
+ES,07,37,castilla y leon,castilla y leon,salamanca,11,total,76.77
+ES,07,40,castilla y leon,castilla y leon,segovia,11,hotel 3 estrellas,73.93
+ES,07,40,castilla y leon,castilla y leon,segovia,11,hotel 4 estrellas,80.41
+ES,07,40,castilla y leon,castilla y leon,segovia,11,hotel 5 estrellas,90.43
+ES,07,40,castilla y leon,castilla y leon,segovia,11,total,80.71
+ES,07,42,castilla y leon,castilla y leon,soria,11,hotel 3 estrellas,74.46
+ES,07,42,castilla y leon,castilla y leon,soria,11,hotel 4 estrellas,86.43
+ES,07,42,castilla y leon,castilla y leon,soria,11,hotel 5 estrellas,83.4
+ES,07,42,castilla y leon,castilla y leon,soria,11,total,80.21
+ES,07,47,castilla y leon,castilla y leon,valladolid,11,hotel 3 estrellas,77.07
+ES,07,47,castilla y leon,castilla y leon,valladolid,11,hotel 4 estrellas,74.36
+ES,07,47,castilla y leon,castilla y leon,valladolid,11,hotel 5 estrellas,79.63
+ES,07,47,castilla y leon,castilla y leon,valladolid,11,total,76.71
+ES,07,49,castilla y leon,castilla y leon,zamora,11,hotel 3 estrellas,79.46
+ES,07,49,castilla y leon,castilla y leon,zamora,11,hotel 4 estrellas,79.63
+ES,07,49,castilla y leon,castilla y leon,zamora,11,hotel 5 estrellas,57.74
+ES,07,49,castilla y leon,castilla y leon,zamora,11,total,74.23
+ES,08,02,castilla-la mancha,castilla-la mancha,albacete,11,hotel 3 estrellas,73.51
+ES,08,02,castilla-la mancha,castilla-la mancha,albacete,11,hotel 4 estrellas,73.31
+ES,08,02,castilla-la mancha,castilla-la mancha,albacete,11,hotel 5 estrellas,89.77
+ES,08,02,castilla-la mancha,castilla-la mancha,albacete,11,total,69.3
+ES,08,13,castilla-la mancha,castilla-la mancha,ciudad real,11,hotel 3 estrellas,77.04
+ES,08,13,castilla-la mancha,castilla-la mancha,ciudad real,11,hotel 4 estrellas,75.88
+ES,08,13,castilla-la mancha,castilla-la mancha,ciudad real,11,hotel 5 estrellas,90.89
+ES,08,13,castilla-la mancha,castilla-la mancha,ciudad real,11,total,76.41
+ES,08,16,castilla-la mancha,castilla-la mancha,cuenca,11,hotel 3 estrellas,56.5
+ES,08,16,castilla-la mancha,castilla-la mancha,cuenca,11,hotel 4 estrellas,75.02
+ES,08,16,castilla-la mancha,castilla-la mancha,cuenca,11,hotel 5 estrellas,89.77
+ES,08,16,castilla-la mancha,castilla-la mancha,cuenca,11,total,74.52
+ES,08,19,castilla-la mancha,castilla-la mancha,guadalajara,11,hotel 3 estrellas,82.59
+ES,08,19,castilla-la mancha,castilla-la mancha,guadalajara,11,hotel 4 estrellas,66.39
+ES,08,19,castilla-la mancha,castilla-la mancha,guadalajara,11,hotel 5 estrellas,89.77
+ES,08,19,castilla-la mancha,castilla-la mancha,guadalajara,11,total,75.89
+ES,08,45,castilla-la mancha,castilla-la mancha,toledo,11,hotel 3 estrellas,67.4
+ES,08,45,castilla-la mancha,castilla-la mancha,toledo,11,hotel 4 estrellas,76.88
+ES,08,45,castilla-la mancha,castilla-la mancha,toledo,11,hotel 5 estrellas,88.64
+ES,08,45,castilla-la mancha,castilla-la mancha,toledo,11,total,73.06
+ES,09,08,cataluna,cataluna,barcelona,11,hotel 3 estrellas,69.77
+ES,09,08,cataluna,cataluna,barcelona,11,hotel 4 estrellas,73.18
+ES,09,08,cataluna,cataluna,barcelona,11,hotel 5 estrellas,72.45
+ES,09,08,cataluna,cataluna,barcelona,11,total,71.91
+ES,09,17,cataluna,cataluna,girona,11,hotel 3 estrellas,77.33
+ES,09,17,cataluna,cataluna,girona,11,hotel 4 estrellas,74.61
+ES,09,17,cataluna,cataluna,girona,11,hotel 5 estrellas,84.53
+ES,09,17,cataluna,cataluna,girona,11,total,76.81
+ES,09,25,cataluna,cataluna,lleida,11,hotel 3 estrellas,85.73
+ES,09,25,cataluna,cataluna,lleida,11,hotel 4 estrellas,68.33
+ES,09,25,cataluna,cataluna,lleida,11,hotel 5 estrellas,90.31
+ES,09,25,cataluna,cataluna,lleida,11,total,77.77
+ES,09,43,cataluna,cataluna,tarragona,11,hotel 3 estrellas,63.17
+ES,09,43,cataluna,cataluna,tarragona,11,hotel 4 estrellas,68.81
+ES,09,43,cataluna,cataluna,tarragona,11,hotel 5 estrellas,72.56
+ES,09,43,cataluna,cataluna,tarragona,11,total,66.81
+ES,10,03,comunitat valenciana,comunitat valenciana,alicante/alacant,11,hotel 3 estrellas,64.02
+ES,10,03,comunitat valenciana,comunitat valenciana,alicante/alacant,11,hotel 4 estrellas,71.57
+ES,10,03,comunitat valenciana,comunitat valenciana,alicante/alacant,11,hotel 5 estrellas,75.86
+ES,10,03,comunitat valenciana,comunitat valenciana,alicante/alacant,11,total,66.49
+ES,10,12,comunitat valenciana,comunitat valenciana,castellon/castello,11,hotel 3 estrellas,78.88
+ES,10,12,comunitat valenciana,comunitat valenciana,castellon/castello,11,hotel 4 estrellas,77.96
+ES,10,12,comunitat valenciana,comunitat valenciana,castellon/castello,11,hotel 5 estrellas,80.28
+ES,10,12,comunitat valenciana,comunitat valenciana,castellon/castello,11,total,78.24
+ES,10,46,comunitat valenciana,comunitat valenciana,valencia/valencia,11,hotel 3 estrellas,70.47
+ES,10,46,comunitat valenciana,comunitat valenciana,valencia/valencia,11,hotel 4 estrellas,78.04
+ES,10,46,comunitat valenciana,comunitat valenciana,valencia/valencia,11,hotel 5 estrellas,84.71
+ES,10,46,comunitat valenciana,comunitat valenciana,valencia/valencia,11,total,75.74
+ES,11,06,extremadura,extremadura,badajoz,11,hotel 3 estrellas,52.65
+ES,11,06,extremadura,extremadura,badajoz,11,hotel 4 estrellas,77.29
+ES,11,06,extremadura,extremadura,badajoz,11,hotel 5 estrellas,89.06
+ES,11,06,extremadura,extremadura,badajoz,11,total,74.13
+ES,11,10,extremadura,extremadura,caceres,11,hotel 3 estrellas,71.96
+ES,11,10,extremadura,extremadura,caceres,11,hotel 4 estrellas,73.32
+ES,11,10,extremadura,extremadura,caceres,11,hotel 5 estrellas,83.3
+ES,11,10,extremadura,extremadura,caceres,11,total,75.86
+ES,12,15,galicia,galicia,a coruna,11,hotel 3 estrellas,81.26
+ES,12,15,galicia,galicia,a coruna,11,hotel 4 estrellas,84.86
+ES,12,15,galicia,galicia,a coruna,11,hotel 5 estrellas,76.69
+ES,12,15,galicia,galicia,a coruna,11,total,81.11
+ES,12,27,galicia,galicia,lugo,11,hotel 3 estrellas,81.64
+ES,12,27,galicia,galicia,lugo,11,hotel 4 estrellas,79.29
+ES,12,27,galicia,galicia,lugo,11,hotel 5 estrellas,78.63
+ES,12,27,galicia,galicia,lugo,11,total,80.21
+ES,12,32,galicia,galicia,ourense,11,hotel 3 estrellas,70.43
+ES,12,32,galicia,galicia,ourense,11,hotel 4 estrellas,82.54
+ES,12,32,galicia,galicia,ourense,11,hotel 5 estrellas,78.63
+ES,12,32,galicia,galicia,ourense,11,total,80.97
+ES,12,36,galicia,galicia,pontevedra,11,hotel 3 estrellas,63.76
+ES,12,36,galicia,galicia,pontevedra,11,hotel 4 estrellas,80.12
+ES,12,36,galicia,galicia,pontevedra,11,hotel 5 estrellas,80.58
+ES,12,36,galicia,galicia,pontevedra,11,total,75.39
+ES,13,28,"madrid, comunidad de",madrid,madrid,11,hotel 3 estrellas,65.43
+ES,13,28,"madrid, comunidad de",madrid,madrid,11,hotel 4 estrellas,72.95
+ES,13,28,"madrid, comunidad de",madrid,madrid,11,hotel 5 estrellas,76.04
+ES,13,28,"madrid, comunidad de",madrid,madrid,11,total,70.29
+ES,14,30,"murcia, region de",murcia,murcia,11,hotel 3 estrellas,74.24
+ES,14,30,"murcia, region de",murcia,murcia,11,hotel 4 estrellas,70.08
+ES,14,30,"murcia, region de",murcia,murcia,11,hotel 5 estrellas,56.68
+ES,14,30,"murcia, region de",murcia,murcia,11,total,72.5
+ES,15,31,"navarra, comunidad foral de",navarra,navarra,11,hotel 3 estrellas,73.17
+ES,15,31,"navarra, comunidad foral de",navarra,navarra,11,hotel 4 estrellas,84.86
+ES,15,31,"navarra, comunidad foral de",navarra,navarra,11,hotel 5 estrellas,89.38
+ES,15,31,"navarra, comunidad foral de",navarra,navarra,11,total,81.05
+ES,16,01,pais vasco,pais vasco,araba/alava,11,hotel 3 estrellas,77.4
+ES,16,01,pais vasco,pais vasco,araba/alava,11,hotel 4 estrellas,79.44
+ES,16,01,pais vasco,pais vasco,araba/alava,11,hotel 5 estrellas,83.22
+ES,16,01,pais vasco,pais vasco,araba/alava,11,total,77.54
+ES,16,48,pais vasco,pais vasco,bizkaia,11,hotel 3 estrellas,66.9
+ES,16,48,pais vasco,pais vasco,bizkaia,11,hotel 4 estrellas,87.72
+ES,16,48,pais vasco,pais vasco,bizkaia,11,hotel 5 estrellas,74.64
+ES,16,48,pais vasco,pais vasco,bizkaia,11,total,82.9
+ES,16,20,pais vasco,pais vasco,gipuzkoa,11,hotel 3 estrellas,83.26
+ES,16,20,pais vasco,pais vasco,gipuzkoa,11,hotel 4 estrellas,84.57
+ES,16,20,pais vasco,pais vasco,gipuzkoa,11,hotel 5 estrellas,85.37
+ES,16,20,pais vasco,pais vasco,gipuzkoa,11,total,84.92
+ES,17,26,"rioja, la",rioja,la rioja,11,hotel 3 estrellas,81.91
+ES,17,26,"rioja, la",rioja,la rioja,11,hotel 4 estrellas,69.69
+ES,17,26,"rioja, la",rioja,la rioja,11,hotel 5 estrellas,91.95
+ES,17,26,"rioja, la",rioja,la rioja,11,total,79.06
+ES,01,04,andalucia,andalucia,almeria,12,hotel 3 estrellas,80.19
+ES,01,04,andalucia,andalucia,almeria,12,hotel 4 estrellas,68.3
+ES,01,04,andalucia,andalucia,almeria,12,hotel 5 estrellas,76.04
+ES,01,04,andalucia,andalucia,almeria,12,total,68.21
+ES,01,11,andalucia,andalucia,cadiz,12,hotel 3 estrellas,68.48
+ES,01,11,andalucia,andalucia,cadiz,12,hotel 4 estrellas,73.01
+ES,01,11,andalucia,andalucia,cadiz,12,hotel 5 estrellas,83.52
+ES,01,11,andalucia,andalucia,cadiz,12,total,71.71
+ES,01,14,andalucia,andalucia,cordoba,12,hotel 3 estrellas,74.81
+ES,01,14,andalucia,andalucia,cordoba,12,hotel 4 estrellas,81.61
+ES,01,14,andalucia,andalucia,cordoba,12,hotel 5 estrellas,81.77
+ES,01,14,andalucia,andalucia,cordoba,12,total,80.23
+ES,01,18,andalucia,andalucia,granada,12,hotel 3 estrellas,73.26
+ES,01,18,andalucia,andalucia,granada,12,hotel 4 estrellas,72.79
+ES,01,18,andalucia,andalucia,granada,12,hotel 5 estrellas,78.93
+ES,01,18,andalucia,andalucia,granada,12,total,75.14
+ES,01,21,andalucia,andalucia,huelva,12,hotel 3 estrellas,78.31
+ES,01,21,andalucia,andalucia,huelva,12,hotel 4 estrellas,68.93
+ES,01,21,andalucia,andalucia,huelva,12,hotel 5 estrellas,76.04
+ES,01,21,andalucia,andalucia,huelva,12,total,70.2
+ES,01,23,andalucia,andalucia,jaen,12,hotel 3 estrellas,68.93
+ES,01,23,andalucia,andalucia,jaen,12,hotel 4 estrellas,77.69
+ES,01,23,andalucia,andalucia,jaen,12,hotel 5 estrellas,53.49
+ES,01,23,andalucia,andalucia,jaen,12,total,69.98
+ES,01,29,andalucia,andalucia,malaga,12,hotel 3 estrellas,69.97
+ES,01,29,andalucia,andalucia,malaga,12,hotel 4 estrellas,76.5
+ES,01,29,andalucia,andalucia,malaga,12,hotel 5 estrellas,77.34
+ES,01,29,andalucia,andalucia,malaga,12,total,74.06
+ES,01,41,andalucia,andalucia,sevilla,12,hotel 3 estrellas,74.93
+ES,01,41,andalucia,andalucia,sevilla,12,hotel 4 estrellas,82.15
+ES,01,41,andalucia,andalucia,sevilla,12,hotel 5 estrellas,81.22
+ES,01,41,andalucia,andalucia,sevilla,12,total,78.87
+ES,02,22,aragon,aragon,huesca,12,hotel 3 estrellas,75.94
+ES,02,22,aragon,aragon,huesca,12,hotel 4 estrellas,74.88
+ES,02,22,aragon,aragon,huesca,12,hotel 5 estrellas,75.55
+ES,02,22,aragon,aragon,huesca,12,total,80.87
+ES,02,44,aragon,aragon,teruel,12,hotel 3 estrellas,68.21
+ES,02,44,aragon,aragon,teruel,12,hotel 4 estrellas,78.81
+ES,02,44,aragon,aragon,teruel,12,hotel 5 estrellas,75.55
+ES,02,44,aragon,aragon,teruel,12,total,75.59
+ES,02,50,aragon,aragon,zaragoza,12,hotel 3 estrellas,69.98
+ES,02,50,aragon,aragon,zaragoza,12,hotel 4 estrellas,64.87
+ES,02,50,aragon,aragon,zaragoza,12,hotel 5 estrellas,75.55
+ES,02,50,aragon,aragon,zaragoza,12,total,66.11
+ES,03,33,"asturias, principado de",asturias,asturias,12,hotel 3 estrellas,83.89
+ES,03,33,"asturias, principado de",asturias,asturias,12,hotel 4 estrellas,79.07
+ES,03,33,"asturias, principado de",asturias,asturias,12,hotel 5 estrellas,87.48
+ES,03,33,"asturias, principado de",asturias,asturias,12,total,83.94
+ES,04,07,"balears, illes",balears,illes balears,12,hotel 3 estrellas,74.37
+ES,04,07,"balears, illes",balears,illes balears,12,hotel 4 estrellas,79.65
+ES,04,07,"balears, illes",balears,illes balears,12,hotel 5 estrellas,90.8
+ES,04,07,"balears, illes",balears,illes balears,12,total,79.67
+ES,05,35,canarias,canarias,las palmas,12,hotel 3 estrellas,66.06
+ES,05,35,canarias,canarias,las palmas,12,hotel 4 estrellas,62.67
+ES,05,35,canarias,canarias,las palmas,12,hotel 5 estrellas,75.51
+ES,05,35,canarias,canarias,las palmas,12,total,66.35
+ES,05,38,canarias,canarias,santa cruz de tenerife,12,hotel 3 estrellas,55.74
+ES,05,38,canarias,canarias,santa cruz de tenerife,12,hotel 4 estrellas,56.39
+ES,05,38,canarias,canarias,santa cruz de tenerife,12,hotel 5 estrellas,74.79
+ES,05,38,canarias,canarias,santa cruz de tenerife,12,total,55.4
+ES,06,39,cantabria,cantabria,cantabria,12,hotel 3 estrellas,80.57
+ES,06,39,cantabria,cantabria,cantabria,12,hotel 4 estrellas,87.85
+ES,06,39,cantabria,cantabria,cantabria,12,hotel 5 estrellas,66.95
+ES,06,39,cantabria,cantabria,cantabria,12,total,84.99
+ES,07,05,castilla y leon,castilla y leon,avila,12,hotel 3 estrellas,82.23
+ES,07,05,castilla y leon,castilla y leon,avila,12,hotel 4 estrellas,71.05
+ES,07,05,castilla y leon,castilla y leon,avila,12,hotel 5 estrellas,82.37
+ES,07,05,castilla y leon,castilla y leon,avila,12,total,73.94
+ES,07,09,castilla y leon,castilla y leon,burgos,12,hotel 3 estrellas,72.1
+ES,07,09,castilla y leon,castilla y leon,burgos,12,hotel 4 estrellas,73.77
+ES,07,09,castilla y leon,castilla y leon,burgos,12,hotel 5 estrellas,72.38
+ES,07,09,castilla y leon,castilla y leon,burgos,12,total,74.87
+ES,07,24,castilla y leon,castilla y leon,leon,12,hotel 3 estrellas,77.71
+ES,07,24,castilla y leon,castilla y leon,leon,12,hotel 4 estrellas,81.71
+ES,07,24,castilla y leon,castilla y leon,leon,12,hotel 5 estrellas,68.51
+ES,07,24,castilla y leon,castilla y leon,leon,12,total,71.55
+ES,07,34,castilla y leon,castilla y leon,palencia,12,hotel 3 estrellas,71.78
+ES,07,34,castilla y leon,castilla y leon,palencia,12,hotel 4 estrellas,72.22
+ES,07,34,castilla y leon,castilla y leon,palencia,12,hotel 5 estrellas,77.6
+ES,07,34,castilla y leon,castilla y leon,palencia,12,total,66.8
+ES,07,37,castilla y leon,castilla y leon,salamanca,12,hotel 3 estrellas,66.15
+ES,07,37,castilla y leon,castilla y leon,salamanca,12,hotel 4 estrellas,66.01
+ES,07,37,castilla y leon,castilla y leon,salamanca,12,hotel 5 estrellas,72.85
+ES,07,37,castilla y leon,castilla y leon,salamanca,12,total,68.88
+ES,07,40,castilla y leon,castilla y leon,segovia,12,hotel 3 estrellas,83.1
+ES,07,40,castilla y leon,castilla y leon,segovia,12,hotel 4 estrellas,82.38
+ES,07,40,castilla y leon,castilla y leon,segovia,12,hotel 5 estrellas,79.09
+ES,07,40,castilla y leon,castilla y leon,segovia,12,total,83.14
+ES,07,42,castilla y leon,castilla y leon,soria,12,hotel 3 estrellas,76.98
+ES,07,42,castilla y leon,castilla y leon,soria,12,hotel 4 estrellas,81.04
+ES,07,42,castilla y leon,castilla y leon,soria,12,hotel 5 estrellas,77.6
+ES,07,42,castilla y leon,castilla y leon,soria,12,total,79.06
+ES,07,47,castilla y leon,castilla y leon,valladolid,12,hotel 3 estrellas,79.88
+ES,07,47,castilla y leon,castilla y leon,valladolid,12,hotel 4 estrellas,80.92
+ES,07,47,castilla y leon,castilla y leon,valladolid,12,hotel 5 estrellas,71.02
+ES,07,47,castilla y leon,castilla y leon,valladolid,12,total,81.79
+ES,07,49,castilla y leon,castilla y leon,zamora,12,hotel 3 estrellas,77.19
+ES,07,49,castilla y leon,castilla y leon,zamora,12,hotel 4 estrellas,81.29
+ES,07,49,castilla y leon,castilla y leon,zamora,12,hotel 5 estrellas,96.98
+ES,07,49,castilla y leon,castilla y leon,zamora,12,total,73.22
+ES,08,02,castilla-la mancha,castilla-la mancha,albacete,12,hotel 3 estrellas,62.64
+ES,08,02,castilla-la mancha,castilla-la mancha,albacete,12,hotel 4 estrellas,74.36
+ES,08,02,castilla-la mancha,castilla-la mancha,albacete,12,hotel 5 estrellas,88.17
+ES,08,02,castilla-la mancha,castilla-la mancha,albacete,12,total,68.85
+ES,08,13,castilla-la mancha,castilla-la mancha,ciudad real,12,hotel 3 estrellas,83.61
+ES,08,13,castilla-la mancha,castilla-la mancha,ciudad real,12,hotel 4 estrellas,73.38
+ES,08,13,castilla-la mancha,castilla-la mancha,ciudad real,12,hotel 5 estrellas,82.9
+ES,08,13,castilla-la mancha,castilla-la mancha,ciudad real,12,total,73.88
+ES,08,16,castilla-la mancha,castilla-la mancha,cuenca,12,hotel 3 estrellas,69.89
+ES,08,16,castilla-la mancha,castilla-la mancha,cuenca,12,hotel 4 estrellas,73.34
+ES,08,16,castilla-la mancha,castilla-la mancha,cuenca,12,hotel 5 estrellas,88.17
+ES,08,16,castilla-la mancha,castilla-la mancha,cuenca,12,total,72.47
+ES,08,19,castilla-la mancha,castilla-la mancha,guadalajara,12,hotel 3 estrellas,70.64
+ES,08,19,castilla-la mancha,castilla-la mancha,guadalajara,12,hotel 4 estrellas,75.03
+ES,08,19,castilla-la mancha,castilla-la mancha,guadalajara,12,hotel 5 estrellas,88.17
+ES,08,19,castilla-la mancha,castilla-la mancha,guadalajara,12,total,73.43
+ES,08,45,castilla-la mancha,castilla-la mancha,toledo,12,hotel 3 estrellas,64.74
+ES,08,45,castilla-la mancha,castilla-la mancha,toledo,12,hotel 4 estrellas,79.49
+ES,08,45,castilla-la mancha,castilla-la mancha,toledo,12,hotel 5 estrellas,93.43
+ES,08,45,castilla-la mancha,castilla-la mancha,toledo,12,total,75.21
+ES,09,08,cataluna,cataluna,barcelona,12,hotel 3 estrellas,74.53
+ES,09,08,cataluna,cataluna,barcelona,12,hotel 4 estrellas,75.64
+ES,09,08,cataluna,cataluna,barcelona,12,hotel 5 estrellas,80.74
+ES,09,08,cataluna,cataluna,barcelona,12,total,75.56
+ES,09,17,cataluna,cataluna,girona,12,hotel 3 estrellas,77.21
+ES,09,17,cataluna,cataluna,girona,12,hotel 4 estrellas,78.95
+ES,09,17,cataluna,cataluna,girona,12,hotel 5 estrellas,76.73
+ES,09,17,cataluna,cataluna,girona,12,total,77.78
+ES,09,25,cataluna,cataluna,lleida,12,hotel 3 estrellas,84.9
+ES,09,25,cataluna,cataluna,lleida,12,hotel 4 estrellas,60.16
+ES,09,25,cataluna,cataluna,lleida,12,hotel 5 estrellas,68.33
+ES,09,25,cataluna,cataluna,lleida,12,total,75.53
+ES,09,43,cataluna,cataluna,tarragona,12,hotel 3 estrellas,65.64
+ES,09,43,cataluna,cataluna,tarragona,12,hotel 4 estrellas,68.16
+ES,09,43,cataluna,cataluna,tarragona,12,hotel 5 estrellas,75.4
+ES,09,43,cataluna,cataluna,tarragona,12,total,67.66
+ES,10,03,comunitat valenciana,comunitat valenciana,alicante/alacant,12,hotel 3 estrellas,61.49
+ES,10,03,comunitat valenciana,comunitat valenciana,alicante/alacant,12,hotel 4 estrellas,67.61
+ES,10,03,comunitat valenciana,comunitat valenciana,alicante/alacant,12,hotel 5 estrellas,83.6
+ES,10,03,comunitat valenciana,comunitat valenciana,alicante/alacant,12,total,65.27
+ES,10,12,comunitat valenciana,comunitat valenciana,castellon/castello,12,hotel 3 estrellas,67.3
+ES,10,12,comunitat valenciana,comunitat valenciana,castellon/castello,12,hotel 4 estrellas,73.9
+ES,10,12,comunitat valenciana,comunitat valenciana,castellon/castello,12,hotel 5 estrellas,80.53
+ES,10,12,comunitat valenciana,comunitat valenciana,castellon/castello,12,total,71.56
+ES,10,46,comunitat valenciana,comunitat valenciana,valencia/valencia,12,hotel 3 estrellas,73.3
+ES,10,46,comunitat valenciana,comunitat valenciana,valencia/valencia,12,hotel 4 estrellas,73.1
+ES,10,46,comunitat valenciana,comunitat valenciana,valencia/valencia,12,hotel 5 estrellas,77.47
+ES,10,46,comunitat valenciana,comunitat valenciana,valencia/valencia,12,total,73.83
+ES,11,06,extremadura,extremadura,badajoz,12,hotel 3 estrellas,61.33
+ES,11,06,extremadura,extremadura,badajoz,12,hotel 4 estrellas,79.21
+ES,11,06,extremadura,extremadura,badajoz,12,hotel 5 estrellas,80.35
+ES,11,06,extremadura,extremadura,badajoz,12,total,77.2
+ES,11,10,extremadura,extremadura,caceres,12,hotel 3 estrellas,78.73
+ES,11,10,extremadura,extremadura,caceres,12,hotel 4 estrellas,82.2
+ES,11,10,extremadura,extremadura,caceres,12,hotel 5 estrellas,88.65
+ES,11,10,extremadura,extremadura,caceres,12,total,81.43
+ES,12,15,galicia,galicia,a coruna,12,hotel 3 estrellas,86.77
+ES,12,15,galicia,galicia,a coruna,12,hotel 4 estrellas,82.11
+ES,12,15,galicia,galicia,a coruna,12,hotel 5 estrellas,82.41
+ES,12,15,galicia,galicia,a coruna,12,total,81.8
+ES,12,27,galicia,galicia,lugo,12,hotel 3 estrellas,79.55
+ES,12,27,galicia,galicia,lugo,12,hotel 4 estrellas,82.9
+ES,12,27,galicia,galicia,lugo,12,hotel 5 estrellas,98.92
+ES,12,27,galicia,galicia,lugo,12,total,82.98
+ES,12,32,galicia,galicia,ourense,12,hotel 3 estrellas,68.05
+ES,12,32,galicia,galicia,ourense,12,hotel 4 estrellas,75.13
+ES,12,32,galicia,galicia,ourense,12,hotel 5 estrellas,87.36
+ES,12,32,galicia,galicia,ourense,12,total,72.68
+ES,12,36,galicia,galicia,pontevedra,12,hotel 3 estrellas,48.55
+ES,12,36,galicia,galicia,pontevedra,12,hotel 4 estrellas,68.55
+ES,12,36,galicia,galicia,pontevedra,12,hotel 5 estrellas,80.75
+ES,12,36,galicia,galicia,pontevedra,12,total,64.97
+ES,13,28,"madrid, comunidad de",madrid,madrid,12,hotel 3 estrellas,71.17
+ES,13,28,"madrid, comunidad de",madrid,madrid,12,hotel 4 estrellas,78.05
+ES,13,28,"madrid, comunidad de",madrid,madrid,12,hotel 5 estrellas,78.14
+ES,13,28,"madrid, comunidad de",madrid,madrid,12,total,75.78
+ES,14,30,"murcia, region de",murcia,murcia,12,hotel 3 estrellas,74.86
+ES,14,30,"murcia, region de",murcia,murcia,12,hotel 4 estrellas,74.39
+ES,14,30,"murcia, region de",murcia,murcia,12,hotel 5 estrellas,87.08
+ES,14,30,"murcia, region de",murcia,murcia,12,total,70.79
+ES,15,31,"navarra, comunidad foral de",navarra,navarra,12,hotel 3 estrellas,80.65
+ES,15,31,"navarra, comunidad foral de",navarra,navarra,12,hotel 4 estrellas,86.72
+ES,15,31,"navarra, comunidad foral de",navarra,navarra,12,hotel 5 estrellas,91.84
+ES,15,31,"navarra, comunidad foral de",navarra,navarra,12,total,83.03
+ES,16,01,pais vasco,pais vasco,araba/alava,12,hotel 3 estrellas,69.65
+ES,16,01,pais vasco,pais vasco,araba/alava,12,hotel 4 estrellas,79.85
+ES,16,01,pais vasco,pais vasco,araba/alava,12,hotel 5 estrellas,62.72
+ES,16,01,pais vasco,pais vasco,araba/alava,12,total,79.14
+ES,16,48,pais vasco,pais vasco,bizkaia,12,hotel 3 estrellas,78.15
+ES,16,48,pais vasco,pais vasco,bizkaia,12,hotel 4 estrellas,86.51
+ES,16,48,pais vasco,pais vasco,bizkaia,12,hotel 5 estrellas,83.48
+ES,16,48,pais vasco,pais vasco,bizkaia,12,total,84.4
+ES,16,20,pais vasco,pais vasco,gipuzkoa,12,hotel 3 estrellas,78.98
+ES,16,20,pais vasco,pais vasco,gipuzkoa,12,hotel 4 estrellas,90.82
+ES,16,20,pais vasco,pais vasco,gipuzkoa,12,hotel 5 estrellas,94.14
+ES,16,20,pais vasco,pais vasco,gipuzkoa,12,total,89.26
+ES,17,26,"rioja, la",rioja,la rioja,12,hotel 3 estrellas,83.31
+ES,17,26,"rioja, la",rioja,la rioja,12,hotel 4 estrellas,75.83
+ES,17,26,"rioja, la",rioja,la rioja,12,hotel 5 estrellas,60.39
+ES,17,26,"rioja, la",rioja,la rioja,12,total,77.73

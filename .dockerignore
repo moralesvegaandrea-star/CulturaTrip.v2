@@ -1,0 +1,26 @@
+# Entorno virtual
+.venv
+venv
+
+# Python cache
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+
+# Jupyter / notebooks
+Notebook
+
+# Outputs generados
+outputs
+
+# Git
+.git
+.gitignore
+
+# Archivos temporales
+*.log
+*.tmp
+
+# Sistema Windows
+Thumbs.db

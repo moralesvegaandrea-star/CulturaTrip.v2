@@ -1,0 +1,503 @@
+CATEGORIA;CCAA;PROVINCIA;VALORACION_POR_CATEGORIA;TOTAL_OPINIONES_CATEGORIA;VALORACION_GENERAL
+Activo Naturaleza;Andalucía;Almería;4,31;40296;4,19
+Activo Naturaleza;Andalucía;Cádiz;4,38;16117;4,26
+Activo Naturaleza;Andalucía;Córdoba;4,41;5820;4,29
+Activo Naturaleza;Andalucía;Granada;4,57;27060;4,37
+Activo Naturaleza;Andalucía;Huelva;4,19;12050;4,11
+Activo Naturaleza;Andalucía;Jaén;4,63;6976;4,33
+Activo Naturaleza;Andalucía;Málaga;4,47;167062;4,43
+Activo Naturaleza;Andalucía;Sevilla;4,38;12722;4,34
+Activo Naturaleza;Aragón;Huesca;4,58;24202;4,25
+Activo Naturaleza;Aragón;Teruel;4,45;6055;4,28
+Activo Naturaleza;Aragón;Zaragoza;4,52;4502;4,21
+Activo Naturaleza;Canarias;Las Palmas;4,46;262458;4,28
+Activo Naturaleza;Canarias;Santa Cruz de Tenerife;4,36;301135;4,26
+Activo Naturaleza;Cantabria;Cantabria;4,44;44284;4,27
+Activo Naturaleza;Castilla - La Mancha;Albacete;4,49;5074;4,15
+Activo Naturaleza;Castilla - La Mancha;Ciudad Real;4,45;2229;4,29
+Activo Naturaleza;Castilla - La Mancha;Cuenca;4,41;4794;4,19
+Activo Naturaleza;Castilla - La Mancha;Guadalajara;4,35;2411;4,04
+Activo Naturaleza;Castilla - La Mancha;Toledo;4,4;3277;4,18
+Activo Naturaleza;Castilla y León;Burgos;4,54;9268;4,28
+Activo Naturaleza;Castilla y León;León;4,54;7443;4,21
+Activo Naturaleza;Castilla y León;Palencia;4,29;627;4,35
+Activo Naturaleza;Castilla y León;Salamanca;4,48;3347;4,17
+Activo Naturaleza;Castilla y León;Segovia;4,26;4178;4,07
+Activo Naturaleza;Castilla y León;Soria;4,1;2210;3,97
+Activo Naturaleza;Castilla y León;Valladolid;4,52;12994;4,06
+Activo Naturaleza;Castilla y León;Zamora;4,43;1021;4,17
+Activo Naturaleza;Castilla y León;Ávila;4,48;2948;4,23
+Activo Naturaleza;Cataluña;Barcelona;4,35;111530;4,05
+Activo Naturaleza;Cataluña;Girona;4,45;87855;4,24
+Activo Naturaleza;Cataluña;Lleida;4,55;15996;4,27
+Activo Naturaleza;Cataluña;Tarragona;4,45;50031;4,2
+Activo Naturaleza;Ceuta;Ceuta;3,67;7;3,67
+Activo Naturaleza;Comunidad Foral de Navarra;Navarra;4,57;11714;4,23
+Activo Naturaleza;Comunidad de Madrid;Madrid;4,24;30240;4,1
+Activo Naturaleza;Comunitat Valenciana;Alicante/Alacant;4,46;132474;4,28
+Activo Naturaleza;Comunitat Valenciana;Castellón/Castelló;4,43;11318;4,2
+Activo Naturaleza;Comunitat Valenciana;Valencia/València;4,22;149069;4,15
+Activo Naturaleza;Extremadura;Badajoz;4,38;1666;4,29
+Activo Naturaleza;Extremadura;Cáceres;4,55;5372;4,33
+Activo Naturaleza;Galicia;A Coruña;4,43;21554;4,21
+Activo Naturaleza;Galicia;Lugo;4,59;15058;4,28
+Activo Naturaleza;Galicia;Ourense;4,51;3532;4,15
+Activo Naturaleza;Galicia;Pontevedra;4,35;24016;4,17
+Activo Naturaleza;Illes Balears;Illes Balears;4,44;321295;4,33
+Activo Naturaleza;La Rioja;La Rioja;4,61;35415;4,31
+Activo Naturaleza;País Vasco;Araba/Álava;4,65;21298;4,41
+Activo Naturaleza;País Vasco;Bizkaia;4,39;7841;4,31
+Activo Naturaleza;País Vasco;Gipuzkoa;4,68;33853;4,41
+Activo Naturaleza;Principado de Asturias;Asturias;4,5;52202;4,35
+Activo Naturaleza;Región de Murcia;Murcia;4,42;4248;4,2
+Activo Urbano;Andalucía;Almería;4,34;14903;4,19
+Activo Urbano;Andalucía;Cádiz;4,51;5159;4,26
+Activo Urbano;Andalucía;Córdoba;4,42;60610;4,29
+Activo Urbano;Andalucía;Granada;4,35;140804;4,37
+Activo Urbano;Andalucía;Huelva;4,43;2439;4,11
+Activo Urbano;Andalucía;Jaén;4,39;3978;4,33
+Activo Urbano;Andalucía;Málaga;4,54;133128;4,43
+Activo Urbano;Andalucía;Sevilla;4,38;200607;4,34
+Activo Urbano;Aragón;Huesca;4,1;3321;4,25
+Activo Urbano;Aragón;Teruel;4,26;5404;4,28
+Activo Urbano;Aragón;Zaragoza;4,33;23240;4,21
+Activo Urbano;Canarias;Las Palmas;4,54;86376;4,28
+Activo Urbano;Canarias;Santa Cruz de Tenerife;4,54;159018;4,26
+Activo Urbano;Cantabria;Cantabria;4,26;14981;4,27
+Activo Urbano;Castilla - La Mancha;Albacete;4,15;1552;4,15
+Activo Urbano;Castilla - La Mancha;Ciudad Real;4,59;4326;4,29
+Activo Urbano;Castilla - La Mancha;Cuenca;4,42;6975;4,19
+Activo Urbano;Castilla - La Mancha;Guadalajara;4,19;1918;4,04
+Activo Urbano;Castilla - La Mancha;Toledo;4,31;34740;4,18
+Activo Urbano;Castilla y León;Burgos;4,55;5140;4,28
+Activo Urbano;Castilla y León;León;4,29;3346;4,21
+Activo Urbano;Castilla y León;Palencia;4,54;1257;4,35
+Activo Urbano;Castilla y León;Salamanca;4,33;3911;4,17
+Activo Urbano;Castilla y León;Segovia;4,19;1069;4,07
+Activo Urbano;Castilla y León;Soria;4,56;412;3,97
+Activo Urbano;Castilla y León;Valladolid;4,31;5354;4,06
+Activo Urbano;Castilla y León;Zamora;4,25;209;4,17
+Activo Urbano;Castilla y León;Ávila;4,67;943;4,23
+Activo Urbano;Cataluña;Barcelona;4,21;631367;4,05
+Activo Urbano;Cataluña;Girona;4,46;16212;4,24
+Activo Urbano;Cataluña;Lleida;4,43;5088;4,27
+Activo Urbano;Cataluña;Tarragona;4,4;94229;4,2
+Activo Urbano;Comunidad Foral de Navarra;Navarra;4,41;17472;4,23
+Activo Urbano;Comunidad de Madrid;Madrid;4,24;503558;4,1
+Activo Urbano;Comunitat Valenciana;Alicante/Alacant;4,5;64909;4,28
+Activo Urbano;Comunitat Valenciana;Castellón/Castelló;4,49;8715;4,2
+Activo Urbano;Comunitat Valenciana;Valencia/València;4,3;96282;4,15
+Activo Urbano;Extremadura;Badajoz;4,27;943;4,29
+Activo Urbano;Extremadura;Cáceres;4,48;25011;4,33
+Activo Urbano;Galicia;A Coruña;4,33;24086;4,21
+Activo Urbano;Galicia;Lugo;4,54;2790;4,28
+Activo Urbano;Galicia;Ourense;4,09;8720;4,15
+Activo Urbano;Galicia;Pontevedra;4,16;7578;4,17
+Activo Urbano;Illes Balears;Illes Balears;4,49;98675;4,33
+Activo Urbano;La Rioja;La Rioja;4,55;9835;4,31
+Activo Urbano;Melilla;Melilla;5,0;1;3,94
+Activo Urbano;País Vasco;Araba/Álava;4,63;5647;4,41
+Activo Urbano;País Vasco;Bizkaia;4,37;31958;4,31
+Activo Urbano;País Vasco;Gipuzkoa;4,6;30113;4,41
+Activo Urbano;Principado de Asturias;Asturias;4,47;26475;4,35
+Activo Urbano;Región de Murcia;Murcia;4,41;9569;4,2
+Comida Y Bebida;Andalucía;Córdoba;4,97;16;4,29
+Comida Y Bebida;Andalucía;Huelva;1,0;2;4,11
+Comida Y Bebida;Castilla - La Mancha;Toledo;4,94;180;4,18
+Comida Y Bebida;Castilla y León;León;4,94;231;4,21
+Comida Y Bebida;Castilla y León;Segovia;5,0;3;4,07
+Comida Y Bebida;Castilla y León;Valladolid;4,44;252;4,06
+Comida Y Bebida;Cataluña;Girona;4,57;183;4,24
+Comida Y Bebida;Cataluña;Lleida;4,81;19;4,27
+Comida Y Bebida;Comunidad de Madrid;Madrid;4,71;5856;4,1
+Comida Y Bebida;Comunitat Valenciana;Alicante/Alacant;4,52;760;4,28
+Comida Y Bebida;Extremadura;Cáceres;4,5;6;4,33
+Comida Y Bebida;Galicia;A Coruña;4,21;75;4,21
+Comida Y Bebida;Galicia;Lugo;4,4;10;4,28
+Comida Y Bebida;Galicia;Pontevedra;4,41;237;4,17
+Comida Y Bebida;La Rioja;La Rioja;4,62;110;4,31
+Comida Y Bebida;País Vasco;Bizkaia;4,31;319;4,31
+Comida Y Bebida;Principado de Asturias;Asturias;4,33;124;4,35
+Comida Y Bebida;Región de Murcia;Murcia;3,99;320;4,2
+Comida y Bebida;Andalucía;Almería;5,0;6;4,19
+Comida y Bebida;Andalucía;Cádiz;4,57;47;4,26
+Comida y Bebida;Andalucía;Granada;4,81;771;4,37
+Comida y Bebida;Andalucía;Jaén;5,0;9;4,33
+Comida y Bebida;Andalucía;Málaga;4,84;1395;4,43
+Comida y Bebida;Andalucía;Sevilla;4,76;8170;4,34
+Comida y Bebida;Aragón;Huesca;4,6;40;4,25
+Comida y Bebida;Aragón;Zaragoza;4,03;35;4,21
+Comida y Bebida;Canarias;Las Palmas;3,71;443;4,28
+Comida y Bebida;Canarias;Santa Cruz de Tenerife;4,31;72;4,26
+Comida y Bebida;Cantabria;Cantabria;4,65;26;4,27
+Comida y Bebida;Castilla - La Mancha;Albacete;4,88;33;4,15
+Comida y Bebida;Castilla - La Mancha;Ciudad Real;5,0;41;4,29
+Comida y Bebida;Castilla - La Mancha;Cuenca;4,68;102;4,19
+Comida y Bebida;Castilla - La Mancha;Guadalajara;3,0;4;4,04
+Comida y Bebida;Castilla y León;Burgos;4,9;158;4,28
+Comida y Bebida;Castilla y León;Salamanca;4,84;54;4,17
+Comida y Bebida;Castilla y León;Soria;4,5;4;3,97
+Comida y Bebida;Castilla y León;Ávila;4,72;20;4,23
+Comida y Bebida;Cataluña;Barcelona;4,67;3911;4,05
+Comida y Bebida;Cataluña;Tarragona;4,67;481;4,2
+Comida y Bebida;Comunidad Foral de Navarra;Navarra;4,63;135;4,23
+Comida y Bebida;Comunitat Valenciana;Valencia/València;4,79;369;4,15
+Comida y Bebida;Illes Balears;Illes Balears;4,86;2196;4,33
+Comida y Bebida;País Vasco;Araba/Álava;4,37;303;4,41
+Comida y Bebida;País Vasco;Gipuzkoa;4,44;1099;4,41
+Compras;Andalucía;Almería;4,23;2490;4,19
+Compras;Andalucía;Cádiz;4,16;1319;4,26
+Compras;Andalucía;Córdoba;4,28;1822;4,29
+Compras;Andalucía;Granada;4,34;7661;4,37
+Compras;Andalucía;Huelva;4,15;1395;4,11
+Compras;Andalucía;Jaén;4,55;484;4,33
+Compras;Andalucía;Málaga;4,36;19512;4,43
+Compras;Andalucía;Sevilla;3,84;7574;4,34
+Compras;Aragón;Huesca;4,25;279;4,25
+Compras;Aragón;Teruel;4,16;129;4,28
+Compras;Aragón;Zaragoza;4,41;3119;4,21
+Compras;Canarias;Las Palmas;3,9;20086;4,28
+Compras;Canarias;Santa Cruz de Tenerife;4,07;9442;4,26
+Compras;Cantabria;Cantabria;4,07;1328;4,27
+Compras;Castilla - La Mancha;Albacete;3,36;90;4,15
+Compras;Castilla - La Mancha;Ciudad Real;4,64;147;4,29
+Compras;Castilla - La Mancha;Cuenca;4,52;59;4,19
+Compras;Castilla - La Mancha;Guadalajara;4,49;88;4,04
+Compras;Castilla - La Mancha;Toledo;4,76;2638;4,18
+Compras;Castilla y León;Burgos;4,13;148;4,28
+Compras;Castilla y León;León;4,31;389;4,21
+Compras;Castilla y León;Palencia;4,38;146;4,35
+Compras;Castilla y León;Salamanca;4,47;470;4,17
+Compras;Castilla y León;Segovia;4,57;395;4,07
+Compras;Castilla y León;Soria;4,51;56;3,97
+Compras;Castilla y León;Valladolid;4,08;485;4,06
+Compras;Castilla y León;Zamora;4,36;242;4,17
+Compras;Castilla y León;Ávila;3,71;82;4,23
+Compras;Cataluña;Barcelona;3,75;95381;4,05
+Compras;Cataluña;Girona;4,09;3158;4,24
+Compras;Cataluña;Lleida;4,4;233;4,27
+Compras;Cataluña;Tarragona;4,19;2200;4,2
+Compras;Comunidad Foral de Navarra;Navarra;4,29;798;4,23
+Compras;Comunidad de Madrid;Madrid;3,83;89796;4,1
+Compras;Comunitat Valenciana;Alicante/Alacant;4,22;12577;4,28
+Compras;Comunitat Valenciana;Castellón/Castelló;4,41;773;4,2
+Compras;Comunitat Valenciana;Valencia/València;3,72;81279;4,15
+Compras;Extremadura;Badajoz;4,56;605;4,29
+Compras;Extremadura;Cáceres;4,54;545;4,33
+Compras;Galicia;A Coruña;3,99;5636;4,21
+Compras;Galicia;Lugo;4,37;221;4,28
+Compras;Galicia;Ourense;3,69;192;4,15
+Compras;Galicia;Pontevedra;4,27;3054;4,17
+Compras;Illes Balears;Illes Balears;4,17;22175;4,33
+Compras;La Rioja;La Rioja;4,36;872;4,31
+Compras;País Vasco;Araba/Álava;3,88;300;4,41
+Compras;País Vasco;Bizkaia;3,8;694;4,31
+Compras;País Vasco;Gipuzkoa;4,35;2233;4,41
+Compras;Principado de Asturias;Asturias;4,23;2445;4,35
+Compras;Región de Murcia;Murcia;3,89;1222;4,2
+Desconocido;Canarias;Las Palmas;4,4;6;4,28
+Desconocido;Canarias;Santa Cruz de Tenerife;5,0;29;4,26
+Desconocido;Cataluña;Barcelona;3,71;7;4,05
+Desconocido;Comunidad de Madrid;Madrid;4,1;20;4,1
+Desconocido;Comunitat Valenciana;Alicante/Alacant;4,31;164;4,28
+Desconocido;Comunitat Valenciana;Valencia/València;5,0;1;4,15
+Desconocido;Illes Balears;Illes Balears;4,47;15;4,33
+Museos;Andalucía;Almería;4,4;5483;4,19
+Museos;Andalucía;Cádiz;4,39;5855;4,26
+Museos;Andalucía;Córdoba;4,32;24412;4,29
+Museos;Andalucía;Granada;4,38;15565;4,37
+Museos;Andalucía;Huelva;4,26;5721;4,11
+Museos;Andalucía;Jaén;4,2;5273;4,33
+Museos;Andalucía;Málaga;4,46;53147;4,43
+Museos;Andalucía;Sevilla;4,38;27703;4,34
+Museos;Aragón;Huesca;4,25;4330;4,25
+Museos;Aragón;Teruel;4,3;2728;4,28
+Museos;Aragón;Zaragoza;4,54;10062;4,21
+Museos;Canarias;Las Palmas;4,31;30388;4,28
+Museos;Canarias;Santa Cruz de Tenerife;4,24;11992;4,26
+Museos;Cantabria;Cantabria;4,33;17037;4,27
+Museos;Castilla - La Mancha;Albacete;4,05;973;4,15
+Museos;Castilla - La Mancha;Ciudad Real;4,33;3174;4,29
+Museos;Castilla - La Mancha;Cuenca;4,47;6327;4,19
+Museos;Castilla - La Mancha;Guadalajara;4,36;1325;4,04
+Museos;Castilla - La Mancha;Toledo;4,25;23479;4,18
+Museos;Castilla y León;Burgos;4,3;11292;4,28
+Museos;Castilla y León;León;4,27;4886;4,21
+Museos;Castilla y León;Palencia;4,56;2541;4,35
+Museos;Castilla y León;Salamanca;4,37;8515;4,17
+Museos;Castilla y León;Segovia;4,22;23494;4,07
+Museos;Castilla y León;Soria;4,12;785;3,97
+Museos;Castilla y León;Valladolid;4,33;9630;4,06
+Museos;Castilla y León;Zamora;4,33;1817;4,17
+Museos;Castilla y León;Ávila;4,54;1435;4,23
+Museos;Cataluña;Barcelona;4,13;166365;4,05
+Museos;Cataluña;Girona;4,14;32473;4,24
+Museos;Cataluña;Lleida;4,33;4267;4,27
+Museos;Cataluña;Tarragona;4,37;6958;4,2
+Museos;Comunidad Foral de Navarra;Navarra;4,19;6578;4,23
+Museos;Comunidad de Madrid;Madrid;4,27;339299;4,1
+Museos;Comunitat Valenciana;Alicante/Alacant;4,25;16794;4,28
+Museos;Comunitat Valenciana;Castellón/Castelló;3,85;1296;4,2
+Museos;Comunitat Valenciana;Valencia/València;4,27;78597;4,15
+Museos;Extremadura;Badajoz;4,27;8124;4,29
+Museos;Extremadura;Cáceres;4,27;7275;4,33
+Museos;Galicia;A Coruña;4,3;9787;4,21
+Museos;Galicia;Lugo;4,4;3142;4,28
+Museos;Galicia;Ourense;4,32;742;4,15
+Museos;Galicia;Pontevedra;3,95;4057;4,17
+Museos;Illes Balears;Illes Balears;4,08;22216;4,33
+Museos;La Rioja;La Rioja;4,15;2077;4,31
+Museos;País Vasco;Araba/Álava;4,41;2209;4,41
+Museos;País Vasco;Bizkaia;4,47;64338;4,31
+Museos;País Vasco;Gipuzkoa;4,46;7951;4,41
+Museos;Principado de Asturias;Asturias;4,39;23145;4,35
+Museos;Región de Murcia;Murcia;4,42;2535;4,2
+Otros;Andalucía;Almería;4,31;238;4,19
+Otros;Andalucía;Cádiz;4,12;284;4,26
+Otros;Andalucía;Córdoba;4,46;478;4,29
+Otros;Andalucía;Granada;4,48;161;4,37
+Otros;Andalucía;Huelva;4,09;164;4,11
+Otros;Andalucía;Jaén;4,24;765;4,33
+Otros;Andalucía;Málaga;4,25;1156;4,43
+Otros;Andalucía;Sevilla;3,68;431;4,34
+Otros;Aragón;Huesca;4,26;61;4,25
+Otros;Aragón;Teruel;4,17;5064;4,28
+Otros;Aragón;Zaragoza;3,75;158;4,21
+Otros;Canarias;Las Palmas;4,24;347;4,28
+Otros;Canarias;Santa Cruz de Tenerife;4,2;1825;4,26
+Otros;Cantabria;Cantabria;4,29;232;4,27
+Otros;Castilla - La Mancha;Albacete;3,41;78;4,15
+Otros;Castilla - La Mancha;Ciudad Real;4,21;156;4,29
+Otros;Castilla - La Mancha;Cuenca;4,51;3406;4,19
+Otros;Castilla - La Mancha;Guadalajara;3,98;45;4,04
+Otros;Castilla - La Mancha;Toledo;4,06;82;4,18
+Otros;Castilla y León;Burgos;4,53;428;4,28
+Otros;Castilla y León;León;3,98;146;4,21
+Otros;Castilla y León;Palencia;5,0;16;4,35
+Otros;Castilla y León;Salamanca;4,17;760;4,17
+Otros;Castilla y León;Segovia;4,22;248;4,07
+Otros;Castilla y León;Soria;3,82;60;3,97
+Otros;Castilla y León;Valladolid;4,45;83;4,06
+Otros;Castilla y León;Zamora;3,68;378;4,17
+Otros;Castilla y León;Ávila;3,61;173;4,23
+Otros;Cataluña;Barcelona;4,08;4031;4,05
+Otros;Cataluña;Girona;4,07;798;4,24
+Otros;Cataluña;Lleida;3,88;79;4,27
+Otros;Cataluña;Tarragona;4,01;1769;4,2
+Otros;Comunidad Foral de Navarra;Navarra;4,27;500;4,23
+Otros;Comunidad de Madrid;Madrid;3,85;3228;4,1
+Otros;Comunitat Valenciana;Alicante/Alacant;4,21;620;4,28
+Otros;Comunitat Valenciana;Castellón/Castelló;3,95;247;4,2
+Otros;Comunitat Valenciana;Valencia/València;3,98;1241;4,15
+Otros;Extremadura;Badajoz;3,9;311;4,29
+Otros;Extremadura;Cáceres;4,42;727;4,33
+Otros;Galicia;A Coruña;4,09;200;4,21
+Otros;Galicia;Lugo;3,88;192;4,28
+Otros;Galicia;Ourense;4,73;26;4,15
+Otros;Galicia;Pontevedra;4,43;119;4,17
+Otros;Illes Balears;Illes Balears;3,95;576;4,33
+Otros;La Rioja;La Rioja;4,09;363;4,31
+Otros;País Vasco;Bizkaia;4,87;794;4,31
+Otros;País Vasco;Gipuzkoa;4,01;57;4,41
+Otros;Principado de Asturias;Asturias;4,4;92;4,35
+Otros;Región de Murcia;Murcia;3,14;7;4,2
+Paisaje Naturaleza;Andalucía;Almería;4,33;6456;4,19
+Paisaje Naturaleza;Andalucía;Cádiz;4,15;8582;4,26
+Paisaje Naturaleza;Andalucía;Córdoba;4,23;1714;4,29
+Paisaje Naturaleza;Andalucía;Granada;4,47;9923;4,37
+Paisaje Naturaleza;Andalucía;Huelva;4,06;4741;4,11
+Paisaje Naturaleza;Andalucía;Jaén;4,25;1756;4,33
+Paisaje Naturaleza;Andalucía;Málaga;4,42;52233;4,43
+Paisaje Naturaleza;Andalucía;Sevilla;4,57;30231;4,34
+Paisaje Naturaleza;Aragón;Huesca;4,54;10688;4,25
+Paisaje Naturaleza;Aragón;Teruel;4,19;1102;4,28
+Paisaje Naturaleza;Aragón;Zaragoza;4,21;7273;4,21
+Paisaje Naturaleza;Canarias;Las Palmas;4,21;138297;4,28
+Paisaje Naturaleza;Canarias;Santa Cruz de Tenerife;4,26;78999;4,26
+Paisaje Naturaleza;Cantabria;Cantabria;4,27;31608;4,27
+Paisaje Naturaleza;Castilla - La Mancha;Albacete;4,27;1264;4,15
+Paisaje Naturaleza;Castilla - La Mancha;Ciudad Real;4,26;3824;4,29
+Paisaje Naturaleza;Castilla - La Mancha;Cuenca;4,42;1708;4,19
+Paisaje Naturaleza;Castilla - La Mancha;Guadalajara;4,03;195;4,04
+Paisaje Naturaleza;Castilla - La Mancha;Toledo;3,92;153;4,18
+Paisaje Naturaleza;Castilla y León;Burgos;4,34;3302;4,28
+Paisaje Naturaleza;Castilla y León;León;4,5;1570;4,21
+Paisaje Naturaleza;Castilla y León;Palencia;4,42;170;4,35
+Paisaje Naturaleza;Castilla y León;Salamanca;4,3;3291;4,17
+Paisaje Naturaleza;Castilla y León;Segovia;4,01;4988;4,07
+Paisaje Naturaleza;Castilla y León;Soria;4,19;3374;3,97
+Paisaje Naturaleza;Castilla y León;Valladolid;3,84;4399;4,06
+Paisaje Naturaleza;Castilla y León;Zamora;4,32;3211;4,17
+Paisaje Naturaleza;Castilla y León;Ávila;4,63;799;4,23
+Paisaje Naturaleza;Cataluña;Barcelona;3,91;289358;4,05
+Paisaje Naturaleza;Cataluña;Girona;4,32;35511;4,24
+Paisaje Naturaleza;Cataluña;Lleida;4,21;3800;4,27
+Paisaje Naturaleza;Cataluña;Tarragona;4,07;17371;4,2
+Paisaje Naturaleza;Comunidad Foral de Navarra;Navarra;4,09;2300;4,23
+Paisaje Naturaleza;Comunidad de Madrid;Madrid;4,13;213350;4,1
+Paisaje Naturaleza;Comunitat Valenciana;Alicante/Alacant;4,26;32373;4,28
+Paisaje Naturaleza;Comunitat Valenciana;Castellón/Castelló;4,0;2549;4,2
+Paisaje Naturaleza;Comunitat Valenciana;Valencia/València;4,25;32482;4,15
+Paisaje Naturaleza;Extremadura;Badajoz;4,42;566;4,29
+Paisaje Naturaleza;Extremadura;Cáceres;4,45;6256;4,33
+Paisaje Naturaleza;Galicia;A Coruña;4,35;16393;4,21
+Paisaje Naturaleza;Galicia;Lugo;4,56;1120;4,28
+Paisaje Naturaleza;Galicia;Ourense;4,33;149;4,15
+Paisaje Naturaleza;Galicia;Pontevedra;4,23;7382;4,17
+Paisaje Naturaleza;Illes Balears;Illes Balears;4,39;85977;4,33
+Paisaje Naturaleza;La Rioja;La Rioja;4,2;1184;4,31
+Paisaje Naturaleza;Melilla;Melilla;4,83;39;3,94
+Paisaje Naturaleza;País Vasco;Araba/Álava;4,66;1638;4,41
+Paisaje Naturaleza;País Vasco;Bizkaia;4,37;8009;4,31
+Paisaje Naturaleza;País Vasco;Gipuzkoa;4,53;20100;4,41
+Paisaje Naturaleza;Principado de Asturias;Asturias;4,35;35811;4,35
+Paisaje Naturaleza;Región de Murcia;Murcia;4,38;1018;4,2
+Paisaje Urbano;Andalucía;Almería;4,0;22567;4,19
+Paisaje Urbano;Andalucía;Cádiz;4,15;15413;4,26
+Paisaje Urbano;Andalucía;Córdoba;4,15;196864;4,29
+Paisaje Urbano;Andalucía;Granada;4,31;302757;4,37
+Paisaje Urbano;Andalucía;Huelva;4,0;21792;4,11
+Paisaje Urbano;Andalucía;Jaén;4,3;39458;4,33
+Paisaje Urbano;Andalucía;Málaga;4,28;288484;4,43
+Paisaje Urbano;Andalucía;Sevilla;4,47;426526;4,34
+Paisaje Urbano;Aragón;Huesca;4,0;25096;4,25
+Paisaje Urbano;Aragón;Teruel;4,25;24912;4,28
+Paisaje Urbano;Aragón;Zaragoza;4,15;90753;4,21
+Paisaje Urbano;Canarias;Las Palmas;3,97;37421;4,28
+Paisaje Urbano;Canarias;Santa Cruz de Tenerife;4,05;28742;4,26
+Paisaje Urbano;Cantabria;Cantabria;4,25;50502;4,27
+Paisaje Urbano;Castilla - La Mancha;Albacete;4,08;8463;4,15
+Paisaje Urbano;Castilla - La Mancha;Ciudad Real;4,08;14299;4,29
+Paisaje Urbano;Castilla - La Mancha;Cuenca;3,93;28012;4,19
+Paisaje Urbano;Castilla - La Mancha;Guadalajara;3,98;15235;4,04
+Paisaje Urbano;Castilla - La Mancha;Toledo;4,02;109087;4,18
+Paisaje Urbano;Castilla y León;Burgos;4,19;42895;4,28
+Paisaje Urbano;Castilla y León;León;4,09;49276;4,21
+Paisaje Urbano;Castilla y León;Palencia;4,26;11153;4,35
+Paisaje Urbano;Castilla y León;Salamanca;4,03;83489;4,17
+Paisaje Urbano;Castilla y León;Segovia;3,94;59220;4,07
+Paisaje Urbano;Castilla y León;Soria;3,83;17704;3,97
+Paisaje Urbano;Castilla y León;Valladolid;3,79;26101;4,06
+Paisaje Urbano;Castilla y León;Zamora;3,99;15589;4,17
+Paisaje Urbano;Castilla y León;Ávila;4,04;37842;4,23
+Paisaje Urbano;Cataluña;Barcelona;3,87;1398508;4,05
+Paisaje Urbano;Cataluña;Girona;4,11;104061;4,24
+Paisaje Urbano;Cataluña;Lleida;4,1;12157;4,27
+Paisaje Urbano;Cataluña;Tarragona;3,93;59130;4,2
+Paisaje Urbano;Comunidad Foral de Navarra;Navarra;4,15;34989;4,23
+Paisaje Urbano;Comunidad de Madrid;Madrid;3,95;532540;4,1
+Paisaje Urbano;Comunitat Valenciana;Alicante/Alacant;4,1;121960;4,28
+Paisaje Urbano;Comunitat Valenciana;Castellón/Castelló;4,09;29625;4,2
+Paisaje Urbano;Comunitat Valenciana;Valencia/València;4,17;168637;4,15
+Paisaje Urbano;Extremadura;Badajoz;4,24;45977;4,29
+Paisaje Urbano;Extremadura;Cáceres;4,19;38255;4,33
+Paisaje Urbano;Galicia;A Coruña;4,15;116722;4,21
+Paisaje Urbano;Galicia;Lugo;4,05;20683;4,28
+Paisaje Urbano;Galicia;Ourense;4,12;10022;4,15
+Paisaje Urbano;Galicia;Pontevedra;4,09;36040;4,17
+Paisaje Urbano;Illes Balears;Illes Balears;4,07;201363;4,33
+Paisaje Urbano;La Rioja;La Rioja;4,18;22567;4,31
+Paisaje Urbano;Melilla;Melilla;3,0;3;3,94
+Paisaje Urbano;País Vasco;Araba/Álava;4,34;15576;4,41
+Paisaje Urbano;País Vasco;Bizkaia;4,3;72979;4,31
+Paisaje Urbano;País Vasco;Gipuzkoa;4,22;42783;4,41
+Paisaje Urbano;Principado de Asturias;Asturias;4,25;72667;4,35
+Paisaje Urbano;Región de Murcia;Murcia;4,12;15821;4,2
+Servicios;Andalucía;Almería;4,19;430;4,19
+Servicios;Andalucía;Cádiz;4,74;39;4,26
+Servicios;Andalucía;Córdoba;4,3;22;4,29
+Servicios;Andalucía;Granada;4,47;1868;4,37
+Servicios;Andalucía;Huelva;4,05;99;4,11
+Servicios;Andalucía;Jaén;4,34;84;4,33
+Servicios;Andalucía;Málaga;4,62;51898;4,43
+Servicios;Andalucía;Sevilla;4,06;4859;4,34
+Servicios;Aragón;Huesca;4,88;533;4,25
+Servicios;Aragón;Teruel;4,1;21;4,28
+Servicios;Aragón;Zaragoza;4,05;61;4,21
+Servicios;Canarias;Las Palmas;3,72;2863;4,28
+Servicios;Canarias;Santa Cruz de Tenerife;3,86;3753;4,26
+Servicios;Cantabria;Cantabria;3,94;4877;4,27
+Servicios;Castilla - La Mancha;Albacete;4,08;9;4,15
+Servicios;Castilla - La Mancha;Ciudad Real;3,0;3;4,29
+Servicios;Castilla - La Mancha;Cuenca;5,0;6;4,19
+Servicios;Castilla - La Mancha;Guadalajara;5,0;1;4,04
+Servicios;Castilla - La Mancha;Toledo;3,33;29;4,18
+Servicios;Castilla y León;Burgos;2,32;12;4,28
+Servicios;Castilla y León;León;3,51;307;4,21
+Servicios;Castilla y León;Palencia;5,0;4;4,35
+Servicios;Castilla y León;Salamanca;3,87;1337;4,17
+Servicios;Castilla y León;Segovia;3,39;141;4,07
+Servicios;Castilla y León;Soria;2,0;2;3,97
+Servicios;Castilla y León;Valladolid;2,7;292;4,06
+Servicios;Castilla y León;Zamora;5,0;2;4,17
+Servicios;Cataluña;Barcelona;4,03;159935;4,05
+Servicios;Cataluña;Girona;3,82;1146;4,24
+Servicios;Cataluña;Lleida;3,81;313;4,27
+Servicios;Cataluña;Tarragona;3,44;9269;4,2
+Servicios;Comunidad Foral de Navarra;Navarra;1,93;108;4,23
+Servicios;Comunidad de Madrid;Madrid;3,92;42370;4,1
+Servicios;Comunitat Valenciana;Alicante/Alacant;3,73;29657;4,28
+Servicios;Comunitat Valenciana;Castellón/Castelló;4,44;373;4,2
+Servicios;Comunitat Valenciana;Valencia/València;4,56;7124;4,15
+Servicios;Extremadura;Cáceres;4,99;60;4,33
+Servicios;Galicia;A Coruña;4,04;605;4,21
+Servicios;Galicia;Lugo;4,19;560;4,28
+Servicios;Galicia;Ourense;3,34;37;4,15
+Servicios;Galicia;Pontevedra;4,14;1424;4,17
+Servicios;Illes Balears;Illes Balears;4,23;46354;4,33
+Servicios;La Rioja;La Rioja;4,81;10;4,31
+Servicios;País Vasco;Araba/Álava;5,0;18;4,41
+Servicios;País Vasco;Bizkaia;4,03;13509;4,31
+Servicios;País Vasco;Gipuzkoa;3,84;140;4,41
+Servicios;Principado de Asturias;Asturias;3,91;2389;4,35
+Servicios;Región de Murcia;Murcia;2,83;6;4,2
+Vida Nocturna;Andalucía;Almería;3,72;5362;4,19
+Vida Nocturna;Andalucía;Cádiz;4,08;2343;4,26
+Vida Nocturna;Andalucía;Córdoba;4,3;1908;4,29
+Vida Nocturna;Andalucía;Granada;3,92;10900;4,37
+Vida Nocturna;Andalucía;Huelva;4,03;1623;4,11
+Vida Nocturna;Andalucía;Jaén;4,0;992;4,33
+Vida Nocturna;Andalucía;Málaga;4,3;56036;4,43
+Vida Nocturna;Andalucía;Sevilla;4,05;39053;4,34
+Vida Nocturna;Aragón;Huesca;3,85;1293;4,25
+Vida Nocturna;Aragón;Teruel;4,35;950;4,28
+Vida Nocturna;Aragón;Zaragoza;3,75;1614;4,21
+Vida Nocturna;Canarias;Las Palmas;4,24;129544;4,28
+Vida Nocturna;Canarias;Santa Cruz de Tenerife;4,06;62671;4,26
+Vida Nocturna;Cantabria;Cantabria;4,02;5819;4,27
+Vida Nocturna;Castilla - La Mancha;Albacete;4,21;573;4,15
+Vida Nocturna;Castilla - La Mancha;Ciudad Real;4,17;385;4,29
+Vida Nocturna;Castilla - La Mancha;Cuenca;3,91;760;4,19
+Vida Nocturna;Castilla - La Mancha;Guadalajara;3,23;447;4,04
+Vida Nocturna;Castilla - La Mancha;Toledo;3,99;434;4,18
+Vida Nocturna;Castilla y León;Burgos;3,95;970;4,28
+Vida Nocturna;Castilla y León;León;3,97;1480;4,21
+Vida Nocturna;Castilla y León;Palencia;4,23;379;4,35
+Vida Nocturna;Castilla y León;Salamanca;3,66;3701;4,17
+Vida Nocturna;Castilla y León;Segovia;3,91;263;4,07
+Vida Nocturna;Castilla y León;Soria;4,2;154;3,97
+Vida Nocturna;Castilla y León;Valladolid;4,01;1293;4,06
+Vida Nocturna;Castilla y León;Zamora;4,27;462;4,17
+Vida Nocturna;Castilla y León;Ávila;4,04;397;4,23
+Vida Nocturna;Cataluña;Barcelona;3,95;119743;4,05
+Vida Nocturna;Cataluña;Girona;3,8;12856;4,24
+Vida Nocturna;Cataluña;Lleida;3,84;1184;4,27
+Vida Nocturna;Cataluña;Tarragona;4,1;22730;4,2
+Vida Nocturna;Comunidad Foral de Navarra;Navarra;3,72;2565;4,23
+Vida Nocturna;Comunidad de Madrid;Madrid;3,85;100430;4,1
+Vida Nocturna;Comunitat Valenciana;Alicante/Alacant;4,03;84389;4,28
+Vida Nocturna;Comunitat Valenciana;Castellón/Castelló;3,88;2406;4,2
+Vida Nocturna;Comunitat Valenciana;Valencia/València;3,72;9307;4,15
+Vida Nocturna;Extremadura;Badajoz;4,31;2109;4,29
+Vida Nocturna;Extremadura;Cáceres;3,95;1377;4,33
+Vida Nocturna;Galicia;A Coruña;3,74;5653;4,21
+Vida Nocturna;Galicia;Lugo;4,18;502;4,28
+Vida Nocturna;Galicia;Ourense;3,7;660;4,15
+Vida Nocturna;Galicia;Pontevedra;4,0;3092;4,17
+Vida Nocturna;Illes Balears;Illes Balears;4,12;122452;4,33
+Vida Nocturna;La Rioja;La Rioja;3,69;1866;4,31
+Vida Nocturna;País Vasco;Araba/Álava;3,82;1138;4,41
+Vida Nocturna;País Vasco;Bizkaia;4,21;5615;4,31
+Vida Nocturna;País Vasco;Gipuzkoa;4,14;5503;4,41
+Vida Nocturna;Principado de Asturias;Asturias;4,18;9626;4,35
+Vida Nocturna;Región de Murcia;Murcia;3,62;1488;4,2
