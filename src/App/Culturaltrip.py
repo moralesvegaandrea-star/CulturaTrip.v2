@@ -2,6 +2,28 @@ import streamlit as st
 import pandas as pd
 from pathlib import Path
 import altair as alt
+import os
+from sqlalchemy import create_engine, text
+
+@st.cache_resource(show_spinner=False)
+def get_engine():
+    # Defaults pensados para tu Docker (ajusta PORT si usas 5433)
+    DB_USER = os.getenv("DB_USER", "culturatrip")
+    DB_PASSWORD = os.getenv("DB_PASSWORD", "culturatrip")
+    DB_HOST = os.getenv("DB_HOST", "localhost")   # desde tu PC: localhost
+    DB_PORT = os.getenv("DB_PORT", "5433")        # si cambiaste a 5433, deja esto
+    DB_NAME = os.getenv("DB_NAME", "culturatrip")
+
+    return create_engine(
+        f"postgresql+psycopg2://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}",
+        pool_pre_ping=True
+    )
+
+@st.cache_data(show_spinner=False)
+def load_dim_pais_db() -> pd.DataFrame:
+    engine = get_engine()
+    query = text("SELECT id_pais, pais, lat, lon FROM culturatrip.dim_pais ORDER BY pais;")
+    return pd.read_sql(query, engine)
 
 # =========================
 # Configuración de la página
@@ -36,7 +58,7 @@ BASE_DIR = Path(__file__).resolve().parents[2]
 # ===============================
 # Rutas a datasets finales (data/clean)
 # ===============================
-DIM_PAIS_PATH = BASE_DIR / "data" / "clean" / "dim_pais.csv"
+# DIM_PAIS_PATH = BASE_DIR / "data" / "clean" / "dim_pais.csv"->desactivada
 DIM_MUNICIPIO_PATH = BASE_DIR / "data" / "clean" / "dim_municipio_final.csv"
 DIM_GEO_MUNI_OSM_PATH = BASE_DIR / "data" / "clean" / "dim_geografia_municipio_osm.csv"
 
@@ -48,7 +70,7 @@ def load_csv(path: Path) -> pd.DataFrame:
     return pd.read_csv(path)
 
 # Cargar datasets
-df_paises = load_csv(DIM_PAIS_PATH)
+df_paises = load_dim_pais_db()
 df_muni = load_csv(DIM_MUNICIPIO_PATH)
 df_geo = load_csv(DIM_GEO_MUNI_OSM_PATH)
 
@@ -151,6 +173,16 @@ def pantalla_1():
             st.session_state["id_pais"] = None
             st.session_state["pais_ui"] = None
             st.rerun()
+
+    total_paises = df_paises["id_pais"].nunique()
+    st.markdown(
+        f"""
+        <div style="padding:18px; font-size:22px; border-radius:12px; background:#F5F7F9;">
+        🌍 <b>Puedes visitar uno de estos países:</b> <b>{total_paises}</b>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
     # --- Dropdown País Destino (desde dim_pais) ---
     lista_paises_ui = sorted(df_paises["pais_ui"].dropna().unique().tolist())

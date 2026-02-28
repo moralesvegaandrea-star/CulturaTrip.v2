@@ -102,7 +102,7 @@ Dimensión: dim_municipio
 Descripción: Tabla de municipios de Region
 ==================================================
 */
-DROP TABLE IF EXISTS culturatrip.dim_municipio cascade;
+DROP TABLE IF EXISTS culturatrip.dim_municipio CASCADE;
 
 CREATE TABLE culturatrip.dim_municipio (
     id_pais CHAR(2) NOT NULL,
@@ -111,14 +111,15 @@ CREATE TABLE culturatrip.dim_municipio (
     id_provincia CHAR(2) NOT NULL,
     id_ccaa CHAR(2) NOT NULL,
     id_isla CHAR(5),
+
     nombre VARCHAR(60) NOT NULL,
     provincia_nombre VARCHAR(30) NOT NULL,
     ccaa_nombre VARCHAR(40) NOT NULL,
     isla VARCHAR(30),
+
     gid_municipio CHAR(20) NOT NULL,
     gid_provincia CHAR(8) NOT NULL,
     gid_ccaa CHAR(8) NOT NULL,
-    gid_isla CHAR(8),
 
     PRIMARY KEY (id_municipio),
 

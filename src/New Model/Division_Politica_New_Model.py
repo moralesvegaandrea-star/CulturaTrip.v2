@@ -110,25 +110,6 @@ print(df_rel.dtypes)
 print(df_muni.dtypes)
 
 # =========================
-# 5.1) Codigo para consultas Streamlit
-# =========================
-from sqlalchemy import create_engine
-import os
-
-engine = create_engine(
-    f"postgresql+psycopg2://{os.getenv('DB_USER','culturatrip')}:{os.getenv('DB_PASSWORD','culturatrip')}"
-    f"@{os.getenv('DB_HOST','localhost')}:{os.getenv('DB_PORT','5432')}/{os.getenv('DB_NAME','culturatrip')}"
-)
-
-df_muni.to_sql(
-    "dim_municipio",
-    engine,
-    schema="culturatrip",
-    if_exists="append",
-    index=False
-)
-
-# =========================
 # 6) GUARDAR
 # =========================
 out_path = os.path.join(CLEAN_DIR, "dim_municipio_final.csv")

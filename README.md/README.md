@@ -2,7 +2,17 @@
 
 ## Trabajo Final de Máster – Big Data & Business Intelligence
 
-**Autora:** Andrea Morales Vega
+**Autores:** 
+
+Ana Belén Chaves Jiménez
+
+Hilda Mireya Ibarra Mata
+
+Montserrat Ulloa Álvarez 
+
+Andrea Lucia Morales Vega 
+
+Ronald Rojas Barquero
 
 
 ## Descripción del Proyecto
@@ -192,13 +202,17 @@ Acceso a los servicios
 
 Para cargar los datos en el modelo:
 
-    python src/"New Model"/Paises_load_postgres.py
+     python src/"New Model"/Paises_load_postgres.py
+     python src/"New Model"/Comunidad_Autonomas_New_Model_load_postgres.py
+     python src/"New Model"/Provincias_new_model_load_postgres.py
+     python src/"New Model"/Islas_v2_new_model_load_postgres.py
+     python src/"New Model"/Division_Politica_load_postgres.py
+     python src/"New Model"/rel_municipio_isla_load_postgres.py
+     python src/"New Model"/OpenstreetMap_load_postgres.py
+    python src/"New Model"/Actividades_load_postgres.py
+    python src/"New Model"/Alojamientos_load_postgres.py
 
-Los scripts ETL:
-
-Realizan limpieza y transformación
-
-Normalizan datos
+Los scripts loaders:
 
 Insertan en tablas del esquema culturatrip
 
@@ -209,29 +223,134 @@ Garantizan coherencia con el modelo relacional
 
 El modelo soporta consultas analíticas tales como:
 
-     Validacion de Control de Calidad
-     docker exec -it culturatrip_db psql -U culturatrip -d culturatrip -c "SELECT COUNT(*) FROM culturatrip.dim_pais;"
+### Verificar que las vistas fueron creadas
+    
+    docker exec -it culturatrip_db psql -U culturatrip -d culturatrip -c "
+    SELECT viewname
+    FROM pg_views
+    WHERE schemaname = 'culturatrip'
+    ORDER BY viewname;"
 
-     Gasto medio por Comunidad Autónoma
+### Validación – Vistas de Control de Calidad (QA)
 
-    Ranking de actividades por provincia
+Validación – Vistas de Control de Calidad (QA)
 
-    Evolución mensual de precios de alojamiento
+     docker exec -it culturatrip_db psql -U culturatrip -d culturatrip -c "
+     SELECT * FROM culturatrip.vw_qa_counts_base;"
 
-    Análisis geoespacial por municipio
+Verificar duplicados en actividades (debe devolver 0 filas)
+    
+     docker exec -it culturatrip_db psql -U culturatrip -d culturatrip -c "
+     SELECT * FROM culturatrip.vw_qa_fact_actividades_duplicados;"
 
-Estas consultas demuestran:
+Verificar duplicados en alojamientos (debe devolver 0 filas)
+  
+    docker exec -it culturatrip_db psql -U culturatrip -d culturatrip -c "
+    SELECT * FROM culturatrip.vw_qa_fact_alojamientos_duplicados;"
 
-    Uso eficiente de JOIN
+Verificar FKs municipio → provincia (debe devolver 0 filas)
 
-    Integridad referencial
+    docker exec -it culturatrip_db psql -U culturatrip -d culturatrip -c "
+    SELECT * FROM culturatrip.vw_qa_dim_muni_fk_prov_missing;"
 
-    Agregaciones temporales
+Verificar municipios sin geolocalización
+
+    docker exec -it culturatrip_db psql -U culturatrip -d culturatrip -c "
+    SELECT COUNT(*) 
+    FROM culturatrip.vw_qa_municipios_sin_geo;"
+
+### Validación – Pantalla 1 (Vista UI)
+
+Validación – Pantalla 1 (Vista UI)
+
+Vista Global (1 sola fila)
+
+    docker exec -it culturatrip_db psql -U culturatrip -d culturatrip -c "
+    SELECT * 
+    FROM culturatrip.vw_ui_pantalla1_global;"
+
+Resultado esperado (ejemplo):
+
+| total_paises | total_provincias | total_municipios | total_islas |
+| ------------ | ---------------- | ---------------- | ----------- |
+| 249          | 52               | 8132             | 11          |
+
+Vista Detalle por País (Ejemplo España)
+
+    docker exec -it culturatrip_db psql -U culturatrip -d culturatrip -c "
+    SELECT * 
+    FROM culturatrip.vw_ui_pantalla1_detalle_por_pais
+    WHERE id_pais = 'ES';"
+
+Resultado esperado:
+
+| id_pais | pais   | total_provincias | total_municipios | total_islas |
+| ------- | ------ | ---------------- | ---------------- | ----------- |
+| ES      | España | 52               | 8132             | 11          |
+
+Validación – Cobertura Geográfica
+
+% de cobertura OSM por país
+
+    docker exec -it culturatrip_db psql -U culturatrip -d culturatrip -c "
+    SELECT *
+    FROM culturatrip.vw_ui_geo_coverage_por_pais;"
+
+
+Cantidad de actividades por provincia
+
+    docker exec -it culturatrip_db psql -U culturatrip -d culturatrip -c "
+    SELECT
+     p.id_provincia,
+     p.provincia_nombre,
+     COUNT(*) AS total_actividades
+    FROM culturatrip.fact_actividades fa
+    JOIN culturatrip.dim_provincia p
+     ON p.id_provincia = fa.id_provincia
+    GROUP BY p.id_provincia, p.provincia_nombre
+    ORDER BY total_actividades DESC LIMIT 10;"
+
+Cantidad de hospedaje (alojamientos) por provincia
+
+    docker exec -it culturatrip_db psql -U culturatrip -d culturatrip -c "
+    SELECT
+     p.id_provincia,
+     p.provincia_nombre,
+     COUNT(*) AS total_hospedajes
+    FROM culturatrip.fact_alojamientos fal
+    JOIN culturatrip.dim_provincia p
+     ON p.id_provincia = fal.id_provincia
+    GROUP BY p.id_provincia, p.provincia_nombre
+    ORDER BY total_hospedajes DESC LIMIT 10;"
+
 
 Soporte para análisis estratégico turístico
 
     Las vistas correspondientes se encuentran en 03_views.sql.
 
+Estas consultas demuestran:
+
+Las vistas definidas en 03_views.sql cumplen dos funciones:
+
+Control de Calidad (QA):
+
+Validan duplicados, integridad referencial y consistencia geográfica.
+
+Capa de Presentación (UI):
+
+Preparan datos agregados listos para ser consumidos por Streamlit.
+
+La vista vw_ui_pantalla1_global permite mostrar en la primera pantalla de la aplicación el número total de países, provincias, municipios e islas disponibles.
+
+La vista vw_ui_pantalla1_detalle_por_pais permite mostrar información cultural y territorial específica para el país seleccionado por el usuario.
+
+Esta separación garantiza:
+
+Reproducibilidad
+
+Optimización de consultas
+
+Arquitectura modular (DB → Views → Streamlit)
 
 ## Validación del Entorno
 
