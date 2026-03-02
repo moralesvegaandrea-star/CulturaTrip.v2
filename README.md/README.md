@@ -27,6 +27,9 @@ Implementación física reproducible
 Consultas representativas alineadas con los casos de uso del TFM
 Ejecución completamente local sin dependencias externas
 
+Datos necesarios para reproducir: listar los CSV se encuentran en la direccion data/clean/.
+
+
 ## Datasets Utilizados
 
 El sistema integra los siguientes datasets:
@@ -177,6 +180,13 @@ Creación de vistas representativas (03_views.sql)
 
 Estos archivos se encuentran en la carpeta /sql y son ejecutados automáticamente por PostgreSQL al inicializar el volumen.
 
+Recomendación:
+
+Si ya existe el volumen y quieres re-inicializar desde cero: 
+
+docker compose down -v y 
+
+luego docker compose up --build”.
 
 ### Construir y levantar entorno
 
@@ -199,6 +209,8 @@ Acceso a los servicios
 
     Si el ETL se ejecuta dentro de Docker:
     DB_HOST=db
+ 
+Se puede referir a la variable de entoro llamada .env
 
 Para cargar los datos en el modelo:
 

@@ -13,7 +13,7 @@ import unicodedata
 from datetime import date, timedelta
 import requests
 import pandas as pd
-
+from pathlib import Path
 
 # =========================
 # 0) Helpers
@@ -32,9 +32,18 @@ def normaliza(s: str) -> str:
         return s
     s = str(s).strip().lower()
     s = unicodedata.normalize("NFKD", s).encode("ascii", "ignore").decode("utf-8")
-    s = re.sub(r"\s*-\s*", "-", s)   # " - " -> "-"
-    s = re.sub(r"\s+", " ", s)       # espacios múltiples -> 1
+    s = re.sub(r"\s*-\s*", "-", s)  # " - " -> "-"
+    s = re.sub(r"\s+", " ", s)      # espacios múltiples -> 1
     return s
+
+
+def _pick_col(df: pd.DataFrame, candidates: list[str]) -> str | None:
+    """Devuelve la primera columna existente en df de la lista de candidatos."""
+    cols = set(df.columns)
+    for c in candidates:
+        if c in cols:
+            return c
+    return None
 
 
 # =========================
@@ -75,8 +84,7 @@ def get_clima(lat, lon, start="2023-01-01", end="2026-12-31",
             daily = r.json().get("daily", {})
             df = pd.DataFrame(daily)
 
-            # Open-Meteo suele traer la columna "time" con fechas
-            # Si no viene, devolvemos vacío
+            # Open-Meteo suele traer "time" como fechas
             if df.empty or "time" not in df.columns:
                 return pd.DataFrame()
 
@@ -99,10 +107,11 @@ def get_clima_cached(lat, lon, cpro, raw_dir, start="2023-01-01", end="2026-12-3
     cache_dir = os.path.join(raw_dir, "clima_cache")
     os.makedirs(cache_dir, exist_ok=True)
 
-    cache_file = os.path.join(cache_dir, f"clima_prov_{str(cpro).zfill(2)}.csv")
+    cpro_2 = str(cpro).zfill(2)
+    cache_file = os.path.join(cache_dir, f"clima_prov_{cpro_2}.csv")
 
     if os.path.exists(cache_file):
-        print(f"♻️ Usando cache para provincia cpro={str(cpro).zfill(2)}")
+        print(f"♻️ Usando cache para provincia cpro={cpro_2}")
         return pd.read_csv(cache_file)
 
     df = get_clima(lat, lon, start=start, end=end)
@@ -113,39 +122,71 @@ def get_clima_cached(lat, lon, cpro, raw_dir, start="2023-01-01", end="2026-12-3
     return df
 
 
+
 # =========================
 # 2) Rutas del proyecto
 # =========================
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-RAW_DIR = os.path.join(BASE_DIR, "data", "raw")
-CLEAN_DIR = os.path.join(BASE_DIR, "data", "clean")
-OUTPUTS_DIR = os.path.join(BASE_DIR, "outputs")
+BASE_DIR = Path(__file__).resolve().parents[2]
 
-os.makedirs(RAW_DIR, exist_ok=True)
-os.makedirs(CLEAN_DIR, exist_ok=True)
-os.makedirs(OUTPUTS_DIR, exist_ok=True)
+RAW_DIR = BASE_DIR / "data" / "raw"
+INTERIM_DIR = BASE_DIR / "data" / "interim"   # ✅ NUEVO
+CLEAN_DIR = BASE_DIR / "data" / "clean"
+OUTPUTS_DIR = BASE_DIR / "outputs"
+EXPERIMENTAL_DIR = BASE_DIR / "data" / "Experimental"
 
+RAW_DIR.mkdir(parents=True, exist_ok=True)
+INTERIM_DIR.mkdir(parents=True, exist_ok=True)  # ✅ NUEVO
+CLEAN_DIR.mkdir(parents=True, exist_ok=True)
+OUTPUTS_DIR.mkdir(parents=True, exist_ok=True)
+EXPERIMENTAL_DIR.mkdir(parents=True, exist_ok=True)
 
 # =========================
-# 3) Cargar geografía
+# 3) Reconstrucción de geografía (municipio + OSM)
 # =========================
-geo_path = os.path.join(CLEAN_DIR, "dim_geografia_es_latlon_final.csv")
-df_geo = load_csv(geo_path)
 
-# Validación mínima de columnas esperadas
-required_cols = {"cpro", "provincia", "lat", "lng"}
-missing = required_cols - set(df_geo.columns)
-if missing:
-    raise ValueError(f"❌ Faltan columnas en dim_geografia_es_latlon_final.csv: {missing}")
+muni_path = os.path.join(CLEAN_DIR, "dim_municipio_final.csv")
+osm_path = os.path.join(CLEAN_DIR, "dim_geografia_municipio_osm.csv")
 
-# Limpieza ligera (por si acaso)
-df_geo["provincia"] = df_geo["provincia"].astype(str)
+df_muni = load_csv(muni_path)
+df_osm = load_csv(osm_path)
+
+# --- Limpieza robusta de nombres de columnas (BOM/espacios) ---
+df_osm.columns = (
+    df_osm.columns
+    .astype(str)
+    .str.replace("\ufeff", "", regex=False)  # BOM
+    .str.strip()
+)
+
+print("✅ Columnas OSM (limpias):", list(df_osm.columns))
+
+# Asegurar tipos
+df_muni["id_municipio"] = df_muni["id_municipio"].astype(str)
+df_osm["id_municipio"] = df_osm["id_municipio"].astype(str)
+
+# Merge administrativo + geográfico
+df_geo = df_muni.merge(
+    df_osm[["id_municipio", "lat", "lon"]],
+    on="id_municipio",
+    how="left"
+)
+
+# Renombrar para mantener compatibilidad con el resto del pipeline
+df_geo = df_geo.rename(columns={
+    "lon": "lng",
+    "id_provincia": "cpro",
+    "provincia_nombre": "provincia"
+})
+
+# Formateo
 df_geo["cpro"] = df_geo["cpro"].astype(str).str.zfill(2)
 df_geo["lat"] = pd.to_numeric(df_geo["lat"], errors="coerce")
 df_geo["lng"] = pd.to_numeric(df_geo["lng"], errors="coerce")
 
+# Eliminar registros sin coordenadas
 df_geo = df_geo.dropna(subset=["lat", "lng", "cpro", "provincia"]).copy()
 
+print(f"✅ Geografía reconstruida correctamente. Registros: {len(df_geo)}")
 
 # =========================
 # 4) Centroide por provincia
@@ -185,7 +226,7 @@ for i, row in df_prov.iterrows():
 
     climas.append(df_c)
 
-    # Pausa suave (aunque haya cache, no estorba; si prefieres, solo cuando NO cache, se puede ajustar)
+    # Pausa suave (si hubo cache es rápido igual; si prefieres, puedes subir a 2-3s)
     time.sleep(1)
 
 if not climas:
@@ -216,6 +257,11 @@ df_clima_prov_mes = (
 )
 
 # =========================
+# 7) ID ACTIVIDAD (PK)
+# =========================
+df_clima_prov_mes = df_clima_prov_mes.reset_index(drop=True)
+df_clima_prov_mes["id_clima"] = df_clima_prov_mes.index + 1
+# =========================
 # 7) Revisiones rápidas
 # =========================
 print("\n=== Preview df_clima_prov_mes ===")
@@ -230,12 +276,11 @@ print(df_clima_prov_mes.isna().sum())
 print("\n=== Duplicados df_clima_prov_mes ===")
 print(df_clima_prov_mes.duplicated(subset=["cpro", "mes"]).sum())
 
-
 # =========================
 # 8) Guardar outputs
 # =========================
-out_daily = os.path.join(OUTPUTS_DIR, "clima_provincia_daily.csv")
-out_month = os.path.join(OUTPUTS_DIR, "clima_provincia_mes.csv")
+out_daily = os.path.join(EXPERIMENTAL_DIR, "clima_provincia_daily.csv")
+out_month = os.path.join(EXPERIMENTAL_DIR, "clima_provincia_mes.csv")
 
 df_clima_prov_daily.to_csv(out_daily, index=False)
 df_clima_prov_mes.to_csv(out_month, index=False)

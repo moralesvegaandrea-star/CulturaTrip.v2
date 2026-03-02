@@ -4,6 +4,7 @@ import numpy as np
 import unicodedata
 import re
 import matplotlib.pyplot as plt
+from pathlib import Path
 def load_csv(path):
         try:
             return pd.read_csv(
@@ -31,21 +32,29 @@ def normaliza(s: str) -> str:
     s = re.sub(r"\s+", " ", s)       # espacios múltiples -> 1
     return s
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-RAW_DIR = os.path.join(BASE_DIR, "data", "raw")
-CLEAN_DIR = os.path.join(BASE_DIR, "data", "clean")
-OUTPUTS_DIR = os.path.join(BASE_DIR, "outputs")
-NOTEBOOKS_DIR = os.path.join(BASE_DIR, "notebooks")
+BASE_DIR = Path(__file__).resolve().parents[2]
+
+RAW_DIR = BASE_DIR / "data" / "raw"
+INTERIM_DIR = BASE_DIR / "data" / "interim"   # ✅ NUEVO
+CLEAN_DIR = BASE_DIR / "data" / "clean"
+OUTPUTS_DIR = BASE_DIR / "outputs"
+EXPERIMENTAL_DIR = BASE_DIR / "data" / "Experimental"
+
+RAW_DIR.mkdir(parents=True, exist_ok=True)
+INTERIM_DIR.mkdir(parents=True, exist_ok=True)  # ✅ NUEVO
+CLEAN_DIR.mkdir(parents=True, exist_ok=True)
+OUTPUTS_DIR.mkdir(parents=True, exist_ok=True)
+EXPERIMENTAL_DIR.mkdir(parents=True, exist_ok=True)
 
 if not os.path.exists(CLEAN_DIR):
     os.makedirs(CLEAN_DIR)
 
 df_capacidad = pd.read_csv(
-    os.path.join(CLEAN_DIR, "conectividad_aerea_capacidad_asientos_clean.csv")
+    os.path.join(INTERIM_DIR, "conectividad_aerea_capacidad_asientos_clean.csv")
 )
 
 df_pasajeros = pd.read_csv(
-    os.path.join(CLEAN_DIR, "conectividad_aerea_trafico_pasajeros_clean.csv")
+    os.path.join(INTERIM_DIR, "conectividad_aerea_trafico_pasajeros_clean.csv")
 )
 
 print(df_capacidad.shape)
@@ -94,7 +103,7 @@ print(df_aereo[["pasajeros", "pasajeros_calc", "hay_pasajeros"]].head())
 # la integridad del dato original
 
 df_paises = pd.read_csv(
-    os.path.join(CLEAN_DIR, "paises.csv")
+    os.path.join(CLEAN_DIR, "dim_pais.csv")
 )
 print(df_paises.shape)
 print(df_paises.head(5))
@@ -120,32 +129,26 @@ print(df_aereo.columns.tolist())
 print(df_paises.columns.tolist())
 
 
-df_aereo= df_aereo.merge(
-    df_paises,
+df_paises_merge = df_paises[["pais", "id_pais", "lat", "lon"]].copy()
+df_paises_merge = df_paises_merge.rename(columns={"lat": "lat_pais", "lon": "lon_pais"})
+
+df_aereo = df_aereo.merge(
+    df_paises_merge,
     left_on="pais_origen",
     right_on="pais",
     how="left"
-)
-# Renombrar para que quede claro que es el origen
-df_aereo = df_aereo.rename(
-    columns={"lat": "lat_origen", "lon": "lon_origen"}
-)
+).drop(columns=["pais"])  # quita la col duplicada del dim
+
+print(df_aereo.head())
 
 cols_needed = [
-    "año",
-    "mes",
-    "pais_origen",
-    "ciudad_destino",
-    "tipo_origen",
-    "asientos",
-    "distancia_media",
-    "variacion_interanual_asientos",
-    "pasajeros",
-    "pasajeros_calc",
-    "hay_pasajeros",
-    "lat_origen",
-    "lon_origen"
+    "año", "mes", "pais_origen", "id_pais",
+    "ciudad_destino", "tipo_origen", "asientos", "distancia_media",
+    "variacion_interanual_asientos", "pasajeros", "pasajeros_calc", "hay_pasajeros",
+    "lat_pais", "lon_pais"
 ]
+
+
 df_aereo = df_aereo[cols_needed]
 print("Columnas",df_aereo.head(5))
 print(df_aereo.columns.tolist())
@@ -158,7 +161,7 @@ print("Duplicados", df_aereo.duplicated().sum())
 # 9) Guardar dataset final
 # =========================
 output_path = os.path.join(
-    CLEAN_DIR,
+    EXPERIMENTAL_DIR,
     "conectividad_aerea_merged_clean.csv"
 )
 

@@ -4,6 +4,7 @@ import numpy as np
 import unicodedata
 import re
 import matplotlib.pyplot as plt
+from pathlib import Path
 def load_csv(path):
         try:
             return pd.read_csv(
@@ -31,11 +32,19 @@ def normaliza(s: str) -> str:
     s = re.sub(r"\s+", " ", s)       # espacios múltiples -> 1
     return s
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-RAW_DIR = os.path.join(BASE_DIR, "data", "raw")
-CLEAN_DIR = os.path.join(BASE_DIR, "data", "clean")
-OUTPUTS_DIR = os.path.join(BASE_DIR, "outputs")
-NOTEBOOKS_DIR = os.path.join(BASE_DIR, "notebooks")
+BASE_DIR = Path(__file__).resolve().parents[2]
+
+RAW_DIR = BASE_DIR / "data" / "raw"
+INTERIM_DIR = BASE_DIR / "data" / "interim"   # ✅ NUEVO
+CLEAN_DIR = BASE_DIR / "data" / "clean"
+OUTPUTS_DIR = BASE_DIR / "outputs"
+EXPERIMENTAL_DIR = BASE_DIR / "data" / "Experimental"
+
+RAW_DIR.mkdir(parents=True, exist_ok=True)
+INTERIM_DIR.mkdir(parents=True, exist_ok=True)  # ✅ NUEVO
+CLEAN_DIR.mkdir(parents=True, exist_ok=True)
+OUTPUTS_DIR.mkdir(parents=True, exist_ok=True)
+EXPERIMENTAL_DIR.mkdir(parents=True, exist_ok=True)
 
 if not os.path.exists(CLEAN_DIR):
     os.makedirs(CLEAN_DIR)
@@ -92,7 +101,7 @@ print(df_trafico["pais_origen"].value_counts().head(25))
 # 9) Guardar dataset final
 # =========================
 output_path = os.path.join(
-    CLEAN_DIR,
+    INTERIM_DIR,
     "conectividad_aerea_trafico_pasajeros_clean.csv"
 )
 
