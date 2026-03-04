@@ -322,3 +322,116 @@ LEFT JOIN (
   GROUP BY id_pais
 ) i ON i.id_pais = p.id_pais;
 
+-- ===============================
+-- Dropdown Países (origen/destino)
+-- ===============================
+CREATE OR REPLACE VIEW culturatrip.vw_ui_dropdown_paises AS
+SELECT id_pais, pais
+FROM culturatrip.dim_pais
+ORDER BY pais;
+
+-- ===============================
+-- Dropdown Provincias por país destino
+-- ===============================
+CREATE OR REPLACE VIEW culturatrip.vw_ui_dropdown_provincias_por_pais AS
+SELECT id_pais, id_provincia, provincia_nombre
+FROM culturatrip.dim_provincia
+ORDER BY id_pais, provincia_nombre;
+
+-- ===============================
+-- Categorías de hospedaje (desde fact_alojamientos)
+-- ===============================
+CREATE OR REPLACE VIEW culturatrip.vw_ui_dropdown_categoria_alojamiento AS
+SELECT DISTINCT categoria_alojamiento
+FROM culturatrip.fact_alojamientos
+WHERE categoria_alojamiento IS NOT NULL AND categoria_alojamiento <> ''
+ORDER BY categoria_alojamiento;
+
+-- ===============================
+-- Categorías de actividades (desde fact_actividades)
+-- ===============================
+CREATE OR REPLACE VIEW culturatrip.vw_ui_dropdown_categoria_actividad AS
+SELECT DISTINCT categoria
+FROM culturatrip.fact_actividades
+WHERE categoria IS NOT NULL AND categoria <> ''
+ORDER BY categoria;
+-- ===============================
+-- Resúmenes “simples” para recomendaciones (sin feature engineering complejo)
+-- ===============================
+-- ===============================
+-- Provincias “más baratas” por categoría de alojamiento
+-- ===============================
+CREATE OR REPLACE VIEW culturatrip.vw_rec_alojamiento_precio_provincia AS
+SELECT
+  f.id_pais,
+  f.id_provincia,
+  p.provincia_nombre,
+  f.categoria_alojamiento,
+  ROUND(AVG(f.precio_checkin_entre_semana)::numeric, 2) AS avg_semana,
+  ROUND(AVG(f.precio_checkin_fin_semana)::numeric, 2) AS avg_fin_semana,
+  ROUND(AVG((f.precio_checkin_entre_semana + f.precio_checkin_fin_semana)/2)::numeric, 2) AS precio_medio
+FROM culturatrip.fact_alojamientos f
+JOIN culturatrip.dim_provincia p
+  ON f.id_provincia = p.id_provincia
+GROUP BY f.id_pais, f.id_provincia, p.provincia_nombre, f.categoria_alojamiento;
+-- ===============================
+-- Provincias con más actividades por categoría
+-- ===============================
+CREATE OR REPLACE VIEW culturatrip.vw_rec_actividades_por_provincia AS
+SELECT
+  f.id_pais,
+  f.id_provincia,
+  p.provincia_nombre,
+  f.categoria,
+  COUNT(*)::int AS n_registros,
+  ROUND(AVG(f.precio_medio_entrada_promedio)::numeric, 2) AS avg_precio_entrada,
+  ROUND(AVG(f.gasto_total_promedio)::numeric, 2) AS avg_gasto_total
+FROM culturatrip.fact_actividades f
+JOIN culturatrip.dim_provincia p
+  ON f.id_provincia = p.id_provincia
+GROUP BY f.id_pais, f.id_provincia, p.provincia_nombre, f.categoria;
+-- ===============================
+-- Temporada por fecha (para checklist simple)
+-- ===============================
+CREATE OR REPLACE VIEW culturatrip.vw_temporada_por_mes AS
+SELECT anio, mes, nombre_mes, trimestre, temporada
+FROM culturatrip.dim_tiempo;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
