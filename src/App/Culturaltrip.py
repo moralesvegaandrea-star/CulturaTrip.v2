@@ -4,6 +4,7 @@ from pathlib import Path
 import altair as alt
 import os
 from sqlalchemy import create_engine, text
+from datetime import date
 
 @st.cache_resource(show_spinner=False)
 def get_engine():
@@ -19,6 +20,92 @@ def get_engine():
         pool_pre_ping=True
     )
 
+# =========================
+# Implementacion del boton aprobacion
+# =========================
+def guardar_plan_db():
+    engine = get_engine()
+
+    # 1) Tomar valores desde session_state
+    email = st.session_state.get("email")
+    id_pais_origen = st.session_state.get("id_pais_origen")
+    id_pais_destino = st.session_state.get("id_pais")
+    fecha_ida = st.session_state.get("fecha_ida")
+    fecha_regreso = st.session_state.get("fecha_regreso")
+    presupuesto = st.session_state.get("presupuesto")
+    tipo_viaje = st.session_state.get("tipo_viaje", "Solo")
+    categoria_aloj = st.session_state.get("categoria_alojamiento")
+
+    id_provincia = st.session_state.get("id_provincia_destino")  # VARCHAR(2)
+    categoria_act = st.session_state.get("categoria_actividad")  # 1 categoría por ahora
+
+    # 2) Validación mínima
+    if not (email and id_pais_origen and id_pais_destino and fecha_ida and fecha_regreso and categoria_aloj):
+        st.error("Faltan datos: revisa correo, países, fechas y hospedaje.")
+        return None
+
+    if fecha_regreso < fecha_ida:
+        st.error("Fecha regreso no puede ser anterior a fecha ida.")
+        return None
+
+    # 3) Insert con transacción
+    with engine.begin() as conn:
+
+        # Insert header -> devuelve id_plan
+        sql_plan = text("""
+            INSERT INTO culturatrip.fact_plan_viaje (
+                email_usuario, id_pais_origen, id_pais_destino,
+                fecha_ida, fecha_regreso, presupuesto_estimado,
+                tipo_viaje, categoria_alojamiento
+            )
+            VALUES (
+                :email, :id_pais_origen, :id_pais_destino,
+                :fecha_ida, :fecha_regreso, :presupuesto,
+                :tipo_viaje, :categoria_aloj
+            )
+            ON CONFLICT (email_usuario, id_pais_origen, id_pais_destino, fecha_ida, fecha_regreso, categoria_alojamiento)
+            DO NOTHING
+            RETURNING id_plan;
+        """)
+
+        plan_id = conn.execute(sql_plan, {
+            "email": email,
+            "id_pais_origen": id_pais_origen,
+            "id_pais_destino": id_pais_destino,
+            "fecha_ida": fecha_ida,
+            "fecha_regreso": fecha_regreso,
+            "presupuesto": presupuesto,
+            "tipo_viaje": tipo_viaje,
+            "categoria_aloj": categoria_aloj
+        }).scalar()
+
+        # Si ya existía, NO seguir insertando detalle/preferencias
+        if plan_id is None:
+            st.warning("Este plan ya existe. No se guardó un duplicado.")
+            return None
+
+        # Insert destino (provincia) si existe
+        if id_provincia:
+            sql_dest = text("""
+                INSERT INTO culturatrip.fact_plan_viaje_destino (id_plan, orden, id_provincia)
+                VALUES (:id_plan, 1, :id_provincia);
+            """)
+            conn.execute(sql_dest, {"id_plan": plan_id, "id_provincia": id_provincia})
+
+        # Insert preferencia (1 categoría por ahora)
+        if categoria_act:
+            sql_pref = text("""
+                INSERT INTO culturatrip.fact_plan_viaje_preferencia (id_plan, categoria)
+                VALUES (:id_plan, :categoria)
+                ON CONFLICT (id_plan, categoria) DO NOTHING;
+            """)
+            conn.execute(sql_pref, {"id_plan": plan_id, "categoria": categoria_act})
+
+    return plan_id
+
+# =========================
+# Loader para DB dim_pais
+# =========================
 @st.cache_data(show_spinner=False)
 def load_dim_pais_db() -> pd.DataFrame:
     engine = get_engine()
@@ -26,38 +113,173 @@ def load_dim_pais_db() -> pd.DataFrame:
     return pd.read_sql(query, engine)
 
 # =========================
+# Loader Generico para nuevas y proximas vistas
+# =========================
+
+@st.cache_data(show_spinner=False)
+def load_view(view_name: str) -> pd.DataFrame:
+    engine = get_engine()
+    q = text(f"SELECT * FROM culturatrip.{view_name};")
+    return pd.read_sql(q, engine)
+
+# =========================
 # Configuración de la página
 # =========================
-st.set_page_config(page_title="CulturaTrip", layout="wide")
-
-st.markdown(
-    "<h1 style='text-align:center;font-size:100px; color:#2E8B57;'> 🗺️ CulturaTrip</h1>",
-    unsafe_allow_html=True
-)
-st.markdown(
-    "<p style='text-align:center; color:#6b7280; font-size:35px;'>"
-    "Planificación inteligente de turismo cultural"
-    "</p>",
-    unsafe_allow_html=True
-)
-
-# CSS (selectbox grande)
+st.set_page_config(page_title="CulturaTrip", layout="wide",
+                   initial_sidebar_state="expanded" )  # ✅ fuerza sidebar abierto
+# =========================
+# Estilos generales (layout moderno)
+# =========================
 st.markdown(
     """
     <style>
-    div[data-baseweb="select"] > div { font-size: 30px !important; min-height: 55px; }
-    div[data-baseweb="select"] span { font-size: 25px !important; }
-    label { font-size: 30px !important; font-weight: 600; }
+
+    /* contenedor central */
+    .main-container {
+        max-width: 1100px;
+        margin: auto;
+    }
+
+    /* badge superior */
+    .badge {
+        display:inline-block;
+        padding:8px 14px;
+        border-radius:999px;
+        background:#EEF2FF;
+        color:#2563EB;
+        font-weight:600;
+        font-size:14px;
+    }
+
+    /* titulo principal */
+    .title-main {
+        text-align:center;
+        font-size:100px;
+        font-weight:800;
+        margin-top:10px;
+    }
+
+    /* subtitulo */
+    .subtitle-main {
+        text-align:center;
+        color:#6b7280;
+        font-size:22px;
+        margin-bottom:30px;
+    }
+
+    /* card bienvenida */
+    .card {
+        background:white;
+        border-radius:14px;
+        padding:16px;
+        text-align:center;
+        box-shadow:0px 10px 25px rgba(0,0,0,0.05);
+        border:1px solid rgba(0,0,0,0.05);
+    }
+
+    .card-title{
+        font-size:40px;
+        font-weight:800;
+        margin-bottom:10px;
+    }
+
+    .card-text{
+        color:#6b7280;
+        font-size:20px;
+        line-height:1.6;
+    }
+
+    /* selectbox grande */
+    div[data-baseweb="select"] > div {
+        font-size:18px !important;
+        min-height:10px;
+    }
+
+    label{
+        font-size:12px !important;
+        font-weight:600;
+    }
+
     </style>
     """,
     unsafe_allow_html=True
 )
 
-BASE_DIR = Path(__file__).resolve().parents[2]
+# =========================
+# Header principal
+# =========================
+
+st.markdown('<div class="main-container">', unsafe_allow_html=True)
+
+st.markdown(
+    '<div style="text-align:center;"><span class="badge">✨ Exploración Cultural</span></div>',
+    unsafe_allow_html=True
+)
+
+st.markdown(
+    '<div class="title-main">CulturaTrip</div>',
+    unsafe_allow_html=True
+)
+
+st.markdown(
+    '<div class="subtitle-main">Planificación inteligente de turismo</div>',
+    unsafe_allow_html=True
+)
+
+# =========================
+# Card Bienvenidos
+# =========================
+
+st.markdown(
+    """
+    <div class="card">
+        <div class="card-title">Bienvenidos</div>
+        <div class="card-text">
+        Descubre más allá de los destinos tradicionales. 
+        Diseña tu viaje ideal combinando cultura, presupuesto y experiencias locales.
+        </div>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
+# botón centrado
+col1, col2, col3 = st.columns([3,2,3])
+with col2:
+    st.button("Conoce Datos Curiosos del Destino a Visitar", use_container_width=True)
+
+st.markdown("<br>", unsafe_allow_html=True)
+
 
 # ===============================
-# Rutas a datasets finales (data/clean)
+# Nuevas Rutas PostgreSQL DB
 # ===============================
+
+# Views para la pagina_1
+df_dropdown_paises = load_view("vw_ui_dropdown_paises")
+df_pantalla1_global = load_view("vw_ui_pantalla1_global")
+df_pantalla1_detalle = load_view("vw_ui_pantalla1_detalle_por_pais")
+df_total_paises = load_view("vw_ui_total_paises")
+
+# Views para la pagina_2
+df_dropdown_provincias = load_view("vw_ui_dropdown_provincias_por_pais")
+df_dropdown_cat_aloj = load_view("vw_ui_dropdown_categoria_alojamiento")
+df_dropdown_cat_act = load_view("vw_ui_dropdown_categoria_actividad")
+
+df_rec_act = load_view("vw_rec_actividades_por_provincia")
+df_rec_aloj = load_view("vw_rec_alojamiento_precio_provincia")
+
+
+# Views para la pagina_3
+
+df_plan_resumen = load_view("vw_plan_resumen_basico")
+df_plan_costos = load_view("vw_plan_costos_estimados")
+
+# ===============================
+# Rutas a datasets finales (data/clean)-> Temporal migrar a views de POSTGRESQL
+# ===============================
+
+BASE_DIR = Path(__file__).resolve().parents[2]
 # DIM_PAIS_PATH = BASE_DIR / "data" / "clean" / "dim_pais.csv"->desactivada
 DIM_MUNICIPIO_PATH = BASE_DIR / "data" / "clean" / "dim_municipio_final.csv"
 DIM_GEO_MUNI_OSM_PATH = BASE_DIR / "data" / "clean" / "dim_geografia_municipio_osm.csv"
@@ -69,7 +291,7 @@ ALOJAMIENTOS_PATH = BASE_DIR / "data" / "clean" / "df_alojamientos.csv"
 def load_csv(path: Path) -> pd.DataFrame:
     return pd.read_csv(path)
 
-# Cargar datasets
+# Cargar datasets-> esto tambien se va a remplazar
 df_paises = load_dim_pais_db()
 df_muni = load_csv(DIM_MUNICIPIO_PATH)
 df_geo = load_csv(DIM_GEO_MUNI_OSM_PATH)
@@ -81,116 +303,198 @@ df_alojamientos = load_csv(ALOJAMIENTOS_PATH)
 df_divgeo = df_muni.merge(df_geo[["id_municipio", "lat", "lon"]], on="id_municipio", how="left")
 
 # ===============================
-# Session state
+# Session State (defaults)
 # ===============================
 def init_state():
     defaults = {
+        # Navegación (si sigues con step)
         "step": 1,
-        "prev_step": 1,
-        "pais": None,        # nombre país UI (ej: "España")
-        "id_pais": None,     # código (ej: "ES")
-        "pais_ui": None,     # valor selectbox (None si vacío)
+        "menu": "Exploración Cultural",
+
+        # País destino (desde Pantalla 1)
+        "pais": None,            # nombre UI (ej: "España")
+        "id_pais": None,         # código (ej: "ES")
+        "pais_ui": None,         # selectbox key
+
+        # País origen (Pantalla 2)
+        "pais_origen": None,        # nombre UI
+        "id_pais_origen": None,     # código
+
+        # Provincia destino (Pantalla 2)
+        "provincia_destino": None,     # nombre provincia
+        "id_provincia_destino": None,  # VARCHAR(2)
+
+        # Usuario/correo
+        "email": "",
+
+        # Fechas
+        "fecha_ida": None,
+        "fecha_regreso": None,
+
+        # Presupuesto
+        "presupuesto": 0,
+
+        # Selecciones
+        "categoria_alojamiento": None,
+        "categoria_actividad": None,
+        "tipo_viaje": "Solo",
+
+        "guardando": False,
+        "plan_guardado": False,
+        "ultimo_plan_id": None,
     }
+
     for k, v in defaults.items():
         if k not in st.session_state:
             st.session_state[k] = v
 
 init_state()
 
-TOTAL_STEPS = 7
 
-def next_step():
-    if st.session_state.step < TOTAL_STEPS:
-        st.session_state.prev_step = st.session_state.step
-        st.session_state.step += 1
+# ===============================
+# Reset State
+# ===============================
+def reset_plan_completo():
+    keys_to_reset = {
+        # Navegación / selección base
+        "pais": None,
+        "id_pais": None,
+        "pais_ui": None,
+        "pais_origen": None,
+        "id_pais_origen": None,
 
-def prev_step():
-    if st.session_state.step > 1:
-        st.session_state.prev_step = st.session_state.step
-        st.session_state.step -= 1
+        # Destino
+        "provincia_destino": None,
+        "id_provincia_destino": None,
 
-# Barra superior
-col1, col2, col3 = st.columns([1, 6, 1])
-with col1:
-    st.button("⏪ Anterior", on_click=prev_step, disabled=(st.session_state.step == 1))
-with col2:
-    st.progress(st.session_state.step / TOTAL_STEPS)
-    st.markdown(
-        f"<div style='text-align:center;'>Paso {st.session_state.step} de {TOTAL_STEPS}</div>",
-        unsafe_allow_html=True
-    )
-with col3:
-    st.button("Siguiente ⏩", on_click=next_step, disabled=(st.session_state.step == TOTAL_STEPS))
+        # Usuario
+        "email": "",
 
-st.divider()
+        # Fechas
+        "fecha_ida": None,
+        "fecha_regreso": None,
 
-if st.session_state.step != st.session_state.prev_step:
-    st.balloons()
-    st.session_state.prev_step = st.session_state.step
+        # Presupuesto y preferencias
+        "presupuesto": 0,
+        "categoria_alojamiento": None,
+        "categoria_actividad": None,
+        "tipo_viaje": "Solo",
 
+        # Control de guardado
+        "plan_guardado": False,
+        "guardando": False,
+        "ultimo_plan_id": None,
+    }
+
+    for k, v in keys_to_reset.items():
+        st.session_state[k] = v
+
+# ===============================
+# Sidebar navegación (nuevo layout)
+# ===============================
+with st.sidebar:
+    st.title("CulturaTrip")
+    st.caption("Planificación inteligente de turismo")
+
+    opciones = [
+        "Exploración Cultural",
+        "Planificación",
+        "Itinerario",
+        "Checklist",
+        "Presupuesto",
+        "Actividades",
+        "Resumen final",
+    ]
+
+    # Mantiene sincronía con step (1..7)
+    default_index = max(0, min(len(opciones) - 1, st.session_state.step - 1))
+
+    menu = st.radio("Menú", opciones, index=default_index)
+
+    st.session_state.menu = menu
+    st.session_state.step = opciones.index(menu) + 1  # ✅ actualiza step para tu router viejo
+
+    st.divider()
+    st.markdown("### Acciones rápidas")
+    st.button("↩️ Regresar a editar")
+    st.button("🧾 Ajustar presupuesto")
+    st.button("🗺️ Modificar itinerario")
 # ===============================
 # Helpers
 # ===============================
 def pais_display(nombre_en_dim_pais: str) -> str:
-    """dim_pais trae nombres en inglés/lower; aquí lo adaptamos a UI."""
+    """Normaliza el nombre para UI (title) y aplica overrides puntuales."""
     if not isinstance(nombre_en_dim_pais, str):
         return nombre_en_dim_pais
-    base = nombre_en_dim_pais.strip().title()
-    overrides = {"Spain": "España", "Italy": "Italia", "France": "Francia"}
-    return overrides.get(base, base)
 
-# Preparamos lista UI + mapa nombre->id_pais
-df_paises["pais_ui"] = df_paises["pais"].apply(pais_display)
-map_paisui_a_id = dict(zip(df_paises["pais_ui"], df_paises["id_pais"]))
+    base = nombre_en_dim_pais.strip().title()
+
+    overrides = {
+        "Spain": "España",
+        "Italy": "Italia",
+        "France": "Francia",
+        "Costa Rica": "Costa Rica",
+        "United States": "Estados Unidos",
+        "United Kingdom": "Reino Unido",
+        "Dominican Republic": "República Dominicana",
+        "Czech Republic": "República Checa",
+    }
+    return overrides.get(base, base)
+# ===============================
+# Preparamos lista UI + mapa nombre -> id_pais
+# ===============================
+
+df_dropdown_paises["pais_ui"] = df_dropdown_paises["pais"].apply(pais_display)
+
+df_paises_ui = (
+    df_dropdown_paises[["pais_ui", "id_pais"]]
+    .dropna()
+    .drop_duplicates(subset=["pais_ui"])
+)
+
+map_paisui_a_id = dict(zip(df_paises_ui["pais_ui"], df_paises_ui["id_pais"]))
+lista_paises_ui = sorted(df_paises_ui["pais_ui"].tolist())
+
 
 # ===============================
 # Pantalla 1
 # ===============================
 def pantalla_1():
-    st.header("🌷 Bienvenidos")
-    st.subheader("Descubre más allá de los destinos tradicionales")
-    st.markdown(
-        "<p style='text-align:left; color:#6b7280; font-size:20px;'>"
-        "Diseña tu viaje ideal combinando cultura, presupuesto y experiencias locales. "
-        "Este prototipo te guiará paso a paso para crear un itinerario personalizado."
-        "</p>",
-        unsafe_allow_html=True
-    )
 
-    st.subheader("Conoce Datos Curiosos del País a Visitar")
-    st.markdown(
-        "<p style='text-align:left; color:#6b7280; font-size:20px;'>"
-        "Selecciona el país destino para personalizar tu experiencia y ver datos curiosos del país."
-        "</p>",
-        unsafe_allow_html=True
-    )
-
-    # --- Reset (modo test) ---
+    # Reset completo
     col_reset_left, col_reset_right = st.columns([6, 2])
     with col_reset_right:
-        if st.button("🔄 Reset país (test)", use_container_width=True):
-            st.session_state["pais"] = None
-            st.session_state["id_pais"] = None
-            st.session_state["pais_ui"] = None
+        if st.button("🔄 Nuevo plan", use_container_width=True):
+            reset_plan_completo()
+            st.session_state["step"] = 1
             st.rerun()
 
-    total_paises = df_paises["id_pais"].nunique()
+    st.markdown("<h2 style='margin-bottom:0.3rem;'>Selecciona un destino</h2>", unsafe_allow_html=True)
+
+    # ===============================
+    # Total países (desde view)
+    # ===============================
+    total_paises = int(df_total_paises["total_paises"].iloc[0])
+
     st.markdown(
         f"""
-        <div style="padding:18px; font-size:22px; border-radius:12px; background:#F5F7F9;">
-        🌍 <b>Puedes visitar uno de estos países:</b> <b>{total_paises}</b>
+        <div style="padding:18px; font-size:22px; border-radius:12px;">
+        <b>Explora</b> <b>{total_paises}</b> <b>destinos en todo el mundo</b>
         </div>
         """,
         unsafe_allow_html=True
     )
 
-    # --- Dropdown País Destino (desde dim_pais) ---
-    lista_paises_ui = sorted(df_paises["pais_ui"].dropna().unique().tolist())
+    # ===============================
+    # Dropdown país
+    # ===============================
     pais_guardado = st.session_state.get("pais")
 
-    index_default = lista_paises_ui.index(pais_guardado) if pais_guardado in lista_paises_ui else None
-
-    st.markdown("<h2 style='margin-bottom:0.3rem;'>🌍 País de destino</h2>", unsafe_allow_html=True)
+    index_default = (
+        lista_paises_ui.index(pais_guardado)
+        if pais_guardado in lista_paises_ui
+        else None
+    )
 
     pais_ui = st.selectbox(
         label="",
@@ -200,10 +504,10 @@ def pantalla_1():
         key="pais_ui"
     )
 
-    # Persistencia (NO borres si el user no selecciona nada)
+    # Persistencia
     if pais_ui is None:
         if pais_guardado is None:
-            st.info("Elige un país para ver estadísticas y datos curiosos")
+            st.info("Elige un destino para conocer datos curiosos")
             return
         pais = pais_guardado
     else:
@@ -214,12 +518,11 @@ def pantalla_1():
     id_pais = st.session_state.get("id_pais")
 
     # ===============================
-    # Datos del país (si existen en tu modelo)
+    # Métricas del país (desde view)
     # ===============================
-    df_p = df_divgeo[df_divgeo["id_pais"] == id_pais].copy() if id_pais else pd.DataFrame()
+    row = df_pantalla1_detalle[df_pantalla1_detalle["id_pais"] == id_pais]
 
-    if df_p.empty:
-        # País sin datos de división política en tu modelo (por ahora)
+    if row.empty:
         st.markdown(
             f"""
             <div style="padding:25px; font-size:20px; border-radius:12px; background:#F5F7F9;">
@@ -228,24 +531,20 @@ def pantalla_1():
             """,
             unsafe_allow_html=True
         )
-        # Mapa centroid (dim_pais)
-        row = df_paises[df_paises["pais_ui"] == pais].head(1)
-        if not row.empty:
-            st.map(pd.DataFrame({"lat": [row["lat"].iloc[0]], "lon": [row["lon"].iloc[0]]}))
         return
 
-    # Métricas (con nuevos nombres)
-    n_municipios = df_p["id_municipio"].nunique()
-    n_provincias = df_p["provincia_nombre"].nunique() if "provincia_nombre" in df_p.columns else 0
-    n_ccaa = df_p["ccaa_nombre"].nunique() if "ccaa_nombre" in df_p.columns else 0
-    n_islas = df_p["id_isla"].nunique() if "id_isla" in df_p.columns else df_p["isla"].nunique()
+    n_municipios = int(row["total_municipios"].iloc[0])
+    n_provincias = int(row["total_provincias"].iloc[0])
+    n_islas = int(row["total_islas"].iloc[0])
 
-    # Solo mostramos el bloque “Sabías que…” (evitas duplicar info con métricas)
+    # ===============================
+    # Sabías que
+    # ===============================
     st.markdown(
         f"""
         <div style="padding:25px; font-size:20px; border-radius:12px; background:#F5F7F9;">
         <b>¿Sabías que…?</b> <b>{pais}</b> contiene <b>{n_municipios:,}</b> municipios únicos,
-        organizados en <b>{n_provincias:,}</b> provincias y <b>{n_ccaa:,}</b> comunidades autónomas.
+        organizados en <b>{n_provincias:,}</b> provincias.
         Además, se identifican <b>{n_islas:,}</b> islas distintas.
         </div>
         """.replace(",", "."),
@@ -255,22 +554,26 @@ def pantalla_1():
     st.divider()
 
     # ===============================
-    # Destacados culturales + imagen (2 columnas)
+    # Destacados culturales + imagen
     # ===============================
     DATOS_CULTURALES = {
         "España": [
-            {"titulo": "🏺 Antigüedad", "texto": "España fue uno de los primeros territorios europeos explotados por metales (oro, plata y cobre) por fenicios y romanos."},
-            {"titulo": "🏰 Granada", "texto": "Fue el último reino musulmán de la Península Ibérica hasta 1492, cuando los Reyes Católicos culminaron la Reconquista con la toma de la Alhambra."},
-            {"titulo": "🕌 Córdoba", "texto": "En el siglo X, Córdoba fue una de las ciudades más grandes y cultas del mundo occidental, con bibliotecas y alumbrado público."},
+            {"titulo": "🏺 Antigüedad", "texto": "España fue uno de los primeros territorios europeos explotados por metales por fenicios y romanos."},
+            {"titulo": "🏰 Granada", "texto": "Fue el último reino musulmán de la Península Ibérica hasta 1492."},
+            {"titulo": "🕌 Córdoba", "texto": "En el siglo X fue una de las ciudades más grandes del mundo occidental."},
             {"titulo": "🏛️ Mérida", "texto": "Fue una de las capitales romanas más importantes fuera de Italia."},
-            {"titulo": "🗡️ Toledo", "texto": "Convivieron durante siglos cristianos, judíos y musulmanes, lo que la convirtió en un gran centro cultural medieval."},
-            {"titulo": "⛪ Santiago de Compostela", "texto": "El Camino de Santiago es una de las rutas de peregrinación más antiguas de Europa."},
-            {"titulo": "🌍 Sevilla", "texto": "Desde Sevilla se gestionaba el comercio con América durante el Imperio español."},
-            {"titulo": "🗣️ Idiomas", "texto": "Coexisten lenguas cooficiales como catalán, gallego y euskera (no emparentado con otras lenguas europeas)."},
-            {"titulo": "🍷 Gastronomía", "texto": "Las tapas nacieron como una forma práctica de cubrir bebidas y hoy son un símbolo cultural."},
+            {"titulo": "🗡️ Toledo", "texto": "Durante siglos convivieron cristianos, judíos y musulmanes."},
+            {"titulo": "⛪ Santiago", "texto": "El Camino de Santiago es una de las rutas de peregrinación más antiguas."},
+            {"titulo": "🌍 Sevilla", "texto": "Desde aquí se gestionaba el comercio con América."},
+            {"titulo": "🗣️ Idiomas", "texto": "Existen lenguas cooficiales como catalán, gallego y euskera."},
+            {"titulo": "🍷 Gastronomía", "texto": "Las tapas nacieron como una forma de cubrir bebidas."},
         ],
-        "Italia": [{"titulo": "🏛️ Roma", "texto": "Fue el centro del Imperio Romano durante más de cinco siglos."}],
-        "Francia": [{"titulo": "🗼 París", "texto": "Alta concentración de museos y referente histórico del arte europeo."}],
+        "Italia": [
+            {"titulo": "🏛️ Roma", "texto": "Centro del Imperio Romano durante siglos."}
+        ],
+        "Francia": [
+            {"titulo": "🗼 París", "texto": "Uno de los centros culturales y artísticos más importantes de Europa."}
+        ],
     }
 
     IMAGEN_PAIS = {
@@ -280,11 +583,15 @@ def pantalla_1():
     }
 
     st.subheader("Destacados culturales del país")
+
     col_izq, col_der = st.columns([2, 1], gap="medium")
 
     with col_izq:
+
         if pais in DATOS_CULTURALES:
+
             for d in DATOS_CULTURALES[pais]:
+
                 st.markdown(
                     f"""
                     <div style="margin-bottom:14px;">
@@ -302,7 +609,9 @@ def pantalla_1():
             st.info("No hay datos culturales para este país todavía")
 
     with col_der:
+
         img_path = IMAGEN_PAIS.get(pais)
+
         if img_path and img_path.exists():
             st.image(str(img_path), use_container_width=True)
         else:
@@ -310,88 +619,447 @@ def pantalla_1():
 
     st.divider()
 
-    # ===============================
-    # Provincias + mapa (2 columnas)
-    # ===============================
-    st.subheader("Explora el país: provincias y mapa")
-    col_graf, col_mapa = st.columns([1.2, 1], gap="large")
-
-    with col_graf:
-        st.markdown("### Provincias con más municipios")
-        if "provincia_nombre" in df_p.columns:
-            top_n = 10
-            df_count = (
-                df_p.dropna(subset=["provincia_nombre"])
-                .groupby("provincia_nombre")
-                .size()
-                .sort_values(ascending=False)
-                .head(top_n)
-                .reset_index(name="n_municipios")
-            )
-
-            chart = (
-                alt.Chart(df_count)
-                .mark_bar(color="#2E8B57")
-                .encode(
-                    x=alt.X(
-                        "provincia_nombre:N",
-                        sort="-y",
-                        title="Provincia",
-                        axis=alt.Axis(
-                            labelAngle=-15,
-                            labelFontSize=12,
-                            labelColor="#111827",
-                            labelLimit=240,
-                            titleFontSize=16,
-                            titleColor="#111827",
-                        ),
-                    ),
-                    y=alt.Y(
-                        "n_municipios:Q",
-                        title="Número de municipios",
-                        axis=alt.Axis(
-                            labelFontSize=12,
-                            labelColor="#111827",
-                            titleFontSize=16,
-                            titleColor="#111827",
-                        ),
-                    ),
-                    tooltip=["provincia_nombre", "n_municipios"],
-                )
-                .properties(height=450)
-            )
-
-            st.altair_chart(chart, use_container_width=True)
-            st.caption(f"Top {top_n} provincias por cantidad de municipios.")
-        else:
-            st.info("No encuentro la columna provincia_nombre para construir el gráfico.")
-
-    with col_mapa:
-        st.markdown("### Mapa general")
-        if "lat" in df_p.columns and "lon" in df_p.columns:
-            df_map = df_p[["lat", "lon"]].dropna().head(8000)
-            st.map(df_map)
-            st.caption("Puntos geográficos para visualizar la distribución territorial.")
-        else:
-            st.info("No encuentro lat/lon para mostrar el mapa.")
-
 # ===============================
-# Pantalla 2 (placeholder)
+# Pantalla 2
 # ===============================
 def pantalla_2():
-    st.header("Pantalla 2")
-    st.write("Aquí el usuario seleccionará destinos, fechas y tipo de viaje.")
-    st.date_input("Fecha de ida")
-    st.date_input("Fecha de regreso")
-    pais_origen = st.text_input("País origen", placeholder="Ej. Costa Rica, México, España")
-    if pais_origen:
-        st.session_state["pais_origen"] = pais_origen
-    st.selectbox("Tipo de viaje", ["Cultural", "Aventura", "Gastronómico", "Relax", "Mixto"])
-    st.selectbox("Actividades sugeridas", ["(placeholder)"])
+
+    st.header("🧭 Planifica tu viaje")
+
+    colA, colB = st.columns(2)
+
+    # ===============================
+    # Columna izquierda
+    # ===============================
+    with colA:
+
+        st.subheader("Origen y destino")
+
+        # País origen
+        pais_origen_ui = st.selectbox(
+            "País origen",
+            options=lista_paises_ui,
+            index=lista_paises_ui.index(st.session_state["pais_origen"])
+            if st.session_state["pais_origen"] in lista_paises_ui else None,
+            placeholder="— Selecciona país origen —",
+        )
+
+        if pais_origen_ui:
+            st.session_state["pais_origen"] = pais_origen_ui
+            st.session_state["id_pais_origen"] = map_paisui_a_id.get(pais_origen_ui)
+            st.session_state["plan_guardado"] = False
+
+        # País destino (viene desde pantalla 1 si ya fue seleccionado)
+        pais_destino_ui = st.selectbox(
+            "País destino",
+            options=lista_paises_ui,
+            index=lista_paises_ui.index(st.session_state["pais"])
+            if st.session_state["pais"] in lista_paises_ui else None,
+            placeholder="— Selecciona país destino —",
+        )
+
+        if pais_destino_ui:
+            st.session_state["pais"] = pais_destino_ui
+            st.session_state["id_pais"] = map_paisui_a_id.get(pais_destino_ui)
+
+        id_pais_destino = st.session_state["id_pais"]
+        st.session_state["plan_guardado"] = False
+
+        # ===============================
+        # Provincia destino
+        # ===============================
+        st.subheader("Provincia destino")
+
+        if id_pais_destino:
+
+            df_prov = df_dropdown_provincias[
+                df_dropdown_provincias["id_pais"] == id_pais_destino
+            ].copy()
+
+            lista_prov = sorted(df_prov["provincia_nombre"].dropna().unique().tolist())
+
+            provincia_ui = st.selectbox(
+                "Selecciona provincia",
+                options=lista_prov,
+                index=lista_prov.index(st.session_state["provincia_destino"])
+                if st.session_state["provincia_destino"] in lista_prov else None,
+                placeholder="— Selecciona provincia —",
+            )
+
+            if provincia_ui:
+
+                st.session_state["provincia_destino"] = provincia_ui
+                st.session_state["plan_guardado"] = False
+
+                row = df_prov[df_prov["provincia_nombre"] == provincia_ui].head(1)
+
+                if not row.empty:
+                    st.session_state["id_provincia_destino"] = row["id_provincia"].iloc[0]
+
+        else:
+            st.info("Selecciona primero un país destino.")
+
+    # ===============================
+    # Columna derecha
+    # ===============================
+    with colB:
+
+        st.subheader("Detalles del viaje")
+
+        # Usuario / correo
+        email = st.text_input(
+            "Usuario / correo",
+            value=st.session_state["email"],
+            placeholder="usuario@email.com"
+        )
+
+        if email:
+            st.session_state["email"] = email
+
+        st.session_state["plan_guardado"] = False
+        # ===============================
+        # Fechas
+        # ===============================
+        fecha_ida = st.date_input("Fecha de ida", value=st.session_state["fecha_ida"])
+        fecha_regreso = st.date_input("Fecha de regreso", value=st.session_state["fecha_regreso"])
+
+        st.session_state["fecha_ida"] = fecha_ida
+        st.session_state["plan_guardado"] = False
+        st.session_state["fecha_regreso"] = fecha_regreso
+        st.session_state["plan_guardado"] = False
+
+        # ===============================
+        # Cálculo de métricas de tiempo
+        # ===============================
+        hoy = date.today()
+
+        dias_restantes = None
+        duracion_dias = None
+
+        if fecha_ida:
+            dias_restantes = (fecha_ida - hoy).days
+
+        if fecha_ida and fecha_regreso:
+            duracion_dias = (fecha_regreso - fecha_ida).days
+
+        # ===============================
+        # Mostrar métricas
+        # ===============================
+        col_kpi1, col_kpi2 = st.columns(2)
+
+        with col_kpi1:
+            if dias_restantes is None:
+                st.metric("Días restantes", "—")
+            else:
+                st.metric("Días restantes", f"{max(dias_restantes, 0)}")
+
+        with col_kpi2:
+            if duracion_dias is None:
+                st.metric("Duración del viaje", "—")
+            else:
+                st.metric("Duración del viaje", f"{duracion_dias} días")
+        if duracion_dias is not None and duracion_dias <= 0:
+            st.warning("La fecha de regreso debe ser posterior a la fecha de ida.")
+
+        # Presupuesto
+        presupuesto = st.number_input(
+            "Presupuesto estimado (€)",
+            min_value=0,
+            value=int(st.session_state["presupuesto"]),
+            step=50
+        )
+
+        st.session_state["presupuesto"] = presupuesto
+        st.session_state["plan_guardado"] = False
+
+        # ===============================
+        # Tipo hospedaje
+        # ===============================
+        lista_aloj = sorted(
+            df_dropdown_cat_aloj["categoria_alojamiento"].dropna().unique().tolist()
+        )
+
+        tipo_aloj = st.selectbox(
+            "Tipo hospedaje",
+            options=lista_aloj,
+            index=lista_aloj.index(st.session_state["categoria_alojamiento"])
+            if st.session_state["categoria_alojamiento"] in lista_aloj else None,
+            placeholder="— Selecciona hospedaje —",
+        )
+
+        if tipo_aloj:
+            st.session_state["categoria_alojamiento"] = tipo_aloj
+            st.session_state["plan_guardado"] = False
+
+        # ===============================
+        # Tipo viaje (solo opción)
+        # ===============================
+        st.selectbox(
+            "Tipo viaje",
+            options=["Solo"],
+            index=0
+        )
+
+        st.session_state["tipo_viaje"] = "Solo"
+        st.session_state["plan_guardado"] = False
+
+        # ===============================
+        # Actividades deseadas
+        # ===============================
+        lista_act = sorted(
+            df_dropdown_cat_act["categoria"].dropna().unique().tolist()
+        )
+
+        categoria_act = st.selectbox(
+            "Actividades deseadas",
+            options=lista_act,
+            index=lista_act.index(st.session_state["categoria_actividad"])
+            if st.session_state["categoria_actividad"] in lista_act else None,
+            placeholder="— Selecciona actividad —",
+        )
+
+        if categoria_act:
+            st.session_state["categoria_actividad"] = categoria_act
+            st.session_state["plan_guardado"] = False
+
+    st.divider()
+
+    # ===============================
+    # Recomendaciones básicas->Refinamiento
+    # ===============================
+    st.subheader("⭐ Recomendaciones por provincia")
+
+    id_pais = st.session_state["id_pais"]
+    categoria_act = st.session_state["categoria_actividad"]
+    categoria_aloj = st.session_state["categoria_alojamiento"]
+
+    col1, col2 = st.columns(2)
+
+    # ===============================
+    # Actividades->Refinamiento
+    # ===============================
+    with col1:
+
+        st.markdown("### Provincias con más actividades")
+
+        if id_pais and categoria_act:
+
+            df_top_act = df_rec_act[
+                (df_rec_act["id_pais"] == id_pais) &
+                (df_rec_act["categoria"] == categoria_act)
+            ].copy()
+
+            df_top_act = df_top_act.sort_values("n_registros", ascending=False).head(10)
+
+            st.dataframe(
+                df_top_act[
+                    ["provincia_nombre", "n_registros", "avg_precio_entrada", "avg_gasto_total"]
+                ],
+                use_container_width=True
+            )
+
+        else:
+            st.info("Selecciona una categoría de actividad.")
+
+    # ===============================
+    # Alojamiento->Refiamiento
+    # ===============================
+    with col2:
+
+        st.markdown("### Provincias más económicas")
+
+        if id_pais and categoria_aloj:
+
+            df_top_aloj = df_rec_aloj[
+                (df_rec_aloj["id_pais"] == id_pais) &
+                (df_rec_aloj["categoria_alojamiento"] == categoria_aloj)
+            ].copy()
+
+            df_top_aloj = df_top_aloj.sort_values("precio_medio", ascending=True).head(10)
+
+            st.dataframe(
+                df_top_aloj[
+                    ["provincia_nombre", "avg_semana", "avg_fin_semana", "precio_medio"]
+                ],
+                use_container_width=True
+            )
+
+        else:
+            st.info("Selecciona un tipo de hospedaje.")
+
+        # ===============================
+        # Boton para Guardar/Aprobar Plan
+        # ===============================
+
+        st.divider()
+        st.subheader("✅ Guardar / aprobar plan")
+
+        col_save, col_next = st.columns([1, 1])
+
+        with col_save:
+            disabled_save = st.session_state.get("plan_guardado", False) or st.session_state.get("guardando", False)
+
+            if st.button("Guardar plan ✅", use_container_width=True, disabled=disabled_save):
+
+                # Lock inmediato (evita doble submit)
+                st.session_state["guardando"] = True
+
+                try:
+                    plan_id = guardar_plan_db()
+                finally:
+                    # siempre liberar lock aunque falle
+                    st.session_state["guardando"] = False
+
+                if plan_id:
+                    st.session_state["ultimo_plan_id"] = int(plan_id)
+                    st.session_state["plan_guardado"] = True
+
+                    # refrescar data cacheada para Pantalla 3
+                    st.cache_data.clear()
+
+                    st.success(f"Plan guardado con éxito. ID del plan: {plan_id}")
+
+        with col_next:
+            if st.button("Ir a Resumen (Pantalla 3) ➜", use_container_width=True):
+                st.cache_data.clear()
+                st.session_state["step"] = 3
+                st.rerun()
 
 def pantalla_3():
-    st.subheader("Itinerario sugerido")
-    st.info("Pendiente de integrar lógica.")
+    st.header("📋 Resumen del plan")
+
+    if df_plan_resumen.empty:
+        st.info("Aún no hay planes guardados en la base de datos.")
+        st.caption("Primero completa la Pantalla 2 y guarda un plan.")
+        return
+
+    # Tomamos el plan más reciente
+    plan = df_plan_resumen.sort_values("created_at", ascending=False).iloc[0]
+    plan_id = int(plan["id_plan"])
+
+    st.subheader(f"ID del plan: {plan_id}")
+
+    # ===============================
+    # Resumen principal
+    # ===============================
+    c1, c2, c3 = st.columns(3)
+
+    with c1:
+        st.metric("Días de viaje", int(plan["dias_viaje"]))
+        st.caption(f"Noches: {int(plan['noches_viaje'])}")
+
+    with c2:
+        st.metric("Presupuesto", f"€{float(plan['presupuesto_estimado']):,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
+
+    with c3:
+        st.metric("Tipo de viaje", str(plan["tipo_viaje"]))
+
+    st.divider()
+
+    # ===============================
+    # Fechas y destinos
+    # ===============================
+    colA, colB = st.columns(2)
+
+    with colA:
+        st.markdown("### Fechas")
+        st.write(f"**Fecha ida:** {plan['fecha_ida']}")
+        st.write(f"**Fecha regreso:** {plan['fecha_regreso']}")
+
+    with colB:
+        st.markdown("### Destinos")
+        st.write(f"**País origen:** {plan['pais_origen']}")
+        st.write(f"**País destino:** {plan['pais_destino']}")
+        provincia = plan.get("provincia_destino", None)
+        if pd.isna(provincia) or provincia is None:
+            st.write("**Provincia destino:** (no definida)")
+        else:
+            st.write(f"**Provincia destino:** {provincia}")
+
+    st.divider()
+
+    # ===============================
+    # Categorías seleccionadas
+    # ===============================
+    st.markdown("### Categorías elegidas")
+    st.write(f"**Hospedaje:** {plan['categoria_alojamiento']}")
+    categorias = plan.get("categorias_actividad", "")
+    if categorias:
+        st.write(f"**Actividades:** {categorias}")
+    else:
+        st.write("**Actividades:** (no definidas)")
+
+    st.divider()
+
+    # ===============================
+    # Costos estimados (desde view)
+    # ===============================
+    st.markdown("### Presupuesto estimado simple")
+
+    row_costos = df_plan_costos[df_plan_costos["id_plan"] == plan_id]
+
+    if row_costos.empty:
+        st.info("No hay estimación de costos disponible para este plan.")
+    else:
+        costos = row_costos.iloc[0]
+
+        alojamiento = float(costos["alojamiento_estimado"])
+        actividades = float(costos["actividades_estimado"])
+        total_estimado = alojamiento + actividades
+
+        k1, k2, k3, k4 = st.columns(4)
+
+        with k1:
+            st.metric("Alojamiento", f"€{alojamiento:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
+        with k2:
+            st.metric("Actividades", f"€{actividades:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
+        with k3:
+            st.metric("Transporte", "No incluido")
+        with k4:
+            st.metric("Total estimado", f"€{total_estimado:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
+
+        # Comparación con presupuesto del usuario
+        presupuesto = float(plan["presupuesto_estimado"])
+        if presupuesto > 0:
+            diff = presupuesto - total_estimado
+            if diff >= 0:
+                st.success(f"✅ Estás dentro del presupuesto. Margen aproximado: €{diff:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
+            else:
+                st.warning(f"⚠️ Estás por encima del presupuesto. Diferencia: €{abs(diff):,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
+
+    st.divider()
+
+    # ===============================
+    # Calendario simple
+    # ===============================
+    st.markdown("### Calendario simple del viaje")
+
+    fecha_ida = pd.to_datetime(plan["fecha_ida"])
+    dias = int(plan["dias_viaje"])
+
+    # Tomamos la primera categoría si vienen varias
+    categoria_principal = ""
+    if categorias:
+        categoria_principal = categorias.split(",")[0].strip()
+
+    calendario = []
+    for i in range(dias):
+        fecha = (fecha_ida + pd.Timedelta(days=i)).date()
+
+        if i == 0:
+            actividad = f"Llegada + actividad {categoria_principal}" if categoria_principal else "Llegada + actividad cultural"
+        elif i == dias - 1:
+            actividad = "Cierre del viaje / paseo libre"
+        else:
+            actividad = f"Actividad tipo {categoria_principal}" if categoria_principal else "Actividad tipo cultural"
+
+        calendario.append({
+            "Día": i + 1,
+            "Fecha": fecha,
+            "Actividad sugerida": actividad
+        })
+
+    st.dataframe(pd.DataFrame(calendario), use_container_width=True)
 
 def pantalla_4():
     st.subheader("Checklist / Ropa recomendada")
