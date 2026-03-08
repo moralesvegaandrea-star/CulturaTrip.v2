@@ -441,7 +441,7 @@ with st.sidebar:
         "Itinerario",
         "Presupuesto",
         "Control de Gastos",
-        "Actividades",
+        "Checklist",
         "Resumen final",
     ]
 
@@ -1379,19 +1379,319 @@ def pantalla_5():
                 use_container_width=True,
                 hide_index=True
             )
-
-
 def pantalla_6():
-    st.subheader("Actividades (filtros)")
-    st.selectbox("Tipo de actividad", ["Todos", "Museo", "Tour cultural", "Naturaleza", "Gastronomía"])
-    st.slider("Precio máximo", 0, 200, 50)
+        st.header("🧳 Checklist de viaje")
 
+        # ===============================
+        # Validación base
+        # ===============================
+        if df_plan_resumen.empty:
+            st.info("Aún no hay planes guardados en la base de datos.")
+            st.caption("Primero completa la Pantalla 2 y guarda un plan.")
+            return
+
+        plan = df_plan_resumen.sort_values("created_at", ascending=False).iloc[0]
+
+        pais_destino = plan["pais_destino"]
+        provincia_destino = plan["provincia_destino"] if not pd.isna(plan["provincia_destino"]) else ""
+        dias_viaje = int(plan["dias_viaje"])
+        categorias = plan["categorias_actividad"] if not pd.isna(plan["categorias_actividad"]) else ""
+
+        st.caption(
+            f"Destino: {pais_destino} | Provincia: {provincia_destino} | Duración: {dias_viaje} días"
+        )
+
+        # ===============================
+        # Checklist base
+        # ===============================
+        checklist = {
+            "Documentos": [
+                "Pasaporte / documento de identidad",
+                "Reservas del viaje",
+                "Comprobante de hospedaje",
+                "Tarjetas / efectivo",
+            ],
+            "Tecnología": [
+                "Celular",
+                "Cargador",
+                "Powerbank",
+                "Audífonos",
+            ],
+            "Ropa y equipaje": [
+                "Ropa cómoda",
+                "Zapatos cómodos",
+                "Pijama",
+                "Maleta / mochila",
+            ],
+            "Higiene y salud": [
+                "Cepillo dental",
+                "Artículos de higiene personal",
+                "Medicamentos personales",
+                "Bloqueador solar",
+            ],
+        }
+
+        # ===============================
+        # Reglas simples según actividad
+        # ===============================
+        cat_lower = categorias.lower()
+        extras = []
+
+        if "cultura" in cat_lower:
+            extras.extend([
+                "Cámara o celular con espacio libre",
+                "Libreta para apuntes o recuerdos",
+                "Calzado cómodo para caminatas urbanas",
+            ])
+
+        if "naturaleza" in cat_lower:
+            extras.extend([
+                "Botella de agua",
+                "Ropa deportiva",
+                "Chaqueta ligera",
+            ])
+
+        if "gastronom" in cat_lower:
+            extras.extend([
+                "Presupuesto extra para comidas",
+                "Ropa casual para restaurantes",
+            ])
+
+        if dias_viaje >= 7:
+            extras.append("Lavado / recambio adicional de ropa")
+
+        checklist["Extras recomendados"] = extras if extras else ["Sin recomendaciones adicionales por ahora"]
+
+        # ===============================
+        # Render en 2 columnas
+        # ===============================
+        total_items = 0
+        total_checked = 0
+
+        secciones = list(checklist.items())
+        mitad = (len(secciones) + 1) // 2
+
+        col1_sections = secciones[:mitad]
+        col2_sections = secciones[mitad:]
+
+        col1, col2 = st.columns(2, gap="large")
+
+        with col1:
+            for seccion, items in col1_sections:
+                st.subheader(seccion)
+
+                for item in items:
+                    key_item = f"check_{seccion}_{item}"
+                    checked = st.checkbox(item, key=key_item)
+
+                    total_items += 1
+                    if checked:
+                        total_checked += 1
+
+                st.divider()
+
+        with col2:
+            for seccion, items in col2_sections:
+                st.subheader(seccion)
+
+                for item in items:
+                    key_item = f"check_{seccion}_{item}"
+                    checked = st.checkbox(item, key=key_item)
+
+                    total_items += 1
+                    if checked:
+                        total_checked += 1
+
+                st.divider()
+
+        # ===============================
+        # Resumen de progreso
+        # ===============================
+        pct = round((total_checked / total_items) * 100, 2) if total_items > 0 else 0
+
+        st.subheader("Progreso del checklist")
+
+        c1, c2, c3 = st.columns(3)
+
+        with c1:
+            st.metric("Total de artículos", total_items)
+
+        with c2:
+            st.metric("Completados", total_checked)
+
+        with c3:
+            st.metric("Progreso", f"{pct}%")
+
+        st.progress(min(pct / 100, 1.0))
+
+        if pct == 100:
+            st.success("✅ Checklist completado.")
+        elif pct >= 50:
+            st.info("Vas avanzando bien con tu preparación.")
+        else:
+            st.warning("Aún faltan varios elementos por preparar.")
 def pantalla_7():
-    st.subheader("Resumen final")
-    st.success("Checklist listo ✅ (placeholder)")
-    st.success("Itinerario creado ✅ (placeholder)")
-    st.button("Descargar PDF (placeholder)")
-    st.button("Compartir (placeholder)")
+        st.header("✅ Resumen final del viaje")
+
+        if df_plan_resumen.empty:
+            st.info("Aún no hay planes guardados en la base de datos.")
+            st.caption("Primero completa la Pantalla 2 y guarda un plan.")
+            return
+
+        # Plan más reciente
+        plan = df_plan_resumen.sort_values("created_at", ascending=False).iloc[0]
+        plan_id = int(plan["id_plan"])
+
+        row_costos = df_plan_costos[df_plan_costos["id_plan"] == plan_id]
+
+        alojamiento = 0.0
+        actividades = 0.0
+        transporte = 0.0
+        otros = 0.0
+        total_estimado = 0.0
+        diferencia = 0.0
+
+        if not row_costos.empty:
+            costos = row_costos.iloc[0]
+            alojamiento = float(costos["alojamiento_estimado"] or 0)
+            actividades = float(costos["actividades_estimado"] or 0)
+            transporte = float(costos["transporte_estimado"] or 0) if costos["transporte_estimado"] is not None else 0.0
+            otros = round((alojamiento + actividades) * 0.10, 2)
+            total_estimado = alojamiento + actividades + transporte + otros
+            diferencia = float(plan["presupuesto_estimado"]) - total_estimado
+
+        # ===============================
+        # Bloque principal
+        # ===============================
+        c1, c2, c3 = st.columns(3)
+
+        with c1:
+            st.metric("ID del plan", plan_id)
+
+        with c2:
+            st.metric("Días de viaje", int(plan["dias_viaje"]))
+
+        with c3:
+            st.metric("Presupuesto",
+                      f"€{float(plan['presupuesto_estimado']):,.2f}".replace(",", "X").replace(".", ",").replace("X",
+                                                                                                                 "."))
+
+        st.divider()
+
+        # ===============================
+        # Información del viaje
+        # ===============================
+        col1, col2 = st.columns(2)
+
+        with col1:
+            st.subheader("Destino y fechas")
+            st.write(f"**País origen:** {plan['pais_origen']}")
+            st.write(f"**País destino:** {plan['pais_destino']}")
+
+            provincia = plan["provincia_destino"] if not pd.isna(plan["provincia_destino"]) else "(no definida)"
+            st.write(f"**Provincia destino:** {provincia}")
+
+            st.write(f"**Fecha ida:** {plan['fecha_ida']}")
+            st.write(f"**Fecha regreso:** {plan['fecha_regreso']}")
+
+        with col2:
+            st.subheader("Preferencias")
+            st.write(f"**Tipo de viaje:** {plan['tipo_viaje']}")
+            st.write(f"**Hospedaje:** {plan['categoria_alojamiento']}")
+
+            categorias = plan["categorias_actividad"] if not pd.isna(plan["categorias_actividad"]) else ""
+            if categorias:
+                st.write(f"**Actividades:** {categorias}")
+            else:
+                st.write("**Actividades:** (no definidas)")
+
+        st.divider()
+
+        # ===============================
+        # Resumen financiero
+        # ===============================
+        st.subheader("Resumen financiero")
+
+        k1, k2, k3, k4 = st.columns(4)
+
+        with k1:
+            st.metric("Alojamiento", f"€{alojamiento:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
+        with k2:
+            st.metric("Actividades", f"€{actividades:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
+        with k3:
+            st.metric("Otros", f"€{otros:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
+        with k4:
+            st.metric("Total estimado", f"€{total_estimado:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
+
+        if total_estimado > 0:
+            if diferencia >= 0:
+                st.success(
+                    f"✅ Tu viaje se mantiene dentro del presupuesto. Margen estimado: "
+                    f"€{diferencia:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+                )
+            else:
+                st.warning(
+                    f"⚠️ Tu viaje supera el presupuesto por "
+                    f"€{abs(diferencia):,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+                )
+
+        st.divider()
+
+        # ===============================
+        # Estado checklist desde session_state
+        # ===============================
+        st.subheader("Estado de preparación")
+
+        total_items = 0
+        total_checked = 0
+
+        for key, value in st.session_state.items():
+            if str(key).startswith("check_"):
+                total_items += 1
+                if value:
+                    total_checked += 1
+
+        pct = round((total_checked / total_items) * 100, 2) if total_items > 0 else 0
+
+        r1, r2, r3 = st.columns(3)
+
+        with r1:
+            st.metric("Total artículos", total_items)
+        with r2:
+            st.metric("Completados", total_checked)
+        with r3:
+            st.metric("Progreso checklist", f"{pct}%")
+
+        st.progress(min(pct / 100, 1.0))
+
+        if pct == 100:
+            st.success("✅ Todo listo. El checklist está completo.")
+        elif pct >= 50:
+            st.info("Vas bien. Tu preparación está avanzada.")
+        else:
+            st.warning("Aún faltan varios elementos del checklist.")
+
+        st.divider()
+
+        # ===============================
+        # Cierre
+        # ===============================
+        st.subheader("Estado final del plan")
+
+        if total_estimado > 0 and diferencia >= 0 and pct >= 50:
+            st.success("🎉 Tu plan está bastante sólido: presupuesto controlado y buena preparación.")
+        elif total_estimado > 0 and diferencia < 0:
+            st.warning("Revisa el presupuesto antes de finalizar el viaje.")
+        else:
+            st.info("Completa más información para tener un cierre de plan más completo.")
+
+        b1, b2 = st.columns(2)
+
+        with b1:
+            st.button("📄 Descargar resumen (próximamente)", use_container_width=True)
+
+        with b2:
+            st.button("📤 Compartir plan (próximamente)", use_container_width=True)
 
 # ===============================
 # Router
