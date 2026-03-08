@@ -5,6 +5,7 @@ import altair as alt
 import os
 from sqlalchemy import create_engine, text
 from datetime import date
+import math
 
 @st.cache_resource(show_spinner=False)
 def get_engine():
@@ -102,6 +103,39 @@ def guardar_plan_db():
             conn.execute(sql_pref, {"id_plan": plan_id, "categoria": categoria_act})
 
     return plan_id
+
+# =========================
+# Funcion para guardar gasto real
+# =========================
+def guardar_gasto_real_db(id_plan, fecha, categoria, descripcion, monto):
+    engine = get_engine()
+
+    if not id_plan:
+        st.error("No hay un plan seleccionado.")
+        return False
+
+    if monto is None or monto < 0:
+        st.error("El monto debe ser mayor o igual a 0.")
+        return False
+
+    with engine.begin() as conn:
+        sql = text("""
+            INSERT INTO culturatrip.fact_plan_gasto_real (
+                id_plan, fecha, categoria, descripcion, monto
+            )
+            VALUES (
+                :id_plan, :fecha, :categoria, :descripcion, :monto
+            );
+        """)
+        conn.execute(sql, {
+            "id_plan": id_plan,
+            "fecha": fecha,
+            "categoria": categoria,
+            "descripcion": descripcion,
+            "monto": monto
+        })
+
+    return True
 
 # =========================
 # Loader para DB dim_pais
@@ -255,13 +289,13 @@ st.markdown("<br>", unsafe_allow_html=True)
 # Nuevas Rutas PostgreSQL DB
 # ===============================
 
-# Views para la pagina_1
+# Views para la pantalla_1
 df_dropdown_paises = load_view("vw_ui_dropdown_paises")
 df_pantalla1_global = load_view("vw_ui_pantalla1_global")
 df_pantalla1_detalle = load_view("vw_ui_pantalla1_detalle_por_pais")
 df_total_paises = load_view("vw_ui_total_paises")
 
-# Views para la pagina_2
+# Views para la pantalla_2
 df_dropdown_provincias = load_view("vw_ui_dropdown_provincias_por_pais")
 df_dropdown_cat_aloj = load_view("vw_ui_dropdown_categoria_alojamiento")
 df_dropdown_cat_act = load_view("vw_ui_dropdown_categoria_actividad")
@@ -270,10 +304,15 @@ df_rec_act = load_view("vw_rec_actividades_por_provincia")
 df_rec_aloj = load_view("vw_rec_alojamiento_precio_provincia")
 
 
-# Views para la pagina_3
+# Views para la pantalla_3 y pantalla_4
 
 df_plan_resumen = load_view("vw_plan_resumen_basico")
 df_plan_costos = load_view("vw_plan_costos_estimados")
+
+# Views para la pantalla_5
+df_gasto_resumen = load_view("vw_plan_gasto_real_resumen")
+df_gasto_categoria = load_view("vw_plan_gasto_real_por_categoria")
+df_gasto_detalle = load_view("vw_plan_gasto_real_detalle")
 
 # ===============================
 # Rutas a datasets finales (data/clean)-> Temporal migrar a views de POSTGRESQL
@@ -400,8 +439,8 @@ with st.sidebar:
         "Exploración Cultural",
         "Planificación",
         "Itinerario",
-        "Checklist",
         "Presupuesto",
+        "Control de Gastos",
         "Actividades",
         "Resumen final",
     ]
@@ -1062,15 +1101,285 @@ def pantalla_3():
     st.dataframe(pd.DataFrame(calendario), use_container_width=True)
 
 def pantalla_4():
-    st.subheader("Checklist / Ropa recomendada")
-    st.checkbox("Pasaporte / Documentos de viaje")
-    st.checkbox("Cargador / Powerbank")
-    st.checkbox("Protector solar")
+    st.header("💰 Presupuesto Inteligente")
+
+    if df_plan_resumen.empty:
+        st.info("Aún no hay planes guardados en la base de datos.")
+        st.caption("Primero completa la Pantalla 2 y guarda un plan.")
+        return
+
+    # Plan más reciente
+    plan = df_plan_resumen.sort_values("created_at", ascending=False).iloc[0]
+    plan_id = int(plan["id_plan"])
+
+    row_costos = df_plan_costos[df_plan_costos["id_plan"] == plan_id]
+
+    if row_costos.empty:
+        st.info("No hay estimación de costos disponible para este plan.")
+        return
+
+    costos = row_costos.iloc[0]
+
+    # ===============================
+    # Variables base
+    # ===============================
+    presupuesto = float(plan["presupuesto_estimado"])
+    dias_viaje = int(plan["dias_viaje"])
+
+    alojamiento = float(costos["alojamiento_estimado"] or 0)
+    actividades = float(costos["actividades_estimado"] or 0)
+
+    transporte = 0.0
+    otros = round((alojamiento + actividades) * 0.10, 2)
+
+    total_estimado = alojamiento + actividades + transporte + otros
+    costo_por_dia = round(total_estimado / dias_viaje, 2) if dias_viaje > 0 else 0
+    diferencia = round(presupuesto - total_estimado, 2)
+
+    # ===============================
+    # Cálculo ahorro mensual
+    # ===============================
+    fecha_ida = pd.to_datetime(plan["fecha_ida"]).date()
+    hoy = date.today()
+
+    dias_restantes = max((fecha_ida - hoy).days, 0)
+    meses_restantes = max(round(dias_restantes / 30), 1)
+
+    meta_mensual = round(total_estimado / meses_restantes, 2)
+
+    st.caption(f"Plan ID: {plan_id}")
+
+    # ===============================
+    # KPIs principales
+    # ===============================
+    k1, k2, k3, k4 = st.columns(4)
+
+    with k1:
+        st.metric(
+            "Costo estimado total",
+            f"€{total_estimado:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."),
+            f"{dias_viaje} días"
+        )
+
+    with k2:
+        st.metric(
+            "Meta mensual de ahorro",
+            f"€{meta_mensual:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."),
+            f"{meses_restantes} mes(es)"
+        )
+
+    with k3:
+        st.metric(
+            "Presupuesto disponible",
+            f"€{presupuesto:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+        )
+
+    with k4:
+        st.metric(
+            "Costo por día",
+            f"€{costo_por_dia:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+        )
+
+    st.divider()
+
+    # ===============================
+    # Estado del presupuesto
+    # ===============================
+    if diferencia >= 0:
+        st.success(
+            f"✅ El viaje se mantiene dentro del presupuesto. "
+            f"Margen estimado: €{diferencia:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+        )
+    else:
+        st.warning(
+            f"⚠️ El costo estimado supera el presupuesto por "
+            f"€{abs(diferencia):,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+        )
+
+    st.divider()
+
+    # ===============================
+    # Distribución del presupuesto
+    # ===============================
+    st.subheader("Distribución estimada del presupuesto")
+
+    df_dist = pd.DataFrame({
+        "categoria": ["Alojamiento", "Actividades", "Transporte", "Otros"],
+        "estimado": [alojamiento, actividades, transporte, otros]
+    })
+
+    col1, col2 = st.columns([1.5, 1])
+
+    with col1:
+
+        chart = (
+            alt.Chart(df_dist)
+            .mark_bar()
+            .encode(
+                x=alt.X("categoria:N", title="Categoría"),
+                y=alt.Y("estimado:Q", title="Costo estimado (€)"),
+                tooltip=["categoria", "estimado"]
+            )
+            .properties(height=350)
+        )
+
+        st.altair_chart(chart, use_container_width=True)
+
+    with col2:
+
+        st.dataframe(
+            df_dist,
+            use_container_width=True,
+            hide_index=True
+        )
+
+    st.divider()
+
+    # ===============================
+    # Plan de ahorro simple
+    # ===============================
+    st.subheader("Plan simple de ahorro")
+
+    ahorro_rows = []
+
+    for i in range(1, meses_restantes + 1):
+        ahorro_rows.append({
+            "Mes": f"Mes {i}",
+            "Meta de ahorro (€)": meta_mensual
+        })
+
+    df_ahorro = pd.DataFrame(ahorro_rows)
+
+    st.dataframe(df_ahorro, use_container_width=True, hide_index=True)
 
 def pantalla_5():
-    st.subheader("Presupuesto y ahorro")
-    st.metric("Costo estimado del viaje", "€ 0 (placeholder)")
-    st.slider("Ajustar presupuesto", 0, 5000, 500)
+        st.header("📊 Control Dinámico del Presupuesto")
+
+        if df_plan_resumen.empty:
+            st.info("Aún no hay planes guardados en la base de datos.")
+            st.caption("Primero completa la Pantalla 2 y guarda un plan.")
+            return
+
+        # plan más reciente
+        plan = df_plan_resumen.sort_values("created_at", ascending=False).iloc[0]
+        plan_id = int(plan["id_plan"])
+
+        row_costos = df_plan_costos[df_plan_costos["id_plan"] == plan_id]
+        if row_costos.empty:
+            st.info("No hay costos estimados para este plan.")
+            return
+
+        costos = row_costos.iloc[0]
+
+        presupuesto = float(plan["presupuesto_estimado"])
+        alojamiento = float(costos["alojamiento_estimado"] or 0)
+        actividades = float(costos["actividades_estimado"] or 0)
+        transporte = float(costos["transporte_estimado"] or 0) if costos["transporte_estimado"] is not None else 0.0
+        otros = round((alojamiento + actividades) * 0.10, 2)
+        presupuesto_aprobado = alojamiento + actividades + transporte + otros
+
+        # resumen gastos reales
+        row_gasto = df_gasto_resumen[df_gasto_resumen["id_plan"] == plan_id]
+        gasto_real_total = float(row_gasto["gasto_real_total"].iloc[0]) if not row_gasto.empty else 0.0
+
+        diferencia = round(presupuesto_aprobado - gasto_real_total, 2)
+        pct_ejecutado = round((gasto_real_total / presupuesto_aprobado) * 100, 2) if presupuesto_aprobado > 0 else 0
+
+        # semáforo
+        if pct_ejecutado < 80:
+            estado = "🟢 Dentro del presupuesto"
+            st.success(estado)
+        elif pct_ejecutado <= 100:
+            estado = "🟡 Cerca del límite"
+            st.warning(estado)
+        else:
+            estado = "🔴 Presupuesto excedido"
+            st.error(estado)
+
+        # KPIs
+        k1, k2, k3, k4 = st.columns(4)
+
+        with k1:
+            st.metric("Presupuesto aprobado",
+                      f"€{presupuesto_aprobado:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
+        with k2:
+            st.metric("Gastos registrados",
+                      f"€{gasto_real_total:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
+        with k3:
+            st.metric("Diferencia actual", f"€{diferencia:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
+        with k4:
+            st.metric("% ejecutado", f"{pct_ejecutado:.1f}%")
+
+        st.divider()
+
+        # Registro de gasto
+        st.subheader("Agregar gasto real")
+
+        c1, c2 = st.columns(2)
+        with c1:
+            fecha_gasto = st.date_input("Fecha del gasto", value=date.today(), key="fecha_gasto_real")
+            categoria_gasto = st.selectbox(
+                "Categoría",
+                options=["Transporte", "Alojamiento", "Actividades", "Alimentación", "Otros"],
+                key="categoria_gasto_real"
+            )
+        with c2:
+            descripcion_gasto = st.text_input("Descripción", placeholder="Ej. Almuerzo en Madrid",
+                                              key="descripcion_gasto_real")
+            monto_gasto = st.number_input("Monto (€)", min_value=0.0, step=1.0, key="monto_gasto_real")
+
+        if st.button("➕ Registrar gasto", use_container_width=True):
+            ok = guardar_gasto_real_db(
+                id_plan=plan_id,
+                fecha=fecha_gasto,
+                categoria=categoria_gasto,
+                descripcion=descripcion_gasto,
+                monto=monto_gasto
+            )
+            if ok:
+                st.cache_data.clear()
+                st.success("Gasto registrado correctamente.")
+                st.rerun()
+
+        st.divider()
+
+        # gráfico por categoría
+        st.subheader("Gasto real por categoría")
+
+        df_cat_plan = df_gasto_categoria[df_gasto_categoria["id_plan"] == plan_id].copy()
+
+        if df_cat_plan.empty:
+            st.info("Todavía no hay gastos registrados para este plan.")
+        else:
+            chart = (
+                alt.Chart(df_cat_plan)
+                .mark_bar()
+                .encode(
+                    x=alt.X("categoria:N", title="Categoría"),
+                    y=alt.Y("gasto_real_categoria:Q", title="Gasto real (€)"),
+                    tooltip=["categoria", "gasto_real_categoria", "n_movimientos"]
+                )
+                .properties(height=320)
+            )
+            st.altair_chart(chart, use_container_width=True)
+
+        st.divider()
+
+        # últimos gastos
+        st.subheader("Últimos gastos registrados")
+
+        df_det_plan = df_gasto_detalle[df_gasto_detalle["id_plan"] == plan_id].copy()
+
+        if df_det_plan.empty:
+            st.info("No hay gastos registrados todavía.")
+        else:
+            df_det_plan = df_det_plan.sort_values(["fecha", "id_gasto"], ascending=[False, False]).head(10)
+            st.dataframe(
+                df_det_plan[["fecha", "descripcion", "categoria", "monto"]],
+                use_container_width=True,
+                hide_index=True
+            )
+
 
 def pantalla_6():
     st.subheader("Actividades (filtros)")

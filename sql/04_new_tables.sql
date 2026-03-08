@@ -110,3 +110,32 @@ ON culturatrip.fact_plan_viaje_preferencia (categoria);
 -- FIN DEL SCRIPT
 -- Version 1
 -- ==================================================
+
+-- ==================================================
+-- Tabla Plan de Gastos
+-- Version 2
+-- ==================================================
+
+CREATE TABLE culturatrip.fact_plan_gasto_real (
+  id_gasto     BIGSERIAL PRIMARY KEY,
+  id_plan      BIGINT NOT NULL REFERENCES culturatrip.fact_plan_viaje(id_plan) ON DELETE CASCADE,
+  fecha        DATE NOT NULL,
+  categoria    VARCHAR(30) NOT NULL,
+  descripcion  VARCHAR(150),
+  monto        NUMERIC(10,2) NOT NULL CHECK (monto >= 0),
+  created_at   TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- ==================================================
+-- Tabla Control de Gastos
+-- Version 2
+-- ==================================================
+CREATE TABLE IF NOT EXISTS culturatrip.fact_plan_gasto_real (
+  id_gasto      BIGSERIAL PRIMARY KEY,
+  id_plan       BIGINT NOT NULL REFERENCES culturatrip.fact_plan_viaje(id_plan) ON DELETE CASCADE,
+  fecha         DATE NOT NULL,
+  categoria     VARCHAR(30) NOT NULL,
+  descripcion   VARCHAR(150),
+  monto         NUMERIC(10,2) NOT NULL CHECK (monto >= 0),
+  created_at    TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
