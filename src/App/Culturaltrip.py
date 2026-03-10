@@ -105,6 +105,45 @@ def guardar_plan_db():
     return plan_id
 
 # =========================
+# Funcion para guardar y actualizar checklist
+# =========================
+
+def guardar_checklist_item_db(id_plan, seccion, item, completado):
+    engine = get_engine()
+
+    with engine.begin() as conn:
+        sql = text("""
+            INSERT INTO culturatrip.fact_plan_checklist (
+                id_plan, seccion, item, completado, updated_at
+            )
+            VALUES (
+                :id_plan, :seccion, :item, :completado, CURRENT_TIMESTAMP
+            )
+            ON CONFLICT (id_plan, seccion, item)
+            DO UPDATE SET
+                completado = EXCLUDED.completado,
+                updated_at = CURRENT_TIMESTAMP;
+        """)
+        conn.execute(sql, {
+            "id_plan": id_plan,
+            "seccion": seccion,
+            "item": item,
+            "completado": completado
+        })
+
+# =========================
+# Funcion para cargar checklist guardado
+# =========================
+@st.cache_data(show_spinner=False)
+def load_checklist_plan(id_plan: int) -> pd.DataFrame:
+    engine = get_engine()
+    query = text("""
+        SELECT id_plan, seccion, item, completado
+        FROM culturatrip.fact_plan_checklist
+        WHERE id_plan = :id_plan
+    """)
+    return pd.read_sql(query, engine, params={"id_plan": id_plan})
+# =========================
 # Funcion para guardar gasto real
 # =========================
 def guardar_gasto_real_db(id_plan, fecha, categoria, descripcion, monto):
@@ -534,11 +573,11 @@ def pantalla_1():
         if pais_guardado in lista_paises_ui
         else None
     )
-
+    if pais_guardado:
+        pais_ui = pais_guardado
     pais_ui = st.selectbox(
         label="",
         options=lista_paises_ui,
-        index=index_default,
         placeholder="— Selecciona un país —",
         key="pais_ui"
     )
@@ -1382,6 +1421,12 @@ def pantalla_5():
 def pantalla_6():
         st.header("🧳 Checklist de viaje")
 
+        # Tomamos el plan más reciente
+        plan = df_plan_resumen.sort_values("created_at", ascending=False).iloc[0]
+        plan_id = int(plan["id_plan"])
+
+        st.subheader(f"ID del plan: {plan_id}")
+
         # ===============================
         # Validación base
         # ===============================
@@ -1530,6 +1575,23 @@ def pantalla_6():
             st.info("Vas avanzando bien con tu preparación.")
         else:
             st.warning("Aún faltan varios elementos por preparar.")
+        if st.button("💾 Guardar checklist", use_container_width=True):
+            for seccion, items in checklist.items():
+                for item in items:
+                    key_item = f"check_{seccion}_{item}"
+                    completado = st.session_state.get(key_item, False)
+
+                    guardar_checklist_item_db(
+                        id_plan=plan_id,
+                        seccion=seccion,
+                        item=item,
+                        completado=completado
+                    )
+
+            st.cache_data.clear()
+            st.success("Checklist guardado correctamente.")
+
+
 def pantalla_7():
         st.header("✅ Resumen final del viaje")
 

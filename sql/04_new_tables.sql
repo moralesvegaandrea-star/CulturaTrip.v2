@@ -139,3 +139,17 @@ CREATE TABLE IF NOT EXISTS culturatrip.fact_plan_gasto_real (
   monto         NUMERIC(10,2) NOT NULL CHECK (monto >= 0),
   created_at    TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+-- ==================================================
+-- Tabla para checklist
+-- Version 3
+-- ==================================================
+
+CREATE TABLE IF NOT EXISTS culturatrip.fact_plan_checklist (
+  id_plan        BIGINT NOT NULL REFERENCES culturatrip.fact_plan_viaje(id_plan) ON DELETE CASCADE,
+  seccion        VARCHAR(50) NOT NULL,
+  item           VARCHAR(150) NOT NULL,
+  completado     BOOLEAN NOT NULL DEFAULT FALSE,
+  updated_at     TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id_plan, seccion, item)
+);

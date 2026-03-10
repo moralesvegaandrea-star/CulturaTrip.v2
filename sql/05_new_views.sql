@@ -120,29 +120,6 @@ FROM culturatrip.fact_plan_gasto_real
 GROUP BY id_plan, categoria;
 
 -- =========================
--- Vista resumen por plan
--- =========================
-CREATE OR REPLACE VIEW culturatrip.vw_plan_gasto_real_resumen AS
-SELECT
-  id_plan,
-  ROUND(SUM(monto)::numeric, 2) AS gasto_real_total,
-  COUNT(*)::int AS n_gastos
-FROM culturatrip.fact_plan_gasto_real
-GROUP BY id_plan;
-
--- =========================
--- Vista resumen por categoría
--- =========================
-CREATE OR REPLACE VIEW culturatrip.vw_plan_gasto_real_por_categoria AS
-SELECT
-  id_plan,
-  categoria,
-  ROUND(SUM(monto)::numeric, 2) AS gasto_real_categoria,
-  COUNT(*)::int AS n_movimientos
-FROM culturatrip.fact_plan_gasto_real
-GROUP BY id_plan, categoria;
-
--- =========================
 -- Vista detalle de gastos
 -- =========================
 CREATE OR REPLACE VIEW culturatrip.vw_plan_gasto_real_detalle AS
