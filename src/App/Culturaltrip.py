@@ -177,6 +177,31 @@ def guardar_gasto_real_db(id_plan, fecha, categoria, descripcion, monto):
     return True
 
 # =========================
+# Funcion para Identificacion de Temporada
+# =========================
+def obtener_temporada_por_fecha(fecha, df_temporada):
+    if fecha is None:
+        return None
+
+    mes = fecha.month
+    anio = fecha.year
+
+    row = df_temporada[
+        (df_temporada["anio"] == anio) &
+        (df_temporada["mes"] == mes)
+    ]
+
+    if row.empty:
+        return None
+
+    return row["temporada"].iloc[0]
+
+
+
+
+
+
+# =========================
 # Loader para DB dim_pais
 # =========================
 @st.cache_data(show_spinner=False)
@@ -347,6 +372,7 @@ df_rec_aloj = load_view("vw_rec_alojamiento_precio_provincia")
 
 df_plan_resumen = load_view("vw_plan_resumen_basico")
 df_plan_costos = load_view("vw_plan_costos_estimados")
+df_temporada_mes = load_view("vw_temporada_por_mes")
 
 # Views para la pantalla_5
 df_gasto_resumen = load_view("vw_plan_gasto_real_resumen")
@@ -805,6 +831,17 @@ def pantalla_2():
         st.session_state["plan_guardado"] = False
         st.session_state["fecha_regreso"] = fecha_regreso
         st.session_state["plan_guardado"] = False
+
+        temporada_ida = obtener_temporada_por_fecha(fecha_ida, df_temporada_mes)
+        temporada_regreso = obtener_temporada_por_fecha(fecha_regreso, df_temporada_mes)
+
+        col_temp1, col_temp2 = st.columns(2)
+
+        with col_temp1:
+            st.metric("Temporada de ida", temporada_ida.capitalize() if temporada_ida else "—")
+
+        with col_temp2:
+            st.metric("Temporada de regreso", temporada_regreso.capitalize() if temporada_regreso else "—")
 
         # ===============================
         # Cálculo de métricas de tiempo
@@ -1421,12 +1458,6 @@ def pantalla_5():
 def pantalla_6():
         st.header("🧳 Checklist de viaje")
 
-        # Tomamos el plan más reciente
-        plan = df_plan_resumen.sort_values("created_at", ascending=False).iloc[0]
-        plan_id = int(plan["id_plan"])
-
-        st.subheader(f"ID del plan: {plan_id}")
-
         # ===============================
         # Validación base
         # ===============================
@@ -1435,7 +1466,11 @@ def pantalla_6():
             st.caption("Primero completa la Pantalla 2 y guarda un plan.")
             return
 
+        # Tomamos el plan más reciente
         plan = df_plan_resumen.sort_values("created_at", ascending=False).iloc[0]
+        plan_id = int(plan["id_plan"])
+
+        st.subheader(f"ID del plan: {plan_id}")
 
         pais_destino = plan["pais_destino"]
         provincia_destino = plan["provincia_destino"] if not pd.isna(plan["provincia_destino"]) else ""
@@ -1447,107 +1482,152 @@ def pantalla_6():
         )
 
         # ===============================
-        # Checklist base
+        # Cantidades recomendadas simples
+        # ===============================
+        muda_base = max(dias_viaje, 1)
+        ropa_ligera = max(round(dias_viaje * 0.5), 2)
+        ropa_interior = dias_viaje + 1
+
+        # ===============================
+        # Checklist ampliado
         # ===============================
         checklist = {
-            "Documentos": [
-                "Pasaporte / documento de identidad",
-                "Reservas del viaje",
-                "Comprobante de hospedaje",
-                "Tarjetas / efectivo",
+            "Importante": [
+                {"item": "Pasaporte / documento de identidad"},
+                {"item": "Documentos de viaje (reservas / actividades)"},
+                {"item": "Dinero"},
+                {"item": "Billetera"},
+                {"item": "Licencia de conducir"},
+                {"item": "Seguro de viaje"},
+                {"item": "Copia de seguro"},
+                {"item": "Copia de pasaporte"},
+                {"item": "Copia de cédula"},
+                {"item": "Notificar salida del país al banco"},
+                {"item": "Tarjeta de crédito / débito"},
+                {"item": "Confirmación de vuelo"},
             ],
             "Tecnología": [
-                "Celular",
-                "Cargador",
-                "Powerbank",
-                "Audífonos",
+                {"item": "Celular"},
+                {"item": "Cámara"},
+                {"item": "Cargador"},
+                {"item": "Powerbank / cargador portátil"},
+                {"item": "Audífonos"},
+                {"item": "Cargador de cámara"},
+                {"item": "Roaming / eSIM"},
             ],
-            "Ropa y equipaje": [
-                "Ropa cómoda",
-                "Zapatos cómodos",
-                "Pijama",
-                "Maleta / mochila",
+            "Higiene": [
+                {"item": "Cepillo dental y pasta dental"},
+                {"item": "Cepillo para el cabello"},
+                {"item": "Accesorios para el cabello"},
+                {"item": "Shampoo / acondicionador"},
+                {"item": "Jabón corporal"},
+                {"item": "Crema corporal"},
+                {"item": "Repelente"},
+                {"item": "Bloqueador solar"},
+                {"item": "Desodorante"},
+                {"item": "Perfume"},
+                {"item": "Alcohol en gel"},
+                {"item": "Bolsa de maquillaje"},
+                {"item": "Skincare"},
+                {"item": "Medicamentos"},
             ],
-            "Higiene y salud": [
-                "Cepillo dental",
-                "Artículos de higiene personal",
-                "Medicamentos personales",
-                "Bloqueador solar",
+            "Ropa para el viaje": [
+                {"item": "Vestimenta Completa", "cantidad": ropa_ligera},
+                {"item": "Sueter", "cantidad": 1},
+                {"item": "Sandalias", "cantidad": 1},
+                {"item": "Ropa de playa", "cantidad": 1},
+                {"item": "Ropa interior", "cantidad": ropa_interior},
+                {"item": "Pijama", "cantidad": 1},
+                {"item": "Medias", "cantidad": max(dias_viaje - 1, 1)},
+                {"item": "Tenis", "cantidad": 1},
+                {"item": "Zapatos", "cantidad": 1},
+            ],
+            "Accesorios": [
+                {"item": "Bolso"},
+                {"item": "Anteojos de sol"},
+                {"item": "Bisutería"},
+                {"item": "Reloj"},
+            ],
+            "Otros": [
+                {"item": "Libro"},
+                {"item": "Snacks"},
+                {"item": "Botella para agua"},
+                {"item": "Toalla de playa"},
             ],
         }
 
         # ===============================
-        # Reglas simples según actividad
+        # Extras según categoría
         # ===============================
         cat_lower = categorias.lower()
         extras = []
 
         if "cultura" in cat_lower:
             extras.extend([
-                "Cámara o celular con espacio libre",
-                "Libreta para apuntes o recuerdos",
-                "Calzado cómodo para caminatas urbanas",
+                {"item": "Libreta para apuntes o recuerdos"},
+                {"item": "Calzado cómodo para caminatas urbanas"},
+                {"item": "Espacio libre en celular o cámara"},
             ])
 
         if "naturaleza" in cat_lower:
             extras.extend([
-                "Botella de agua",
-                "Ropa deportiva",
-                "Chaqueta ligera",
+                {"item": "Chaqueta ligera"},
+                {"item": "Ropa deportiva"},
+                {"item": "Botella extra de agua"},
             ])
 
         if "gastronom" in cat_lower:
             extras.extend([
-                "Presupuesto extra para comidas",
-                "Ropa casual para restaurantes",
+                {"item": "Presupuesto extra para comidas"},
+                {"item": "Ropa casual para restaurantes"},
             ])
 
         if dias_viaje >= 7:
-            extras.append("Lavado / recambio adicional de ropa")
+            extras.append({"item": "Recambio adicional de ropa"})
+            extras.append({"item": "Bolsa para ropa sucia"})
 
-        checklist["Extras recomendados"] = extras if extras else ["Sin recomendaciones adicionales por ahora"]
+        checklist["Extras recomendados"] = extras if extras else [{"item": "Sin recomendaciones adicionales por ahora"}]
 
         # ===============================
-        # Render en 2 columnas
+        # Render en 2 columnas (orden manual)
         # ===============================
         total_items = 0
         total_checked = 0
 
-        secciones = list(checklist.items())
-        mitad = (len(secciones) + 1) // 2
+        col1_order = ["Importante", "Tecnología", "Higiene"]
+        col2_order = ["Ropa para el viaje", "Accesorios", "Otros", "Extras recomendados"]
 
-        col1_sections = secciones[:mitad]
-        col2_sections = secciones[mitad:]
+        col1_sections = [(k, checklist[k]) for k in col1_order if k in checklist]
+        col2_sections = [(k, checklist[k]) for k in col2_order if k in checklist]
 
         col1, col2 = st.columns(2, gap="large")
 
-        with col1:
-            for seccion, items in col1_sections:
+        def render_secciones(lista_secciones):
+            nonlocal total_items, total_checked
+
+            for seccion, items in lista_secciones:
                 st.subheader(seccion)
 
-                for item in items:
-                    key_item = f"check_{seccion}_{item}"
-                    checked = st.checkbox(item, key=key_item)
+                for registro in items:
+                    item = registro["item"]
+                    cantidad = registro.get("cantidad", None)
+
+                    key_item = f"check_{plan_id}_{seccion}_{item}"
+                    texto = item if cantidad is None else f"{item} (Cantidad recomendada: {cantidad})"
+
+                    checked = st.checkbox(texto, key=key_item)
 
                     total_items += 1
                     if checked:
                         total_checked += 1
 
                 st.divider()
+
+        with col1:
+            render_secciones(col1_sections)
 
         with col2:
-            for seccion, items in col2_sections:
-                st.subheader(seccion)
-
-                for item in items:
-                    key_item = f"check_{seccion}_{item}"
-                    checked = st.checkbox(item, key=key_item)
-
-                    total_items += 1
-                    if checked:
-                        total_checked += 1
-
-                st.divider()
+            render_secciones(col2_sections)
 
         # ===============================
         # Resumen de progreso
@@ -1575,10 +1655,15 @@ def pantalla_6():
             st.info("Vas avanzando bien con tu preparación.")
         else:
             st.warning("Aún faltan varios elementos por preparar.")
+
+        # ===============================
+        # Guardar checklist
+        # ===============================
         if st.button("💾 Guardar checklist", use_container_width=True):
             for seccion, items in checklist.items():
-                for item in items:
-                    key_item = f"check_{seccion}_{item}"
+                for registro in items:
+                    item = registro["item"]
+                    key_item = f"check_{plan_id}_{seccion}_{item}"
                     completado = st.session_state.get(key_item, False)
 
                     guardar_checklist_item_db(
