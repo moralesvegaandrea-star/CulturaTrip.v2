@@ -38,7 +38,8 @@ def guardar_plan_db():
     categoria_aloj = st.session_state.get("categoria_alojamiento")
 
     id_provincia = st.session_state.get("id_provincia_destino")  # VARCHAR(2)
-    categoria_act = st.session_state.get("categoria_actividad")  # 1 categoría por ahora
+    categorias_act = st.session_state.get("categorias_actividad", [])
+    cantidades_act = st.session_state.get("cantidades_actividad", {})
 
     # 2) Validación mínima
     if not (email and id_pais_origen and id_pais_destino and fecha_ida and fecha_regreso and categoria_aloj):
@@ -93,14 +94,21 @@ def guardar_plan_db():
             """)
             conn.execute(sql_dest, {"id_plan": plan_id, "id_provincia": id_provincia})
 
-        # Insert preferencia (1 categoría por ahora)
-        if categoria_act:
+
+        if categorias_act:
             sql_pref = text("""
-                INSERT INTO culturatrip.fact_plan_viaje_preferencia (id_plan, categoria)
-                VALUES (:id_plan, :categoria)
-                ON CONFLICT (id_plan, categoria) DO NOTHING;
-            """)
-            conn.execute(sql_pref, {"id_plan": plan_id, "categoria": categoria_act})
+                        INSERT INTO culturatrip.fact_plan_viaje_preferencia (id_plan, categoria, cantidad)
+                        VALUES (:id_plan, :categoria, :cantidad)
+                        ON CONFLICT (id_plan, categoria)
+                        DO UPDATE SET cantidad = EXCLUDED.cantidad;
+                    """)
+
+            for cat in categorias_act:
+                conn.execute(sql_pref, {
+                    "id_plan": plan_id,
+                    "categoria": cat,
+                    "cantidad": int(cantidades_act.get(cat, 1))
+                })
 
     return plan_id
 
@@ -374,6 +382,7 @@ df_plan_resumen = load_view("vw_plan_resumen_basico")
 df_plan_costos = load_view("vw_plan_costos_estimados")
 df_temporada_mes = load_view("vw_temporada_por_mes")
 
+
 # Views para la pantalla_5
 df_gasto_resumen = load_view("vw_plan_gasto_real_resumen")
 df_gasto_categoria = load_view("vw_plan_gasto_real_por_categoria")
@@ -440,7 +449,12 @@ def init_state():
 
         # Selecciones
         "categoria_alojamiento": None,
+        # 🔹 antigua (mantener temporalmente)
         "categoria_actividad": None,
+        # 🔹 nueva multiselección
+        "categorias_actividad": [],
+        "cantidades_actividad": {},
+
         "tipo_viaje": "Solo",
 
         "guardando": False,
@@ -481,7 +495,7 @@ def reset_plan_completo():
         # Presupuesto y preferencias
         "presupuesto": 0,
         "categoria_alojamiento": None,
-        "categoria_actividad": None,
+        "categorias_actividad": None,
         "tipo_viaje": "Solo",
 
         # Control de guardado
@@ -753,7 +767,7 @@ def pantalla_2():
             st.session_state["id_pais_origen"] = map_paisui_a_id.get(pais_origen_ui)
             st.session_state["plan_guardado"] = False
 
-        # País destino (viene desde pantalla 1 si ya fue seleccionado)
+        # País destino
         pais_destino_ui = st.selectbox(
             "País destino",
             options=lista_paises_ui,
@@ -765,9 +779,9 @@ def pantalla_2():
         if pais_destino_ui:
             st.session_state["pais"] = pais_destino_ui
             st.session_state["id_pais"] = map_paisui_a_id.get(pais_destino_ui)
+            st.session_state["plan_guardado"] = False
 
         id_pais_destino = st.session_state["id_pais"]
-        st.session_state["plan_guardado"] = False
 
         # ===============================
         # Provincia destino
@@ -791,7 +805,6 @@ def pantalla_2():
             )
 
             if provincia_ui:
-
                 st.session_state["provincia_destino"] = provincia_ui
                 st.session_state["plan_guardado"] = False
 
@@ -819,8 +832,8 @@ def pantalla_2():
 
         if email:
             st.session_state["email"] = email
+            st.session_state["plan_guardado"] = False
 
-        st.session_state["plan_guardado"] = False
         # ===============================
         # Fechas
         # ===============================
@@ -828,7 +841,6 @@ def pantalla_2():
         fecha_regreso = st.date_input("Fecha de regreso", value=st.session_state["fecha_regreso"])
 
         st.session_state["fecha_ida"] = fecha_ida
-        st.session_state["plan_guardado"] = False
         st.session_state["fecha_regreso"] = fecha_regreso
         st.session_state["plan_guardado"] = False
 
@@ -873,6 +885,7 @@ def pantalla_2():
                 st.metric("Duración del viaje", "—")
             else:
                 st.metric("Duración del viaje", f"{duracion_dias} días")
+
         if duracion_dias is not None and duracion_dias <= 0:
             st.warning("La fecha de regreso debe ser posterior a la fecha de ida.")
 
@@ -907,7 +920,7 @@ def pantalla_2():
             st.session_state["plan_guardado"] = False
 
         # ===============================
-        # Tipo viaje (solo opción)
+        # Tipo viaje
         # ===============================
         st.selectbox(
             "Tipo viaje",
@@ -919,65 +932,82 @@ def pantalla_2():
         st.session_state["plan_guardado"] = False
 
         # ===============================
-        # Actividades deseadas
+        # Categorías deseadas
         # ===============================
         lista_act = sorted(
             df_dropdown_cat_act["categoria"].dropna().unique().tolist()
         )
 
-        categoria_act = st.selectbox(
-            "Actividades deseadas",
+        categorias_act = st.multiselect(
+            "Categorías deseadas",
             options=lista_act,
-            index=lista_act.index(st.session_state["categoria_actividad"])
-            if st.session_state["categoria_actividad"] in lista_act else None,
-            placeholder="— Selecciona actividad —",
+            default=st.session_state.get("categorias_actividad", []),
+            placeholder="— Selecciona una o varias categorías —",
         )
 
-        if categoria_act:
-            st.session_state["categoria_actividad"] = categoria_act
-            st.session_state["plan_guardado"] = False
+        st.session_state["categorias_actividad"] = categorias_act
+        st.session_state["plan_guardado"] = False
 
-    st.divider()
+        cantidades_actuales = st.session_state.get("cantidades_actividad", {}).copy()
+        nuevas_cantidades = {}
+
+        if categorias_act:
+            st.markdown("#### Cantidad de actividades por categoría")
+
+            for cat in categorias_act:
+                nuevas_cantidades[cat] = st.number_input(
+                    f"¿Cuántas actividades de '{cat}' deseas realizar?",
+                    min_value=1,
+                    max_value=20,
+                    value=int(cantidades_actuales.get(cat, 1)),
+                    step=1,
+                    key=f"cant_{cat}"
+                )
+
+        st.session_state["cantidades_actividad"] = nuevas_cantidades
 
     # ===============================
-    # Recomendaciones básicas->Refinamiento
+    # Recomendaciones básicas-> Quitar
     # ===============================
     st.subheader("⭐ Recomendaciones por provincia")
 
     id_pais = st.session_state["id_pais"]
-    categoria_act = st.session_state["categoria_actividad"]
+    categorias_act = st.session_state.get("categorias_actividad", [])
     categoria_aloj = st.session_state["categoria_alojamiento"]
 
     col1, col2 = st.columns(2)
 
     # ===============================
-    # Actividades->Refinamiento
+    # Actividades / categorías-> Quitar
     # ===============================
     with col1:
 
-        st.markdown("### Provincias con más actividades")
+        st.markdown("### Provincias con más opciones")
 
-        if id_pais and categoria_act:
+        if id_pais and categorias_act:
 
             df_top_act = df_rec_act[
                 (df_rec_act["id_pais"] == id_pais) &
-                (df_rec_act["categoria"] == categoria_act)
+                (df_rec_act["categoria"].isin(categorias_act))
             ].copy()
 
-            df_top_act = df_top_act.sort_values("n_registros", ascending=False).head(10)
+            df_top_act = df_top_act.sort_values(
+                ["categoria", "n_registros"],
+                ascending=[True, False]
+            ).head(10)
 
             st.dataframe(
                 df_top_act[
-                    ["provincia_nombre", "n_registros", "avg_precio_entrada", "avg_gasto_total"]
+                    ["provincia_nombre", "categoria", "n_registros", "avg_precio_entrada", "avg_gasto_total"]
                 ],
                 use_container_width=True
             )
 
         else:
-            st.info("Selecciona una categoría de actividad.")
+            st.info("Selecciona una o varias categorías.")
 
     # ===============================
-    # Alojamiento->Refiamiento
+    # Alojamiento->Quitar
     # ===============================
     with col2:
 
@@ -1003,9 +1033,8 @@ def pantalla_2():
             st.info("Selecciona un tipo de hospedaje.")
 
         # ===============================
-        # Boton para Guardar/Aprobar Plan
+        # Botón guardar / aprobar
         # ===============================
-
         st.divider()
         st.subheader("✅ Guardar / aprobar plan")
 
@@ -1016,23 +1045,47 @@ def pantalla_2():
 
             if st.button("Guardar plan ✅", use_container_width=True, disabled=disabled_save):
 
-                # Lock inmediato (evita doble submit)
-                st.session_state["guardando"] = True
+                errores = []
 
-                try:
-                    plan_id = guardar_plan_db()
-                finally:
-                    # siempre liberar lock aunque falle
-                    st.session_state["guardando"] = False
+                if not st.session_state.get("email"):
+                    errores.append("Debes ingresar un correo.")
 
-                if plan_id:
-                    st.session_state["ultimo_plan_id"] = int(plan_id)
-                    st.session_state["plan_guardado"] = True
+                if not st.session_state.get("id_pais_origen"):
+                    errores.append("Debes seleccionar el país de origen.")
 
-                    # refrescar data cacheada para Pantalla 3
-                    st.cache_data.clear()
+                if not st.session_state.get("id_pais"):
+                    errores.append("Debes seleccionar el país destino.")
 
-                    st.success(f"Plan guardado con éxito. ID del plan: {plan_id}")
+                if not st.session_state.get("id_provincia_destino"):
+                    errores.append("Debes seleccionar una provincia destino.")
+
+                if not st.session_state.get("categoria_alojamiento"):
+                    errores.append("Debes seleccionar un tipo de hospedaje.")
+
+                if not st.session_state.get("categorias_actividad"):
+                    errores.append("Debes seleccionar al menos una categoría.")
+
+                fecha_ida_ss = st.session_state.get("fecha_ida")
+                fecha_regreso_ss = st.session_state.get("fecha_regreso")
+                if fecha_ida_ss and fecha_regreso_ss and fecha_regreso_ss <= fecha_ida_ss:
+                    errores.append("La fecha de regreso debe ser posterior a la fecha de ida.")
+
+                if errores:
+                    for err in errores:
+                        st.warning(err)
+                else:
+                    st.session_state["guardando"] = True
+
+                    try:
+                        plan_id = guardar_plan_db()
+                    finally:
+                        st.session_state["guardando"] = False
+
+                    if plan_id:
+                        st.session_state["ultimo_plan_id"] = int(plan_id)
+                        st.session_state["plan_guardado"] = True
+                        st.cache_data.clear()
+                        st.success(f"Plan guardado con éxito. ID del plan: {plan_id}")
 
         with col_next:
             if st.button("Ir a Resumen (Pantalla 3) ➜", use_container_width=True):
@@ -1064,7 +1117,10 @@ def pantalla_3():
         st.caption(f"Noches: {int(plan['noches_viaje'])}")
 
     with c2:
-        st.metric("Presupuesto", f"€{float(plan['presupuesto_estimado']):,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
+        st.metric(
+            "Presupuesto",
+            f"€{float(plan['presupuesto_estimado']):,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+        )
 
     with c3:
         st.metric("Tipo de viaje", str(plan["tipo_viaje"]))
@@ -1085,6 +1141,7 @@ def pantalla_3():
         st.markdown("### Destinos")
         st.write(f"**País origen:** {plan['pais_origen']}")
         st.write(f"**País destino:** {plan['pais_destino']}")
+
         provincia = plan.get("provincia_destino", None)
         if pd.isna(provincia) or provincia is None:
             st.write("**Provincia destino:** (no definida)")
@@ -1098,18 +1155,19 @@ def pantalla_3():
     # ===============================
     st.markdown("### Categorías elegidas")
     st.write(f"**Hospedaje:** {plan['categoria_alojamiento']}")
+
     categorias = plan.get("categorias_actividad", "")
     if categorias:
-        st.write(f"**Actividades:** {categorias}")
+        st.write(f"**Categorías:** {categorias}")
     else:
-        st.write("**Actividades:** (no definidas)")
+        st.write("**Categorías:** (no definidas)")
 
     st.divider()
 
     # ===============================
-    # Costos estimados (desde view)
+    # Costos estimados
     # ===============================
-    st.markdown("### Presupuesto estimado simple")
+    st.markdown("### Presupuesto estimado del viaje")
 
     row_costos = df_plan_costos[df_plan_costos["id_plan"] == plan_id]
 
@@ -1118,63 +1176,93 @@ def pantalla_3():
     else:
         costos = row_costos.iloc[0]
 
-        alojamiento = float(costos["alojamiento_estimado"])
-        actividades = float(costos["actividades_estimado"])
-        total_estimado = alojamiento + actividades
+        alojamiento = float(costos.get("alojamiento_estimado", 0) or 0)
+        alimentacion = float(costos.get("alimentacion_estimado", 0) or 0)
+        actividades = float(costos.get("actividades_estimado", 0) or 0)
+        servicios = float(costos.get("servicios_estimado", 0) or 0)
+        otros = float(costos.get("otros_estimado", 0) or 0)
+        transporte = float(costos.get("transporte_estimado", 0) or 0)
+        total_estimado = float(costos.get("costo_total_estimado", 0) or 0)
 
-        k1, k2, k3, k4 = st.columns(4)
-
+        k1, k2, k3 = st.columns(3)
         with k1:
             st.metric("Alojamiento", f"€{alojamiento:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
         with k2:
-            st.metric("Actividades", f"€{actividades:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
+            st.metric("Alimentación", f"€{alimentacion:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
         with k3:
-            st.metric("Transporte", "No incluido")
-        with k4:
-            st.metric("Total estimado", f"€{total_estimado:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
+            st.metric("Actividades", f"€{actividades:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
 
-        # Comparación con presupuesto del usuario
+        k4, k5, k6 = st.columns(3)
+        with k4:
+            st.metric("Servicios", f"€{servicios:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
+        with k5:
+            st.metric("Otros", f"€{otros:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
+        with k6:
+            st.metric("Transporte", f"€{transporte:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
+
+        st.metric(
+            "Total estimado",
+            f"€{total_estimado:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+        )
+
         presupuesto = float(plan["presupuesto_estimado"])
         if presupuesto > 0:
             diff = presupuesto - total_estimado
             if diff >= 0:
-                st.success(f"✅ Estás dentro del presupuesto. Margen aproximado: €{diff:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
+                st.success(
+                    f"✅ Estás dentro del presupuesto. Margen aproximado: €{diff:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+                )
             else:
-                st.warning(f"⚠️ Estás por encima del presupuesto. Diferencia: €{abs(diff):,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
+                st.warning(
+                    f"⚠️ Estás por encima del presupuesto. Diferencia: €{abs(diff):,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+                )
 
     st.divider()
 
     # ===============================
     # Calendario simple
     # ===============================
+    st.divider()
     st.markdown("### Calendario simple del viaje")
 
     fecha_ida = pd.to_datetime(plan["fecha_ida"])
     dias = int(plan["dias_viaje"])
 
-    # Tomamos la primera categoría si vienen varias
-    categoria_principal = ""
-    if categorias:
-        categoria_principal = categorias.split(",")[0].strip()
+    engine = get_engine()
+    query_pref = f"""
+    SELECT categoria, cantidad
+    FROM culturatrip.fact_plan_viaje_preferencia
+    WHERE id_plan = {plan_id}
+    ORDER BY categoria
+    """
+    df_pref = pd.read_sql(query_pref, engine)
+
+    lista_actividades = []
+    for _, row in df_pref.iterrows():
+        lista_actividades.extend([row["categoria"]] * int(row["cantidad"]))
 
     calendario = []
     for i in range(dias):
         fecha = (fecha_ida + pd.Timedelta(days=i)).date()
+        bloque_comida = "Desayuno + almuerzo + cena"
 
-        if i == 0:
-            actividad = f"Llegada + actividad {categoria_principal}" if categoria_principal else "Llegada + actividad cultural"
+        if i < len(lista_actividades):
+            actividad_texto = f"{bloque_comida} + actividad {lista_actividades[i]}"
+        elif i == 0:
+            actividad_texto = f"{bloque_comida} + llegada / paseo inicial"
         elif i == dias - 1:
-            actividad = "Cierre del viaje / paseo libre"
+            actividad_texto = f"{bloque_comida} + cierre del viaje / paseo libre"
         else:
-            actividad = f"Actividad tipo {categoria_principal}" if categoria_principal else "Actividad tipo cultural"
+            actividad_texto = f"{bloque_comida} + tiempo libre"
 
         calendario.append({
             "Día": i + 1,
             "Fecha": fecha,
-            "Actividad sugerida": actividad
+            "Plan sugerido": actividad_texto
         })
 
     st.dataframe(pd.DataFrame(calendario), use_container_width=True)
+
 
 def pantalla_4():
     st.header("💰 Presupuesto Inteligente")
