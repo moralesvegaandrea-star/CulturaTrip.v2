@@ -68,32 +68,72 @@ SELECT
 FROM culturatrip.vw_rec_actividades_por_provincia r;
 
 
+-- ============================================
+-- 2.0) Noches por tipo de día
+--    fin de semana = viernes y sábado
+-- ============================================
+DROP VIEW IF EXISTS culturatrip.vw_plan_noches_tipo_dia CASCADE;
+
+CREATE OR REPLACE VIEW culturatrip.vw_plan_noches_tipo_dia AS
+WITH fechas_noche AS (
+    SELECT
+        p.id_plan,
+        gs::date AS fecha_noche,
+        EXTRACT(DOW FROM gs::date) AS dow
+    FROM culturatrip.vw_plan_resumen_basico p
+    CROSS JOIN LATERAL generate_series(
+        p.fecha_ida,
+        p.fecha_regreso - INTERVAL '1 day',
+        INTERVAL '1 day'
+    ) AS gs
+)
+SELECT
+    id_plan,
+    COUNT(*)::int AS noches_totales,
+    COUNT(*) FILTER (WHERE dow IN (5, 6))::int AS noches_fin_semana,
+    COUNT(*) FILTER (WHERE dow NOT IN (5, 6))::int AS noches_semana
+FROM fechas_noche
+GROUP BY id_plan;
 
 -- ============================================
--- 2) Costos de alojamiento
+-- 2.1) Costos de alojamiento actualizados
 -- ============================================
+DROP VIEW IF EXISTS culturatrip.vw_plan_costos_alojamiento CASCADE;
+
 CREATE OR REPLACE VIEW culturatrip.vw_plan_costos_alojamiento AS
 WITH plan AS (
     SELECT *
     FROM culturatrip.vw_plan_resumen_basico
+),
+noches AS (
+    SELECT *
+    FROM culturatrip.vw_plan_noches_tipo_dia
 )
 SELECT
     p.id_plan,
     p.noches_viaje,
+    n.noches_semana,
+    n.noches_fin_semana,
     p.categoria_alojamiento,
-    a.precio_medio AS precio_noche_aloj,
-    ROUND(COALESCE(a.precio_medio, 0) * p.noches_viaje, 2) AS alojamiento_estimado
+    a.avg_semana AS precio_noche_semana,
+    a.avg_fin_semana AS precio_noche_fin_semana,
+    ROUND(
+        COALESCE(a.avg_semana, 0) * COALESCE(n.noches_semana, 0) +
+        COALESCE(a.avg_fin_semana, 0) * COALESCE(n.noches_fin_semana, 0),
+        2
+    ) AS alojamiento_estimado
 FROM plan p
+LEFT JOIN noches n
+    ON p.id_plan = n.id_plan
 LEFT JOIN culturatrip.vw_rec_alojamiento_precio_provincia a
     ON a.id_pais = p.id_pais_destino
    AND a.id_provincia = p.id_provincia_destino
    AND a.categoria_alojamiento = p.categoria_alojamiento;
 
-
-
 -- ============================================
--- 3) Costos de alimentación
---    Costos de alimentación (automático por días)
+-- 3) -- Costos de alimentación:
+-- se usa la categoría "comida y bebida" como referencia base
+-- y se aplica un factor de ajuste (12%) para aproximar el gasto diario
 -- ============================================
 
 DROP VIEW IF EXISTS culturatrip.vw_plan_costos_alimentacion CASCADE;
@@ -246,7 +286,7 @@ WITH base AS (
 SELECT
     id_plan,
     ROUND(
-        (alojamiento_estimado + alimentacion_estimado + actividades_estimado + servicios_estimado + otros_estimado) * 0.08
+        (alojamiento_estimado + alimentacion_estimado + actividades_estimado + servicios_estimado) * 0.08
     , 2) AS transporte_estimado
 FROM base;
 

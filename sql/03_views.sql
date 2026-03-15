@@ -351,10 +351,13 @@ ORDER BY categoria_alojamiento;
 -- Categorías de actividades (desde fact_actividades)
 -- ===============================
 CREATE OR REPLACE VIEW culturatrip.vw_ui_dropdown_categoria_actividad AS
-SELECT DISTINCT categoria
-FROM culturatrip.fact_actividades
-WHERE categoria IS NOT NULL AND categoria <> ''
-ORDER BY categoria;
+SELECT
+    categoria
+FROM culturatrip.vw_rec_actividades_grupo_costo
+WHERE grupo_costo = 'actividades'
+GROUP BY categoria
+ORDER BY SUM(n_registros) DESC, categoria;
+
 -- ===============================
 -- Resúmenes “simples” para recomendaciones (sin feature engineering complejo)
 -- ===============================
