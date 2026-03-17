@@ -58,12 +58,12 @@ def guardar_plan_db():
             INSERT INTO culturatrip.fact_plan_viaje (
                 email_usuario, id_pais_origen, id_pais_destino,
                 fecha_ida, fecha_regreso, presupuesto_estimado,
-                tipo_viaje, categoria_alojamiento
+                tipo_viaje, categoria_alojamiento, perfil_presupuesto
             )
             VALUES (
                 :email, :id_pais_origen, :id_pais_destino,
                 :fecha_ida, :fecha_regreso, :presupuesto,
-                :tipo_viaje, :categoria_aloj
+                :tipo_viaje, :categoria_aloj, :perfil_presupuesto
             )
             ON CONFLICT (email_usuario, id_pais_origen, id_pais_destino, fecha_ida, fecha_regreso, categoria_alojamiento)
             DO NOTHING
@@ -78,7 +78,8 @@ def guardar_plan_db():
             "fecha_regreso": fecha_regreso,
             "presupuesto": presupuesto,
             "tipo_viaje": tipo_viaje,
-            "categoria_aloj": categoria_aloj
+            "categoria_aloj": categoria_aloj,
+            "perfil_presupuesto": st.session_state.get("perfil_presupuesto", "standard")
         }).scalar()
 
         # Si ya existía, NO seguir insertando detalle/preferencias
@@ -380,6 +381,7 @@ df_rec_aloj = load_view("vw_rec_alojamiento_precio_provincia")
 
 df_plan_resumen = load_view("vw_plan_resumen_basico")
 df_plan_costos = load_view("vw_plan_costos_estimados")
+df_plan_presupuesto_cat = load_view("vw_plan_presupuesto_categoria")
 df_temporada_mes = load_view("vw_temporada_por_mes")
 
 
@@ -460,6 +462,8 @@ def init_state():
         "guardando": False,
         "plan_guardado": False,
         "ultimo_plan_id": None,
+
+        "perfil_presupuesto": "standard",
     }
 
     for k, v in defaults.items():
@@ -497,6 +501,7 @@ def reset_plan_completo():
         "categoria_alojamiento": None,
         "categorias_actividad": None,
         "tipo_viaje": "Solo",
+        "perfil_presupuesto": "standard",
 
         # Control de guardado
         "plan_guardado": False,
@@ -741,310 +746,221 @@ def pantalla_1():
 # Pantalla 2
 # ===============================
 def pantalla_2():
+        st.header("🧭 Planifica tu viaje")
 
-    st.header("🧭 Planifica tu viaje")
+        st.caption("Completa la información base del viaje para construir el plan y estimar costos.")
 
-    colA, colB = st.columns(2)
-
-    # ===============================
-    # Columna izquierda
-    # ===============================
-    with colA:
-
-        st.subheader("Origen y destino")
-
-        # País origen
-        pais_origen_ui = st.selectbox(
-            "País origen",
-            options=lista_paises_ui,
-            index=lista_paises_ui.index(st.session_state["pais_origen"])
-            if st.session_state["pais_origen"] in lista_paises_ui else None,
-            placeholder="— Selecciona país origen —",
-        )
-
-        if pais_origen_ui:
-            st.session_state["pais_origen"] = pais_origen_ui
-            st.session_state["id_pais_origen"] = map_paisui_a_id.get(pais_origen_ui)
-            st.session_state["plan_guardado"] = False
-
-        # País destino
-        pais_destino_ui = st.selectbox(
-            "País destino",
-            options=lista_paises_ui,
-            index=lista_paises_ui.index(st.session_state["pais"])
-            if st.session_state["pais"] in lista_paises_ui else None,
-            placeholder="— Selecciona país destino —",
-        )
-
-        if pais_destino_ui:
-            st.session_state["pais"] = pais_destino_ui
-            st.session_state["id_pais"] = map_paisui_a_id.get(pais_destino_ui)
-            st.session_state["plan_guardado"] = False
-
-        id_pais_destino = st.session_state["id_pais"]
+        colA, colB = st.columns(2)
 
         # ===============================
-        # Provincia destino
+        # Columna izquierda
         # ===============================
-        st.subheader("Provincia destino")
+        with colA:
+            st.subheader("Origen y destino")
 
-        if id_pais_destino:
+            st.selectbox(
+                "Perfil de presupuesto",
+                options=["standard"],
+                index=0,
+                disabled=True,
+                help="Perfil base del modelo según distribución de referencia INE/EGATUR."
+            )
+            st.session_state["perfil_presupuesto"] = "standard"
 
-            df_prov = df_dropdown_provincias[
-                df_dropdown_provincias["id_pais"] == id_pais_destino
-            ].copy()
+            st.selectbox(
+                "Tipo viaje",
+                options=["Solo"],
+                index=0,
+                disabled=True
+            )
+            st.session_state["tipo_viaje"] = "Solo"
 
-            lista_prov = sorted(df_prov["provincia_nombre"].dropna().unique().tolist())
-
-            provincia_ui = st.selectbox(
-                "Selecciona provincia",
-                options=lista_prov,
-                index=lista_prov.index(st.session_state["provincia_destino"])
-                if st.session_state["provincia_destino"] in lista_prov else None,
-                placeholder="— Selecciona provincia —",
+            pais_origen_ui = st.selectbox(
+                "País origen",
+                options=lista_paises_ui,
+                index=lista_paises_ui.index(st.session_state["pais_origen"])
+                if st.session_state["pais_origen"] in lista_paises_ui else None,
+                placeholder="— Selecciona país origen —",
+                key="pais_origen_ui"
             )
 
-            if provincia_ui:
-                st.session_state["provincia_destino"] = provincia_ui
+            if pais_origen_ui:
+                st.session_state["pais_origen"] = pais_origen_ui
+                st.session_state["id_pais_origen"] = map_paisui_a_id.get(pais_origen_ui)
                 st.session_state["plan_guardado"] = False
 
-                row = df_prov[df_prov["provincia_nombre"] == provincia_ui].head(1)
+            pais_destino_ui = st.selectbox(
+                "País destino",
+                options=lista_paises_ui,
+                index=lista_paises_ui.index(st.session_state["pais"])
+                if st.session_state["pais"] in lista_paises_ui else None,
+                placeholder="— Selecciona país destino —",
+                key="pais_destino_ui"
+            )
 
-                if not row.empty:
-                    st.session_state["id_provincia_destino"] = row["id_provincia"].iloc[0]
+            if pais_destino_ui:
+                st.session_state["pais"] = pais_destino_ui
+                st.session_state["id_pais"] = map_paisui_a_id.get(pais_destino_ui)
+                st.session_state["plan_guardado"] = False
 
-        else:
-            st.info("Selecciona primero un país destino.")
+            id_pais_destino = st.session_state.get("id_pais")
 
-    # ===============================
-    # Columna derecha
-    # ===============================
-    with colB:
+            st.subheader("Provincia destino")
 
-        st.subheader("Detalles del viaje")
+            if id_pais_destino:
+                df_prov = df_dropdown_provincias[
+                    df_dropdown_provincias["id_pais"] == id_pais_destino
+                    ].copy()
 
-        # Usuario / correo
-        email = st.text_input(
-            "Usuario / correo",
-            value=st.session_state["email"],
-            placeholder="usuario@email.com"
-        )
+                lista_prov = sorted(df_prov["provincia_nombre"].dropna().unique().tolist())
 
-        if email:
-            st.session_state["email"] = email
-            st.session_state["plan_guardado"] = False
-
-        # ===============================
-        # Fechas
-        # ===============================
-        fecha_ida = st.date_input("Fecha de ida", value=st.session_state["fecha_ida"])
-        fecha_regreso = st.date_input("Fecha de regreso", value=st.session_state["fecha_regreso"])
-
-        st.session_state["fecha_ida"] = fecha_ida
-        st.session_state["fecha_regreso"] = fecha_regreso
-        st.session_state["plan_guardado"] = False
-
-        temporada_ida = obtener_temporada_por_fecha(fecha_ida, df_temporada_mes)
-        temporada_regreso = obtener_temporada_por_fecha(fecha_regreso, df_temporada_mes)
-
-        col_temp1, col_temp2 = st.columns(2)
-
-        with col_temp1:
-            st.metric("Temporada de ida", temporada_ida.capitalize() if temporada_ida else "—")
-
-        with col_temp2:
-            st.metric("Temporada de regreso", temporada_regreso.capitalize() if temporada_regreso else "—")
-
-        # ===============================
-        # Cálculo de métricas de tiempo
-        # ===============================
-        hoy = date.today()
-
-        dias_restantes = None
-        duracion_dias = None
-
-        if fecha_ida:
-            dias_restantes = (fecha_ida - hoy).days
-
-        if fecha_ida and fecha_regreso:
-            duracion_dias = (fecha_regreso - fecha_ida).days
-
-        # ===============================
-        # Mostrar métricas
-        # ===============================
-        col_kpi1, col_kpi2 = st.columns(2)
-
-        with col_kpi1:
-            if dias_restantes is None:
-                st.metric("Días restantes", "—")
-            else:
-                st.metric("Días restantes", f"{max(dias_restantes, 0)}")
-
-        with col_kpi2:
-            if duracion_dias is None:
-                st.metric("Duración del viaje", "—")
-            else:
-                st.metric("Duración del viaje", f"{duracion_dias} días")
-
-        if duracion_dias is not None and duracion_dias <= 0:
-            st.warning("La fecha de regreso debe ser posterior a la fecha de ida.")
-
-        # Presupuesto
-        presupuesto = st.number_input(
-            "Presupuesto estimado (€)",
-            min_value=0,
-            value=int(st.session_state["presupuesto"]),
-            step=50
-        )
-
-        st.session_state["presupuesto"] = presupuesto
-        st.session_state["plan_guardado"] = False
-
-        # ===============================
-        # Tipo hospedaje
-        # ===============================
-        lista_aloj = sorted(
-            df_dropdown_cat_aloj["categoria_alojamiento"].dropna().unique().tolist()
-        )
-
-        tipo_aloj = st.selectbox(
-            "Tipo hospedaje",
-            options=lista_aloj,
-            index=lista_aloj.index(st.session_state["categoria_alojamiento"])
-            if st.session_state["categoria_alojamiento"] in lista_aloj else None,
-            placeholder="— Selecciona hospedaje —",
-        )
-
-        if tipo_aloj:
-            st.session_state["categoria_alojamiento"] = tipo_aloj
-            st.session_state["plan_guardado"] = False
-
-        # ===============================
-        # Tipo viaje
-        # ===============================
-        st.selectbox(
-            "Tipo viaje",
-            options=["Solo"],
-            index=0
-        )
-
-        st.session_state["tipo_viaje"] = "Solo"
-        st.session_state["plan_guardado"] = False
-
-        # ===============================
-        # Categorías deseadas
-        # ===============================
-        lista_act = sorted(
-            df_dropdown_cat_act["categoria"].dropna().unique().tolist()
-        )
-
-        categorias_act = st.multiselect(
-            "Categorías deseadas",
-            options=lista_act,
-            default=st.session_state.get("categorias_actividad", []),
-            placeholder="— Selecciona una o varias categorías —",
-        )
-
-        st.session_state["categorias_actividad"] = categorias_act
-        st.session_state["plan_guardado"] = False
-
-        cantidades_actuales = st.session_state.get("cantidades_actividad", {}).copy()
-        nuevas_cantidades = {}
-
-        if categorias_act:
-            st.markdown("#### Cantidad de actividades por categoría")
-
-            for cat in categorias_act:
-                nuevas_cantidades[cat] = st.number_input(
-                    f"¿Cuántas actividades de '{cat}' deseas realizar?",
-                    min_value=1,
-                    max_value=20,
-                    value=int(cantidades_actuales.get(cat, 1)),
-                    step=1,
-                    key=f"cant_{cat}"
+                provincia_ui = st.selectbox(
+                    "Selecciona provincia",
+                    options=lista_prov,
+                    index=lista_prov.index(st.session_state["provincia_destino"])
+                    if st.session_state["provincia_destino"] in lista_prov else None,
+                    placeholder="— Selecciona provincia —",
+                    key="provincia_destino_ui"
                 )
 
-        st.session_state["cantidades_actividad"] = nuevas_cantidades
+                if provincia_ui:
+                    st.session_state["provincia_destino"] = provincia_ui
+                    st.session_state["plan_guardado"] = False
 
-    # ===============================
-    # Recomendaciones básicas-> Quitar
-    # ===============================
-    st.subheader("⭐ Recomendaciones por provincia")
-
-    id_pais = st.session_state["id_pais"]
-    categorias_act = st.session_state.get("categorias_actividad", [])
-    categoria_aloj = st.session_state["categoria_alojamiento"]
-
-    col1, col2 = st.columns(2)
-
-    # ===============================
-    # Actividades / categorías-> Quitar
-    # ===============================
-    with col1:
-
-        st.markdown("### Provincias con más opciones")
-
-        if id_pais and categorias_act:
-
-            df_top_act = df_rec_act[
-                (df_rec_act["id_pais"] == id_pais) &
-                (df_rec_act["categoria"].isin(categorias_act))
-            ].copy()
-
-            df_top_act = df_top_act.sort_values(
-                ["categoria", "n_registros"],
-                ascending=[True, False]
-            ).head(10)
-
-            st.dataframe(
-                df_top_act[
-                    ["provincia_nombre", "categoria", "n_registros", "avg_precio_entrada", "avg_gasto_total"]
-                ],
-                use_container_width=True
-            )
-
-        else:
-            st.info("Selecciona una o varias categorías.")
-
-    # ===============================
-    # Alojamiento->Quitar
-    # ===============================
-    with col2:
-
-        st.markdown("### Provincias más económicas")
-
-        if id_pais and categoria_aloj:
-
-            df_top_aloj = df_rec_aloj[
-                (df_rec_aloj["id_pais"] == id_pais) &
-                (df_rec_aloj["categoria_alojamiento"] == categoria_aloj)
-            ].copy()
-
-            df_top_aloj = df_top_aloj.sort_values("precio_medio", ascending=True).head(10)
-
-            st.dataframe(
-                df_top_aloj[
-                    ["provincia_nombre", "avg_semana", "avg_fin_semana", "precio_medio"]
-                ],
-                use_container_width=True
-            )
-
-        else:
-            st.info("Selecciona un tipo de hospedaje.")
+                    row = df_prov[df_prov["provincia_nombre"] == provincia_ui].head(1)
+                    if not row.empty:
+                        st.session_state["id_provincia_destino"] = row["id_provincia"].iloc[0]
+            else:
+                st.info("Selecciona primero un país destino.")
 
         # ===============================
-        # Botón guardar / aprobar
+        # Columna derecha
         # ===============================
+        with colB:
+            st.subheader("Detalles del viaje")
+
+            email = st.text_input(
+                "Usuario / correo",
+                value=st.session_state["email"],
+                placeholder="usuario@email.com"
+            )
+
+            if email is not None:
+                st.session_state["email"] = email
+                st.session_state["plan_guardado"] = False
+
+            fecha_ida = st.date_input(
+                "Fecha de ida",
+                value=st.session_state["fecha_ida"],
+                key="fecha_ida_input"
+            )
+            fecha_regreso = st.date_input(
+                "Fecha de regreso",
+                value=st.session_state["fecha_regreso"],
+                key="fecha_regreso_input"
+            )
+
+            st.session_state["fecha_ida"] = fecha_ida
+            st.session_state["fecha_regreso"] = fecha_regreso
+            st.session_state["plan_guardado"] = False
+
+            temporada_ida = obtener_temporada_por_fecha(fecha_ida, df_temporada_mes)
+            temporada_regreso = obtener_temporada_por_fecha(fecha_regreso, df_temporada_mes)
+
+            col_temp1, col_temp2 = st.columns(2)
+            with col_temp1:
+                st.metric("Temporada ida", temporada_ida.capitalize() if temporada_ida else "—")
+            with col_temp2:
+                st.metric("Temporada regreso", temporada_regreso.capitalize() if temporada_regreso else "—")
+
+            hoy = date.today()
+            dias_restantes = (fecha_ida - hoy).days if fecha_ida else None
+            duracion_dias = (fecha_regreso - fecha_ida).days if fecha_ida and fecha_regreso else None
+
+            col_kpi1, col_kpi2 = st.columns(2)
+            with col_kpi1:
+                st.metric("Días restantes", f"{max(dias_restantes, 0)}" if dias_restantes is not None else "—")
+            with col_kpi2:
+                st.metric("Duración del viaje", f"{duracion_dias} días" if duracion_dias is not None else "—")
+
+            if duracion_dias is not None and duracion_dias <= 0:
+                st.warning("La fecha de regreso debe ser posterior a la fecha de ida.")
+
+            presupuesto = st.number_input(
+                "Presupuesto estimado (€)",
+                min_value=0,
+                value=int(st.session_state["presupuesto"]),
+                step=50
+            )
+            st.session_state["presupuesto"] = presupuesto
+            st.session_state["plan_guardado"] = False
+
+            lista_aloj = sorted(
+                df_dropdown_cat_aloj["categoria_alojamiento"].dropna().unique().tolist()
+            )
+
+            tipo_aloj = st.selectbox(
+                "Tipo hospedaje",
+                options=lista_aloj,
+                index=lista_aloj.index(st.session_state["categoria_alojamiento"])
+                if st.session_state["categoria_alojamiento"] in lista_aloj else None,
+                placeholder="— Selecciona hospedaje —",
+                key="tipo_hospedaje_ui"
+            )
+
+            if tipo_aloj:
+                st.session_state["categoria_alojamiento"] = tipo_aloj
+                st.session_state["plan_guardado"] = False
+
+            st.divider()
+            st.subheader("Preferencias de actividades")
+
+            lista_act = sorted(
+                df_dropdown_cat_act["categoria"].dropna().unique().tolist()
+            )
+
+            categorias_act = st.multiselect(
+                "Categorías deseadas",
+                options=lista_act,
+                default=st.session_state.get("categorias_actividad", []),
+                placeholder="— Selecciona una o varias categorías —",
+            )
+
+            st.session_state["categorias_actividad"] = categorias_act
+            st.session_state["plan_guardado"] = False
+
+            cantidades_actuales = st.session_state.get("cantidades_actividad", {}).copy()
+            nuevas_cantidades = {}
+
+            if categorias_act:
+                c1, c2 = st.columns(2)
+                for idx, cat in enumerate(categorias_act):
+                    target_col = c1 if idx % 2 == 0 else c2
+                    with target_col:
+                        nuevas_cantidades[cat] = st.number_input(
+                            f"Cantidad para '{cat}'",
+                            min_value=1,
+                            max_value=20,
+                            value=int(cantidades_actuales.get(cat, 1)),
+                            step=1,
+                            key=f"cant_{cat}"
+                        )
+
+            st.session_state["cantidades_actividad"] = nuevas_cantidades
+
+
         st.divider()
         st.subheader("✅ Guardar / aprobar plan")
 
         col_save, col_next = st.columns([1, 1])
 
         with col_save:
-            disabled_save = st.session_state.get("plan_guardado", False) or st.session_state.get("guardando", False)
+            disabled_save = (
+                    st.session_state.get("plan_guardado", False)
+                    or st.session_state.get("guardando", False)
+            )
 
             if st.button("Guardar plan ✅", use_container_width=True, disabled=disabled_save):
-
                 errores = []
 
                 if not st.session_state.get("email"):
@@ -1063,19 +979,21 @@ def pantalla_2():
                     errores.append("Debes seleccionar un tipo de hospedaje.")
 
                 if not st.session_state.get("categorias_actividad"):
-                    errores.append("Debes seleccionar al menos una categoría.")
+                    errores.append("Debes seleccionar al menos una categoría de actividad.")
 
                 fecha_ida_ss = st.session_state.get("fecha_ida")
                 fecha_regreso_ss = st.session_state.get("fecha_regreso")
                 if fecha_ida_ss and fecha_regreso_ss and fecha_regreso_ss <= fecha_ida_ss:
                     errores.append("La fecha de regreso debe ser posterior a la fecha de ida.")
 
+                if st.session_state.get("presupuesto", 0) <= 0:
+                    errores.append("Debes ingresar un presupuesto mayor a 0.")
+
                 if errores:
                     for err in errores:
                         st.warning(err)
                 else:
                     st.session_state["guardando"] = True
-
                     try:
                         plan_id = guardar_plan_db()
                     finally:
@@ -1093,88 +1011,289 @@ def pantalla_2():
                 st.session_state["step"] = 3
                 st.rerun()
 
+
 def pantalla_3():
-    st.header("📋 Resumen del plan")
+        st.header("📋 Resumen del plan")
 
-    if df_plan_resumen.empty:
-        st.info("Aún no hay planes guardados en la base de datos.")
-        st.caption("Primero completa la Pantalla 2 y guarda un plan.")
-        return
+        if df_plan_resumen.empty:
+            st.info("Aún no hay planes guardados en la base de datos.")
+            st.caption("Primero completa la Pantalla 2 y guarda un plan.")
+            return
 
-    # Tomamos el plan más reciente
-    plan = df_plan_resumen.sort_values("created_at", ascending=False).iloc[0]
-    plan_id = int(plan["id_plan"])
+        # Tomamos el plan más reciente
+        plan = df_plan_resumen.sort_values("created_at", ascending=False).iloc[0]
+        plan_id = int(plan["id_plan"])
 
-    st.subheader(f"ID del plan: {plan_id}")
+        row_costos = df_plan_costos[df_plan_costos["id_plan"] == plan_id]
+        row_presupuesto_cat = df_plan_presupuesto_cat[df_plan_presupuesto_cat["id_plan"] == plan_id]
 
-    # ===============================
-    # Resumen principal
-    # ===============================
-    c1, c2, c3 = st.columns(3)
+        st.subheader(f"ID del plan: {plan_id}")
 
-    with c1:
-        st.metric("Días de viaje", int(plan["dias_viaje"]))
-        st.caption(f"Noches: {int(plan['noches_viaje'])}")
+        presupuesto_usuario = float(plan["presupuesto_estimado"] or 0)
 
-    with c2:
-        st.metric(
-            "Presupuesto",
-            f"€{float(plan['presupuesto_estimado']):,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
-        )
+        alojamiento = 0.0
+        alimentacion = 0.0
+        actividades = 0.0
+        servicios = 0.0
+        otros = 0.0
+        transporte = 0.0
+        total_estimado = 0.0
 
-    with c3:
-        st.metric("Tipo de viaje", str(plan["tipo_viaje"]))
+        if not row_costos.empty:
+            costos = row_costos.iloc[0]
+            alojamiento = float(costos.get("alojamiento_estimado", 0) or 0)
+            alimentacion = float(costos.get("alimentacion_estimado", 0) or 0)
+            actividades = float(costos.get("actividades_estimado", 0) or 0)
+            servicios = float(costos.get("servicios_estimado", 0) or 0)
+            otros = float(costos.get("otros_estimado", 0) or 0)
+            transporte = float(costos.get("transporte_estimado", 0) or 0)
+            total_estimado = float(costos.get("costo_total_estimado", 0) or 0)
 
-    st.divider()
+        diferencia = round(presupuesto_usuario - total_estimado, 2)
 
-    # ===============================
-    # Fechas y destinos
-    # ===============================
-    colA, colB = st.columns(2)
+        # ===============================
+        # KPIs principales
+        # ===============================
+        k1, k2, k3, k4 = st.columns(4)
 
-    with colA:
-        st.markdown("### Fechas")
-        st.write(f"**Fecha ida:** {plan['fecha_ida']}")
-        st.write(f"**Fecha regreso:** {plan['fecha_regreso']}")
+        with k1:
+            st.metric("Días de viaje", int(plan["dias_viaje"]))
 
-    with colB:
-        st.markdown("### Destinos")
-        st.write(f"**País origen:** {plan['pais_origen']}")
-        st.write(f"**País destino:** {plan['pais_destino']}")
+        with k2:
+            st.metric("Noches", int(plan["noches_viaje"]))
 
-        provincia = plan.get("provincia_destino", None)
-        if pd.isna(provincia) or provincia is None:
-            st.write("**Provincia destino:** (no definida)")
+        with k3:
+            st.metric(
+                "Presupuesto ingresado",
+                f"€{presupuesto_usuario:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+            )
+
+        with k4:
+            st.metric(
+                "Costo estimado total",
+                f"€{total_estimado:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+            )
+
+        st.divider()
+
+        # ===============================
+        # Resumen general del viaje
+        # ===============================
+        colA, colB = st.columns(2)
+
+        with colA:
+            st.markdown("### Información del viaje")
+            st.write(f"**Correo:** {plan['email_usuario']}")
+            st.write(f"**País origen:** {plan['pais_origen']}")
+            st.write(f"**País destino:** {plan['pais_destino']}")
+
+            provincia = plan.get("provincia_destino", None)
+            if pd.isna(provincia) or provincia is None:
+                st.write("**Provincia destino:** (no definida)")
+            else:
+                st.write(f"**Provincia destino:** {provincia}")
+
+            st.write(f"**Fecha ida:** {plan['fecha_ida']}")
+            st.write(f"**Fecha regreso:** {plan['fecha_regreso']}")
+
+        with colB:
+            st.markdown("### Preferencias del plan")
+            st.write(f"**Tipo de viaje:** {plan['tipo_viaje']}")
+            st.write(f"**Perfil de presupuesto:** {plan['perfil_presupuesto']}")
+            st.write(f"**Hospedaje:** {plan['categoria_alojamiento']}")
+
+            categorias = plan.get("categorias_actividad", "")
+            if categorias:
+                st.write(f"**Categorías deseadas:** {categorias}")
+            else:
+                st.write("**Categorías deseadas:** (no definidas)")
+
+        st.divider()
+
+        # ===============================
+        # Estado del presupuesto
+        # ===============================
+        st.markdown("### Estado general del presupuesto")
+
+        c1, c2, c3 = st.columns(3)
+
+        with c1:
+            st.metric(
+                "Presupuesto usuario",
+                f"€{presupuesto_usuario:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+            )
+
+        with c2:
+            st.metric(
+                "Costo total estimado",
+                f"€{total_estimado:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+            )
+
+        with c3:
+            st.metric(
+                "Diferencia",
+                f"€{abs(diferencia):,.2f}".replace(",", "X").replace(".", ",").replace("X", "."),
+                "Dentro del presupuesto" if diferencia >= 0 else "Excedido"
+            )
+
+        if presupuesto_usuario > 0:
+            pct_consumido = round((total_estimado / presupuesto_usuario) * 100, 2)
+            st.progress(min(pct_consumido / 100, 1.0))
+            st.caption(f"Consumo estimado del presupuesto: {pct_consumido:.2f}%")
+
+        if diferencia >= 0:
+            st.success(
+                f"✅ El plan se mantiene dentro del presupuesto. Margen estimado: "
+                f"€{diferencia:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+            )
         else:
-            st.write(f"**Provincia destino:** {provincia}")
+            st.warning(
+                f"⚠️ El costo estimado supera el presupuesto en "
+                f"€{abs(diferencia):,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+            )
 
-    st.divider()
+        st.divider()
 
-    # ===============================
-    # Categorías seleccionadas
-    # ===============================
-    st.markdown("### Categorías elegidas")
-    st.write(f"**Hospedaje:** {plan['categoria_alojamiento']}")
+        st.divider()
 
-    categorias = plan.get("categorias_actividad", "")
-    if categorias:
-        st.write(f"**Categorías:** {categorias}")
-    else:
-        st.write("**Categorías:** (no definidas)")
+        # ===============================
+        # Comparación por categoría
+        # ===============================
+        st.markdown("### Comparación por categoría")
 
-    st.divider()
+        df_desglose = pd.DataFrame({
+            "Categoría": [
+                "Alojamiento",
+                "Alimentación",
+                "Actividades",
+                "Servicios",
+                "Otros",
+                "Transporte"
+            ],
+            "Costo estimado (€)": [
+                alojamiento,
+                alimentacion,
+                actividades,
+                servicios,
+                otros,
+                transporte
+            ]
+        })
 
-    # ===============================
-    # Costos estimados
-    # ===============================
-    st.markdown("### Presupuesto estimado del viaje")
+        df_ine = pd.DataFrame()
 
-    row_costos = df_plan_costos[df_plan_costos["id_plan"] == plan_id]
+        if not row_presupuesto_cat.empty:
+            pcat = row_presupuesto_cat.iloc[0]
 
-    if row_costos.empty:
-        st.info("No hay estimación de costos disponible para este plan.")
-    else:
+            df_ine = pd.DataFrame({
+                "Categoría": [
+                    "Alojamiento",
+                    "Transporte",
+                    "Alimentación",
+                    "Actividades",
+                    "Servicios",
+                    "Otros"
+                ],
+                "Porcentaje (%)": [
+                    round(float(pcat.get("pct_alojamiento", 0) or 0) * 100, 2),
+                    round(float(pcat.get("pct_transporte", 0) or 0) * 100, 2),
+                    round(float(pcat.get("pct_alimentacion", 0) or 0) * 100, 2),
+                    round(float(pcat.get("pct_actividades", 0) or 0) * 100, 2),
+                    round(float(pcat.get("pct_servicios", 0) or 0) * 100, 2),
+                    round(float(pcat.get("pct_otros", 0) or 0) * 100, 2)
+                ],
+                "Presupuesto teórico (€)": [
+                    float(pcat.get("presupuesto_alojamiento", 0) or 0),
+                    float(pcat.get("presupuesto_transporte", 0) or 0),
+                    float(pcat.get("presupuesto_alimentacion", 0) or 0),
+                    float(pcat.get("presupuesto_actividades", 0) or 0),
+                    float(pcat.get("presupuesto_servicios", 0) or 0),
+                    float(pcat.get("presupuesto_otros", 0) or 0)
+                ]
+            })
+
+        col_comp_1, col_comp_2 = st.columns(2)
+
+        with col_comp_1:
+            st.markdown("#### Costos estimados del plan")
+            st.dataframe(df_desglose, use_container_width=True, hide_index=True)
+
+        with col_comp_2:
+            st.markdown("#### Distribución de referencia INE")
+            if row_presupuesto_cat.empty:
+                st.info("No se encontró distribución de presupuesto por categoría para este plan.")
+            else:
+                st.dataframe(df_ine, use_container_width=True, hide_index=True)
+        # ===============================
+        # Calendario simple
+        # ===============================
+        st.markdown("### Calendario simple del viaje")
+
+        fecha_ida = pd.to_datetime(plan["fecha_ida"])
+        dias = int(plan["dias_viaje"])
+
+        engine = get_engine()
+        query_pref = text("""
+            SELECT categoria, cantidad
+            FROM culturatrip.fact_plan_viaje_preferencia
+            WHERE id_plan = :plan_id
+            ORDER BY categoria
+        """)
+        df_pref = pd.read_sql(query_pref, engine, params={"plan_id": plan_id})
+
+        lista_actividades = []
+        for _, row in df_pref.iterrows():
+            lista_actividades.extend([row["categoria"]] * int(row["cantidad"]))
+
+        calendario = []
+        for i in range(dias):
+            fecha = (fecha_ida + pd.Timedelta(days=i)).date()
+            bloque_comida = "Desayuno + almuerzo + cena"
+
+            if i < len(lista_actividades):
+                actividad_texto = f"{bloque_comida} + actividad {lista_actividades[i]}"
+            elif i == 0:
+                actividad_texto = f"{bloque_comida} + llegada / paseo inicial"
+            elif i == dias - 1:
+                actividad_texto = f"{bloque_comida} + cierre del viaje / paseo libre"
+            else:
+                actividad_texto = f"{bloque_comida} + tiempo libre"
+
+            calendario.append({
+                "Día": i + 1,
+                "Fecha": fecha,
+                "Plan sugerido": actividad_texto
+            })
+
+        st.dataframe(pd.DataFrame(calendario), use_container_width=True, hide_index=True)
+
+def pantalla_4():
+        st.header("💰 Presupuesto Inteligente")
+
+        if df_plan_resumen.empty:
+            st.info("Aún no hay planes guardados en la base de datos.")
+            st.caption("Primero completa la Pantalla 2 y guarda un plan.")
+            return
+
+        # ===============================
+        # Obtener plan más reciente
+        # ===============================
+        plan = df_plan_resumen.sort_values("created_at", ascending=False).iloc[0]
+        plan_id = int(plan["id_plan"])
+
+        row_costos = df_plan_costos[df_plan_costos["id_plan"] == plan_id]
+
+        if row_costos.empty:
+            st.info("No hay estimación de costos disponible para este plan.")
+            return
+
         costos = row_costos.iloc[0]
+
+        # ===============================
+        # Variables base
+        # ===============================
+        presupuesto = float(plan["presupuesto_estimado"] or 0)
+        dias_viaje = int(plan["dias_viaje"] or 0)
 
         alojamiento = float(costos.get("alojamiento_estimado", 0) or 0)
         alimentacion = float(costos.get("alimentacion_estimado", 0) or 0)
@@ -1182,239 +1301,142 @@ def pantalla_3():
         servicios = float(costos.get("servicios_estimado", 0) or 0)
         otros = float(costos.get("otros_estimado", 0) or 0)
         transporte = float(costos.get("transporte_estimado", 0) or 0)
+
         total_estimado = float(costos.get("costo_total_estimado", 0) or 0)
 
-        k1, k2, k3 = st.columns(3)
+        costo_por_dia = round(total_estimado / dias_viaje, 2) if dias_viaje > 0 else 0
+        diferencia = round(presupuesto - total_estimado, 2)
+
+        # ===============================
+        # Cálculo ahorro mensual
+        # ===============================
+        fecha_ida = pd.to_datetime(plan["fecha_ida"]).date()
+        hoy = date.today()
+
+        dias_restantes = max((fecha_ida - hoy).days, 0)
+        meses_restantes = max(math.ceil(dias_restantes / 30), 1)
+
+        meta_mensual = round(total_estimado / meses_restantes, 2)
+
+        st.caption(f"Plan ID: {plan_id}")
+
+        # ===============================
+        # KPIs principales
+        # ===============================
+        k1, k2, k3, k4 = st.columns(4)
+
         with k1:
-            st.metric("Alojamiento", f"€{alojamiento:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
+            st.metric(
+                "Presupuesto disponible",
+                f"€{presupuesto:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+            )
+
         with k2:
-            st.metric("Alimentación", f"€{alimentacion:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
+            st.metric(
+                "Costo estimado total",
+                f"€{total_estimado:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+            )
+
         with k3:
-            st.metric("Actividades", f"€{actividades:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
+            st.metric(
+                "Diferencia",
+                f"€{abs(diferencia):,.2f}".replace(",", "X").replace(".", ",").replace("X", "."),
+                "Dentro del presupuesto" if diferencia >= 0 else "Excedido"
+            )
 
-        k4, k5, k6 = st.columns(3)
         with k4:
-            st.metric("Servicios", f"€{servicios:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
-        with k5:
-            st.metric("Otros", f"€{otros:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
-        with k6:
-            st.metric("Transporte", f"€{transporte:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
+            st.metric(
+                "Costo por día",
+                f"€{costo_por_dia:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+            )
 
-        st.metric(
-            "Total estimado",
-            f"€{total_estimado:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
-        )
+        st.divider()
 
-        presupuesto = float(plan["presupuesto_estimado"])
+        # ===============================
+        # Indicador de riesgo presupuestario
+        # ===============================
+        st.subheader("Indicador de riesgo presupuestario")
+
         if presupuesto > 0:
-            diff = presupuesto - total_estimado
-            if diff >= 0:
+
+            pct_consumido = round((total_estimado / presupuesto) * 100, 2)
+
+            r1, r2, r3 = st.columns(3)
+
+            with r1:
+                st.metric("Presupuesto consumido", f"{pct_consumido:.2f}%")
+
+            with r2:
+                if diferencia >= 0:
+                    st.metric(
+                        "Margen disponible",
+                        f"€{diferencia:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+                    )
+                else:
+                    st.metric(
+                        "Exceso estimado",
+                        f"€{abs(diferencia):,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+                    )
+
+            with r3:
+
+                if pct_consumido <= 80:
+                    nivel_riesgo = "🟢 Bajo riesgo"
+                elif pct_consumido <= 100:
+                    nivel_riesgo = "🟡 Ajustado"
+                else:
+                    nivel_riesgo = "🔴 Sobre presupuesto"
+
+                st.metric("Nivel de riesgo", nivel_riesgo)
+
+            st.progress(min(pct_consumido / 100, 1.0))
+
+            if pct_consumido <= 80:
                 st.success(
-                    f"✅ Estás dentro del presupuesto. Margen aproximado: €{diff:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+                    "El viaje presenta un nivel de riesgo bajo. El presupuesto estimado cubre el costo con suficiente margen."
+                )
+            elif pct_consumido <= 100:
+                st.warning(
+                    "El viaje se encuentra en una zona ajustada. Se recomienda revisar algunos gastos variables."
                 )
             else:
-                st.warning(
-                    f"⚠️ Estás por encima del presupuesto. Diferencia: €{abs(diff):,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+                st.error(
+                    "El costo estimado supera el presupuesto disponible. Se recomienda ajustar el plan o aumentar el presupuesto."
                 )
 
-    st.divider()
+        st.divider()
 
-    # ===============================
-    # Calendario simple
-    # ===============================
-    st.divider()
-    st.markdown("### Calendario simple del viaje")
+        # ===============================
+        # Plan simple de ahorro
+        # ===============================
+        st.subheader("Plan simple de ahorro")
 
-    fecha_ida = pd.to_datetime(plan["fecha_ida"])
-    dias = int(plan["dias_viaje"])
+        a1, a2, a3 = st.columns(3)
 
-    engine = get_engine()
-    query_pref = f"""
-    SELECT categoria, cantidad
-    FROM culturatrip.fact_plan_viaje_preferencia
-    WHERE id_plan = {plan_id}
-    ORDER BY categoria
-    """
-    df_pref = pd.read_sql(query_pref, engine)
+        with a1:
+            st.metric("Días restantes", dias_restantes)
 
-    lista_actividades = []
-    for _, row in df_pref.iterrows():
-        lista_actividades.extend([row["categoria"]] * int(row["cantidad"]))
+        with a2:
+            st.metric("Meses restantes", meses_restantes)
 
-    calendario = []
-    for i in range(dias):
-        fecha = (fecha_ida + pd.Timedelta(days=i)).date()
-        bloque_comida = "Desayuno + almuerzo + cena"
-
-        if i < len(lista_actividades):
-            actividad_texto = f"{bloque_comida} + actividad {lista_actividades[i]}"
-        elif i == 0:
-            actividad_texto = f"{bloque_comida} + llegada / paseo inicial"
-        elif i == dias - 1:
-            actividad_texto = f"{bloque_comida} + cierre del viaje / paseo libre"
-        else:
-            actividad_texto = f"{bloque_comida} + tiempo libre"
-
-        calendario.append({
-            "Día": i + 1,
-            "Fecha": fecha,
-            "Plan sugerido": actividad_texto
-        })
-
-    st.dataframe(pd.DataFrame(calendario), use_container_width=True)
-
-
-def pantalla_4():
-    st.header("💰 Presupuesto Inteligente")
-
-    if df_plan_resumen.empty:
-        st.info("Aún no hay planes guardados en la base de datos.")
-        st.caption("Primero completa la Pantalla 2 y guarda un plan.")
-        return
-
-    # Plan más reciente
-    plan = df_plan_resumen.sort_values("created_at", ascending=False).iloc[0]
-    plan_id = int(plan["id_plan"])
-
-    row_costos = df_plan_costos[df_plan_costos["id_plan"] == plan_id]
-
-    if row_costos.empty:
-        st.info("No hay estimación de costos disponible para este plan.")
-        return
-
-    costos = row_costos.iloc[0]
-
-    # ===============================
-    # Variables base
-    # ===============================
-    presupuesto = float(plan["presupuesto_estimado"])
-    dias_viaje = int(plan["dias_viaje"])
-
-    alojamiento = float(costos["alojamiento_estimado"] or 0)
-    actividades = float(costos["actividades_estimado"] or 0)
-
-    transporte = 0.0
-    otros = round((alojamiento + actividades) * 0.10, 2)
-
-    total_estimado = alojamiento + actividades + transporte + otros
-    costo_por_dia = round(total_estimado / dias_viaje, 2) if dias_viaje > 0 else 0
-    diferencia = round(presupuesto - total_estimado, 2)
-
-    # ===============================
-    # Cálculo ahorro mensual
-    # ===============================
-    fecha_ida = pd.to_datetime(plan["fecha_ida"]).date()
-    hoy = date.today()
-
-    dias_restantes = max((fecha_ida - hoy).days, 0)
-    meses_restantes = max(round(dias_restantes / 30), 1)
-
-    meta_mensual = round(total_estimado / meses_restantes, 2)
-
-    st.caption(f"Plan ID: {plan_id}")
-
-    # ===============================
-    # KPIs principales
-    # ===============================
-    k1, k2, k3, k4 = st.columns(4)
-
-    with k1:
-        st.metric(
-            "Costo estimado total",
-            f"€{total_estimado:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."),
-            f"{dias_viaje} días"
-        )
-
-    with k2:
-        st.metric(
-            "Meta mensual de ahorro",
-            f"€{meta_mensual:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."),
-            f"{meses_restantes} mes(es)"
-        )
-
-    with k3:
-        st.metric(
-            "Presupuesto disponible",
-            f"€{presupuesto:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
-        )
-
-    with k4:
-        st.metric(
-            "Costo por día",
-            f"€{costo_por_dia:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
-        )
-
-    st.divider()
-
-    # ===============================
-    # Estado del presupuesto
-    # ===============================
-    if diferencia >= 0:
-        st.success(
-            f"✅ El viaje se mantiene dentro del presupuesto. "
-            f"Margen estimado: €{diferencia:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
-        )
-    else:
-        st.warning(
-            f"⚠️ El costo estimado supera el presupuesto por "
-            f"€{abs(diferencia):,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
-        )
-
-    st.divider()
-
-    # ===============================
-    # Distribución del presupuesto
-    # ===============================
-    st.subheader("Distribución estimada del presupuesto")
-
-    df_dist = pd.DataFrame({
-        "categoria": ["Alojamiento", "Actividades", "Transporte", "Otros"],
-        "estimado": [alojamiento, actividades, transporte, otros]
-    })
-
-    col1, col2 = st.columns([1.5, 1])
-
-    with col1:
-
-        chart = (
-            alt.Chart(df_dist)
-            .mark_bar()
-            .encode(
-                x=alt.X("categoria:N", title="Categoría"),
-                y=alt.Y("estimado:Q", title="Costo estimado (€)"),
-                tooltip=["categoria", "estimado"]
+        with a3:
+            st.metric(
+                "Meta mensual de ahorro",
+                f"€{meta_mensual:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
             )
-            .properties(height=350)
-        )
 
-        st.altair_chart(chart, use_container_width=True)
+        ahorro_rows = []
 
-    with col2:
+        for i in range(1, meses_restantes + 1):
+            ahorro_rows.append({
+                "Mes": f"Mes {i}",
+                "Meta de ahorro (€)": meta_mensual
+            })
 
-        st.dataframe(
-            df_dist,
-            use_container_width=True,
-            hide_index=True
-        )
+        df_ahorro = pd.DataFrame(ahorro_rows)
 
-    st.divider()
+        st.dataframe(df_ahorro, use_container_width=True, hide_index=True)
 
-    # ===============================
-    # Plan de ahorro simple
-    # ===============================
-    st.subheader("Plan simple de ahorro")
-
-    ahorro_rows = []
-
-    for i in range(1, meses_restantes + 1):
-        ahorro_rows.append({
-            "Mes": f"Mes {i}",
-            "Meta de ahorro (€)": meta_mensual
-        })
-
-    df_ahorro = pd.DataFrame(ahorro_rows)
-
-    st.dataframe(df_ahorro, use_container_width=True, hide_index=True)
 
 def pantalla_5():
         st.header("📊 Control Dinámico del Presupuesto")
@@ -1424,7 +1446,9 @@ def pantalla_5():
             st.caption("Primero completa la Pantalla 2 y guarda un plan.")
             return
 
-        # plan más reciente
+        # ===============================
+        # Plan más reciente
+        # ===============================
         plan = df_plan_resumen.sort_values("created_at", ascending=False).iloc[0]
         plan_id = int(plan["id_plan"])
 
@@ -1435,48 +1459,142 @@ def pantalla_5():
 
         costos = row_costos.iloc[0]
 
-        presupuesto = float(plan["presupuesto_estimado"])
-        alojamiento = float(costos["alojamiento_estimado"] or 0)
-        actividades = float(costos["actividades_estimado"] or 0)
-        transporte = float(costos["transporte_estimado"] or 0) if costos["transporte_estimado"] is not None else 0.0
-        otros = round((alojamiento + actividades) * 0.10, 2)
-        presupuesto_aprobado = alojamiento + actividades + transporte + otros
+        # ===============================
+        # Costos estimados desde SQL
+        # ===============================
+        alojamiento = float(costos.get("alojamiento_estimado", 0) or 0)
+        alimentacion = float(costos.get("alimentacion_estimado", 0) or 0)
+        actividades = float(costos.get("actividades_estimado", 0) or 0)
+        servicios = float(costos.get("servicios_estimado", 0) or 0)
+        otros = float(costos.get("otros_estimado", 0) or 0)
+        transporte = float(costos.get("transporte_estimado", 0) or 0)
 
-        # resumen gastos reales
+        presupuesto_aprobado = float(costos.get("costo_total_estimado", 0) or 0)
+        presupuesto_usuario = float(plan.get("presupuesto_estimado", 0) or 0)
+
+        # ===============================
+        # Gastos reales registrados
+        # ===============================
         row_gasto = df_gasto_resumen[df_gasto_resumen["id_plan"] == plan_id]
         gasto_real_total = float(row_gasto["gasto_real_total"].iloc[0]) if not row_gasto.empty else 0.0
 
-        diferencia = round(presupuesto_aprobado - gasto_real_total, 2)
+        diferencia_vs_estimado = round(presupuesto_aprobado - gasto_real_total, 2)
+        diferencia_vs_usuario = round(presupuesto_usuario - gasto_real_total, 2)
+
         pct_ejecutado = round((gasto_real_total / presupuesto_aprobado) * 100, 2) if presupuesto_aprobado > 0 else 0
 
-        # semáforo
+        # ===============================
+        # Semáforo
+        # ===============================
         if pct_ejecutado < 80:
-            estado = "🟢 Dentro del presupuesto"
+            estado = "🟢 Dentro del presupuesto estimado"
             st.success(estado)
         elif pct_ejecutado <= 100:
-            estado = "🟡 Cerca del límite"
+            estado = "🟡 Cerca del límite estimado"
             st.warning(estado)
         else:
-            estado = "🔴 Presupuesto excedido"
+            estado = "🔴 Presupuesto estimado excedido"
             st.error(estado)
 
-        # KPIs
+        # ===============================
+        # KPIs principales
+        # ===============================
         k1, k2, k3, k4 = st.columns(4)
 
         with k1:
-            st.metric("Presupuesto aprobado",
-                      f"€{presupuesto_aprobado:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
+            st.metric(
+                "Costo estimado del plan",
+                f"€{presupuesto_aprobado:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+            )
+
         with k2:
-            st.metric("Gastos registrados",
-                      f"€{gasto_real_total:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
+            st.metric(
+                "Gastos registrados",
+                f"€{gasto_real_total:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+            )
+
         with k3:
-            st.metric("Diferencia actual", f"€{diferencia:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
+            st.metric(
+                "Diferencia vs estimado",
+                f"€{abs(diferencia_vs_estimado):,.2f}".replace(",", "X").replace(".", ",").replace("X", "."),
+                "Disponible" if diferencia_vs_estimado >= 0 else "Excedido"
+            )
+
         with k4:
             st.metric("% ejecutado", f"{pct_ejecutado:.1f}%")
 
         st.divider()
 
+        # ===============================
+        # Resumen comparativo
+        # ===============================
+        c1, c2, c3 = st.columns(3)
+
+        with c1:
+            st.metric(
+                "Presupuesto usuario",
+                f"€{presupuesto_usuario:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+            )
+
+        with c2:
+            st.metric(
+                "Costo estimado modelo",
+                f"€{presupuesto_aprobado:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+            )
+
+        with c3:
+            st.metric(
+                "Saldo restante real",
+                f"€{abs(diferencia_vs_usuario):,.2f}".replace(",", "X").replace(".", ",").replace("X", "."),
+                "Disponible" if diferencia_vs_usuario >= 0 else "Excedido"
+            )
+
+        st.progress(min(pct_ejecutado / 100, 1.0))
+
+        if diferencia_vs_estimado >= 0:
+            st.info(
+                f"Según el costo estimado del plan, aún dispones de "
+                f"€{diferencia_vs_estimado:,.2f} por ejecutar.".replace(",", "X").replace(".", ",").replace("X", ".")
+            )
+        else:
+            st.warning(
+                f"Los gastos reales ya superan el costo estimado del plan en "
+                f"€{abs(diferencia_vs_estimado):,.2f}.".replace(",", "X").replace(".", ",").replace("X", ".")
+            )
+
+        st.divider()
+
+        # ===============================
+        # Referencia de costos estimados por categoría
+        # ===============================
+        st.subheader("Referencia del plan estimado por categoría")
+
+        df_estimado_cat = pd.DataFrame({
+            "Categoría": [
+                "Alojamiento",
+                "Alimentación",
+                "Actividades",
+                "Servicios",
+                "Otros",
+                "Transporte"
+            ],
+            "Costo estimado (€)": [
+                alojamiento,
+                alimentacion,
+                actividades,
+                servicios,
+                otros,
+                transporte
+            ]
+        })
+
+        st.dataframe(df_estimado_cat, use_container_width=True, hide_index=True)
+
+        st.divider()
+
+        # ===============================
         # Registro de gasto
+        # ===============================
         st.subheader("Agregar gasto real")
 
         c1, c2 = st.columns(2)
@@ -1484,13 +1602,21 @@ def pantalla_5():
             fecha_gasto = st.date_input("Fecha del gasto", value=date.today(), key="fecha_gasto_real")
             categoria_gasto = st.selectbox(
                 "Categoría",
-                options=["Transporte", "Alojamiento", "Actividades", "Alimentación", "Otros"],
+                options=["Transporte", "Alojamiento", "Actividades", "Alimentación", "Servicios", "Otros"],
                 key="categoria_gasto_real"
             )
         with c2:
-            descripcion_gasto = st.text_input("Descripción", placeholder="Ej. Almuerzo en Madrid",
-                                              key="descripcion_gasto_real")
-            monto_gasto = st.number_input("Monto (€)", min_value=0.0, step=1.0, key="monto_gasto_real")
+            descripcion_gasto = st.text_input(
+                "Descripción",
+                placeholder="Ej. Almuerzo en Madrid",
+                key="descripcion_gasto_real"
+            )
+            monto_gasto = st.number_input(
+                "Monto (€)",
+                min_value=0.0,
+                step=1.0,
+                key="monto_gasto_real"
+            )
 
         if st.button("➕ Registrar gasto", use_container_width=True):
             ok = guardar_gasto_real_db(
@@ -1507,7 +1633,9 @@ def pantalla_5():
 
         st.divider()
 
-        # gráfico por categoría
+        # ===============================
+        # Gasto real por categoría
+        # ===============================
         st.subheader("Gasto real por categoría")
 
         df_cat_plan = df_gasto_categoria[df_gasto_categoria["id_plan"] == plan_id].copy()
@@ -1527,9 +1655,17 @@ def pantalla_5():
             )
             st.altair_chart(chart, use_container_width=True)
 
+            st.dataframe(
+                df_cat_plan[["categoria", "gasto_real_categoria", "n_movimientos"]],
+                use_container_width=True,
+                hide_index=True
+            )
+
         st.divider()
 
-        # últimos gastos
+        # ===============================
+        # Últimos gastos registrados
+        # ===============================
         st.subheader("Últimos gastos registrados")
 
         df_det_plan = df_gasto_detalle[df_gasto_detalle["id_plan"] == plan_id].copy()
@@ -1773,26 +1909,34 @@ def pantalla_7():
             st.caption("Primero completa la Pantalla 2 y guarda un plan.")
             return
 
+        # ===============================
         # Plan más reciente
+        # ===============================
         plan = df_plan_resumen.sort_values("created_at", ascending=False).iloc[0]
         plan_id = int(plan["id_plan"])
 
         row_costos = df_plan_costos[df_plan_costos["id_plan"] == plan_id]
 
         alojamiento = 0.0
+        alimentacion = 0.0
         actividades = 0.0
-        transporte = 0.0
+        servicios = 0.0
         otros = 0.0
+        transporte = 0.0
         total_estimado = 0.0
         diferencia = 0.0
 
         if not row_costos.empty:
             costos = row_costos.iloc[0]
-            alojamiento = float(costos["alojamiento_estimado"] or 0)
-            actividades = float(costos["actividades_estimado"] or 0)
-            transporte = float(costos["transporte_estimado"] or 0) if costos["transporte_estimado"] is not None else 0.0
-            otros = round((alojamiento + actividades) * 0.10, 2)
-            total_estimado = alojamiento + actividades + transporte + otros
+
+            alojamiento = float(costos.get("alojamiento_estimado", 0) or 0)
+            alimentacion = float(costos.get("alimentacion_estimado", 0) or 0)
+            actividades = float(costos.get("actividades_estimado", 0) or 0)
+            servicios = float(costos.get("servicios_estimado", 0) or 0)
+            otros = float(costos.get("otros_estimado", 0) or 0)
+            transporte = float(costos.get("transporte_estimado", 0) or 0)
+            total_estimado = float(costos.get("costo_total_estimado", 0) or 0)
+
             diferencia = float(plan["presupuesto_estimado"]) - total_estimado
 
         # ===============================
@@ -1807,9 +1951,10 @@ def pantalla_7():
             st.metric("Días de viaje", int(plan["dias_viaje"]))
 
         with c3:
-            st.metric("Presupuesto",
-                      f"€{float(plan['presupuesto_estimado']):,.2f}".replace(",", "X").replace(".", ",").replace("X",
-                                                                                                                 "."))
+            st.metric(
+                "Presupuesto",
+                f"€{float(plan['presupuesto_estimado']):,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+            )
 
         st.divider()
 
@@ -1830,8 +1975,9 @@ def pantalla_7():
             st.write(f"**Fecha regreso:** {plan['fecha_regreso']}")
 
         with col2:
-            st.subheader("Preferencias")
+            st.subheader("Preferencias del plan")
             st.write(f"**Tipo de viaje:** {plan['tipo_viaje']}")
+            st.write(f"**Perfil de presupuesto:** {plan['perfil_presupuesto']}")
             st.write(f"**Hospedaje:** {plan['categoria_alojamiento']}")
 
             categorias = plan["categorias_actividad"] if not pd.isna(plan["categorias_actividad"]) else ""
@@ -1852,10 +1998,19 @@ def pantalla_7():
         with k1:
             st.metric("Alojamiento", f"€{alojamiento:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
         with k2:
-            st.metric("Actividades", f"€{actividades:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
+            st.metric("Alimentación", f"€{alimentacion:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
         with k3:
-            st.metric("Otros", f"€{otros:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
+            st.metric("Actividades", f"€{actividades:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
         with k4:
+            st.metric("Transporte", f"€{transporte:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
+
+        k5, k6, k7 = st.columns(3)
+
+        with k5:
+            st.metric("Servicios", f"€{servicios:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
+        with k6:
+            st.metric("Otros", f"€{otros:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
+        with k7:
             st.metric("Total estimado", f"€{total_estimado:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
 
         if total_estimado > 0:
@@ -1909,7 +2064,7 @@ def pantalla_7():
         st.divider()
 
         # ===============================
-        # Cierre
+        # Estado final del plan
         # ===============================
         st.subheader("Estado final del plan")
 
@@ -1917,6 +2072,8 @@ def pantalla_7():
             st.success("🎉 Tu plan está bastante sólido: presupuesto controlado y buena preparación.")
         elif total_estimado > 0 and diferencia < 0:
             st.warning("Revisa el presupuesto antes de finalizar el viaje.")
+        elif pct < 50:
+            st.warning("Antes del viaje conviene completar mejor la preparación del checklist.")
         else:
             st.info("Completa más información para tener un cierre de plan más completo.")
 

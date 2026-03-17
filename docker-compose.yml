@@ -29,6 +29,9 @@ services:
       DB_NAME: culturatrip
       DB_USER: culturatrip
       DB_PASSWORD: culturatrip
+    working_dir: /app
+    volumes:
+      - ./:/app
 
   notebook:
     build: .

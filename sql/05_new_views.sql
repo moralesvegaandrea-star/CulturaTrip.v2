@@ -40,12 +40,41 @@ SELECT
   pv.tipo_viaje,
   pv.categoria_alojamiento,
   COALESCE(c.categorias_actividad, '') AS categorias_actividad,
-  pv.created_at
+  pv.created_at,
+  pv.perfil_presupuesto
+
 FROM culturatrip.fact_plan_viaje pv
 JOIN culturatrip.dim_pais po ON pv.id_pais_origen = po.id_pais
 JOIN culturatrip.dim_pais pd ON pv.id_pais_destino = pd.id_pais
 LEFT JOIN prov_principal pp ON pv.id_plan = pp.id_plan
 LEFT JOIN cats c           ON pv.id_plan = c.id_plan;
+
+-- ============================================
+-- Nueva vista:
+--    presupuesto por categoría según perfil INE
+-- ============================================
+DROP VIEW IF EXISTS culturatrip.vw_plan_presupuesto_categoria CASCADE;
+
+CREATE OR REPLACE VIEW culturatrip.vw_plan_presupuesto_categoria AS
+SELECT
+    p.id_plan,
+    p.presupuesto_estimado,
+    p.perfil_presupuesto,
+    cfg.pct_alojamiento,
+    cfg.pct_transporte,
+    cfg.pct_alimentacion,
+    cfg.pct_actividades,
+    cfg.pct_servicios,
+    cfg.pct_otros,
+    ROUND(p.presupuesto_estimado * cfg.pct_alojamiento, 2)  AS presupuesto_alojamiento,
+    ROUND(p.presupuesto_estimado * cfg.pct_transporte, 2)   AS presupuesto_transporte,
+    ROUND(p.presupuesto_estimado * cfg.pct_alimentacion, 2) AS presupuesto_alimentacion,
+    ROUND(p.presupuesto_estimado * cfg.pct_actividades, 2)  AS presupuesto_actividades,
+    ROUND(p.presupuesto_estimado * cfg.pct_servicios, 2)    AS presupuesto_servicios,
+    ROUND(p.presupuesto_estimado * cfg.pct_otros, 2)        AS presupuesto_otros
+FROM culturatrip.vw_plan_resumen_basico p
+JOIN culturatrip.dim_parametros_presupuesto cfg
+  ON p.perfil_presupuesto = cfg.perfil_presupuesto;
 
 -- ============================================
 -- 1) Vista base: actividades clasificadas por grupo de costo
@@ -95,74 +124,6 @@ SELECT
 FROM fechas_noche
 GROUP BY id_plan;
 
--- ============================================
--- 2.1) Costos de alojamiento actualizados
--- ============================================
-DROP VIEW IF EXISTS culturatrip.vw_plan_costos_alojamiento CASCADE;
-
-CREATE OR REPLACE VIEW culturatrip.vw_plan_costos_alojamiento AS
-WITH plan AS (
-    SELECT *
-    FROM culturatrip.vw_plan_resumen_basico
-),
-noches AS (
-    SELECT *
-    FROM culturatrip.vw_plan_noches_tipo_dia
-)
-SELECT
-    p.id_plan,
-    p.noches_viaje,
-    n.noches_semana,
-    n.noches_fin_semana,
-    p.categoria_alojamiento,
-    a.avg_semana AS precio_noche_semana,
-    a.avg_fin_semana AS precio_noche_fin_semana,
-    ROUND(
-        COALESCE(a.avg_semana, 0) * COALESCE(n.noches_semana, 0) +
-        COALESCE(a.avg_fin_semana, 0) * COALESCE(n.noches_fin_semana, 0),
-        2
-    ) AS alojamiento_estimado
-FROM plan p
-LEFT JOIN noches n
-    ON p.id_plan = n.id_plan
-LEFT JOIN culturatrip.vw_rec_alojamiento_precio_provincia a
-    ON a.id_pais = p.id_pais_destino
-   AND a.id_provincia = p.id_provincia_destino
-   AND a.categoria_alojamiento = p.categoria_alojamiento;
-
--- ============================================
--- 3) -- Costos de alimentación:
--- se usa la categoría "comida y bebida" como referencia base
--- y se aplica un factor de ajuste (12%) para aproximar el gasto diario
--- ============================================
-
-DROP VIEW IF EXISTS culturatrip.vw_plan_costos_alimentacion CASCADE;
-
-CREATE OR REPLACE VIEW culturatrip.vw_plan_costos_alimentacion AS
-WITH plan AS (
-    SELECT *
-    FROM culturatrip.vw_plan_resumen_basico
-),
-alim_base AS (
-    SELECT
-        p.id_plan,
-        ROUND(AVG(r.avg_precio_entrada)::numeric, 2) AS referencia_comida_bebida
-    FROM plan p
-    JOIN culturatrip.vw_rec_actividades_grupo_costo r
-        ON r.id_pais = p.id_pais_destino
-       AND r.id_provincia = p.id_provincia_destino
-    WHERE LOWER(TRIM(r.categoria)) = 'comida y bebida'
-    GROUP BY p.id_plan
-)
-SELECT
-    p.id_plan,
-    p.dias_viaje,
-    a.referencia_comida_bebida,
-    ROUND(COALESCE(a.referencia_comida_bebida, 0) * 0.12, 2) AS gasto_diario_alimentacion,
-    ROUND(COALESCE(a.referencia_comida_bebida, 0) * 0.12 * p.dias_viaje, 2) AS alimentacion_estimado
-FROM plan p
-LEFT JOIN alim_base a
-    ON p.id_plan = a.id_plan;
 
 
 -- ============================================
@@ -267,28 +228,71 @@ GROUP BY id_plan;
 -- ============================================
 -- 7) Costos de transporte como porcentaje
 -- ============================================
+DROP VIEW IF EXISTS culturatrip.vw_plan_costos_transporte CASCADE;
+
 CREATE OR REPLACE VIEW culturatrip.vw_plan_costos_transporte AS
-WITH base AS (
-    SELECT
-        p.id_plan,
-        COALESCE(a.alojamiento_estimado, 0)   AS alojamiento_estimado,
-        COALESCE(al.alimentacion_estimado, 0) AS alimentacion_estimado,
-        COALESCE(ac.actividades_estimado, 0)  AS actividades_estimado,
-        COALESCE(s.servicios_estimado, 0)     AS servicios_estimado,
-        COALESCE(o.otros_estimado, 0)         AS otros_estimado
-    FROM culturatrip.vw_plan_resumen_basico p
-    LEFT JOIN culturatrip.vw_plan_costos_alojamiento  a  ON p.id_plan = a.id_plan
-    LEFT JOIN culturatrip.vw_plan_costos_alimentacion al ON p.id_plan = al.id_plan
-    LEFT JOIN culturatrip.vw_plan_costos_actividades  ac ON p.id_plan = ac.id_plan
-    LEFT JOIN culturatrip.vw_plan_costos_servicios    s  ON p.id_plan = s.id_plan
-    LEFT JOIN culturatrip.vw_plan_costos_otros        o  ON p.id_plan = o.id_plan
-)
 SELECT
     id_plan,
+    pct_transporte,
+    presupuesto_transporte AS transporte_estimado
+
+FROM culturatrip.vw_plan_presupuesto_categoria;
+
+-- ============================================
+-- 3) -- Costos de alimentación:
+-- Ahora sale del porcentaje del presupuesto
+-- ============================================
+DROP VIEW IF EXISTS culturatrip.vw_plan_costos_alimentacion CASCADE;
+
+CREATE OR REPLACE VIEW culturatrip.vw_plan_costos_alimentacion AS
+SELECT
+    pc.id_plan,
+    pr.dias_viaje,
+    pc.pct_alimentacion,
+    pc.presupuesto_alimentacion AS alimentacion_estimado,
     ROUND(
-        (alojamiento_estimado + alimentacion_estimado + actividades_estimado + servicios_estimado) * 0.08
-    , 2) AS transporte_estimado
-FROM base;
+        pc.presupuesto_alimentacion / NULLIF(pr.dias_viaje, 0),
+        2
+    ) AS gasto_diario_alimentacion
+FROM culturatrip.vw_plan_presupuesto_categoria pc
+JOIN culturatrip.vw_plan_resumen_basico pr
+  ON pc.id_plan = pr.id_plan;
+
+
+-- ============================================
+-- 2.1) Costos de alojamiento actualizados
+-- ============================================
+DROP VIEW IF EXISTS culturatrip.vw_plan_costos_alojamiento CASCADE;
+
+CREATE OR REPLACE VIEW culturatrip.vw_plan_costos_alojamiento AS
+WITH plan AS (
+    SELECT *
+    FROM culturatrip.vw_plan_resumen_basico
+),
+noches AS (
+    SELECT *
+    FROM culturatrip.vw_plan_noches_tipo_dia
+)
+SELECT
+    p.id_plan,
+    p.noches_viaje,
+    n.noches_semana,
+    n.noches_fin_semana,
+    p.categoria_alojamiento,
+    a.avg_semana AS precio_noche_semana,
+    a.avg_fin_semana AS precio_noche_fin_semana,
+    ROUND(
+        COALESCE(a.avg_semana, 0) * COALESCE(n.noches_semana, 0) +
+        COALESCE(a.avg_fin_semana, 0) * COALESCE(n.noches_fin_semana, 0),
+        2
+    ) AS alojamiento_estimado
+FROM plan p
+LEFT JOIN noches n
+    ON p.id_plan = n.id_plan
+LEFT JOIN culturatrip.vw_rec_alojamiento_precio_provincia a
+    ON a.id_pais = p.id_pais_destino
+   AND a.id_provincia = p.id_provincia_destino
+   AND a.categoria_alojamiento = p.categoria_alojamiento;
 
 -- ============================================
 -- 8) Vista final consolidada de costos estimados
@@ -298,27 +302,34 @@ SELECT
     p.id_plan,
     p.dias_viaje,
     p.noches_viaje,
-    COALESCE(a.alojamiento_estimado, 0)   AS alojamiento_estimado,
+    COALESCE(a.alojamiento_estimado, 0) AS alojamiento_estimado,
     COALESCE(al.alimentacion_estimado, 0) AS alimentacion_estimado,
-    COALESCE(ac.actividades_estimado, 0)  AS actividades_estimado,
-    COALESCE(s.servicios_estimado, 0)     AS servicios_estimado,
-    COALESCE(o.otros_estimado, 0)         AS otros_estimado,
-    COALESCE(t.transporte_estimado, 0)    AS transporte_estimado,
+    COALESCE(ac.actividades_estimado, 0) AS actividades_estimado,
+    COALESCE(s.servicios_estimado, 0) AS servicios_estimado,
+    COALESCE(o.otros_estimado, 0) AS otros_estimado,
+    COALESCE(t.transporte_estimado, 0) AS transporte_estimado,
     ROUND(
         COALESCE(a.alojamiento_estimado, 0) +
         COALESCE(al.alimentacion_estimado, 0) +
         COALESCE(ac.actividades_estimado, 0) +
         COALESCE(s.servicios_estimado, 0) +
         COALESCE(o.otros_estimado, 0) +
-        COALESCE(t.transporte_estimado, 0)
-    , 2) AS costo_total_estimado
+        COALESCE(t.transporte_estimado, 0),
+        2
+    ) AS costo_total_estimado
 FROM culturatrip.vw_plan_resumen_basico p
-LEFT JOIN culturatrip.vw_plan_costos_alojamiento  a  ON p.id_plan = a.id_plan
-LEFT JOIN culturatrip.vw_plan_costos_alimentacion al ON p.id_plan = al.id_plan
-LEFT JOIN culturatrip.vw_plan_costos_actividades  ac ON p.id_plan = ac.id_plan
-LEFT JOIN culturatrip.vw_plan_costos_servicios    s  ON p.id_plan = s.id_plan
-LEFT JOIN culturatrip.vw_plan_costos_otros        o  ON p.id_plan = o.id_plan
-LEFT JOIN culturatrip.vw_plan_costos_transporte   t  ON p.id_plan = t.id_plan;
+LEFT JOIN culturatrip.vw_plan_costos_alojamiento a
+  ON p.id_plan = a.id_plan
+LEFT JOIN culturatrip.vw_plan_costos_alimentacion al
+  ON p.id_plan = al.id_plan
+LEFT JOIN culturatrip.vw_plan_costos_actividades ac
+  ON p.id_plan = ac.id_plan
+LEFT JOIN culturatrip.vw_plan_costos_servicios s
+  ON p.id_plan = s.id_plan
+LEFT JOIN culturatrip.vw_plan_costos_otros o
+  ON p.id_plan = o.id_plan
+LEFT JOIN culturatrip.vw_plan_costos_transporte t
+  ON p.id_plan = t.id_plan;
 
 -- =========================
 -- Resumen Plan de Gastos

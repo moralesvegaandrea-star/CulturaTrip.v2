@@ -326,3 +326,67 @@ CREATE TABLE culturatrip.fact_alojamientos (
 -- FIN DEL SCRIPT
 -- Modelo CulturaTrip listo para carga de datos
 -- ==================================================
+
+-- ==================================================
+-- Version 4
+-- Tabla de Parametros INE para Costos
+-- ==================================================
+
+DROP TABLE IF EXISTS culturatrip.dim_parametros_presupuesto CASCADE;
+
+CREATE TABLE culturatrip.dim_parametros_presupuesto (
+    perfil_presupuesto VARCHAR(20) PRIMARY KEY,
+    pct_alojamiento    NUMERIC(5,4) NOT NULL,
+    pct_transporte     NUMERIC(5,4) NOT NULL,
+    pct_alimentacion   NUMERIC(5,4) NOT NULL,
+    pct_actividades    NUMERIC(5,4) NOT NULL,
+    pct_servicios      NUMERIC(5,4) NOT NULL DEFAULT 0,
+    pct_otros          NUMERIC(5,4) NOT NULL DEFAULT 0,
+    fuente_referencia  VARCHAR(150),
+
+    CONSTRAINT chk_pct_total CHECK (
+        ROUND(
+            pct_alojamiento +
+            pct_transporte +
+            pct_alimentacion +
+            pct_actividades +
+            pct_servicios +
+            pct_otros,
+            4
+        ) = 1.0000
+    )
+);
+
+-- ============================================
+-- 2) Carga Tabla de Parametros INE para Costos
+-- ============================================
+INSERT INTO culturatrip.dim_parametros_presupuesto (
+    perfil_presupuesto,
+    pct_alojamiento,
+    pct_transporte,
+    pct_alimentacion,
+    pct_actividades,
+    pct_servicios,
+    pct_otros,
+    fuente_referencia
+)
+VALUES (
+    'standard',
+    0.35,
+    0.25,
+    0.12,
+    0.28,
+    0.00,
+    0.00,
+    'INE EGATUR'
+)
+ON CONFLICT (perfil_presupuesto) DO UPDATE
+SET
+    pct_alojamiento   = EXCLUDED.pct_alojamiento,
+    pct_transporte    = EXCLUDED.pct_transporte,
+    pct_alimentacion  = EXCLUDED.pct_alimentacion,
+    pct_actividades   = EXCLUDED.pct_actividades,
+    pct_servicios     = EXCLUDED.pct_servicios,
+    pct_otros         = EXCLUDED.pct_otros,
+    fuente_referencia = EXCLUDED.fuente_referencia;
+

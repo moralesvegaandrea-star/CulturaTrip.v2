@@ -61,6 +61,8 @@ CREATE TABLE culturatrip.fact_plan_viaje (
   -- Tipo de hospedaje viene de fact_alojamientos.categoria_alojamiento
   categoria_alojamiento VARCHAR(30) NOT NULL,
 
+  perfil_presupuesto VARCHAR(20) NOT NULL DEFAULT 'standard',
+
   created_at           TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
   CONSTRAINT chk_fechas_plan CHECK (fecha_regreso >= fecha_ida),
@@ -72,6 +74,10 @@ CREATE TABLE culturatrip.fact_plan_viaje (
   CONSTRAINT fk_plan_pais_destino
     FOREIGN KEY (id_pais_destino) REFERENCES culturatrip.dim_pais(id_pais)
     ON DELETE RESTRICT
+
+  CONSTRAINT fk_plan_perfil_presupuesto
+      FOREIGN KEY (perfil_presupuesto)
+      REFERENCES culturatrip.dim_parametros_presupuesto(perfil_presupuesto)
 );
 
 CREATE INDEX IF NOT EXISTS idx_plan_email ON culturatrip.fact_plan_viaje (email_usuario);

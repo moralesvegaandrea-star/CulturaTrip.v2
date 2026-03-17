@@ -177,13 +177,6 @@ LEFT JOIN culturatrip.dim_geografia_municipio_osm g
 WHERE g.id_municipio IS NULL
 ORDER BY m.id_municipio;
 
---- Validar conteo rápido
-SELECT COUNT(*) AS municipios_sin_geo
-FROM culturatrip.vw_qa_municipios_sin_geo;
-
---- Ver ejemplos ---
-SELECT * FROM culturatrip.vw_qa_municipios_sin_geo LIMIT 20;
-
 -- Para Streamlit: % cobertura geo por país
 CREATE OR REPLACE VIEW culturatrip.vw_ui_geo_coverage_por_pais AS
 SELECT
