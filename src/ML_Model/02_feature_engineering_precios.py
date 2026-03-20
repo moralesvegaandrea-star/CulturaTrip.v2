@@ -40,7 +40,6 @@ input_path = os.path.join(ML_DIR, "df_precios_largo.csv")
 output_path = os.path.join(ML_DIR, "df_precios_features.csv")
 
 
-
 # ---------------------------------------------------------
 # 02.2 Cargar dataset en formato largo
 # ---------------------------------------------------------

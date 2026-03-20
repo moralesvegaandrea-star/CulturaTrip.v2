@@ -1,0 +1,2 @@
+modelo,MAE,RMSE,R2,best_cv_r2,best_params
+RandomForestRegressor_Optimizado,4.4957,11.9048,0.9824,0.9684,"{'max_depth': None, 'min_samples_leaf': 1, 'min_samples_split': 2, 'n_estimators': 100}"

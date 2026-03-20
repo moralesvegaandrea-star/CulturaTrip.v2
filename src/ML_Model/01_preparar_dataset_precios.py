@@ -40,6 +40,7 @@ input_path = os.path.join(CLEAN_DIR, "df_alojamientos.csv")
 output_dir = os.path.join(ML_DIR, "regresion_precios")
 output_path = os.path.join(ML_DIR,"df_precios_largo.csv")
 
+
 # ---------------------------------------------------------
 # 01.2 Cargar dataset base
 # ---------------------------------------------------------

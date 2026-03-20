@@ -14,8 +14,9 @@ from datetime import date, timedelta
 import requests
 from pathlib import Path
 
-import pandas as pd
+import ast
 import pickle
+import pandas as pd
 from pathlib import Path
 from sklearn.ensemble import RandomForestRegressor
 
@@ -44,6 +45,8 @@ input_path =  os.path.join(ML_DIR,"df_precios_features.csv")
 model_dir = BASE_DIR / "outputs" / "regresion_precios" / "modelos"
 model_path = model_dir / "random_forest_precio.pkl"
 features_path = model_dir / "features_modelo_precio.pkl"
+metricas_rf_path = os.path.join(ML_DIR, "metricas_random_forest_optimizado.csv")
+
 
 model_dir.mkdir(parents=True, exist_ok=True)
 
@@ -81,22 +84,38 @@ y = df["precio"]
 
 
 # ---------------------------------------------------------
-# 04.4 Crear y entrenar modelo final
+# 04.4 Cargar mejores hiperparámetros desde el paso 03
+# ---------------------------------------------------------
+
+print("\nLeyendo mejores hiperparámetros desde:")
+print(metricas_rf_path)
+
+df_metricas_rf = pd.read_csv(metricas_rf_path)
+
+best_params_str = df_metricas_rf.loc[0, "best_params"]
+best_params = ast.literal_eval(best_params_str)
+
+print("\nMejores hiperparámetros cargados:")
+print(best_params)
+
+
+# ---------------------------------------------------------
+# 04.5 Crear y entrenar modelo final optimizado
 # ---------------------------------------------------------
 
 modelo_final = RandomForestRegressor(
-    n_estimators=200,
+    **best_params,
     random_state=42,
     n_jobs=-1
 )
 
 modelo_final.fit(X, y)
 
-print("\nModelo entrenado correctamente.")
+print("\nModelo final optimizado entrenado correctamente.")
 
 
 # ---------------------------------------------------------
-# 04.5 Guardar modelo entrenado
+# 04.6 Guardar modelo entrenado
 # ---------------------------------------------------------
 
 with open(model_path, "wb") as archivo_modelo:
@@ -107,7 +126,7 @@ print(model_path)
 
 
 # ---------------------------------------------------------
-# 04.6 Guardar lista de features
+# 04.7 Guardar lista de features
 # ---------------------------------------------------------
 
 with open(features_path, "wb") as archivo_features:
