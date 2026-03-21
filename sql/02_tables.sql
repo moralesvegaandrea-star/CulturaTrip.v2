@@ -373,11 +373,11 @@ INSERT INTO culturatrip.dim_parametros_presupuesto (
 VALUES (
     'standard',
     0.35,
-    0.25,
+    0.10,
+    0.18,
     0.12,
-    0.28,
     0.00,
-    0.00,
+    0.25,
     'INE EGATUR'
 )
 ON CONFLICT (perfil_presupuesto) DO UPDATE
