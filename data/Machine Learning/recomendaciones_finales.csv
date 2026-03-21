@@ -1,0 +1,151 @@
+provincia_origen,provincia_recomendada,score,cluster
+a coruna,girona,0.805532847579722,3
+a coruna,santa cruz de tenerife,0.7890489159633368,3
+a coruna,murcia,0.7238065306612749,3
+albacete,badajoz,0.4805861841235885,3
+albacete,girona,0.4654547167241038,3
+albacete,santa cruz de tenerife,0.461287969492383,3
+alicante/alacant,illes balears,0.9397824524280967,1
+alicante/alacant,las palmas,0.862970256391963,1
+alicante/alacant,madrid,0.8565793261530578,1
+almeria,valladolid,0.5296927339568985,2
+almeria,salamanca,0.5117916297318446,2
+almeria,cordoba,0.4017326906576545,2
+araba/alava,jaen,0.6038256686576599,3
+araba/alava,girona,0.5963009650323865,3
+araba/alava,a coruna,0.5956517124959244,3
+asturias,ciudad real,0.5845434615819028,2
+asturias,la rioja,0.3346144097788246,2
+asturias,navarra,0.2136945698536782,2
+avila,palencia,0.7494996509825463,0
+avila,castellon/castello,0.6079750911364723,0
+avila,huelva,0.5999473860875996,0
+badajoz,caceres,0.7782704239519579,3
+badajoz,albacete,0.4805861841235885,3
+badajoz,girona,0.3320159335146461,3
+barcelona,valencia/valencia,0.9532417654106938,1
+barcelona,madrid,0.9439901881667837,1
+barcelona,zaragoza,0.9147808323264642,1
+bizkaia,valencia/valencia,0.806840763231817,1
+bizkaia,illes balears,0.7814135937973149,1
+bizkaia,tarragona,0.7614604101015623,1
+burgos,teruel,0.7472491151335345,0
+burgos,castellon/castello,0.7145510231405979,0
+burgos,huelva,0.6994863979271282,0
+caceres,badajoz,0.7782704239519579,3
+caceres,gipuzkoa,0.689052119128079,3
+caceres,a coruna,0.5452503601450401,3
+cadiz,santa cruz de tenerife,0.7243793162230991,3
+cadiz,murcia,0.7155727540219539,3
+cadiz,girona,0.5762327167016328,3
+cantabria,cuenca,0.6858319036246293,0
+cantabria,lugo,0.6494709665377035,0
+cantabria,burgos,0.6283525219377848,0
+castellon/castello,huelva,0.8202472950652162,0
+castellon/castello,guadalajara,0.8138161279010427,0
+castellon/castello,burgos,0.7145510231405979,0
+ciudad real,asturias,0.5845434615819028,2
+ciudad real,lleida,0.5735277716878482,2
+ciudad real,leon,0.25813439581854564,2
+cordoba,lleida,0.6270568975443007,2
+cordoba,almeria,0.4017326906576545,2
+cordoba,leon,0.23100103378097062,2
+cuenca,cantabria,0.6858319036246293,0
+cuenca,lugo,0.6804750655032951,0
+cuenca,burgos,0.6387680317847871,0
+gipuzkoa,caceres,0.689052119128079,3
+gipuzkoa,a coruna,0.6041270017854957,3
+gipuzkoa,jaen,0.511542371444749,3
+girona,santa cruz de tenerife,0.8600072626263288,3
+girona,a coruna,0.805532847579722,3
+girona,araba/alava,0.5963009650323865,3
+granada,santa cruz de tenerife,0.643511119583014,3
+granada,araba/alava,0.5398203245812117,3
+granada,girona,0.5184530285289016,3
+guadalajara,soria,0.8924851053699656,0
+guadalajara,castellon/castello,0.8138161279010427,0
+guadalajara,huelva,0.7842021118252028,0
+huelva,castellon/castello,0.8202472950652162,0
+huelva,guadalajara,0.7842021118252028,0
+huelva,lugo,0.7266004553666686,0
+huesca,lleida,0.4060448239590662,2
+huesca,zamora,0.29750672594554645,2
+huesca,almeria,0.2453553888504772,2
+illes balears,alicante/alacant,0.9397824524280967,1
+illes balears,zaragoza,0.9029467245116592,1
+illes balears,tarragona,0.901368332344008,1
+jaen,araba/alava,0.6038256686576599,3
+jaen,gipuzkoa,0.511542371444749,3
+jaen,a coruna,0.423623039177523,3
+la rioja,zamora,0.5738283799976509,2
+la rioja,navarra,0.475575791461296,2
+la rioja,asturias,0.3346144097788246,2
+las palmas,alicante/alacant,0.862970256391963,1
+las palmas,zaragoza,0.7977536650869574,1
+las palmas,sevilla,0.7629543811078782,1
+leon,lleida,0.4823370752316423,2
+leon,navarra,0.2854253273523393,2
+leon,ciudad real,0.25813439581854564,2
+lleida,cordoba,0.6270568975443007,2
+lleida,ciudad real,0.5735277716878482,2
+lleida,leon,0.4823370752316423,2
+lugo,huelva,0.7266004553666686,0
+lugo,burgos,0.6817483346533899,0
+lugo,cuenca,0.6804750655032951,0
+madrid,valencia/valencia,0.9440610529014757,1
+madrid,barcelona,0.9439901881667837,1
+madrid,illes balears,0.8870582201116647,1
+malaga,alicante/alacant,0.7659914358314546,1
+malaga,illes balears,0.7498645906790858,1
+malaga,zaragoza,0.7360100363930128,1
+murcia,a coruna,0.7238065306612749,3
+murcia,santa cruz de tenerife,0.7205388339847343,3
+murcia,cadiz,0.7155727540219539,3
+navarra,la rioja,0.475575791461296,2
+navarra,zamora,0.36337938692773397,2
+navarra,leon,0.2854253273523393,2
+ourense,soria,0.7680982082419215,0
+ourense,guadalajara,0.6793646184142388,0
+ourense,burgos,0.6086404263793559,0
+palencia,teruel,0.8629697836198815,0
+palencia,avila,0.7494996509825463,0
+palencia,burgos,0.6371539520275986,0
+pontevedra,a coruna,0.5748829707614243,3
+pontevedra,murcia,0.45516895524172196,3
+pontevedra,santa cruz de tenerife,0.29574341118331665,3
+salamanca,almeria,0.5117916297318446,2
+salamanca,valladolid,0.5079745539108048,2
+salamanca,cordoba,0.22231348623376915,2
+santa cruz de tenerife,girona,0.8600072626263288,3
+santa cruz de tenerife,a coruna,0.7890489159633368,3
+santa cruz de tenerife,cadiz,0.7243793162230991,3
+segovia,teruel,0.7506044463693669,0
+segovia,palencia,0.6360275430568667,0
+segovia,ourense,0.5972688753092216,0
+sevilla,illes balears,0.8805404496747335,1
+sevilla,zaragoza,0.8482799322233194,1
+sevilla,alicante/alacant,0.8439896985903674,1
+soria,guadalajara,0.8924851053699656,0
+soria,ourense,0.7680982082419215,0
+soria,castellon/castello,0.6737876590486703,0
+tarragona,illes balears,0.901368332344008,1
+tarragona,alicante/alacant,0.8410489176058087,1
+tarragona,valencia/valencia,0.8407697923427864,1
+teruel,palencia,0.8629697836198815,0
+teruel,segovia,0.7506044463693669,0
+teruel,burgos,0.7472491151335345,0
+toledo,lugo,0.6733336471444505,0
+toledo,huelva,0.593898863827219,0
+toledo,cuenca,0.5375544890594377,0
+valencia/valencia,barcelona,0.9532417654106938,1
+valencia/valencia,madrid,0.9440610529014757,1
+valencia/valencia,illes balears,0.8981145720111128,1
+valladolid,almeria,0.5296927339568985,2
+valladolid,salamanca,0.5079745539108048,2
+valladolid,lleida,0.039335956219562686,2
+zamora,la rioja,0.5738283799976509,2
+zamora,navarra,0.36337938692773397,2
+zamora,huesca,0.29750672594554645,2
+zaragoza,barcelona,0.9147808323264642,1
+zaragoza,illes balears,0.9029467245116592,1
+zaragoza,valencia/valencia,0.8949314761489408,1
