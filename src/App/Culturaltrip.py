@@ -6,6 +6,8 @@ import os
 from sqlalchemy import create_engine, text
 from datetime import date
 import math
+import joblib
+import numpy as np
 
 @st.cache_resource(show_spinner=False)
 def get_engine():
@@ -205,11 +207,6 @@ def obtener_temporada_por_fecha(fecha, df_temporada):
 
     return row["temporada"].iloc[0]
 
-
-
-
-
-
 # =========================
 # Loader para DB dim_pais
 # =========================
@@ -228,6 +225,28 @@ def load_view(view_name: str) -> pd.DataFrame:
     engine = get_engine()
     q = text(f"SELECT * FROM culturatrip.{view_name};")
     return pd.read_sql(q, engine)
+
+# =========================
+# Loader modelo ML avanzado
+# =========================
+@st.cache_resource(show_spinner=False)
+def load_modelo_avanzado():
+    base_dir = Path(__file__).resolve().parents[2]
+    model_path = base_dir / "outputs" / "regresion_precios" /"modelos"/ "modelo_avanzado_ridge_score_final.pkl"
+    features_path = base_dir / "outputs" / "regresion_precios" /"modelos"/ "features_modelo_avanzado_ridge.pkl"
+
+    modelo = joblib.load(model_path)
+
+    with open(features_path, "rb") as f:
+        features = joblib.load(f) if str(features_path).endswith(".joblib") else None
+
+    # fallback seguro para pickle clásico
+    if features is None:
+        import pickle
+        with open(features_path, "rb") as f:
+            features = pickle.load(f)
+
+    return modelo, features
 
 # =========================
 # Configuración de la página
@@ -376,6 +395,8 @@ df_dropdown_cat_act = load_view("vw_ui_dropdown_categoria_actividad")
 df_rec_act = load_view("vw_rec_actividades_por_provincia")
 df_rec_aloj = load_view("vw_rec_alojamiento_precio_provincia")
 
+# Views de Machine Learning pantalla_2
+df_ml_avanzado_base = load_view("vw_ml_avanzado_base_provincia")
 
 # Views para la pantalla_3 y pantalla_4
 
@@ -578,6 +599,188 @@ df_paises_ui = (
 map_paisui_a_id = dict(zip(df_paises_ui["pais_ui"], df_paises_ui["id_pais"]))
 lista_paises_ui = sorted(df_paises_ui["pais_ui"].tolist())
 
+# =========================
+# Helpers ML avanzado pantalla_2
+# Funciones auxiliares para el modelo
+# =========================
+def calcular_noches_tipo_dia(fecha_ida, fecha_regreso):
+    """
+    fecha_regreso debe ser posterior a fecha_ida.
+    Cuenta noches entre fecha_ida y fecha_regreso - 1.
+    Viernes=4, sábado=5 como noches fin de semana.
+    """
+    if fecha_ida is None or fecha_regreso is None or fecha_regreso <= fecha_ida:
+        return 0, 0, 0
+
+    fechas_noche = pd.date_range(start=fecha_ida, end=fecha_regreso - pd.Timedelta(days=1), freq="D")
+    noches_totales = len(fechas_noche)
+    noches_fin_semana = int(sum(f.weekday() in [4, 5] for f in fechas_noche))
+    noches_semana = noches_totales - noches_fin_semana
+
+    return noches_totales, noches_semana, noches_fin_semana
+
+
+def construir_features_modelo_avanzado(
+    df_base: pd.DataFrame,
+    id_pais_destino: str,
+    fecha_ida,
+    fecha_regreso,
+    presupuesto_usuario: float,
+    feature_names: list
+) -> pd.DataFrame:
+    """
+    Construye las 4 features del modelo avanzado para cada provincia candidata.
+    """
+
+    if df_base.empty or not id_pais_destino:
+        return pd.DataFrame()
+
+    candidatos = df_base[df_base["id_pais"] == id_pais_destino].copy()
+
+    if candidatos.empty:
+        return pd.DataFrame()
+
+    noches_totales, noches_semana, noches_fin_semana = calcular_noches_tipo_dia(
+        pd.to_datetime(fecha_ida),
+        pd.to_datetime(fecha_regreso)
+    )
+
+    dias_viaje = (pd.to_datetime(fecha_regreso) - pd.to_datetime(fecha_ida)).days + 1
+    dias_viaje = max(dias_viaje, 1)
+
+    # Estimación de alojamiento por provincia
+    candidatos["alojamiento_estimado"] = (
+        candidatos["precio_noche_semana"].fillna(0) * noches_semana
+        + candidatos["precio_noche_fin_semana"].fillna(0) * noches_fin_semana
+    ).round(2)
+
+    # Para este modelo, como no hay input de categorías, usamos una aproximación base:
+    # número de actividades sugeridas = min(días de viaje, n_actividades disponibles)
+    candidatos["n_actividades_modelo"] = candidatos["n_actividades"].fillna(0).astype(int).clip(lower=0)
+    candidatos["n_actividades_modelo"] = candidatos["n_actividades_modelo"].apply(
+        lambda x: min(x, dias_viaje)
+    )
+
+    # Costo base de actividades
+    candidatos["actividades_estimado"] = (
+        candidatos["precio_actividad_promedio"].fillna(0)
+        * candidatos["n_actividades_modelo"]
+    ).round(2)
+
+    # Componentes del presupuesto por perfil standard
+    candidatos["transporte_estimado"] = (presupuesto_usuario * candidatos["pct_transporte"].fillna(0)).round(2)
+    candidatos["alimentacion_estimado"] = (presupuesto_usuario * candidatos["pct_alimentacion"].fillna(0)).round(2)
+    candidatos["servicios_estimado"] = (presupuesto_usuario * candidatos["pct_servicios"].fillna(0)).round(2)
+    candidatos["otros_estimado"] = (presupuesto_usuario * candidatos["pct_otros"].fillna(0)).round(2)
+
+    # Costo total estimado del viaje para cada provincia
+    candidatos["costo_total_viaje"] = (
+        candidatos["alojamiento_estimado"]
+        + candidatos["actividades_estimado"]
+        + candidatos["transporte_estimado"]
+        + candidatos["alimentacion_estimado"]
+        + candidatos["servicios_estimado"]
+        + candidatos["otros_estimado"]
+    ).round(2)
+
+    # Ratios
+    candidatos["ratio_alojamiento"] = np.where(
+        candidatos["costo_total_viaje"] > 0,
+        candidatos["alojamiento_estimado"] / candidatos["costo_total_viaje"],
+        0
+    )
+
+    candidatos["ratio_actividades"] = np.where(
+        candidatos["costo_total_viaje"] > 0,
+        candidatos["actividades_estimado"] / candidatos["costo_total_viaje"],
+        0
+    )
+
+    # Nombre exacto esperado por el modelo
+    candidatos["n_actividades"] = candidatos["n_actividades_modelo"].astype(float)
+
+    # DataFrame final para predicción
+    X = candidatos[feature_names].copy()
+
+    # Limpieza final
+    X = X.replace([np.inf, -np.inf], 0).fillna(0)
+
+    # Adjuntar al dataset original
+    for col in feature_names:
+        candidatos[col] = X[col]
+
+    return candidatos
+
+
+def generar_top5_provincias_modelo_avanzado(
+    df_base: pd.DataFrame,
+    id_pais_destino: str,
+    fecha_ida,
+    fecha_regreso,
+    presupuesto_usuario: float
+) -> pd.DataFrame:
+    modelo, feature_names = load_modelo_avanzado()
+
+    candidatos = construir_features_modelo_avanzado(
+        df_base=df_base,
+        id_pais_destino=id_pais_destino,
+        fecha_ida=fecha_ida,
+        fecha_regreso=fecha_regreso,
+        presupuesto_usuario=presupuesto_usuario,
+        feature_names=feature_names
+    )
+
+    if candidatos.empty:
+        return pd.DataFrame()
+
+    X_pred = candidatos[feature_names].copy()
+    candidatos["score_modelo"] = modelo.predict(X_pred)
+
+    # Métrica de ajuste al presupuesto
+    candidatos["diferencia_presupuesto"] = (
+        presupuesto_usuario - candidatos["costo_total_viaje"]
+    ).round(2)
+
+    candidatos["abs_diferencia_presupuesto"] = candidatos["diferencia_presupuesto"].abs()
+
+    # Ranking:
+    # 1) score alto
+    # 2) más cerca del presupuesto
+    # 3) menor costo si persiste empate
+    ranking = candidatos.sort_values(
+        by=["score_modelo", "abs_diferencia_presupuesto", "costo_total_viaje"],
+        ascending=[False, True, True]
+    ).copy()
+
+    ranking["ranking"] = range(1, len(ranking) + 1)
+
+    columnas_salida = [
+        "ranking",
+        "id_provincia",
+        "provincia_nombre",
+        "score_modelo",
+        "costo_total_viaje",
+        "diferencia_presupuesto",
+        "n_actividades",
+        "ratio_alojamiento",
+        "ratio_actividades",
+        "alojamiento_estimado",
+        "actividades_estimado",
+        "transporte_estimado",
+        "alimentacion_estimado",
+        "servicios_estimado",
+        "otros_estimado",
+    ]
+
+    return ranking[columnas_salida].head(5)
+
+
+
+
+
+
+
+
 
 # ===============================
 # Pantalla 1
@@ -747,15 +950,17 @@ def pantalla_1():
 # ===============================
 def pantalla_2():
         st.header("🧭 Planifica tu viaje")
-
         st.caption("Completa la información base del viaje para construir el plan y estimar costos.")
 
-        colA, colB = st.columns(2)
+        col_left, col_right = st.columns([1, 1], gap="large")
 
         # ===============================
-        # Columna izquierda
+        # COLUMNA IZQUIERDA
         # ===============================
-        with colA:
+        with col_left:
+            # -------------------------------
+            # ORIGEN Y DESTINO
+            # -------------------------------
             st.subheader("Origen y destino")
 
             st.selectbox(
@@ -803,40 +1008,91 @@ def pantalla_2():
                 st.session_state["id_pais"] = map_paisui_a_id.get(pais_destino_ui)
                 st.session_state["plan_guardado"] = False
 
-            id_pais_destino = st.session_state.get("id_pais")
+            st.divider()
 
-            st.subheader("Provincia destino")
+            # -------------------------------
+            # MACHINE LEARNING
+            # -------------------------------
+            st.subheader("🤖 Top 5 provincias recomendadas por Machine Learning")
 
-            if id_pais_destino:
-                df_prov = df_dropdown_provincias[
-                    df_dropdown_provincias["id_pais"] == id_pais_destino
-                    ].copy()
+            id_pais_destino_ml = st.session_state.get("id_pais")
+            fecha_ida_ml = st.session_state.get("fecha_ida")
+            fecha_regreso_ml = st.session_state.get("fecha_regreso")
+            presupuesto_ml = float(st.session_state.get("presupuesto", 0) or 0)
 
-                lista_prov = sorted(df_prov["provincia_nombre"].dropna().unique().tolist())
+            fechas_validas_ml = (
+                    fecha_ida_ml is not None
+                    and fecha_regreso_ml is not None
+                    and fecha_regreso_ml > fecha_ida_ml
+            )
 
-                provincia_ui = st.selectbox(
-                    "Selecciona provincia",
-                    options=lista_prov,
-                    index=lista_prov.index(st.session_state["provincia_destino"])
-                    if st.session_state["provincia_destino"] in lista_prov else None,
-                    placeholder="— Selecciona provincia —",
-                    key="provincia_destino_ui"
-                )
+            condiciones_ml_ok = (
+                    bool(id_pais_destino_ml)
+                    and fechas_validas_ml
+                    and presupuesto_ml > 0
+            )
 
-                if provincia_ui:
-                    st.session_state["provincia_destino"] = provincia_ui
-                    st.session_state["plan_guardado"] = False
-
-                    row = df_prov[df_prov["provincia_nombre"] == provincia_ui].head(1)
-                    if not row.empty:
-                        st.session_state["id_provincia_destino"] = row["id_provincia"].iloc[0]
+            if not condiciones_ml_ok:
+                st.info("Completa país destino, fechas y presupuesto para ver recomendaciones.")
             else:
-                st.info("Selecciona primero un país destino.")
+                try:
+                    df_top5_ml = generar_top5_provincias_modelo_avanzado(
+                        df_base=df_ml_avanzado_base,
+                        id_pais_destino=id_pais_destino_ml,
+                        fecha_ida=fecha_ida_ml,
+                        fecha_regreso=fecha_regreso_ml,
+                        presupuesto_usuario=presupuesto_ml
+                    )
+
+                    if df_top5_ml.empty:
+                        st.warning("No se encontraron provincias candidatas para ese país destino.")
+                    else:
+                        mejor = df_top5_ml.iloc[0]
+
+                        st.success(
+                            f"Provincia recomendada principal: {mejor['provincia_nombre']}"
+                        )
+
+                        # Guardar recomendación principal
+                        st.session_state["provincia_destino"] = mejor["provincia_nombre"]
+                        st.session_state["id_provincia_destino"] = mejor["id_provincia"]
+
+                        # Tabla pequeña solicitada
+                        df_simple = df_top5_ml[[
+                            "ranking",
+                            "provincia_nombre",
+                            "n_actividades"
+                        ]].copy()
+
+                        df_simple["n_actividades"] = (
+                            df_simple["n_actividades"]
+                            .fillna(0)
+                            .astype(int)
+                        )
+
+                        df_simple = df_simple.rename(columns={
+                            "ranking": "Top",
+                            "provincia_nombre": "Provincia",
+                            "n_actividades": "N.º actividades"
+                        })
+
+                        st.dataframe(
+                            df_simple,
+                            use_container_width=True,
+                            hide_index=True,
+                            height=220
+                        )
+
+                except Exception as e:
+                    st.error(f"No fue posible generar las recomendaciones ML: {e}")
 
         # ===============================
-        # Columna derecha
+        # COLUMNA DERECHA
         # ===============================
-        with colB:
+        with col_right:
+            # -------------------------------
+            # DETALLES DEL VIAJE
+            # -------------------------------
             st.subheader("Detalles del viaje")
 
             email = st.text_input(
@@ -849,14 +1105,19 @@ def pantalla_2():
                 st.session_state["email"] = email
                 st.session_state["plan_guardado"] = False
 
+            fecha_ida_default = st.session_state["fecha_ida"] if st.session_state[
+                                                                     "fecha_ida"] is not None else date.today()
+            fecha_regreso_default = st.session_state["fecha_regreso"] if st.session_state[
+                                                                             "fecha_regreso"] is not None else date.today()
+
             fecha_ida = st.date_input(
                 "Fecha de ida",
-                value=st.session_state["fecha_ida"],
+                value=fecha_ida_default,
                 key="fecha_ida_input"
             )
             fecha_regreso = st.date_input(
                 "Fecha de regreso",
-                value=st.session_state["fecha_regreso"],
+                value=fecha_regreso_default,
                 key="fecha_regreso_input"
             )
 
@@ -895,6 +1156,43 @@ def pantalla_2():
             st.session_state["presupuesto"] = presupuesto
             st.session_state["plan_guardado"] = False
 
+            st.divider()
+
+            # -------------------------------
+            # PREFERENCIAS DEL USUARIO
+            # -------------------------------
+            st.subheader("Preferencias del usuario")
+
+            id_pais_destino = st.session_state.get("id_pais")
+
+            if id_pais_destino:
+                df_prov = df_dropdown_provincias[
+                    df_dropdown_provincias["id_pais"] == id_pais_destino
+                    ].copy()
+
+                lista_prov = sorted(df_prov["provincia_nombre"].dropna().unique().tolist())
+
+                provincia_actual = st.session_state.get("provincia_destino")
+                index_prov = lista_prov.index(provincia_actual) if provincia_actual in lista_prov else None
+
+                provincia_ui = st.selectbox(
+                    "Provincia destino",
+                    options=lista_prov,
+                    index=index_prov,
+                    placeholder="— Selecciona provincia —",
+                    key="provincia_destino_ui"
+                )
+
+                if provincia_ui:
+                    st.session_state["provincia_destino"] = provincia_ui
+                    st.session_state["plan_guardado"] = False
+
+                    row = df_prov[df_prov["provincia_nombre"] == provincia_ui].head(1)
+                    if not row.empty:
+                        st.session_state["id_provincia_destino"] = row["id_provincia"].iloc[0]
+            else:
+                st.info("Selecciona primero un país destino.")
+
             lista_aloj = sorted(
                 df_dropdown_cat_aloj["categoria_alojamiento"].dropna().unique().tolist()
             )
@@ -912,7 +1210,6 @@ def pantalla_2():
                 st.session_state["categoria_alojamiento"] = tipo_aloj
                 st.session_state["plan_guardado"] = False
 
-            st.divider()
             st.subheader("Preferencias de actividades")
 
             lista_act = sorted(
@@ -947,7 +1244,6 @@ def pantalla_2():
                         )
 
             st.session_state["cantidades_actividad"] = nuevas_cantidades
-
 
         st.divider()
         st.subheader("✅ Guardar / aprobar plan")
