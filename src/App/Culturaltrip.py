@@ -8,6 +8,8 @@ from datetime import date
 import math
 import joblib
 import numpy as np
+import pickle
+from sklearn.metrics.pairwise import cosine_similarity
 
 @st.cache_resource(show_spinner=False)
 def get_engine():
@@ -248,6 +250,41 @@ def load_modelo_avanzado():
 
     return modelo, features
 
+# ===============================
+# Loader modelo ML no supervisado_Pantalla_2
+# ===============================
+@st.cache_resource(show_spinner=False)
+def load_modelo_no_supervisado():
+
+    base_dir = Path(__file__).resolve().parents[2]
+
+    scaler_path = base_dir /"outputs" / "regresion_precios" /"modelos"/ "scaler.pkl"
+    kmeans_path = base_dir / "outputs" / "regresion_precios" /"modelos"/ "kmeans_model.pkl"
+
+    # ===============================
+    # Cargar scaler
+    # ===============================
+    scaler = joblib.load(scaler_path)
+
+    # fallback seguro
+    if scaler is None:
+        import pickle
+        with open(scaler_path, "rb") as f:
+            scaler = pickle.load(f)
+
+    # ===============================
+    # Cargar kmeans
+    # ===============================
+    kmeans = joblib.load(kmeans_path)
+
+    # fallback seguro
+    if kmeans is None:
+        import pickle
+        with open(kmeans_path, "rb") as f:
+            kmeans = pickle.load(f)
+
+    return scaler, kmeans
+
 # =========================
 # Configuración de la página
 # =========================
@@ -397,6 +434,7 @@ df_rec_aloj = load_view("vw_rec_alojamiento_precio_provincia")
 
 # Views de Machine Learning pantalla_2
 df_ml_avanzado_base = load_view("vw_ml_avanzado_base_provincia")
+df_ml_no_supervisado_base = load_view("vw_ml_no_supervisado_base_provincia")
 
 # Views para la pantalla_3 y pantalla_4
 
@@ -456,9 +494,13 @@ def init_state():
         "pais_origen": None,        # nombre UI
         "id_pais_origen": None,     # código
 
-        # Provincia destino (Pantalla 2)
-        "provincia_destino": None,     # nombre provincia
-        "id_provincia_destino": None,  # VARCHAR(2)
+        # Provincia seleccionada por la usuaria
+        "provincia_destino": None,
+        "id_provincia_destino": None,
+
+        # Provincia recomendada por ML avanzado
+        "provincia_ml_recomendada": None,
+        "id_provincia_ml_recomendada": None,
 
         # Usuario/correo
         "email": "",
@@ -712,6 +754,9 @@ def construir_features_modelo_avanzado(
     return candidatos
 
 
+    # ===============================
+    # TOP 5 provincias similares
+    # ===============================
 def generar_top5_provincias_modelo_avanzado(
     df_base: pd.DataFrame,
     id_pais_destino: str,
@@ -774,13 +819,171 @@ def generar_top5_provincias_modelo_avanzado(
 
     return ranking[columnas_salida].head(5)
 
+def obtener_top5_provincias_similares(
+    df_base: pd.DataFrame,
+    id_provincia_seleccionada: str
+) -> pd.DataFrame:
+    """
+    Devuelve top 5 provincias similares a la provincia seleccionada
+    usando scaler + kmeans + similitud coseno dentro del mismo cluster.
+    """
 
+    if df_base.empty or not id_provincia_seleccionada:
+        return pd.DataFrame()
 
+    df = df_base.copy()
 
+    # Renombrar columnas SQL al naming exacto del entrenamiento
+    df = df.rename(columns={
+        "cnt_comida_bebida": "cnt_comida y bebida",
+        "cnt_servicios": "cnt_servicios",
+        "cnt_vida_nocturna": "cnt_vida nocturna",
+        "cnt_paisaje_naturaleza": "cnt_paisaje naturaleza",
+        "cnt_paisaje_urbano": "cnt_paisaje urbano",
+        "cnt_compras": "cnt_compras",
+        "cnt_otros": "cnt_otros",
+        "prop_comida_bebida": "pct_comida y bebida",
+        "prop_servicios": "pct_servicios",
+        "prop_vida_nocturna": "pct_vida nocturna",
+        "prop_paisaje_naturaleza": "pct_paisaje naturaleza",
+        "prop_paisaje_urbano": "pct_paisaje urbano",
+        "prop_compras": "pct_compras",
+        "prop_otros": "pct_otros"
+    })
 
+    scaler, kmeans = load_modelo_no_supervisado()
 
+    # Tomar el orden REAL de features desde el scaler
+    if hasattr(scaler, "feature_names_in_"):
+        feature_cols_no_sup = list(scaler.feature_names_in_)
+    else:
+        raise ValueError(
+            "El scaler no contiene feature_names_in_. "
+            "Debes guardar también el listado de features del entrenamiento."
+        )
 
+    faltantes = [c for c in feature_cols_no_sup if c not in df.columns]
+    if faltantes:
+        raise ValueError(
+            f"Faltan columnas requeridas por el scaler: {faltantes}"
+        )
 
+    # Asegurar mismo orden exacto
+    X = df.loc[:, feature_cols_no_sup].copy()
+
+    for col in feature_cols_no_sup:
+        X[col] = pd.to_numeric(X[col], errors="coerce").fillna(0)
+
+    X_scaled = scaler.transform(X)
+
+    df["cluster"] = kmeans.predict(X_scaled)
+
+    fila_origen = df[df["id_provincia"].astype(str) == str(id_provincia_seleccionada)].copy()
+    if fila_origen.empty:
+        return pd.DataFrame()
+
+    cluster_origen = fila_origen.iloc[0]["cluster"]
+    idx_origen = fila_origen.index[0]
+
+    df_cluster = df[df["cluster"] == cluster_origen].copy()
+    idx_cluster = df_cluster.index.tolist()
+
+    if idx_origen not in idx_cluster:
+        return pd.DataFrame()
+
+    X_cluster = X_scaled[idx_cluster]
+    pos_origen_local = idx_cluster.index(idx_origen)
+
+    similitudes = cosine_similarity(
+        X_cluster[pos_origen_local].reshape(1, -1),
+        X_cluster
+    )[0]
+
+    df_cluster["score_similitud"] = similitudes
+
+    df_cluster = df_cluster[
+        df_cluster["id_provincia"].astype(str) != str(id_provincia_seleccionada)
+    ].copy()
+
+    if df_cluster.empty:
+        return pd.DataFrame()
+
+    top5 = (
+        df_cluster.sort_values(
+            by=["score_similitud", "provincia_nombre"],
+            ascending=[False, True]
+        )
+        .head(5)
+        .copy()
+    )
+
+    top5["ranking"] = range(1, len(top5) + 1)
+    top5["score_similitud"] = top5["score_similitud"].round(4)
+
+    return top5[
+        [
+            "ranking",
+            "id_provincia",
+            "provincia_nombre",
+            "cluster",
+            "score_similitud",
+            "total_actividades",
+            "categorias_unicas",
+            "valoracion_general_promedio"
+        ]
+    ]
+def mostrar_top5_provincias_similares(
+    df_base: pd.DataFrame,
+    id_provincia_seleccionada: str,
+    provincia_nombre_seleccionada: str
+):
+    st.subheader("🔎 Top 5 provincias con características similares")
+    st.caption(
+        f"Basado en clustering no supervisado para la provincia seleccionada: {provincia_nombre_seleccionada}"
+    )
+
+    if not id_provincia_seleccionada:
+        st.info("Selecciona una provincia destino para ver provincias similares.")
+        return
+
+    try:
+        df_top5 = obtener_top5_provincias_similares(
+            df_base=df_base,
+            id_provincia_seleccionada=id_provincia_seleccionada
+        )
+
+        if df_top5.empty:
+            st.info("No se encontraron provincias similares para la provincia seleccionada.")
+            return
+
+        df_simple = df_top5[
+            [
+                "ranking",
+                "provincia_nombre",
+                "score_similitud",
+                "total_actividades"
+            ]
+        ].copy()
+
+        df_simple["score_similitud"] = df_simple["score_similitud"].round(4)
+        df_simple["total_actividades"] = df_simple["total_actividades"].fillna(0).astype(int)
+
+        df_simple = df_simple.rename(columns={
+            "ranking": "Top",
+            "provincia_nombre": "Provincia similar",
+            "score_similitud": "Similitud",
+            "total_actividades": "N.º actividades"
+        })
+
+        st.dataframe(
+            df_simple,
+            use_container_width=True,
+            hide_index=True,
+            height=220
+        )
+
+    except Exception as e:
+        st.warning(f"No fue posible calcular provincias similares: {e}")
 
 # ===============================
 # Pantalla 1
@@ -1053,9 +1256,20 @@ def pantalla_2():
                             f"Provincia recomendada principal: {mejor['provincia_nombre']}"
                         )
 
-                        # Guardar recomendación principal
-                        st.session_state["provincia_destino"] = mejor["provincia_nombre"]
-                        st.session_state["id_provincia_destino"] = mejor["id_provincia"]
+                        score_principal = float(mejor["score_modelo"])
+
+                        if score_principal >= 0:
+                            badge = "🟢 Alta compatibilidad"
+                        elif score_principal >= -3:
+                            badge = "🟡 Compatibilidad media"
+                        else:
+                            badge = "🔴 Baja compatibilidad"
+
+                        st.caption(f"Nivel de compatibilidad: {badge}")
+
+                        # Guardar recomendación principal ML sin sobreescribir la selección manual
+                        st.session_state["provincia_ml_recomendada"] = mejor["provincia_nombre"]
+                        st.session_state["id_provincia_ml_recomendada"] = mejor["id_provincia"]
 
                         # Tabla pequeña solicitada
                         df_simple = df_top5_ml[[
@@ -1064,11 +1278,7 @@ def pantalla_2():
                             "n_actividades"
                         ]].copy()
 
-                        df_simple["n_actividades"] = (
-                            df_simple["n_actividades"]
-                            .fillna(0)
-                            .astype(int)
-                        )
+                        df_simple["n_actividades"] = df_simple["n_actividades"].fillna(0).astype(int)
 
                         df_simple = df_simple.rename(columns={
                             "ranking": "Top",
@@ -1085,6 +1295,27 @@ def pantalla_2():
 
                 except Exception as e:
                     st.error(f"No fue posible generar las recomendaciones ML: {e}")
+
+            st.divider()
+
+            # -------------------------------
+            # MODELO NO SUPERVISADO
+            # -------------------------------
+            provincia_actual_ns = st.session_state.get("provincia_destino")
+            id_provincia_actual_ns = st.session_state.get("id_provincia_destino")
+
+            mostrar_top5_provincias_similares(
+                df_base=df_ml_no_supervisado_base,
+                id_provincia_seleccionada=id_provincia_actual_ns,
+                provincia_nombre_seleccionada=provincia_actual_ns if provincia_actual_ns else "—"
+            )
+
+
+
+
+
+
+
 
         # ===============================
         # COLUMNA DERECHA
