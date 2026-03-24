@@ -285,6 +285,33 @@ def load_modelo_no_supervisado():
 
     return scaler, kmeans
 
+# ===============================
+# Loader modelo ML supervisado alojamiento_Pantalla_3
+# ===============================
+@st.cache_resource(show_spinner=False)
+def load_modelo_alojamiento():
+    base_dir = Path(__file__).resolve().parents[2]
+
+    model_path = base_dir / "outputs" / "regresion_precios" / "modelos" / "random_forest_precio.pkl"
+    features_path = base_dir / "outputs" / "regresion_precios" / "modelos" / "features_modelo_precio.pkl"
+
+    modelo = joblib.load(model_path)
+
+    # fallback seguro para features
+    features = None
+    try:
+        with open(features_path, "rb") as f:
+            features = joblib.load(f) if str(features_path).endswith(".joblib") else None
+    except Exception:
+        features = None
+
+    if features is None:
+        import pickle
+        with open(features_path, "rb") as f:
+            features = pickle.load(f)
+
+    return modelo, features
+
 # =========================
 # Configuración de la página
 # =========================
@@ -437,11 +464,11 @@ df_ml_avanzado_base = load_view("vw_ml_avanzado_base_provincia")
 df_ml_no_supervisado_base = load_view("vw_ml_no_supervisado_base_provincia")
 
 # Views para la pantalla_3 y pantalla_4
-
 df_plan_resumen = load_view("vw_plan_resumen_basico")
 df_plan_costos = load_view("vw_plan_costos_estimados")
 df_plan_presupuesto_cat = load_view("vw_plan_presupuesto_categoria")
 df_temporada_mes = load_view("vw_temporada_por_mes")
+df_ml_alojamiento_features = load_view("vw_ml_alojamiento_features_plan")
 
 
 # Views para la pantalla_5
@@ -985,6 +1012,202 @@ def mostrar_top5_provincias_similares(
     except Exception as e:
         st.warning(f"No fue posible calcular provincias similares: {e}")
 
+# =========================
+# Helper para formato moneda
+# =========================
+def format_eur(valor):
+    try:
+        return f"€{float(valor):,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+    except Exception:
+        return "€0,00"
+# =========================
+# Helper para pantalla_3
+# Predicción ML alojamiento por plan
+# =========================
+def predecir_costo_alojamiento_ml(id_plan: int, df_features_plan: pd.DataFrame) -> dict:
+    resultado_default = {
+        "ok": False,
+        "presupuesto_alojamiento_ine": 0.0,
+        "precio_noche_semana_ml": 0.0,
+        "precio_noche_fin_semana_ml": 0.0,
+        "alojamiento_ml_estimado": 0.0,
+        "diferencia_alojamiento_ml": 0.0,
+        "alcanza_alojamiento": False,
+        "mensaje": "No fue posible calcular la predicción ML."
+    }
+
+    if df_features_plan is None or df_features_plan.empty:
+        resultado_default["mensaje"] = "La vista de features ML está vacía."
+        return resultado_default
+
+    fila = df_features_plan[df_features_plan["id_plan"] == id_plan].copy()
+    if fila.empty:
+        resultado_default["mensaje"] = f"No existe información ML para el plan {id_plan}."
+        return resultado_default
+
+    fila = fila.iloc[0]
+
+    try:
+        modelo, feature_cols = load_modelo_alojamiento()
+
+        if feature_cols is None:
+            resultado_default["mensaje"] = "No se pudo cargar el listado de features del modelo."
+            return resultado_default
+
+        # Normalizar si viene como numpy array / Index / lista
+        feature_cols = list(feature_cols)
+
+        base_data = {
+            "id_ccaa": fila.get("id_ccaa"),
+            "id_provincia": fila.get("id_provincia"),
+            "mes": fila.get("mes"),
+            "temporada_cod": fila.get("temporada_cod"),
+            "categoria_alojamiento_cod": fila.get("categoria_alojamiento_cod"),
+            "periodo_antelacion_cod": fila.get("periodo_antelacion_cod"),
+            "valoraciones_norm": fila.get("valoraciones_norm", 0),
+            "tiene_valoraciones": fila.get("tiene_valoraciones", 0),
+        }
+
+        # Validación mínima
+        campos_criticos = [
+            "id_ccaa",
+            "id_provincia",
+            "mes",
+            "temporada_cod",
+            "categoria_alojamiento_cod",
+            "periodo_antelacion_cod"
+        ]
+        faltantes_criticos = [c for c in campos_criticos if pd.isna(base_data.get(c))]
+        if faltantes_criticos:
+            resultado_default["mensaje"] = (
+                f"Faltan features críticas para ML: {faltantes_criticos}"
+            )
+            return resultado_default
+
+        def construir_input(tipo_dia_cod: int) -> pd.DataFrame:
+            row_dict = base_data.copy()
+            row_dict["tipo_dia_cod"] = tipo_dia_cod
+
+            X = pd.DataFrame([row_dict])
+
+            # asegurar columnas esperadas por el modelo
+            for col in feature_cols:
+                if col not in X.columns:
+                    X[col] = 0
+
+            X = X[feature_cols].copy()
+
+            for col in X.columns:
+                X[col] = pd.to_numeric(X[col], errors="coerce").fillna(0)
+
+            return X
+
+        X_semana = construir_input(tipo_dia_cod=0)
+        X_fin_semana = construir_input(tipo_dia_cod=1)
+
+        pred_semana = float(modelo.predict(X_semana)[0])
+        pred_fin_semana = float(modelo.predict(X_fin_semana)[0])
+
+        noches_semana = float(fila.get("noches_semana", 0) or 0)
+        noches_fin_semana = float(fila.get("noches_fin_semana", 0) or 0)
+        presupuesto_alojamiento_ine = float(fila.get("presupuesto_alojamiento_ine", 0) or 0)
+
+        alojamiento_ml_estimado = round(
+            (pred_semana * noches_semana) + (pred_fin_semana * noches_fin_semana),
+            2
+        )
+
+        diferencia = round(presupuesto_alojamiento_ine - alojamiento_ml_estimado, 2)
+
+        return {
+            "ok": True,
+            "presupuesto_alojamiento_ine": round(presupuesto_alojamiento_ine, 2),
+            "precio_noche_semana_ml": round(pred_semana, 2),
+            "precio_noche_fin_semana_ml": round(pred_fin_semana, 2),
+            "alojamiento_ml_estimado": alojamiento_ml_estimado,
+            "diferencia_alojamiento_ml": diferencia,
+            "alcanza_alojamiento": diferencia >= 0,
+            "mensaje": "Predicción ML calculada correctamente."
+        }
+
+    except Exception as e:
+        resultado_default["mensaje"] = f"Error al calcular ML de alojamiento: {e}"
+        return resultado_default
+# =========================
+# Helper para pantalla_3
+# Tabla comparativa INE vs Actual vs ML
+# =========================
+def construir_tabla_comparacion_categoria(
+    row_costos: pd.Series,
+    row_presupuesto_cat: pd.Series,
+    resultado_ml: dict
+) -> pd.DataFrame:
+
+    alojamiento_actual = float(row_costos.get("alojamiento_estimado", 0) or 0)
+    alimentacion = float(row_costos.get("alimentacion_estimado", 0) or 0)
+    actividades = float(row_costos.get("actividades_estimado", 0) or 0)
+    servicios = float(row_costos.get("servicios_estimado", 0) or 0)
+    otros = float(row_costos.get("otros_estimado", 0) or 0)
+    transporte = float(row_costos.get("transporte_estimado", 0) or 0)
+
+    alojamiento_ml = (
+        float(resultado_ml.get("alojamiento_ml_estimado", 0) or 0)
+        if resultado_ml.get("ok")
+        else alojamiento_actual
+    )
+
+    data = [
+        {
+            "Categoría": "Alojamiento",
+            "INE / Presupuesto teórico (€)": float(row_presupuesto_cat.get("presupuesto_alojamiento", 0) or 0),
+            "Costo estimado actual (€)": alojamiento_actual,
+            "Costo ajustado ML (€)": alojamiento_ml,
+        },
+        {
+            "Categoría": "Alimentación",
+            "INE / Presupuesto teórico (€)": float(row_presupuesto_cat.get("presupuesto_alimentacion", 0) or 0),
+            "Costo estimado actual (€)": alimentacion,
+            "Costo ajustado ML (€)": alimentacion,
+        },
+        {
+            "Categoría": "Actividades",
+            "INE / Presupuesto teórico (€)": float(row_presupuesto_cat.get("presupuesto_actividades", 0) or 0),
+            "Costo estimado actual (€)": actividades,
+            "Costo ajustado ML (€)": actividades,
+        },
+        {
+            "Categoría": "Servicios",
+            "INE / Presupuesto teórico (€)": float(row_presupuesto_cat.get("presupuesto_servicios", 0) or 0),
+            "Costo estimado actual (€)": servicios,
+            "Costo ajustado ML (€)": servicios,
+        },
+        {
+            "Categoría": "Otros",
+            "INE / Presupuesto teórico (€)": float(row_presupuesto_cat.get("presupuesto_otros", 0) or 0),
+            "Costo estimado actual (€)": otros,
+            "Costo ajustado ML (€)": otros,
+        },
+        {
+            "Categoría": "Transporte",
+            "INE / Presupuesto teórico (€)": float(row_presupuesto_cat.get("presupuesto_transporte", 0) or 0),
+            "Costo estimado actual (€)": transporte,
+            "Costo ajustado ML (€)": transporte,
+        },
+    ]
+
+    df_comp = pd.DataFrame(data)
+
+    fila_total = pd.DataFrame([{
+        "Categoría": "TOTAL",
+        "INE / Presupuesto teórico (€)": round(df_comp["INE / Presupuesto teórico (€)"].sum(), 2),
+        "Costo estimado actual (€)": round(df_comp["Costo estimado actual (€)"].sum(), 2),
+        "Costo ajustado ML (€)": round(df_comp["Costo ajustado ML (€)"].sum(), 2),
+    }])
+
+    df_comp = pd.concat([df_comp, fila_total], ignore_index=True)
+
+    return df_comp
+
 # ===============================
 # Pantalla 1
 # ===============================
@@ -1309,14 +1532,6 @@ def pantalla_2():
                 id_provincia_seleccionada=id_provincia_actual_ns,
                 provincia_nombre_seleccionada=provincia_actual_ns if provincia_actual_ns else "—"
             )
-
-
-
-
-
-
-
-
         # ===============================
         # COLUMNA DERECHA
         # ===============================
@@ -1551,8 +1766,8 @@ def pantalla_3():
         plan = df_plan_resumen.sort_values("created_at", ascending=False).iloc[0]
         plan_id = int(plan["id_plan"])
 
-        row_costos = df_plan_costos[df_plan_costos["id_plan"] == plan_id]
-        row_presupuesto_cat = df_plan_presupuesto_cat[df_plan_presupuesto_cat["id_plan"] == plan_id]
+        row_costos_df = df_plan_costos[df_plan_costos["id_plan"] == plan_id]
+        row_presupuesto_cat_df = df_plan_presupuesto_cat[df_plan_presupuesto_cat["id_plan"] == plan_id]
 
         st.subheader(f"ID del plan: {plan_id}")
 
@@ -1566,8 +1781,8 @@ def pantalla_3():
         transporte = 0.0
         total_estimado = 0.0
 
-        if not row_costos.empty:
-            costos = row_costos.iloc[0]
+        if not row_costos_df.empty:
+            costos = row_costos_df.iloc[0]
             alojamiento = float(costos.get("alojamiento_estimado", 0) or 0)
             alimentacion = float(costos.get("alimentacion_estimado", 0) or 0)
             actividades = float(costos.get("actividades_estimado", 0) or 0)
@@ -1575,6 +1790,8 @@ def pantalla_3():
             otros = float(costos.get("otros_estimado", 0) or 0)
             transporte = float(costos.get("transporte_estimado", 0) or 0)
             total_estimado = float(costos.get("costo_total_estimado", 0) or 0)
+        else:
+            costos = pd.Series(dtype="object")
 
         diferencia = round(presupuesto_usuario - total_estimado, 2)
 
@@ -1590,16 +1807,10 @@ def pantalla_3():
             st.metric("Noches", int(plan["noches_viaje"]))
 
         with k3:
-            st.metric(
-                "Presupuesto ingresado",
-                f"€{presupuesto_usuario:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
-            )
+            st.metric("Presupuesto ingresado", format_eur(presupuesto_usuario))
 
         with k4:
-            st.metric(
-                "Costo estimado total",
-                f"€{total_estimado:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
-            )
+            st.metric("Costo estimado total", format_eur(total_estimado))
 
         st.divider()
 
@@ -1645,21 +1856,15 @@ def pantalla_3():
         c1, c2, c3 = st.columns(3)
 
         with c1:
-            st.metric(
-                "Presupuesto usuario",
-                f"€{presupuesto_usuario:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
-            )
+            st.metric("Presupuesto usuario", format_eur(presupuesto_usuario))
 
         with c2:
-            st.metric(
-                "Costo total estimado",
-                f"€{total_estimado:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
-            )
+            st.metric("Costo total estimado", format_eur(total_estimado))
 
         with c3:
             st.metric(
                 "Diferencia",
-                f"€{abs(diferencia):,.2f}".replace(",", "X").replace(".", ",").replace("X", "."),
+                format_eur(abs(diferencia)),
                 "Dentro del presupuesto" if diferencia >= 0 else "Excedido"
             )
 
@@ -1669,88 +1874,95 @@ def pantalla_3():
             st.caption(f"Consumo estimado del presupuesto: {pct_consumido:.2f}%")
 
         if diferencia >= 0:
-            st.success(
-                f"✅ El plan se mantiene dentro del presupuesto. Margen estimado: "
-                f"€{diferencia:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
-            )
+            st.success(f"✅ El plan se mantiene dentro del presupuesto. Margen estimado: {format_eur(diferencia)}")
         else:
+            st.warning(f"⚠️ El costo estimado supera el presupuesto en {format_eur(abs(diferencia))}")
+
+        st.divider()
+
+        # ===============================
+        # Predicción ML alojamiento
+        # ===============================
+        resultado_ml_aloj = predecir_costo_alojamiento_ml(
+            id_plan=plan_id,
+            df_features_plan=df_ml_alojamiento_features
+        )
+
+        if not resultado_ml_aloj.get("ok"):
             st.warning(
-                f"⚠️ El costo estimado supera el presupuesto en "
-                f"€{abs(diferencia):,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+                "No fue posible calcular la predicción ML de alojamiento; "
+                "se mostrará el costo estimado actual como referencia."
             )
-
-        st.divider()
-
-        st.divider()
+            st.caption(resultado_ml_aloj.get("mensaje", "Sin detalle adicional."))
 
         # ===============================
         # Comparación por categoría
         # ===============================
         st.markdown("### Comparación por categoría")
+        st.caption(
+            "Esta comparación muestra el presupuesto teórico según referencia INE, "
+            "el costo estimado actual del plan y el costo ajustado con Machine Learning para alojamiento."
+        )
 
-        df_desglose = pd.DataFrame({
-            "Categoría": [
-                "Alojamiento",
-                "Alimentación",
-                "Actividades",
-                "Servicios",
-                "Otros",
-                "Transporte"
-            ],
-            "Costo estimado (€)": [
-                alojamiento,
-                alimentacion,
-                actividades,
-                servicios,
-                otros,
-                transporte
-            ]
-        })
+        col_kpi1, col_kpi2, col_kpi3 = st.columns(3)
 
-        df_ine = pd.DataFrame()
+        presupuesto_aloj_ine = float(resultado_ml_aloj.get("presupuesto_alojamiento_ine", 0) or 0)
+        alojamiento_ml_estimado = (
+            float(resultado_ml_aloj.get("alojamiento_ml_estimado", 0) or 0)
+            if resultado_ml_aloj.get("ok")
+            else alojamiento
+        )
+        diferencia_ml_aloj = float(resultado_ml_aloj.get("diferencia_alojamiento_ml", 0) or 0)
+        alcanza_aloj = bool(resultado_ml_aloj.get("alcanza_alojamiento", False))
 
-        if not row_presupuesto_cat.empty:
-            pcat = row_presupuesto_cat.iloc[0]
+        with col_kpi1:
+            st.metric("Presupuesto disponible para alojamiento", format_eur(presupuesto_aloj_ine))
 
-            df_ine = pd.DataFrame({
-                "Categoría": [
-                    "Alojamiento",
-                    "Transporte",
-                    "Alimentación",
-                    "Actividades",
-                    "Servicios",
-                    "Otros"
-                ],
-                "Porcentaje (%)": [
-                    round(float(pcat.get("pct_alojamiento", 0) or 0) * 100, 2),
-                    round(float(pcat.get("pct_transporte", 0) or 0) * 100, 2),
-                    round(float(pcat.get("pct_alimentacion", 0) or 0) * 100, 2),
-                    round(float(pcat.get("pct_actividades", 0) or 0) * 100, 2),
-                    round(float(pcat.get("pct_servicios", 0) or 0) * 100, 2),
-                    round(float(pcat.get("pct_otros", 0) or 0) * 100, 2)
-                ],
-                "Presupuesto teórico (€)": [
-                    float(pcat.get("presupuesto_alojamiento", 0) or 0),
-                    float(pcat.get("presupuesto_transporte", 0) or 0),
-                    float(pcat.get("presupuesto_alimentacion", 0) or 0),
-                    float(pcat.get("presupuesto_actividades", 0) or 0),
-                    float(pcat.get("presupuesto_servicios", 0) or 0),
-                    float(pcat.get("presupuesto_otros", 0) or 0)
-                ]
-            })
+        with col_kpi2:
+            st.metric("Costo estimado alojamiento con ML", format_eur(alojamiento_ml_estimado))
 
-        col_comp_1, col_comp_2 = st.columns(2)
-
-        with col_comp_1:
-            st.markdown("#### Costos estimados del plan")
-            st.dataframe(df_desglose, use_container_width=True, hide_index=True)
-
-        with col_comp_2:
-            st.markdown("#### Distribución de referencia INE")
-            if row_presupuesto_cat.empty:
-                st.info("No se encontró distribución de presupuesto por categoría para este plan.")
+        with col_kpi3:
+            if alcanza_aloj:
+                st.success("🟢 El presupuesto de alojamiento ALCANZA para este viaje")
             else:
-                st.dataframe(df_ine, use_container_width=True, hide_index=True)
+                st.error("🔴 El presupuesto de alojamiento NO ALCANZA para este viaje")
+            st.caption(f"Diferencia estimada: {format_eur(diferencia_ml_aloj)}")
+
+        if not row_presupuesto_cat_df.empty:
+            pcat = row_presupuesto_cat_df.iloc[0]
+
+            df_comparacion = construir_tabla_comparacion_categoria(
+                row_costos=costos,
+                row_presupuesto_cat=pcat,
+                resultado_ml=resultado_ml_aloj
+            )
+
+            df_comparacion_show = df_comparacion.copy()
+            cols_monto = [
+                "INE / Presupuesto teórico (€)",
+                "Costo estimado actual (€)",
+                "Costo ajustado ML (€)"
+            ]
+
+            for col in cols_monto:
+                df_comparacion_show[col] = df_comparacion_show[col].apply(format_eur)
+
+            st.dataframe(df_comparacion_show, use_container_width=True, hide_index=True)
+
+            total_ine = float(df_comparacion.iloc[-1]["INE / Presupuesto teórico (€)"])
+            total_actual = float(df_comparacion.iloc[-1]["Costo estimado actual (€)"])
+            total_ml = float(df_comparacion.iloc[-1]["Costo ajustado ML (€)"])
+
+            st.info(
+                f"Total INE: {format_eur(total_ine)} | "
+                f"Total actual: {format_eur(total_actual)} | "
+                f"Total ajustado ML: {format_eur(total_ml)}"
+            )
+        else:
+            st.info("No se encontró distribución de presupuesto por categoría para este plan.")
+
+        st.divider()
+
         # ===============================
         # Calendario simple
         # ===============================

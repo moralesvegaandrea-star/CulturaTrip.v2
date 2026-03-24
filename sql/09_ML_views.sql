@@ -146,3 +146,176 @@ SELECT
     ROUND(cnt_otros::numeric / NULLIF(total_actividades, 0), 6) AS prop_otros
 
 FROM base;
+
+-- =========================================================
+-- VISTA 1
+-- Base ML de alojamiento por provincia y categoría
+-- =========================================================
+
+DROP VIEW IF EXISTS culturatrip.vw_ml_alojamiento_base_provincia CASCADE;
+
+CREATE OR REPLACE VIEW culturatrip.vw_ml_alojamiento_base_provincia AS
+SELECT
+    f.id_pais,
+    f.id_ccaa,
+    f.id_provincia,
+    p.provincia_nombre,
+    f.categoria_alojamiento,
+
+    ROUND(AVG(f.valoraciones_norm)::numeric, 4) AS valoraciones_norm_prom,
+
+    CASE
+        WHEN BOOL_OR(COALESCE(f.tiene_valoraciones, false)) THEN 1
+        ELSE 0
+    END AS tiene_valoraciones_base,
+
+    ROUND(AVG(f.precio_checkin_entre_semana)::numeric, 2) AS avg_precio_semana_hist,
+    ROUND(AVG(f.precio_checkin_fin_semana)::numeric, 2) AS avg_precio_fin_semana_hist,
+
+    COUNT(*)::int AS n_registros_base
+
+FROM culturatrip.fact_alojamientos f
+JOIN culturatrip.dim_provincia p
+  ON f.id_provincia = p.id_provincia
+WHERE f.categoria_alojamiento IS NOT NULL
+  AND TRIM(f.categoria_alojamiento) <> ''
+GROUP BY
+    f.id_pais,
+    f.id_ccaa,
+    f.id_provincia,
+    p.provincia_nombre,
+    f.categoria_alojamiento;
+
+-- =========================================================
+-- VISTA 2
+-- Features ML de alojamiento por plan
+-- =========================================================
+
+DROP VIEW IF EXISTS culturatrip.vw_ml_alojamiento_features_plan CASCADE;
+
+CREATE OR REPLACE VIEW culturatrip.vw_ml_alojamiento_features_plan AS
+WITH plan_base AS (
+    SELECT
+        pr.id_plan,
+        pr.id_pais_destino,
+        pr.id_provincia_destino,
+        pr.provincia_destino,
+        pr.fecha_ida,
+        pr.fecha_regreso,
+        pr.dias_viaje,
+        pr.noches_viaje,
+        pr.categoria_alojamiento,
+        pr.presupuesto_estimado,
+        pr.perfil_presupuesto,
+
+        pc.presupuesto_alojamiento,
+
+        n.noches_semana,
+        n.noches_fin_semana,
+
+        EXTRACT(MONTH FROM pr.fecha_ida)::int AS mes_viaje,
+        (pr.fecha_ida - CURRENT_DATE)::int AS dias_anticipacion
+    FROM culturatrip.vw_plan_resumen_basico pr
+    LEFT JOIN culturatrip.vw_plan_presupuesto_categoria pc
+      ON pr.id_plan = pc.id_plan
+    LEFT JOIN culturatrip.vw_plan_noches_tipo_dia n
+      ON pr.id_plan = n.id_plan
+),
+plan_con_temporada AS (
+    SELECT
+        pb.*,
+        dt.temporada
+    FROM plan_base pb
+    LEFT JOIN culturatrip.dim_tiempo dt
+      ON dt.anio = EXTRACT(YEAR FROM pb.fecha_ida)::int
+     AND dt.mes  = pb.mes_viaje
+),
+plan_enriquecido AS (
+    SELECT
+        p.*,
+
+        CASE
+            WHEN p.dias_anticipacion IS NULL THEN NULL
+            WHEN p.dias_anticipacion <= 7  THEN '1 semana'
+            WHEN p.dias_anticipacion <= 14 THEN '2 semanas'
+            WHEN p.dias_anticipacion <= 30 THEN '1 mes'
+            WHEN p.dias_anticipacion <= 90 THEN '2-3 meses'
+            ELSE '3 meses'
+        END AS periodo_antelacion_label
+
+    FROM plan_con_temporada p
+)
+SELECT
+    p.id_plan,
+
+    -- claves de negocio
+    p.id_pais_destino AS id_pais,
+    b.id_ccaa,
+    p.id_provincia_destino AS id_provincia,
+    p.provincia_destino,
+
+    -- fechas y duración
+    p.fecha_ida,
+    p.fecha_regreso,
+    p.dias_viaje,
+    p.noches_viaje,
+    COALESCE(p.noches_semana, 0) AS noches_semana,
+    COALESCE(p.noches_fin_semana, 0) AS noches_fin_semana,
+
+    -- presupuesto
+    p.presupuesto_estimado,
+    COALESCE(p.presupuesto_alojamiento, 0) AS presupuesto_alojamiento_ine,
+    p.perfil_presupuesto,
+
+    -- variables de negocio
+    p.categoria_alojamiento,
+    p.mes_viaje AS mes,
+    p.temporada,
+    p.dias_anticipacion,
+    p.periodo_antelacion_label,
+
+    -- codificación temporada según notebook
+    CASE
+        WHEN LOWER(COALESCE(p.temporada, '')) = 'baja'  THEN 0
+        WHEN LOWER(COALESCE(p.temporada, '')) = 'media' THEN 1
+        WHEN LOWER(COALESCE(p.temporada, '')) = 'alta'  THEN 2
+        ELSE NULL
+    END AS temporada_cod,
+
+    -- codificación de categoría de alojamiento según notebook
+    CASE LOWER(TRIM(COALESCE(p.categoria_alojamiento, '')))
+        WHEN 'hotel 3 estrellas'     THEN 1
+        WHEN 'hotel 4 estrellas'     THEN 2
+        WHEN 'hotel 5 estrellas'     THEN 3
+        WHEN 'apartamento'           THEN 4
+        WHEN 'casa entera'           THEN 5
+        WHEN 'habitacion privada'    THEN 6
+        WHEN 'habitacion compartida' THEN 7
+        WHEN 'alternativo'           THEN 8
+        ELSE NULL
+    END AS categoria_alojamiento_cod,
+
+    -- codificación de antelación según notebook
+    CASE p.periodo_antelacion_label
+        WHEN '1 semana'   THEN 1
+        WHEN '2 semanas'  THEN 2
+        WHEN '1 mes'      THEN 3
+        WHEN '2-3 meses'  THEN 4
+        WHEN '3 meses'    THEN 5
+        ELSE NULL
+    END AS periodo_antelacion_cod,
+
+    -- variables auxiliares para el modelo
+    COALESCE(b.valoraciones_norm_prom, 0) AS valoraciones_norm,
+    COALESCE(b.tiene_valoraciones_base, 0) AS tiene_valoraciones,
+
+    -- columnas de auditoría / referencia
+    b.avg_precio_semana_hist,
+    b.avg_precio_fin_semana_hist,
+    b.n_registros_base
+
+FROM plan_enriquecido p
+LEFT JOIN culturatrip.vw_ml_alojamiento_base_provincia b
+  ON b.id_pais = p.id_pais_destino
+ AND b.id_provincia = p.id_provincia_destino
+ AND LOWER(TRIM(b.categoria_alojamiento)) = LOWER(TRIM(p.categoria_alojamiento));
