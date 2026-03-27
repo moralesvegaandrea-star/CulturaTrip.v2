@@ -554,8 +554,12 @@ def init_state():
         "ultimo_plan_id": None,
 
         "perfil_presupuesto": "standard",
-    }
 
+        # NUEVO: multi-plan
+        "plan_seleccionado": None,
+        "modo_edicion_plan": False,
+
+    }
     for k, v in defaults.items():
         if k not in st.session_state:
             st.session_state[k] = v
@@ -579,6 +583,10 @@ def reset_plan_completo():
         "provincia_destino": None,
         "id_provincia_destino": None,
 
+        # ML
+        "provincia_ml_recomendada": None,
+        "id_provincia_ml_recomendada": None,
+
         # Usuario
         "email": "",
 
@@ -597,10 +605,59 @@ def reset_plan_completo():
         "plan_guardado": False,
         "guardando": False,
         "ultimo_plan_id": None,
+
+        # NUEVO: multi-plan
+        "plan_seleccionado": None,
+        "modo_edicion_plan": False,
     }
 
     for k, v in keys_to_reset.items():
         st.session_state[k] = v
+
+# ===============================
+# Iniciar Nuevo Plan
+# ===============================
+
+def iniciar_nuevo_plan():
+    email_actual = st.session_state.get("email", "")
+
+    # limpiar formulario y contexto del plan activo
+    st.session_state["pais"] = None
+    st.session_state["id_pais"] = None
+    st.session_state["pais_ui"] = None
+
+    st.session_state["pais_origen"] = None
+    st.session_state["id_pais_origen"] = None
+
+    st.session_state["provincia_destino"] = None
+    st.session_state["id_provincia_destino"] = None
+
+    st.session_state["provincia_ml_recomendada"] = None
+    st.session_state["id_provincia_ml_recomendada"] = None
+
+    st.session_state["fecha_ida"] = None
+    st.session_state["fecha_regreso"] = None
+
+    st.session_state["presupuesto"] = 0
+
+    st.session_state["categoria_alojamiento"] = None
+    st.session_state["categoria_actividad"] = None
+    st.session_state["categorias_actividad"] = []
+    st.session_state["cantidades_actividad"] = {}
+
+    st.session_state["tipo_viaje"] = "Solo"
+    st.session_state["perfil_presupuesto"] = "standard"
+
+    st.session_state["guardando"] = False
+    st.session_state["plan_guardado"] = False
+    st.session_state["ultimo_plan_id"] = None
+
+    # MUY IMPORTANTE
+    st.session_state["plan_seleccionado"] = None
+    st.session_state["modo_edicion_plan"] = False
+
+    # conservar email si quieres seguir viendo los planes del mismo usuario
+    st.session_state["email"] = email_actual
 
 # ===============================
 # Sidebar navegación (nuevo layout)
@@ -611,6 +668,7 @@ with st.sidebar:
 
     opciones = [
         "Exploración Cultural",
+        "Gestión de planes",
         "Planificación",
         "Itinerario",
         "Presupuesto",
@@ -1208,6 +1266,196 @@ def construir_tabla_comparacion_categoria(
 
     return df_comp
 
+
+def obtener_planes_por_email(email: str) -> pd.DataFrame:
+    if not email:
+        return pd.DataFrame()
+
+    df = df_plan_resumen.copy()
+
+    df = df[
+        df["email_usuario"].astype(str).str.strip().str.lower()
+        == email.strip().lower()
+    ].copy()
+
+    if df.empty:
+        return df
+
+    return df.sort_values("created_at", ascending=False)
+
+
+def obtener_plan_por_id(plan_id: int) -> pd.DataFrame:
+    if not plan_id:
+        return pd.DataFrame()
+
+    return df_plan_resumen[df_plan_resumen["id_plan"] == plan_id].copy()
+
+
+@st.cache_data(show_spinner=False)
+def load_preferencias_plan(id_plan: int) -> pd.DataFrame:
+    engine = get_engine()
+    query = text("""
+        SELECT id_plan, categoria, cantidad
+        FROM culturatrip.fact_plan_viaje_preferencia
+        WHERE id_plan = :id_plan
+        ORDER BY categoria
+    """)
+    return pd.read_sql(query, engine, params={"id_plan": id_plan})
+
+
+def cargar_plan_en_session_state(id_plan: int):
+    df_plan = obtener_plan_por_id(id_plan)
+
+    if df_plan.empty:
+        st.warning("No se encontró el plan seleccionado.")
+        return False
+
+    plan = df_plan.iloc[0]
+
+    df_pref = load_preferencias_plan(id_plan)
+    categorias = df_pref["categoria"].tolist() if not df_pref.empty else []
+    cantidades = dict(zip(df_pref["categoria"], df_pref["cantidad"])) if not df_pref.empty else {}
+
+    st.session_state["plan_seleccionado"] = int(plan["id_plan"])
+    st.session_state["modo_edicion_plan"] = True
+
+    st.session_state["email"] = plan["email_usuario"]
+    st.session_state["id_pais_origen"] = plan["id_pais_origen"]
+    st.session_state["id_pais"] = plan["id_pais_destino"]
+
+    pais_origen_row = df_dropdown_paises[df_dropdown_paises["id_pais"] == plan["id_pais_origen"]]
+    pais_destino_row = df_dropdown_paises[df_dropdown_paises["id_pais"] == plan["id_pais_destino"]]
+
+    if not pais_origen_row.empty:
+        st.session_state["pais_origen"] = pais_display(pais_origen_row["pais"].iloc[0])
+
+    if not pais_destino_row.empty:
+        st.session_state["pais"] = pais_display(pais_destino_row["pais"].iloc[0])
+
+    provincia = plan.get("provincia_destino")
+    id_provincia = plan.get("id_provincia_destino")
+
+    st.session_state["provincia_destino"] = None if pd.isna(provincia) else provincia
+    st.session_state["id_provincia_destino"] = None if pd.isna(id_provincia) else id_provincia
+
+    st.session_state["fecha_ida"] = pd.to_datetime(plan["fecha_ida"]).date() if pd.notna(plan["fecha_ida"]) else None
+    st.session_state["fecha_regreso"] = pd.to_datetime(plan["fecha_regreso"]).date() if pd.notna(plan["fecha_regreso"]) else None
+
+    st.session_state["presupuesto"] = int(plan["presupuesto_estimado"]) if pd.notna(plan["presupuesto_estimado"]) else 0
+    st.session_state["categoria_alojamiento"] = plan["categoria_alojamiento"]
+    st.session_state["categorias_actividad"] = categorias
+    st.session_state["cantidades_actividad"] = cantidades
+    st.session_state["perfil_presupuesto"] = plan["perfil_presupuesto"]
+    st.session_state["tipo_viaje"] = plan["tipo_viaje"]
+
+    return True
+
+
+def eliminar_plan_db(id_plan: int):
+    engine = get_engine()
+
+    with engine.begin() as conn:
+        conn.execute(
+            text("""
+                DELETE FROM culturatrip.fact_plan_viaje
+                WHERE id_plan = :id_plan
+            """),
+            {"id_plan": id_plan}
+        )
+
+# ===============================
+# Helper funcion para actualizar plan
+# ===============================
+
+def actualizar_plan_db(id_plan: int):
+    engine = get_engine()
+
+    email = st.session_state.get("email")
+    id_pais_origen = st.session_state.get("id_pais_origen")
+    id_pais_destino = st.session_state.get("id_pais")
+    fecha_ida = st.session_state.get("fecha_ida")
+    fecha_regreso = st.session_state.get("fecha_regreso")
+    presupuesto = st.session_state.get("presupuesto")
+    tipo_viaje = st.session_state.get("tipo_viaje", "Solo")
+    categoria_aloj = st.session_state.get("categoria_alojamiento")
+    perfil_presupuesto = st.session_state.get("perfil_presupuesto", "standard")
+
+    id_provincia = st.session_state.get("id_provincia_destino")
+    categorias_act = st.session_state.get("categorias_actividad", [])
+    cantidades_act = st.session_state.get("cantidades_actividad", {})
+
+    if not id_plan:
+        st.error("No hay plan seleccionado para actualizar.")
+        return False
+
+    if not (email and id_pais_origen and id_pais_destino and fecha_ida and fecha_regreso and categoria_aloj):
+        st.error("Faltan datos obligatorios para actualizar el plan.")
+        return False
+
+    if fecha_regreso < fecha_ida:
+        st.error("Fecha regreso no puede ser anterior a fecha ida.")
+        return False
+
+    with engine.begin() as conn:
+        conn.execute(text("""
+            UPDATE culturatrip.fact_plan_viaje
+            SET
+                email_usuario = :email,
+                id_pais_origen = :id_pais_origen,
+                id_pais_destino = :id_pais_destino,
+                fecha_ida = :fecha_ida,
+                fecha_regreso = :fecha_regreso,
+                presupuesto_estimado = :presupuesto,
+                tipo_viaje = :tipo_viaje,
+                categoria_alojamiento = :categoria_aloj,
+                perfil_presupuesto = :perfil_presupuesto
+            WHERE id_plan = :id_plan
+        """), {
+            "id_plan": id_plan,
+            "email": email,
+            "id_pais_origen": id_pais_origen,
+            "id_pais_destino": id_pais_destino,
+            "fecha_ida": fecha_ida,
+            "fecha_regreso": fecha_regreso,
+            "presupuesto": presupuesto,
+            "tipo_viaje": tipo_viaje,
+            "categoria_aloj": categoria_aloj,
+            "perfil_presupuesto": perfil_presupuesto
+        })
+
+        conn.execute(text("""
+            DELETE FROM culturatrip.fact_plan_viaje_destino
+            WHERE id_plan = :id_plan
+        """), {"id_plan": id_plan})
+
+        if id_provincia:
+            conn.execute(text("""
+                INSERT INTO culturatrip.fact_plan_viaje_destino (id_plan, orden, id_provincia)
+                VALUES (:id_plan, 1, :id_provincia)
+            """), {
+                "id_plan": id_plan,
+                "id_provincia": id_provincia
+            })
+
+        conn.execute(text("""
+            DELETE FROM culturatrip.fact_plan_viaje_preferencia
+            WHERE id_plan = :id_plan
+        """), {"id_plan": id_plan})
+
+        if categorias_act:
+            for cat in categorias_act:
+                conn.execute(text("""
+                    INSERT INTO culturatrip.fact_plan_viaje_preferencia (id_plan, categoria, cantidad)
+                    VALUES (:id_plan, :categoria, :cantidad)
+                """), {
+                    "id_plan": id_plan,
+                    "categoria": cat,
+                    "cantidad": int(cantidades_act.get(cat, 1))
+                })
+
+    return True
+
+
 # ===============================
 # Pantalla 1
 # ===============================
@@ -1217,8 +1465,8 @@ def pantalla_1():
     col_reset_left, col_reset_right = st.columns([6, 2])
     with col_reset_right:
         if st.button("🔄 Nuevo plan", use_container_width=True):
-            reset_plan_completo()
-            st.session_state["step"] = 1
+            iniciar_nuevo_plan()
+            st.session_state["step"] = 3  # ir a Planificación
             st.rerun()
 
     st.markdown("<h2 style='margin-bottom:0.3rem;'>Selecciona un destino</h2>", unsafe_allow_html=True)
@@ -1370,6 +1618,162 @@ def pantalla_1():
             st.info("Aún no hay imagen para este país.")
 
     st.divider()
+
+# ===============================
+# Pantalla Gestion de Planes
+# ===============================
+def pantalla_gestion_planes():
+    st.header("📂 Gestión de planes")
+    st.caption("Consulta, crea, selecciona, edita o elimina tus planes guardados.")
+
+    # =========================
+    # 1. Usuario / correo
+    # =========================
+    email = st.session_state.get("email", "").strip()
+
+    if not email:
+        email_input = st.text_input(
+            "Ingresa tu correo para ver tus planes",
+            key="email_gestion_planes"
+        )
+
+        if email_input:
+            st.session_state["email"] = email_input.strip()
+            st.rerun()
+        else:
+            st.info("Debes ingresar tu correo para continuar.")
+            return
+
+    col_user1, col_user2 = st.columns([4, 1])
+
+    with col_user1:
+        st.markdown(f"**Usuario:** {email}")
+
+    with col_user2:
+        if st.button("Cambiar usuario", key="btn_cambiar_usuario_gp", use_container_width=True):
+            st.session_state["email"] = ""
+            st.session_state["plan_seleccionado"] = None
+            st.session_state["modo_edicion_plan"] = False
+            st.rerun()
+
+    st.divider()
+
+    # =========================
+    # 2. Crear nuevo plan
+    # =========================
+    st.markdown("### ➕ Crear nuevo plan")
+    st.caption("Si deseas iniciar una nueva planificación, crea un plan desde aquí.")
+
+    if st.button("Crear nuevo plan", key="btn_crear_nuevo_plan", use_container_width=True):
+        iniciar_nuevo_plan()
+        st.session_state["email"] = email
+        st.session_state["step"] = 3  # Planificación
+        st.rerun()
+
+    st.divider()
+
+    # =========================
+    # 3. Obtener planes del usuario
+    # =========================
+    df_planes = obtener_planes_por_email(email)
+
+    if df_planes.empty:
+        st.info("No tienes planes guardados todavía.")
+        st.caption("Puedes crear tu primer plan desde el botón anterior.")
+        return
+
+    st.markdown("### 📋 Listado de planes")
+
+    # =========================
+    # 4. Encabezado tipo tabla
+    # =========================
+    h1, h2, h3, h4, h5, h6 = st.columns([1.2, 2.2, 2.2, 3.0, 2.0, 2.4])
+
+    with h1:
+        st.markdown("**N.º plan**")
+    with h2:
+        st.markdown("**País origen**")
+    with h3:
+        st.markdown("**País destino**")
+    with h4:
+        st.markdown("**Fechas ida / regreso**")
+    with h5:
+        st.markdown("**Presupuesto**")
+    with h6:
+        st.markdown("**Acciones**")
+
+    st.divider()
+
+    # =========================
+    # 5. Filas de la tabla
+    # =========================
+    for _, row in df_planes.iterrows():
+        plan_id = int(row["id_plan"])
+
+        pais_origen = row["pais_origen"] if pd.notna(row["pais_origen"]) else "—"
+        pais_destino = row["pais_destino"] if pd.notna(row["pais_destino"]) else "—"
+
+        fecha_ida = str(row["fecha_ida"]) if pd.notna(row["fecha_ida"]) else "—"
+        fecha_regreso = str(row["fecha_regreso"]) if pd.notna(row["fecha_regreso"]) else "—"
+
+        presupuesto = format_eur(row["presupuesto_estimado"]) if pd.notna(row["presupuesto_estimado"]) else "€0,00"
+
+        c1, c2, c3, c4, c5, c6 = st.columns([1.2, 2.2, 2.2, 3.0, 2.0, 2.4])
+
+        with c1:
+            st.write(plan_id)
+
+        with c2:
+            st.write(pais_origen)
+
+        with c3:
+            st.write(pais_destino)
+
+        with c4:
+            st.write(f"{fecha_ida} → {fecha_regreso}")
+
+        with c5:
+            st.write(presupuesto)
+
+        with c6:
+            a1, a2, a3 = st.columns(3)
+
+            # =========================
+            # Ver plan
+            # =========================
+            with a1:
+                if st.button("👁", key=f"ver_plan_{plan_id}", use_container_width=True):
+                    st.session_state["plan_seleccionado"] = plan_id
+                    st.session_state["modo_edicion_plan"] = False
+                    st.session_state["step"] = 4  # Itinerario / Resumen del plan
+                    st.rerun()
+
+            # =========================
+            # Editar plan
+            # =========================
+            with a2:
+                if st.button("✏️", key=f"editar_plan_{plan_id}", use_container_width=True):
+                    ok = cargar_plan_en_session_state(plan_id)
+                    if ok:
+                        st.session_state["step"] = 3  # Planificación
+                        st.rerun()
+
+            # =========================
+            # Eliminar plan
+            # =========================
+            with a3:
+                if st.button("🗑", key=f"eliminar_plan_{plan_id}", use_container_width=True):
+                    eliminar_plan_db(plan_id)
+                    st.cache_data.clear()
+
+                    if st.session_state.get("plan_seleccionado") == plan_id:
+                        st.session_state["plan_seleccionado"] = None
+                        st.session_state["modo_edicion_plan"] = False
+
+                    st.success(f"Plan {plan_id} eliminado correctamente.")
+                    st.rerun()
+
+        st.divider()
 
 # ===============================
 # Pantalla 2
@@ -1697,12 +2101,14 @@ def pantalla_2():
         col_save, col_next = st.columns([1, 1])
 
         with col_save:
-            disabled_save = (
-                    st.session_state.get("plan_guardado", False)
-                    or st.session_state.get("guardando", False)
-            )
+            modo_edicion = bool(st.session_state.get("modo_edicion_plan", False))
+            plan_id_edicion = st.session_state.get("plan_seleccionado")
 
-            if st.button("Guardar plan ✅", use_container_width=True, disabled=disabled_save):
+            texto_boton_guardar = "Actualizar plan ✏️" if modo_edicion else "Guardar plan nuevo ✅"
+
+            disabled_save = st.session_state.get("guardando", False)
+
+            if st.button(texto_boton_guardar, use_container_width=True, disabled=disabled_save):
                 errores = []
 
                 if not st.session_state.get("email"):
@@ -1725,6 +2131,7 @@ def pantalla_2():
 
                 fecha_ida_ss = st.session_state.get("fecha_ida")
                 fecha_regreso_ss = st.session_state.get("fecha_regreso")
+
                 if fecha_ida_ss and fecha_regreso_ss and fecha_regreso_ss <= fecha_ida_ss:
                     errores.append("La fecha de regreso debe ser posterior a la fecha de ida.")
 
@@ -1737,34 +2144,55 @@ def pantalla_2():
                 else:
                     st.session_state["guardando"] = True
                     try:
-                        plan_id = guardar_plan_db()
+                        if modo_edicion and plan_id_edicion:
+                            ok = actualizar_plan_db(plan_id_edicion)
+                            plan_id = plan_id_edicion if ok else None
+                        else:
+                            plan_id = guardar_plan_db()
                     finally:
                         st.session_state["guardando"] = False
 
                     if plan_id:
                         st.session_state["ultimo_plan_id"] = int(plan_id)
+                        st.session_state["plan_seleccionado"] = int(plan_id)
                         st.session_state["plan_guardado"] = True
+
+                        if modo_edicion:
+                            st.session_state["modo_edicion_plan"] = True
+                            st.success(f"Plan actualizado con éxito. ID del plan: {plan_id}")
+                        else:
+                            st.session_state["modo_edicion_plan"] = False
+                            st.success(f"Plan guardado con éxito. ID del plan: {plan_id}")
+
                         st.cache_data.clear()
-                        st.success(f"Plan guardado con éxito. ID del plan: {plan_id}")
 
         with col_next:
-            if st.button("Ir a Resumen (Pantalla 3) ➜", use_container_width=True):
+            if st.button("Ir a Gestión de planes ➜", use_container_width=True):
                 st.cache_data.clear()
-                st.session_state["step"] = 3
+                st.session_state["step"] = 2
                 st.rerun()
 
 
+
+
 def pantalla_3():
+
         st.header("📋 Resumen del plan")
 
-        if df_plan_resumen.empty:
-            st.info("Aún no hay planes guardados en la base de datos.")
-            st.caption("Primero completa la Pantalla 2 y guarda un plan.")
+        plan_id = st.session_state.get("plan_seleccionado")
+
+        if not plan_id:
+            st.info("No hay un plan seleccionado.")
+            st.caption("Primero crea un nuevo plan o selecciona uno en Gestión de planes.")
             return
 
-        # Tomamos el plan más reciente
-        plan = df_plan_resumen.sort_values("created_at", ascending=False).iloc[0]
-        plan_id = int(plan["id_plan"])
+        plan_df = df_plan_resumen[df_plan_resumen["id_plan"] == plan_id]
+
+        if plan_df.empty:
+            st.warning("No se encontró el plan seleccionado.")
+            return
+
+        plan = plan_df.iloc[0]
 
         row_costos_df = df_plan_costos[df_plan_costos["id_plan"] == plan_id]
         row_presupuesto_cat_df = df_plan_presupuesto_cat[df_plan_presupuesto_cat["id_plan"] == plan_id]
@@ -2009,6 +2437,13 @@ def pantalla_3():
 def pantalla_4():
         st.header("💰 Presupuesto Inteligente")
 
+        plan_id = st.session_state.get("plan_seleccionado")
+
+        if not plan_id:
+            st.info("No hay un plan seleccionado.")
+            st.caption("Primero crea un nuevo plan o selecciona uno en Gestión de planes.")
+            return
+
         if df_plan_resumen.empty:
             st.info("Aún no hay planes guardados en la base de datos.")
             st.caption("Primero completa la Pantalla 2 y guarda un plan.")
@@ -2179,6 +2614,13 @@ def pantalla_4():
 
 def pantalla_5():
         st.header("📊 Control Dinámico del Presupuesto")
+
+        plan_id = st.session_state.get("plan_seleccionado")
+
+        if not plan_id:
+            st.info("No hay un plan seleccionado.")
+            st.caption("Primero crea un nuevo plan o selecciona uno en Gestión de planes.")
+            return
 
         if df_plan_resumen.empty:
             st.info("Aún no hay planes guardados en la base de datos.")
@@ -2421,6 +2863,13 @@ def pantalla_5():
 def pantalla_6():
         st.header("🧳 Checklist de viaje")
 
+        plan_id = st.session_state.get("plan_seleccionado")
+
+        if not plan_id:
+            st.info("No hay un plan seleccionado.")
+            st.caption("Primero crea un nuevo plan o selecciona uno en Gestión de planes.")
+            return
+
         # ===============================
         # Validación base
         # ===============================
@@ -2643,6 +3092,13 @@ def pantalla_6():
 def pantalla_7():
         st.header("✅ Resumen final del viaje")
 
+        plan_id = st.session_state.get("plan_seleccionado")
+
+        if not plan_id:
+            st.info("No hay un plan seleccionado.")
+            st.caption("Primero crea un nuevo plan o selecciona uno en Gestión de planes.")
+            return
+
         if df_plan_resumen.empty:
             st.info("Aún no hay planes guardados en la base de datos.")
             st.caption("Primero completa la Pantalla 2 y guarda un plan.")
@@ -2830,15 +3286,17 @@ def pantalla_7():
 if st.session_state.step == 1:
     pantalla_1()
 elif st.session_state.step == 2:
-    pantalla_2()
+    pantalla_gestion_planes()
 elif st.session_state.step == 3:
-    pantalla_3()
+    pantalla_2()
 elif st.session_state.step == 4:
-    pantalla_4()
+    pantalla_3()
 elif st.session_state.step == 5:
-    pantalla_5()
+    pantalla_4()
 elif st.session_state.step == 6:
-    pantalla_6()
+    pantalla_5()
 elif st.session_state.step == 7:
+    pantalla_6()
+elif st.session_state.step == 8:
     pantalla_7()
 
