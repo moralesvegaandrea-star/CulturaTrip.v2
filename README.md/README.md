@@ -17,18 +17,39 @@ Ronald Rojas Barquero
 
 ## Descripción del Proyecto
 
-CulturaTrip es una plataforma de análisis turístico basada en datos, desarrollada como parte del Trabajo Final de Máster (TFM).
+CulturaTrip es una plataforma inteligente de planificación de viajes culturales que integra datos territoriales, turísticos y económicos para generar recomendaciones personalizadas basadas en el presupuesto del usuario.
 
-El proyecto implementa la capa de persistencia del sistema mediante un modelo relacional en PostgreSQL, integrando procesos ETL desarrollados en Python, análisis exploratorio (EDA) y visualización interactiva mediante Streamlit.
-El objetivo académico de este repositorio es demostrar:
-Selección razonada de SGBD
-Modelado de datos apropiado
-Implementación física reproducible
-Consultas representativas alineadas con los casos de uso del TFM
-Ejecución completamente local sin dependencias externas
+El sistema combina:
+
+Procesamiento de datos (ETL)
+
+Modelado relacional en PostgreSQL
+
+Vistas analíticas
+
+Modelos de Machine Learning
+
+Aplicación interactiva en Streamlit
+
+Todo el entorno está diseñado bajo un enfoque de reproducibilidad completa mediante Docker.
 
 Datos necesarios para reproducir: listar los CSV se encuentran en la direccion data/clean/.
 
+
+
+## Objetivo
+
+Desarrollar un sistema que permita:
+
+Planificar viajes culturales de forma personalizada
+
+Estimar costos por categoría (alojamiento, transporte, alimentación, actividades)
+
+Recomendar destinos óptimos
+
+Analizar la viabilidad del viaje según presupuesto
+
+Integrar modelos de Machine Learning en la toma de decisiones
 
 ## Datasets Utilizados
 
@@ -41,7 +62,7 @@ El sistema integra los siguientes datasets:
 | Alojamiento turístico            | Análisis de precios y demanda    | Dataestur               | Tabular |
 | Actividades culturales           | Gasto y valoración turística     | Dataestur               | Tabular |
 
-Cada dataset ha sido caracterizado considerando:
+### Cada dataset ha sido caracterizado considerando:
 
 Estructura tabular
 
@@ -78,58 +99,164 @@ Alternativas consideradas:
 
 ## Arquitectura del Sistema
 
-El proyecto sigue una arquitectura modular en capas:
+     El sistema sigue una arquitectura por capas:
 
-1) Capa de Datos 
+       Datos (APIs / CSV)
+              ↓
+         ETL Python
+              ↓
+      PostgreSQL (tablas relacionales)
+              ↓
+     Views (QA + UI + Costos + ML Features)
+             ↓
+      Machine Learning (.pkl)
+             ↓
+        Streamlit App
 
-   PostgreSQL 16 ejecutado en contenedor Docker.
+## Infraestructura (Docker)
 
-2) Capa de Procesamiento
+El proyecto se ejecuta mediante Docker Compose con tres servicios principales:
 
-   Módulos ETL desarrollados en Python dentro de 
-               
-        /src.
+db → PostgreSQL 16 (base de datos)
 
-3) Capa de Aplicación
+app → ejecución de ETL y aplicación Streamlit
 
-   Dashboard interactivo desarrollado en Streamlit 
-         
-       (src/App/Culturaltrip.py).
+notebook → entorno Jupyter para análisis
 
-4) Capa de Análisis (EDA)
+    Definido en:
 
-   Notebooks en 
+    docker-compose.yml
 
-        /Notebook para exploración, limpieza y validación de datos.
+## Flujo Operativo del Proyecto
 
-5) Capa de Infraestructura
+1)  Levantar el entorno
 
-   Entorno completamente aislado mediante Docker y Docker Compose.
+         docker compose up --build
 
-## Estructura del Proyecto
-    CulturaTrip_TFM/
-    │
-    ├── Dockerfile
-    ├── docker-compose.yml
-    ├── requirements.txt
-    ├── .dockerignore
-    │
-    ├── src/
-    │   ├── App/
-    │   │   └── Culturaltrip.py
-    │   ├── New Model/
-    │   ├── Flat Model/
-    │   └── Experimental/
-    │
-    ├── data/
-    │   ├── raw/
-    │   ├── interim/
-    │   └── clean/
-    │
-    ├── Notebook/
-    └── README.md
+Esto inicia o da acceso a los servicios
+
+PostgreSQL → puerto 5433
+
+| Servicio             | URL                                            |
+| -------------------- | ---------------------------------------------- |
+| Aplicación Streamlit | [http://localhost:8501](http://localhost:8501) |
+| Jupyter Notebook     | [http://localhost:8888](http://localhost:8888) |
+
+
+### Recomendación:
+#### Construir y levantar entorno
+Desde la raíz del proyecto
+Si ya existe el volumen y quieres re-inicializar desde cero: 
+
+     docker compose down -v 
+y luego 
+
+    docker compose up --build.
+
+## Detener el Entorno
+
+Detener servicios:
+
+    docker compose down
+
+## Inicialización de base de datos
+
+El sistema ejecuta automáticamente los scripts SQL ubicados en:
+
+    /sql → /docker-entrypoint-initdb.d
+
+Incluye:
+
+Creación de esquema
+
+Creación de tablas
+
+Creación de vistas
+
+###  Orden de Ejecución de Scripts SQL
+
+Los scripts SQL deben ejecutarse en el siguiente orden:
+
+1. 01_schema.sql → creación del esquema
+2. 02_tables.sql → tablas base
+3. 03_views.sql → vistas iniciales (QA + UI)
+4. 04_new_tables.sql → tablas transaccionales
+5. 05_new_views.sql → modelo de costos
+6. 06_index.sql → índices
+7. 07_new_changes.sql → ajustes estructurales
+8. 08_alter_tables.sql → alteraciones
+9. 09_ML_views.sql → vistas para Machine Learning
+
+
+## Ejecución del Proceso ETL
+
+    Si el ETL se ejecuta desde el host (Windows/macOS/Linux):
+    DB_HOST=localhost
+
+    Si el ETL se ejecuta dentro de Docker:
+    DB_HOST=db
+ 
+Se puede referir a la variable de entorno llamado .env
+
+###  Ejecución rápida (recomendado)
+
+Para ejecutar todo el proceso ETL de forma automática:
+
+    Scripts/run_etl_load_data.bat
+
+### Nota importante:
+
+     La carpeta `New Model` contiene espacios en su nombre. 
+     En algunos entornos (Windows/Mac/Linux) esto puede generar errores al ejecutar los comandos.
+
+    Si ocurre algún problema, se recomienda renombrar la carpeta a:
+
+    src/New_Model
+
+     y actualizar los comandos correspondientes.
+
+### Ejecución Manual 
+
+     docker compose run --rm app python src/"New Model"/Paises_load_postgres.py
+     docker compose run --rm app python src/"New Model"/Comunidad_Autonomas_New_Model_load_postgres.py
+     docker compose run --rm app python src/"New Model"/Provincias_new_model_load_postgres.py
+     docker compose run --rm app python src/"New Model"/Islas_v2_new_model_load_postgres.py
+     docker compose run --rm app python src/"New Model"/Division_Politica_load_postgres.py
+     docker compose run --rm app python src/"New Model"/rel_municipio_isla_load_postgres.py
+     docker compose run --rm app python src/"New Model"/OpenstreetMap_load_postgres.py
+     docker compose run --rm app python src/"New Model"/Actividades_load_postgres.py
+     docker compose run --rm app python src/"New Model"/Alojamientos_load_postgres.py
+     docker exec -it culturatrip_db psql -U culturatrip -d culturatrip -f /docker-entrypoint-initdb.d/04_new_tables.sql
+     docker exec -it culturatrip_db psql -U culturatrip -d culturatrip -f /docker-entrypoint-initdb.d/06_index.sql
+
+Los scripts loaders:
+
+Insertan en tablas del esquema culturatrip
+
+Garantizan coherencia con el modelo relacional
+
+### Validación del modelo
+    docker exec -it culturatrip_db psql -U culturatrip -d culturatrip -c "
+    SELECT * FROM culturatrip.vw_qa_counts_base;"
 
 ## Modelo Físico Implementado (MVP)
+
+
+### Modelo Transaccional de Plan de Viaje
+
+El sistema incorpora un modelo transaccional que permite gestionar planes de viaje personalizados:
+
+- fact_plan_viaje → cabecera del plan
+- fact_plan_viaje_destino → destinos del plan
+- fact_plan_viaje_preferencia → actividades deseadas
+- fact_plan_gasto_real → gastos reales
+- fact_plan_checklist → lista de preparación
+
+Este modelo permite:
+
+- Simulación de costos
+- Seguimiento del presupuesto
+- Comparación entre costo estimado y gasto real
 
 El modelo dimensional implementado incluye:
 
@@ -165,70 +292,115 @@ Incluye:
 
     Tipificación adecuada (NUMERIC, SMALLINT, BOOLEAN)
 
-## Inicialización Automática del Modelo
-Al ejecutar:
+## Modelo de Costos
 
-    docker compose up --build
+### Rol de las Vistas en la Arquitectura
 
-Se inicializa automáticamente:
+Las vistas en PostgreSQL cumplen un papel central en el sistema:
 
-Creación de esquema (01_schema.sql)
+- Encapsulan la lógica de negocio
+- Preparan datos para la aplicación
+- Separan la capa de datos de la capa de presentación
+- Permiten reutilización de lógica analítica
+- Facilitan integración con Machine Learning
 
-Creación de tablas (02_tables.sql)
+Ejemplos:
 
-Creación de vistas representativas (03_views.sql)
+- vw_plan_resumen_basico
+- vw_plan_costos_estimados
+- vw_ml_alojamiento_features_plan
 
-Estos archivos se encuentran en la carpeta /sql y son ejecutados automáticamente por PostgreSQL al inicializar el volumen.
+El sistema incorpora un modelo de presupuesto basado en datos oficiales (INE – EGATUR), implementado mediante:
 
-Recomendación:
+dim_parametros_presupuesto
 
-Si ya existe el volumen y quieres re-inicializar desde cero: 
+Distribución del presupuesto:
 
-docker compose down -v y 
+Alojamiento → 35%
 
-luego docker compose up --build”.
+Transporte → 25%
 
-### Construir y levantar entorno
+Alimentación → 12%
 
-Desde la raíz del proyecto
-    
-    docker compose up --build
+Actividades → 28%
 
-Acceso a los servicios
-                
-| Servicio             | URL                                            |
-| -------------------- | ---------------------------------------------- |
-| Aplicación Streamlit | [http://localhost:8501](http://localhost:8501) |
-| Jupyter Notebook     | [http://localhost:8888](http://localhost:8888) |
+Los costos se calculan mediante vistas:
+
+vw_plan_presupuesto_categoria
+vw_plan_costos_alojamiento
+vw_plan_costos_alimentacion
+vw_plan_costos_transporte
+vw_plan_costos_estimados
+
+El modelo de costos se implementa completamente a nivel de vistas en PostgreSQL, permitiendo desacoplar la lógica de negocio de la aplicación y facilitar su reutilización en diferentes capas del sistema.
+## Machine Learning
+
+El sistema integra tres modelos:
+
+### Modelo supervisado (Alojamiento)
+
+- Predicción de precios
+
+- Variables: categoría, temporada, ubicación
+
+### Modelo no supervisado
+
+Clustering de provincias
+
+Segmentación de destinos
+
+### Modelo avanzado
+
+- Ranking de destinos
+
+- Evaluación multicriterio (costo + actividades + presupuesto)
+
+- Los modelos se ejecutan en tiempo real desde archivos .pkl.
+
+## Aplicación (Streamlit)
+
+La aplicación está estructurada en un flujo de 8 pantallas:
+
+- Exploración cultural
+- Gestion de Planes
+- Planificación del viaje
+- Resumen del plan
+- Presupuesto inteligente
+- Control de gastos
+- Checklist de viaje
+- Resumen final
+
+Consume directamente vistas de PostgreSQL.
+
+## Reproducibilidad
+
+El proyecto ha sido diseñado bajo el principio de:
+
+Reproducibilidad total del entorno, permitiendo ejecutar el sistema completo (datos, modelo y aplicación) mediante Docker sin configuraciones adicionales.
 
 
-## Ejecución del Proceso ETL
-
-    Si el ETL se ejecuta desde el host (Windows/macOS/Linux):
-    DB_HOST=localhost
-
-    Si el ETL se ejecuta dentro de Docker:
-    DB_HOST=db
- 
-Se puede referir a la variable de entoro llamada .env
-
-Para cargar los datos en el modelo:
-
-     python src/"New Model"/Paises_load_postgres.py
-     python src/"New Model"/Comunidad_Autonomas_New_Model_load_postgres.py
-     python src/"New Model"/Provincias_new_model_load_postgres.py
-     python src/"New Model"/Islas_v2_new_model_load_postgres.py
-     python src/"New Model"/Division_Politica_load_postgres.py
-     python src/"New Model"/rel_municipio_isla_load_postgres.py
-     python src/"New Model"/OpenstreetMap_load_postgres.py
-    python src/"New Model"/Actividades_load_postgres.py
-    python src/"New Model"/Alojamientos_load_postgres.py
-
-Los scripts loaders:
-
-Insertan en tablas del esquema culturatrip
-
-Garantizan coherencia con el modelo relacional
+## Estructura del Proyecto
+    CulturaTrip_TFM/
+    │
+    ├── Dockerfile
+    ├── docker-compose.yml
+    ├── requirements.txt
+    ├── .dockerignore
+    │
+    ├── src/
+    │   ├── App/
+    │   │   └── Culturaltrip.py
+    │   ├── New Model/
+    │   ├── Flat Model/
+    │   └── Experimental/
+    │
+    ├── data/
+    │   ├── raw/
+    │   ├── interim/
+    │   └── clean/
+    │
+    ├── Notebook/
+    └── README.md
 
 
 ## Consultas Representativas del TFM
@@ -358,11 +530,11 @@ La vista vw_ui_pantalla1_detalle_por_pais permite mostrar información cultural 
 
 Esta separación garantiza:
 
-Reproducibilidad
+- Reproducibilidad
 
-Optimización de consultas
+- Optimización de consultas
 
-Arquitectura modular (DB → Views → Streamlit)
+- Arquitectura modular (DB → Views → Streamlit)
 
 ## Validación del Entorno
 
@@ -376,57 +548,76 @@ Luego ejecutar:
      FROM information_schema.tables
      WHERE table_schema='culturatrip';
 
-## Reproducibilidad
 
-La solución es completamente reproducible en local y no requiere:
+Otras validaciones:
 
-Servicios en la nube
+     docker exec -it culturatrip_db psql -U culturatrip -d culturatrip -c "
+     SELECT COUNT(*) FROM culturatrip.fact_actividades;"
 
-Licencias privativas
+     docker exec -it culturatrip_db psql -U culturatrip -d culturatrip -c "
+     SELECT * FROM culturatrip.vw_plan_costos_estimados LIMIT 5;"
 
-Dependencias externas
+Si las consultas devuelven resultados, el sistema está correctamente cargado y listo para su uso.
 
-Todo el entorno se levanta mediante Docker.
+## Optimización
+
+Se implementan índices para mejorar el rendimiento:
+
+- Índices en planes por usuario y fechas
+- Índices en relaciones de destino
+- Índices en dimensiones clave
+
+Ejemplo:
+
+- ux_plan_unico → evita duplicados de planes
 
 ## Limitaciones del MVP
 
-No se implementan índices avanzados por volumen académico reducido.
+- No se implementan índices avanzados por volumen académico reducido.
 
-No se incluyen procesos de actualización en tiempo real.
+- No se incluyen procesos de actualización en tiempo real.
 
-No se contempla particionamiento por ahora.
+- No se contempla particionamiento por ahora.
 
-Se limita el alcance geográfico a España.
+- Se limita el alcance geográfico a España.
 
-Futuras iteraciones podrán incorporar:
+- Futuras iteraciones podrán incorporar:
 
-Optimización de consultas
+- Optimización de consultas
 
-Escalabilidad horizontal
+- Escalabilidad horizontal
 
-Integración de datasets adicionales
+- Integración de datasets adicionales
 
-## Detener el Entorno
+- Modelos de Machine Learning basados en agregaciones
 
-Detener servicios:
 
-    docker compose down
+## Valor Diferencial del Proyecto
 
-Eliminar completamente el entorno (incluyendo base de datos):
+CulturaTrip no solo analiza datos turísticos, sino que:
 
-    docker compose down -v
+- Integra datos territoriales, económicos y de comportamiento
+- Permite planificación real de viajes (no solo análisis)
+- Incorpora un modelo de costos basado en fuentes oficiales (INE)
+- Combina analítica, Machine Learning y experiencia de usuario
+- Permite simulación y seguimiento real del viaje
+
+Esto lo diferencia de sistemas tradicionales de recomendación turística.
 
 ## Conclusión
 
-Este repositorio implementa una versión funcional (MVP) del modelo de persistencia del TFM CulturaTrip, cumpliendo con los requisitos académicos de:
+CulturaTrip representa una solución integral de planificación de turismo cultural basada en datos, que combina:
 
-Modelado relacional justificado
 
-Implementación reproducible
+- Ingeniería de datos
 
-Consultas representativas
+- Modelado relacional
 
-Ejecución local sin dependencias externas
+- Machine Learning
+
+- Visualización interactiva
+
+- Todo dentro de un entorno reproducible y escalable.
 
 
 
