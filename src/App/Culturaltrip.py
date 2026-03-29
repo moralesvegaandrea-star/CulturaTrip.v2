@@ -687,9 +687,12 @@ with st.sidebar:
 
     st.divider()
     st.markdown("### Acciones rápidas")
-    st.button("↩️ Regresar a editar")
-    st.button("🧾 Ajustar presupuesto")
-    st.button("🗺️ Modificar itinerario")
+    st.caption("Comienza una nueva planificación desde cero")
+    if st.button("🆕 Nuevo plan", use_container_width=True):
+        iniciar_nuevo_plan()
+        st.session_state["step"] = 3  # ir a Planificación
+        st.rerun()
+
 # ===============================
 # Helpers
 # ===============================
@@ -1022,9 +1025,9 @@ def mostrar_top5_provincias_similares(
     id_provincia_seleccionada: str,
     provincia_nombre_seleccionada: str
 ):
-    st.subheader("🔎 Top 5 provincias con características similares")
+    st.subheader("Si te gusta este destino, también te puede gustar")
     st.caption(
-        f"Basado en clustering no supervisado para la provincia seleccionada: {provincia_nombre_seleccionada}"
+        f"Te mostramos destinos con un perfil parecido al que elegiste: {provincia_nombre_seleccionada}"
     )
 
     if not id_provincia_seleccionada:
@@ -1217,39 +1220,39 @@ def construir_tabla_comparacion_categoria(
     data = [
         {
             "Categoría": "Alojamiento",
-            "INE / Presupuesto teórico (€)": float(row_presupuesto_cat.get("presupuesto_alojamiento", 0) or 0),
-            "Costo estimado actual (€)": alojamiento_actual,
-            "Costo ajustado ML (€)": alojamiento_ml,
+            "Presupuesto recomendado (€)": float(row_presupuesto_cat.get("presupuesto_alojamiento", 0) or 0),
+            "Estimación inicial (€)": alojamiento_actual,
+            "Estimación optimizada (€)": alojamiento_ml,
         },
         {
             "Categoría": "Alimentación",
-            "INE / Presupuesto teórico (€)": float(row_presupuesto_cat.get("presupuesto_alimentacion", 0) or 0),
-            "Costo estimado actual (€)": alimentacion,
-            "Costo ajustado ML (€)": alimentacion,
+            "Presupuesto recomendado (€)": float(row_presupuesto_cat.get("presupuesto_alimentacion", 0) or 0),
+            "Estimación inicial (€)": alimentacion,
+            "Estimación optimizada (€)": alimentacion,
         },
         {
             "Categoría": "Actividades",
-            "INE / Presupuesto teórico (€)": float(row_presupuesto_cat.get("presupuesto_actividades", 0) or 0),
-            "Costo estimado actual (€)": actividades,
-            "Costo ajustado ML (€)": actividades,
+            "Presupuesto recomendado (€)": float(row_presupuesto_cat.get("presupuesto_actividades", 0) or 0),
+            "Estimación inicial (€)": actividades,
+            "Estimación optimizada (€)": actividades,
         },
         {
             "Categoría": "Servicios",
-            "INE / Presupuesto teórico (€)": float(row_presupuesto_cat.get("presupuesto_servicios", 0) or 0),
-            "Costo estimado actual (€)": servicios,
-            "Costo ajustado ML (€)": servicios,
+            "Presupuesto recomendado (€)": float(row_presupuesto_cat.get("presupuesto_servicios", 0) or 0),
+            "Estimación inicial (€)": servicios,
+            "Estimación optimizada (€)": servicios,
         },
         {
             "Categoría": "Otros",
-            "INE / Presupuesto teórico (€)": float(row_presupuesto_cat.get("presupuesto_otros", 0) or 0),
-            "Costo estimado actual (€)": otros,
-            "Costo ajustado ML (€)": otros,
+            "Presupuesto recomendado (€)": float(row_presupuesto_cat.get("presupuesto_otros", 0) or 0),
+            "Estimación inicial (€)": otros,
+            "Estimación optimizada (€)": otros,
         },
         {
             "Categoría": "Transporte",
-            "INE / Presupuesto teórico (€)": float(row_presupuesto_cat.get("presupuesto_transporte", 0) or 0),
-            "Costo estimado actual (€)": transporte,
-            "Costo ajustado ML (€)": transporte,
+            "Presupuesto recomendado (€)": float(row_presupuesto_cat.get("presupuesto_transporte", 0) or 0),
+            "Estimación inicial (€)": transporte,
+            "Estimación optimizada (€)": transporte,
         },
     ]
 
@@ -1257,9 +1260,9 @@ def construir_tabla_comparacion_categoria(
 
     fila_total = pd.DataFrame([{
         "Categoría": "TOTAL",
-        "INE / Presupuesto teórico (€)": round(df_comp["INE / Presupuesto teórico (€)"].sum(), 2),
-        "Costo estimado actual (€)": round(df_comp["Costo estimado actual (€)"].sum(), 2),
-        "Costo ajustado ML (€)": round(df_comp["Costo ajustado ML (€)"].sum(), 2),
+        "Presupuesto recomendado (€)": round(df_comp["Presupuesto recomendado (€)"].sum(), 2),
+        "Estimación inicial (€)": round(df_comp["Estimación inicial (€)"].sum(), 2),
+        "Estimación optimizada (€)": round(df_comp["Estimación optimizada (€)"].sum(), 2),
     }])
 
     df_comp = pd.concat([df_comp, fila_total], ignore_index=True)
@@ -1460,14 +1463,6 @@ def actualizar_plan_db(id_plan: int):
 # Pantalla 1
 # ===============================
 def pantalla_1():
-
-    # Reset completo
-    col_reset_left, col_reset_right = st.columns([6, 2])
-    with col_reset_right:
-        if st.button("🔄 Nuevo plan", use_container_width=True):
-            iniciar_nuevo_plan()
-            st.session_state["step"] = 3  # ir a Planificación
-            st.rerun()
 
     st.markdown("<h2 style='margin-bottom:0.3rem;'>Selecciona un destino</h2>", unsafe_allow_html=True)
 
@@ -1843,7 +1838,7 @@ def pantalla_2():
             # -------------------------------
             # MACHINE LEARNING
             # -------------------------------
-            st.subheader("🤖 Top 5 provincias recomendadas por Machine Learning")
+            st.subheader("Descubre las provincias más recomendadas para ti")
 
             id_pais_destino_ml = st.session_state.get("id_pais")
             fecha_ida_ml = st.session_state.get("fecha_ida")
@@ -2328,8 +2323,8 @@ def pantalla_3():
         # ===============================
         st.markdown("### Comparación por categoría")
         st.caption(
-            "Esta comparación muestra el presupuesto teórico según referencia INE, "
-            "el costo estimado actual del plan y el costo ajustado con Machine Learning para alojamiento."
+            "Esta comparación muestra el presupuesto recomendado, la estimación inicial del plan "
+             "y una estimación optimizada para el alojamiento."
         )
 
         col_kpi1, col_kpi2, col_kpi3 = st.columns(3)
@@ -2347,7 +2342,7 @@ def pantalla_3():
             st.metric("Presupuesto disponible para alojamiento", format_eur(presupuesto_aloj_ine))
 
         with col_kpi2:
-            st.metric("Costo estimado alojamiento con ML", format_eur(alojamiento_ml_estimado))
+            st.metric("Costo optimizado de alojamiento", format_eur(alojamiento_ml_estimado))
 
         with col_kpi3:
             if alcanza_aloj:
@@ -2367,9 +2362,9 @@ def pantalla_3():
 
             df_comparacion_show = df_comparacion.copy()
             cols_monto = [
-                "INE / Presupuesto teórico (€)",
-                "Costo estimado actual (€)",
-                "Costo ajustado ML (€)"
+                "Presupuesto recomendado (€)",
+                "Estimación inicial (€)",
+                "Estimación optimizada (€)"
             ]
 
             for col in cols_monto:
@@ -2377,14 +2372,14 @@ def pantalla_3():
 
             st.dataframe(df_comparacion_show, use_container_width=True, hide_index=True)
 
-            total_ine = float(df_comparacion.iloc[-1]["INE / Presupuesto teórico (€)"])
-            total_actual = float(df_comparacion.iloc[-1]["Costo estimado actual (€)"])
-            total_ml = float(df_comparacion.iloc[-1]["Costo ajustado ML (€)"])
+            total_ine = float(df_comparacion.iloc[-1]["Presupuesto recomendado (€)"])
+            total_actual = float(df_comparacion.iloc[-1]["Estimación inicial (€)"])
+            total_ml = float(df_comparacion.iloc[-1]["Estimación optimizada (€)"])
 
             st.info(
-                f"Total INE: {format_eur(total_ine)} | "
-                f"Total actual: {format_eur(total_actual)} | "
-                f"Total ajustado ML: {format_eur(total_ml)}"
+                f"Total recomendado: {format_eur(total_ine)} | "
+                f"Total estimado: {format_eur(total_actual)} | "
+                f"Total optimizado: {format_eur(total_ml)}"
             )
         else:
             st.info("No se encontró distribución de presupuesto por categoría para este plan.")
@@ -2435,7 +2430,7 @@ def pantalla_3():
         st.dataframe(pd.DataFrame(calendario), use_container_width=True, hide_index=True)
 
 def pantalla_4():
-        st.header("💰 Presupuesto Inteligente")
+        st.header("Plan financiero de tu viaje")
 
         plan_id = st.session_state.get("plan_seleccionado")
 
@@ -2452,8 +2447,13 @@ def pantalla_4():
         # ===============================
         # Obtener plan más reciente
         # ===============================
-        plan = df_plan_resumen.sort_values("created_at", ascending=False).iloc[0]
-        plan_id = int(plan["id_plan"])
+        plan_df = df_plan_resumen[df_plan_resumen["id_plan"] == plan_id]
+
+        if plan_df.empty:
+            st.warning("No se encontró el plan seleccionado.")
+            return
+
+        plan = plan_df.iloc[0]
 
         row_costos = df_plan_costos[df_plan_costos["id_plan"] == plan_id]
 
@@ -2490,7 +2490,8 @@ def pantalla_4():
         dias_restantes = max((fecha_ida - hoy).days, 0)
         meses_restantes = max(math.ceil(dias_restantes / 30), 1)
 
-        meta_mensual = round(total_estimado / meses_restantes, 2)
+        monto_a_ahorrar = max(total_estimado - presupuesto, 0)
+        meta_mensual = round(monto_a_ahorrar / meses_restantes, 2) if meses_restantes > 0 else 0
 
         st.caption(f"Plan ID: {plan_id}")
 
@@ -2583,33 +2584,35 @@ def pantalla_4():
         # ===============================
         # Plan simple de ahorro
         # ===============================
-        st.subheader("Plan simple de ahorro")
+        st.subheader("Plan de ahorro")
 
-        a1, a2, a3 = st.columns(3)
+        if monto_a_ahorrar <= 0:
+            st.success("No necesitas ahorrar más. Tu presupuesto actual ya cubre el viaje.")
+        else:
+            a1, a2, a3 = st.columns(3)
 
-        with a1:
-            st.metric("Días restantes", dias_restantes)
+            with a1:
+                st.metric("Días restantes", dias_restantes)
 
-        with a2:
-            st.metric("Meses restantes", meses_restantes)
+            with a2:
+                st.metric("Meses restantes", meses_restantes)
 
-        with a3:
-            st.metric(
-                "Meta mensual de ahorro",
-                f"€{meta_mensual:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
-            )
+            with a3:
+                st.metric(
+                    "Meta mensual de ahorro",
+                    f"€{meta_mensual:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+                )
 
-        ahorro_rows = []
+            ahorro_rows = []
 
-        for i in range(1, meses_restantes + 1):
-            ahorro_rows.append({
-                "Mes": f"Mes {i}",
-                "Meta de ahorro (€)": meta_mensual
-            })
+            for i in range(1, meses_restantes + 1):
+                ahorro_rows.append({
+                    "Mes": f"Mes {i}",
+                    "Meta de ahorro (€)": meta_mensual
+                })
 
-        df_ahorro = pd.DataFrame(ahorro_rows)
-
-        st.dataframe(df_ahorro, use_container_width=True, hide_index=True)
+            df_ahorro = pd.DataFrame(ahorro_rows)
+            st.dataframe(df_ahorro, use_container_width=True, hide_index=True)
 
 
 def pantalla_5():
@@ -2626,13 +2629,16 @@ def pantalla_5():
             st.info("Aún no hay planes guardados en la base de datos.")
             st.caption("Primero completa la Pantalla 2 y guarda un plan.")
             return
-
         # ===============================
-        # Plan más reciente
+        # Obtener plan seleccionado
         # ===============================
-        plan = df_plan_resumen.sort_values("created_at", ascending=False).iloc[0]
-        plan_id = int(plan["id_plan"])
+        plan_df = df_plan_resumen[df_plan_resumen["id_plan"] == plan_id]
 
+        if plan_df.empty:
+            st.warning("No se encontró el plan seleccionado.")
+            return
+
+        plan = plan_df.iloc[0]
         row_costos = df_plan_costos[df_plan_costos["id_plan"] == plan_id]
         if row_costos.empty:
             st.info("No hay costos estimados para este plan.")
@@ -2705,10 +2711,12 @@ def pantalla_5():
             st.metric("% ejecutado", f"{pct_ejecutado:.1f}%")
 
         st.divider()
-
         # ===============================
         # Resumen comparativo
         # ===============================
+        margen_vs_presupuesto = round(presupuesto_usuario - presupuesto_aprobado, 2)
+        saldo_disponible_usuario = round(presupuesto_usuario - gasto_real_total, 2)
+
         c1, c2, c3 = st.columns(3)
 
         with c1:
@@ -2719,28 +2727,28 @@ def pantalla_5():
 
         with c2:
             st.metric(
-                "Costo estimado modelo",
-                f"€{presupuesto_aprobado:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+                "Margen vs presupuesto usuario",
+                f"€{abs(margen_vs_presupuesto):,.2f}".replace(",", "X").replace(".", ",").replace("X", "."),
+                "Disponible" if margen_vs_presupuesto >= 0 else "Insuficiente"
             )
 
         with c3:
             st.metric(
-                "Saldo restante real",
-                f"€{abs(diferencia_vs_usuario):,.2f}".replace(",", "X").replace(".", ",").replace("X", "."),
-                "Disponible" if diferencia_vs_usuario >= 0 else "Excedido"
+                "Saldo disponible del usuario",
+                f"€{abs(saldo_disponible_usuario):,.2f}".replace(",", "X").replace(".", ",").replace("X", "."),
+                "Disponible" if saldo_disponible_usuario >= 0 else "Excedido"
             )
 
         st.progress(min(pct_ejecutado / 100, 1.0))
 
         if diferencia_vs_estimado >= 0:
             st.info(
-                f"Según el costo estimado del plan, aún dispones de "
-                f"€{diferencia_vs_estimado:,.2f} por ejecutar.".replace(",", "X").replace(".", ",").replace("X", ".")
+                f"Todavía has ejecutado menos gasto del previsto. "
+                f"Te quedan {format_eur(diferencia_vs_estimado)} antes de alcanzar el costo estimado del plan."
             )
         else:
             st.warning(
-                f"Los gastos reales ya superan el costo estimado del plan en "
-                f"€{abs(diferencia_vs_estimado):,.2f}.".replace(",", "X").replace(".", ",").replace("X", ".")
+                f"Ya superaste el costo estimado del plan en {format_eur(abs(diferencia_vs_estimado))}."
             )
 
         st.divider()
