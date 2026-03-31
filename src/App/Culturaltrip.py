@@ -1371,92 +1371,107 @@ def eliminar_plan_db(id_plan: int):
 # ===============================
 
 def actualizar_plan_db(id_plan: int):
-    engine = get_engine()
+        engine = get_engine()
 
-    email = st.session_state.get("email")
-    id_pais_origen = st.session_state.get("id_pais_origen")
-    id_pais_destino = st.session_state.get("id_pais")
-    fecha_ida = st.session_state.get("fecha_ida")
-    fecha_regreso = st.session_state.get("fecha_regreso")
-    presupuesto = st.session_state.get("presupuesto")
-    tipo_viaje = st.session_state.get("tipo_viaje", "Solo")
-    categoria_aloj = st.session_state.get("categoria_alojamiento")
-    perfil_presupuesto = st.session_state.get("perfil_presupuesto", "standard")
+        # ===============================
+        # Solo campos permitidos en edición
+        # ===============================
+        presupuesto = st.session_state.get("presupuesto")
+        tipo_viaje = st.session_state.get("tipo_viaje", "Solo")
+        perfil_presupuesto = st.session_state.get("perfil_presupuesto", "standard")
 
-    id_provincia = st.session_state.get("id_provincia_destino")
-    categorias_act = st.session_state.get("categorias_actividad", [])
-    cantidades_act = st.session_state.get("cantidades_actividad", {})
+        id_provincia = st.session_state.get("id_provincia_destino")
+        categorias_act = st.session_state.get("categorias_actividad", [])
+        cantidades_act = st.session_state.get("cantidades_actividad", {})
 
-    if not id_plan:
-        st.error("No hay plan seleccionado para actualizar.")
-        return False
+        # ===============================
+        # Campos bloqueados por índice único
+        # Se leen solo para validación mínima visual/lógica,
+        # pero NO se actualizan en DB
+        # ===============================
+        email = st.session_state.get("email")
+        id_pais_origen = st.session_state.get("id_pais_origen")
+        id_pais_destino = st.session_state.get("id_pais")
+        fecha_ida = st.session_state.get("fecha_ida")
+        fecha_regreso = st.session_state.get("fecha_regreso")
+        categoria_aloj = st.session_state.get("categoria_alojamiento")
 
-    if not (email and id_pais_origen and id_pais_destino and fecha_ida and fecha_regreso and categoria_aloj):
-        st.error("Faltan datos obligatorios para actualizar el plan.")
-        return False
+        if not id_plan:
+            st.error("No hay plan seleccionado para actualizar.")
+            return False
 
-    if fecha_regreso < fecha_ida:
-        st.error("Fecha regreso no puede ser anterior a fecha ida.")
-        return False
+        # Validación mínima para no romper flujo general
+        if not (email and id_pais_origen and id_pais_destino and fecha_ida and fecha_regreso and categoria_aloj):
+            st.error("Faltan datos obligatorios del plan.")
+            return False
 
-    with engine.begin() as conn:
-        conn.execute(text("""
-            UPDATE culturatrip.fact_plan_viaje
-            SET
-                email_usuario = :email,
-                id_pais_origen = :id_pais_origen,
-                id_pais_destino = :id_pais_destino,
-                fecha_ida = :fecha_ida,
-                fecha_regreso = :fecha_regreso,
-                presupuesto_estimado = :presupuesto,
-                tipo_viaje = :tipo_viaje,
-                categoria_alojamiento = :categoria_aloj,
-                perfil_presupuesto = :perfil_presupuesto
-            WHERE id_plan = :id_plan
-        """), {
-            "id_plan": id_plan,
-            "email": email,
-            "id_pais_origen": id_pais_origen,
-            "id_pais_destino": id_pais_destino,
-            "fecha_ida": fecha_ida,
-            "fecha_regreso": fecha_regreso,
-            "presupuesto": presupuesto,
-            "tipo_viaje": tipo_viaje,
-            "categoria_aloj": categoria_aloj,
-            "perfil_presupuesto": perfil_presupuesto
-        })
+        if fecha_regreso < fecha_ida:
+            st.error("Fecha regreso no puede ser anterior a fecha ida.")
+            return False
 
-        conn.execute(text("""
-            DELETE FROM culturatrip.fact_plan_viaje_destino
-            WHERE id_plan = :id_plan
-        """), {"id_plan": id_plan})
+        if presupuesto is None or float(presupuesto) <= 0:
+            st.error("Debes ingresar un presupuesto mayor a 0.")
+            return False
 
-        if id_provincia:
+        with engine.begin() as conn:
+            # ===============================
+            # 1. Actualizar SOLO cabecera permitida
+            # ===============================
             conn.execute(text("""
-                INSERT INTO culturatrip.fact_plan_viaje_destino (id_plan, orden, id_provincia)
-                VALUES (:id_plan, 1, :id_provincia)
+                UPDATE culturatrip.fact_plan_viaje
+                SET
+                    presupuesto_estimado = :presupuesto,
+                    tipo_viaje = :tipo_viaje,
+                    perfil_presupuesto = :perfil_presupuesto
+                WHERE id_plan = :id_plan
             """), {
                 "id_plan": id_plan,
-                "id_provincia": id_provincia
+                "presupuesto": presupuesto,
+                "tipo_viaje": tipo_viaje,
+                "perfil_presupuesto": perfil_presupuesto
             })
 
-        conn.execute(text("""
-            DELETE FROM culturatrip.fact_plan_viaje_preferencia
-            WHERE id_plan = :id_plan
-        """), {"id_plan": id_plan})
+            # ===============================
+            # 2. Reemplazar provincia destino
+            # ===============================
+            conn.execute(text("""
+                DELETE FROM culturatrip.fact_plan_viaje_destino
+                WHERE id_plan = :id_plan
+            """), {
+                "id_plan": id_plan
+            })
 
-        if categorias_act:
-            for cat in categorias_act:
+            if id_provincia:
                 conn.execute(text("""
-                    INSERT INTO culturatrip.fact_plan_viaje_preferencia (id_plan, categoria, cantidad)
-                    VALUES (:id_plan, :categoria, :cantidad)
+                    INSERT INTO culturatrip.fact_plan_viaje_destino (id_plan, orden, id_provincia)
+                    VALUES (:id_plan, 1, :id_provincia)
                 """), {
                     "id_plan": id_plan,
-                    "categoria": cat,
-                    "cantidad": int(cantidades_act.get(cat, 1))
+                    "id_provincia": id_provincia
                 })
 
-    return True
+            # ===============================
+            # 3. Reemplazar preferencias
+            # ===============================
+            conn.execute(text("""
+                DELETE FROM culturatrip.fact_plan_viaje_preferencia
+                WHERE id_plan = :id_plan
+            """), {
+                "id_plan": id_plan
+            })
+
+            if categorias_act:
+                for cat in categorias_act:
+                    conn.execute(text("""
+                        INSERT INTO culturatrip.fact_plan_viaje_preferencia (id_plan, categoria, cantidad)
+                        VALUES (:id_plan, :categoria, :cantidad)
+                    """), {
+                        "id_plan": id_plan,
+                        "categoria": cat,
+                        "cantidad": int(cantidades_act.get(cat, 1))
+                    })
+
+        return True
 
 
 # ===============================
@@ -1777,6 +1792,12 @@ def pantalla_2():
         st.header("🧭 Planifica tu viaje")
         st.caption("Completa la información base del viaje para construir el plan y estimar costos.")
 
+        modo_edicion = bool(st.session_state.get("modo_edicion_plan", False))
+
+        if modo_edicion:
+            st.info(
+                "Estás editando un plan existente. Para cambiar correo, países, fechas o tipo de hospedaje, debes crear un plan nuevo.")
+
         col_left, col_right = st.columns([1, 1], gap="large")
 
         # ===============================
@@ -1811,7 +1832,8 @@ def pantalla_2():
                 index=lista_paises_ui.index(st.session_state["pais_origen"])
                 if st.session_state["pais_origen"] in lista_paises_ui else None,
                 placeholder="— Selecciona país origen —",
-                key="pais_origen_ui"
+                key="pais_origen_ui",
+                disabled=modo_edicion
             )
 
             if pais_origen_ui:
@@ -1825,7 +1847,8 @@ def pantalla_2():
                 index=lista_paises_ui.index(st.session_state["pais"])
                 if st.session_state["pais"] in lista_paises_ui else None,
                 placeholder="— Selecciona país destino —",
-                key="pais_destino_ui"
+                key="pais_destino_ui",
+                disabled=modo_edicion
             )
 
             if pais_destino_ui:
@@ -1943,7 +1966,8 @@ def pantalla_2():
             email = st.text_input(
                 "Usuario / correo",
                 value=st.session_state["email"],
-                placeholder="usuario@email.com"
+                placeholder="usuario@email.com",
+                disabled=modo_edicion
             )
 
             if email is not None:
@@ -1958,12 +1982,14 @@ def pantalla_2():
             fecha_ida = st.date_input(
                 "Fecha de ida",
                 value=fecha_ida_default,
-                key="fecha_ida_input"
+                key="fecha_ida_input",
+                disabled=modo_edicion
             )
             fecha_regreso = st.date_input(
                 "Fecha de regreso",
                 value=fecha_regreso_default,
-                key="fecha_regreso_input"
+                key="fecha_regreso_input",
+                disabled=modo_edicion
             )
 
             st.session_state["fecha_ida"] = fecha_ida
@@ -2048,7 +2074,8 @@ def pantalla_2():
                 index=lista_aloj.index(st.session_state["categoria_alojamiento"])
                 if st.session_state["categoria_alojamiento"] in lista_aloj else None,
                 placeholder="— Selecciona hospedaje —",
-                key="tipo_hospedaje_ui"
+                key="tipo_hospedaje_ui",
+                disabled=modo_edicion
             )
 
             if tipo_aloj:
@@ -2100,6 +2127,9 @@ def pantalla_2():
             plan_id_edicion = st.session_state.get("plan_seleccionado")
 
             texto_boton_guardar = "Actualizar plan ✏️" if modo_edicion else "Guardar plan nuevo ✅"
+
+            if modo_edicion:
+                st.caption("Solo se actualizarán los campos permitidos del plan actual.")
 
             disabled_save = st.session_state.get("guardando", False)
 
@@ -2886,8 +2916,15 @@ def pantalla_6():
             st.caption("Primero completa la Pantalla 2 y guarda un plan.")
             return
 
-        # Tomamos el plan más reciente
-        plan = df_plan_resumen.sort_values("created_at", ascending=False).iloc[0]
+
+        # Tomamos el plan realmente seleccionado
+        plan_df = df_plan_resumen[df_plan_resumen["id_plan"] == plan_id]
+
+        if plan_df.empty:
+            st.warning("No se encontró el plan seleccionado.")
+            return
+
+        plan = plan_df.iloc[0]
         plan_id = int(plan["id_plan"])
 
         st.subheader(f"ID del plan: {plan_id}")
@@ -2900,6 +2937,18 @@ def pantalla_6():
         st.caption(
             f"Destino: {pais_destino} | Provincia: {provincia_destino} | Duración: {dias_viaje} días"
         )
+
+        # ===============================
+        # Cargar checklist guardado desde DB
+        # ===============================
+        df_checklist_guardado = load_checklist_plan(plan_id)
+
+        estado_guardado = {}
+        if not df_checklist_guardado.empty:
+            estado_guardado = {
+                (row["seccion"], row["item"]): bool(row["completado"])
+                for _, row in df_checklist_guardado.iterrows()
+            }
 
         # ===============================
         # Cantidades recomendadas simples
@@ -3035,7 +3084,14 @@ def pantalla_6():
                     key_item = f"check_{plan_id}_{seccion}_{item}"
                     texto = item if cantidad is None else f"{item} (Cantidad recomendada: {cantidad})"
 
-                    checked = st.checkbox(texto, key=key_item)
+                    # Inicializar session_state con el valor guardado en DB
+                    if key_item not in st.session_state:
+                        st.session_state[key_item] = estado_guardado.get((seccion, item), False)
+
+                    checked = st.checkbox(
+                        texto,
+                        key=key_item
+                    )
 
                     total_items += 1
                     if checked:
@@ -3098,6 +3154,7 @@ def pantalla_6():
 
 
 def pantalla_7():
+
         st.header("✅ Resumen final del viaje")
 
         plan_id = st.session_state.get("plan_seleccionado")
@@ -3113,9 +3170,15 @@ def pantalla_7():
             return
 
         # ===============================
-        # Plan más reciente
+        # Plan seleccionado
         # ===============================
-        plan = df_plan_resumen.sort_values("created_at", ascending=False).iloc[0]
+        plan_df = df_plan_resumen[df_plan_resumen["id_plan"] == plan_id]
+
+        if plan_df.empty:
+            st.warning("No se encontró el plan seleccionado.")
+            return
+
+        plan = plan_df.iloc[0]
         plan_id = int(plan["id_plan"])
 
         row_costos = df_plan_costos[df_plan_costos["id_plan"] == plan_id]
@@ -3141,6 +3204,22 @@ def pantalla_7():
             total_estimado = float(costos.get("costo_total_estimado", 0) or 0)
 
             diferencia = float(plan["presupuesto_estimado"]) - total_estimado
+
+        # ===============================
+        # Checklist guardado desde DB
+        # ===============================
+        df_checklist_guardado = load_checklist_plan(plan_id)
+
+        total_items_checklist = 0
+        total_checked_checklist = 0
+
+        if not df_checklist_guardado.empty:
+            total_items_checklist = len(df_checklist_guardado)
+            total_checked_checklist = int(df_checklist_guardado["completado"].sum())
+
+        pct = round(
+            (total_checked_checklist / total_items_checklist) * 100, 2
+        ) if total_items_checklist > 0 else 0
 
         # ===============================
         # Bloque principal
@@ -3231,33 +3310,24 @@ def pantalla_7():
         st.divider()
 
         # ===============================
-        # Estado checklist desde session_state
+        # Estado checklist desde base de datos
         # ===============================
         st.subheader("Estado de preparación")
-
-        total_items = 0
-        total_checked = 0
-
-        for key, value in st.session_state.items():
-            if str(key).startswith("check_"):
-                total_items += 1
-                if value:
-                    total_checked += 1
-
-        pct = round((total_checked / total_items) * 100, 2) if total_items > 0 else 0
 
         r1, r2, r3 = st.columns(3)
 
         with r1:
-            st.metric("Total artículos", total_items)
+            st.metric("Total artículos", total_items_checklist)
         with r2:
-            st.metric("Completados", total_checked)
+            st.metric("Completados", total_checked_checklist)
         with r3:
             st.metric("Progreso checklist", f"{pct}%")
 
         st.progress(min(pct / 100, 1.0))
 
-        if pct == 100:
+        if total_items_checklist == 0:
+            st.info("Aún no hay checklist guardado para este plan.")
+        elif pct == 100:
             st.success("✅ Todo listo. El checklist está completo.")
         elif pct >= 50:
             st.info("Vas bien. Tu preparación está avanzada.")
@@ -3287,6 +3357,8 @@ def pantalla_7():
 
         with b2:
             st.button("📤 Compartir plan (próximamente)", use_container_width=True)
+
+
 
 # ===============================
 # Router
