@@ -10,7 +10,7 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parents[2]
 path_in = BASE_DIR / "data" / "clean" / "dim_pais.csv"
 
-df = pd.read_csv(path_in, dtype=str)
+df = pd.read_csv(path_in, dtype=str, keep_default_na=False)
 
 # =========================
 # 2) Normalizar para calzar con CREATE TABLE
@@ -20,12 +20,16 @@ df = df[["id_pais", "pais", "lat", "lon"]].copy()
 
 # id_pais: ISO2, 2 chars, uppercase
 df["id_pais"] = (
-    df["id_pais"].astype(str).str.strip().str.upper().str[:2]
+    df["id_pais"]
+    .fillna("")
+    .str.strip()
+    .str.upper()
+    .str[:2]
 )
 
 # pais: NOT NULL, limitar a 60
-df["pais"] = df["pais"].astype(str).str.strip().str[:60]
-df = df[df["pais"] != ""].copy()
+df["pais"] = df["pais"].fillna("").str.strip().str[:60]
+df = df[(df["id_pais"] != "") & (df["pais"] != "")].copy()
 
 # lat/lon: numeric(10,7)
 df["lat"] = pd.to_numeric(df["lat"], errors="coerce").round(7)

@@ -51,6 +51,32 @@ Analizar la viabilidad del viaje según presupuesto
 
 Integrar modelos de Machine Learning en la toma de decisiones
 
+## Requisitos del entorno
+
+Antes de ejecutar el proyecto, asegúrate de tener instaladas las siguientes herramientas:
+
+- Python 3.10 o superior
+- Docker Desktop
+
+Puedes verificar las versiones instaladas ejecutando:
+
+```bash
+python --version
+docker --version
+```
+#### Ejemplo de salida
+```
+     Python 3.14.2
+     Docker version 29.2.1
+```
+
+### Como Clonar el repositorio:
+
+```bash
+git clone https://github.com/moralesvegaandrea-star/CulturaTrip.v2
+cd CulturaTrip.v2
+```
+
 ## Datasets Utilizados
 
 El sistema integra los siguientes datasets:
@@ -174,9 +200,6 @@ Creación de tablas
 Creación de vistas
 
 ###  Orden de Ejecución de Scripts SQL
-
-Los scripts SQL deben ejecutarse en el siguiente orden:
-
 1. 01_schema.sql → creación del esquema
 2. 02_tables.sql → tablas base
 3. 03_views.sql → vistas iniciales (QA + UI)
@@ -187,6 +210,16 @@ Los scripts SQL deben ejecutarse en el siguiente orden:
 8. 08_alter_tables.sql → alteraciones
 9. 09_ML_views.sql → vistas para Machine Learning
 
+Los scripts SQL deben ejecutarse en el siguiente orden:
+
+    Scripts/run_views.bat
+
+Estos scripts completan el modelo e incluyen:
+
+- Tablas transaccionales
+- Modelo de costos
+- Índices
+- Vistas para Machine Learning
 
 ## Ejecución del Proceso ETL
 

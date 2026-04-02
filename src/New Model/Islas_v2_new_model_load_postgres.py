@@ -23,12 +23,9 @@ df = df[["id_pais", "id_isla", "id_provincia", "gid_isla", "isla", "provincia_he
 df["id_pais"] = df["id_pais"].astype(str).str.strip().str.upper().str[:2]
 
 # id_provincia CHAR(2) -> padding si viene "1" -> "01"
-df["id_provincia"] = (
-    pd.to_numeric(df["id_provincia"], errors="ignore")
-    .astype(str)
-    .str.strip()
-)
-df["id_provincia"] = df["id_provincia"].apply(lambda x: x.zfill(2) if x.isdigit() else x[:2])
+df["id_provincia"] = pd.to_numeric(df["id_provincia"], errors="coerce")
+df["id_provincia"] = df["id_provincia"].fillna(0).astype(int).astype(str).str.zfill(2)
+
 
 # id_isla CHAR(5) -> limpiar y cortar a 5
 df["id_isla"] = df["id_isla"].astype(str).str.strip().str.upper().str[:5]
