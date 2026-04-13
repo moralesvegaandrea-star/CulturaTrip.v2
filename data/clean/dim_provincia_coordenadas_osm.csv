@@ -1,0 +1,53 @@
+﻿id_provincia,provincia_nombre,id_ccaa,ccaa_nombre,lat_provincia,lon_provincia,n_municipios
+01,araba/álava,16,País Vasco,42.768109,-2.675661,51
+02,albacete,08,Castilla - La Mancha,38.889482,-1.908696,87
+03,alicante/alacant,10,Comunitat Valenciana,38.540261,-0.429415,141
+04,almería,01,Andalucía,37.144547,-2.419317,103
+05,ávila,07,Castilla y León,40.630088,-4.975553,248
+06,badajoz,11,Extremadura,38.679844,-6.147658,165
+07,illes balears,04,"Balears, Illes",39.632296,2.942109,67
+08,barcelona,09,Cataluña,41.682662,2.032902,311
+09,burgos,07,Castilla y León,42.249297,-3.594081,371
+10,cáceres,11,Extremadura,39.833393,-6.085667,223
+11,cádiz,01,Andalucía,36.571287,-5.726679,45
+12,castellón/castelló,10,Comunitat Valenciana,40.149589,-0.215524,135
+13,ciudad real,08,Castilla - La Mancha,38.925155,-3.768386,102
+14,córdoba,01,Andalucía,37.894562,-4.735128,77
+15,a coruña,12,Galicia,43.097004,-8.48299,93
+16,cuenca,08,Castilla - La Mancha,39.926908,-2.225224,238
+17,girona,09,Cataluña,42.127253,2.765347,221
+18,granada,01,Andalucía,37.175422,-3.438488,174
+19,guadalajara,08,Castilla - La Mancha,40.818246,-2.713016,288
+20,gipuzkoa,16,País Vasco,43.143977,-2.167538,88
+21,huelva,01,Andalucía,37.63054,-6.793123,80
+22,huesca,02,Aragón,42.157134,-0.029402,202
+23,jaén,01,Andalucía,37.966148,-3.470899,97
+24,león,07,Castilla y León,42.530941,-5.796742,211
+25,lleida,09,Cataluña,41.881262,1.017424,231
+26,la rioja,17,"Rioja, La",42.343967,-2.614451,174
+27,lugo,12,Galicia,43.049469,-7.435084,67
+28,madrid,13,"Madrid, Comunidad de",40.533072,-3.685005,179
+29,málaga,01,Andalucía,36.793405,-4.654665,103
+30,murcia,14,"Murcia, Región de",37.991482,-1.332572,45
+31,navarra,15,"Navarra, Comunidad Foral de",42.69861,-1.728394,272
+32,ourense,12,Galicia,42.238849,-7.760386,92
+33,asturias,03,"Asturias, Principado de",43.348987,-5.955393,78
+34,palencia,07,Castilla y León,42.312124,-4.538204,191
+35,las palmas,05,Canarias,28.303246,-14.89004,34
+36,pontevedra,12,Galicia,42.358052,-8.573575,61
+37,salamanca,07,Castilla y León,40.79855,-5.949388,362
+38,santa cruz de tenerife,05,Canarias,28.372788,-17.050719,54
+39,cantabria,06,Cantabria,43.261445,-3.959603,102
+40,segovia,07,Castilla y León,41.193128,-4.043077,209
+41,sevilla,01,Andalucía,37.407677,-5.72649,106
+42,soria,07,Castilla y León,41.677796,-2.5349,183
+43,tarragona,09,Cataluña,41.159192,0.975605,184
+44,teruel,02,Aragón,40.683022,-0.85634,236
+45,toledo,08,Castilla - La Mancha,39.893907,-4.265199,204
+46,valencia/valència,10,Comunitat Valenciana,39.295831,-0.536783,266
+47,valladolid,07,Castilla y León,41.653693,-4.822,225
+48,bizkaia,16,País Vasco,43.268925,-2.815486,113
+49,zamora,07,Castilla y León,41.729001,-5.859143,248
+50,zaragoza,02,Aragón,41.559623,-1.274045,293
+51,ceuta,18,Ceuta,35.894422,-5.355817,1
+52,melilla,19,Melilla,35.291903,-2.940715,1
