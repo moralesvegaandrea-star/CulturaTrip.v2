@@ -1,0 +1,13 @@
+﻿mes,mes_nombre,mes_nombre_corto,trimestre,trimestre_nombre,semestre,semestre_nombre,estacion,temporada_turistica,temporada_orden,es_temporada_alta,es_temporada_baja,es_periodo_vacacional
+1,Enero,Ene,1,Q1 (Ene-Mar),1,S1 (Ene-Jun),Invierno,Baja,1,False,True,False
+2,Febrero,Feb,1,Q1 (Ene-Mar),1,S1 (Ene-Jun),Invierno,Baja,1,False,True,False
+3,Marzo,Mar,1,Q1 (Ene-Mar),1,S1 (Ene-Jun),Primavera,Media,2,False,False,False
+4,Abril,Abr,2,Q2 (Abr-Jun),1,S1 (Ene-Jun),Primavera,Media,2,False,False,False
+5,Mayo,May,2,Q2 (Abr-Jun),1,S1 (Ene-Jun),Primavera,Media,2,False,False,False
+6,Junio,Jun,2,Q2 (Abr-Jun),1,S1 (Ene-Jun),Verano,Media,2,False,False,False
+7,Julio,Jul,3,Q3 (Jul-Sep),2,S2 (Jul-Dic),Verano,Alta,3,True,False,True
+8,Agosto,Ago,3,Q3 (Jul-Sep),2,S2 (Jul-Dic),Verano,Alta,3,True,False,True
+9,Septiembre,Sep,3,Q3 (Jul-Sep),2,S2 (Jul-Dic),Otoño,Alta,3,True,False,False
+10,Octubre,Oct,4,Q4 (Oct-Dic),2,S2 (Jul-Dic),Otoño,Media,2,False,False,False
+11,Noviembre,Nov,4,Q4 (Oct-Dic),2,S2 (Jul-Dic),Otoño,Baja,1,False,True,False
+12,Diciembre,Dic,4,Q4 (Oct-Dic),2,S2 (Jul-Dic),Invierno,Baja,1,False,True,True

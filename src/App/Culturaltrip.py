@@ -312,82 +312,325 @@ def load_modelo_alojamiento():
 
     return modelo, features
 
+
+# =========================
+# Branding CulturaTrip · Logo SVG embebido
+# (se codifica en base64 para inyectarlo inline sin archivos externos)
+# =========================
+import base64 as _b64
+LOGO_SVG = (
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 150" width="110" height="118">'
+    '<path d="M8 128 L132 128 L118 146 L22 146 Z" fill="#FFDE59" stroke="#3DCD00" stroke-width="3" stroke-linejoin="round"/>'
+    '<path d="M30 138 Q70 132 110 138" stroke="#3DCD00" stroke-width="2" fill="none" stroke-dasharray="3 3"/>'
+    '<path d="M70 8 C47 8 30 25 30 48 C30 72 70 128 70 128 C70 128 110 72 110 48 C110 25 93 8 70 8 Z" fill="#004AAD"/>'
+    '<circle cx="70" cy="48" r="26" fill="#38B6FF"/>'
+    '<path d="M55 40 Q63 36 72 40 Q78 45 74 52 Q66 56 58 53 Q52 48 55 40 Z" fill="#4BFA00"/>'
+    '<path d="M78 55 Q84 54 87 58 Q86 63 80 63 Q76 60 78 55 Z" fill="#4BFA00"/>'
+    '<ellipse cx="70" cy="48" rx="26" ry="26" fill="none" stroke="#004AAD" stroke-width="1.5"/>'
+    '<ellipse cx="70" cy="48" rx="10" ry="26" fill="none" stroke="#004AAD" stroke-width="1.5"/>'
+    '<line x1="44" y1="48" x2="96" y2="48" stroke="#004AAD" stroke-width="1.5"/>'
+    '</svg>'
+)
+LOGO_B64 = _b64.b64encode(LOGO_SVG.strip().encode("utf-8")).decode("utf-8")
+LOGO_URI = f"data:image/svg+xml;base64,{LOGO_B64}"
 # =========================
 # Configuración de la página
 # =========================
-st.set_page_config(page_title="CulturaTrip", layout="wide",
-                   initial_sidebar_state="expanded" )  # ✅ fuerza sidebar abierto
+st.set_page_config(page_title="CulturaTrip",
+                   layout="wide",
+                   initial_sidebar_state="expanded",
+                   page_icon=LOGO_URI,
+                   )
 # =========================
-# Estilos generales (layout moderno)
+# Estilos generales · Branding CulturaTrip
+# Paleta oficial:
+#   #004AAD azul oscuro · #38B6FF azul claro · #4BFA00 verde lima
+#   #FFDE59 amarillo   · #3DCD00 verde hoja
+# Tipografía: Now (comercial) → sustituto libre: Nunito (Google Fonts)
 # =========================
 st.markdown(
     """
     <style>
+    /* ---------- Tipografía ---------- */
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
 
-    /* contenedor central */
+    /* ---------- Variables de marca ---------- */
+    :root {
+        --ct-azul-oscuro:  #004AAD;
+        --ct-azul-claro:   #38B6FF;
+        --ct-verde-lima:   #4BFA00;
+        --ct-amarillo:     #FFDE59;
+        --ct-verde-hoja:   #3DCD00;
+
+        --ct-azul-tint:    #E6F4FF;
+        --ct-amarillo-tint:#FFF7D6;
+        --ct-verde-tint:   #E8FBDD;
+
+        --ct-texto:        #0B2B55;
+        --ct-texto-suave:  #5A6B85;
+        --ct-borde:        #D7E3F4;
+
+        --ct-font: 'Nunito', 'Now', system-ui, -apple-system, sans-serif;
+    }
+
+    /* ---------- Tipografía global ---------- */
+    html, body, [class*="css"], .stApp, .stMarkdown, .stButton, .stTextInput,
+    .stSelectbox, .stDateInput, .stRadio, .stCheckbox, .stMetric, .stTabs,
+    .stSidebar, .stCaption {
+        font-family: var(--ct-font) !important;
+        color: var(--ct-texto);
+    }
+
+    /* ---------- Contenedor central ---------- */
     .main-container {
         max-width: 1100px;
         margin: auto;
     }
 
-    /* badge superior */
+    /* ---------- Badge superior ---------- */
     .badge {
-        display:inline-block;
-        padding:8px 14px;
-        border-radius:999px;
-        background:#EEF2FF;
-        color:#2563EB;
-        font-weight:600;
-        font-size:14px;
+        display: inline-block;
+        padding: 8px 16px;
+        border-radius: 999px;
+        background: var(--ct-azul-tint);
+        color: var(--ct-azul-oscuro);
+        font-weight: 700;
+        font-size: 14px;
+        letter-spacing: 0.3px;
+        border: 1px solid rgba(56, 182, 255, 0.3);
     }
 
-    /* titulo principal */
+    /* ---------- Header con logo + título ---------- */
+    .header-brand {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 18px;
+        margin-top: 14px;
+    }
+    .header-brand img {
+        height: 110px;
+        width: auto;
+    }
     .title-main {
-        text-align:center;
-        font-size:100px;
-        font-weight:800;
-        margin-top:10px;
+        font-size: 92px;
+        font-weight: 900;
+        color: var(--ct-azul-oscuro);
+        line-height: 1;
+        letter-spacing: -2px;
+        margin: 0;
     }
 
-    /* subtitulo */
+    /* ---------- Subtítulo ---------- */
     .subtitle-main {
-        text-align:center;
-        color:#6b7280;
-        font-size:22px;
-        margin-bottom:30px;
+        text-align: center;
+        color: var(--ct-texto-suave);
+        font-size: 22px;
+        font-weight: 600;
+        margin-bottom: 30px;
     }
 
-    /* card bienvenida */
+    /* ---------- Cards ---------- */
     .card {
-        background:white;
-        border-radius:14px;
-        padding:16px;
-        text-align:center;
-        box-shadow:0px 10px 25px rgba(0,0,0,0.05);
-        border:1px solid rgba(0,0,0,0.05);
+        background: white;
+        border-radius: 18px;
+        padding: 24px;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0, 74, 173, 0.08);
+        border: 1px solid var(--ct-borde);
+    }
+    .card-title {
+        font-size: 40px;
+        font-weight: 800;
+        color: var(--ct-azul-oscuro);
+        margin-bottom: 10px;
+    }
+    .card-text {
+        color: var(--ct-texto-suave);
+        font-size: 18px;
+        line-height: 1.6;
     }
 
-    .card-title{
-        font-size:40px;
-        font-weight:800;
-        margin-bottom:10px;
+    /* ---------- Info-box azul (reemplaza fondos grises) ---------- */
+    .info-box {
+        padding: 22px;
+        font-size: 18px;
+        border-radius: 14px;
+        background: var(--ct-azul-tint);
+        border-left: 4px solid var(--ct-azul-claro);
+        color: var(--ct-texto);
     }
 
-    .card-text{
-        color:#6b7280;
-        font-size:20px;
-        line-height:1.6;
+    /* ---------- Botones ---------- */
+    .stButton > button {
+        background: var(--ct-azul-oscuro);
+        color: white;
+        border: none;
+        border-radius: 10px;
+        padding: 10px 20px;
+        font-weight: 700;
+        font-size: 15px;
+        transition: all 0.2s ease;
+        box-shadow: 0 4px 12px rgba(0, 74, 173, 0.2);
+    }
+    .stButton > button:hover {
+        background: var(--ct-azul-claro);
+        color: white;
+        transform: translateY(-1px);
+        box-shadow: 0 6px 18px rgba(56, 182, 255, 0.35);
+    }
+    .stButton > button:active,
+    .stButton > button:focus {
+        background: var(--ct-azul-oscuro);
+        color: white;
+        outline: none;
+    }
+    /* CTA primario en verde (uso: st.button("...", type="primary")) */
+    .stButton > button[kind="primary"] {
+        background: var(--ct-verde-hoja);
+        color: white;
+    }
+    .stButton > button[kind="primary"]:hover {
+        background: var(--ct-verde-lima);
+        color: var(--ct-texto);
     }
 
-    /* selectbox grande */
+    /* ---------- Inputs ---------- */
     div[data-baseweb="select"] > div {
-        font-size:18px !important;
-        min-height:10px;
+        font-size: 16px !important;
+        min-height: 44px;
+        border-radius: 10px !important;
+        border: 1.5px solid var(--ct-borde) !important;
+    }
+    div[data-baseweb="select"] > div:hover {
+        border-color: var(--ct-azul-claro) !important;
+    }
+    .stDateInput > div > div > input,
+    .stTextInput > div > div > input,
+    .stNumberInput > div > div > input {
+        border-radius: 10px !important;
+        border: 1.5px solid var(--ct-borde) !important;
+        font-size: 16px !important;
+    }
+    .stDateInput > div > div > input:focus,
+    .stTextInput > div > div > input:focus,
+    .stNumberInput > div > div > input:focus {
+        border-color: var(--ct-azul-claro) !important;
+        box-shadow: 0 0 0 3px rgba(56, 182, 255, 0.15) !important;
     }
 
-    label{
-        font-size:12px !important;
-        font-weight:600;
+    /* ---------- Labels ---------- */
+    label, .stMarkdown label {
+        font-size: 13px !important;
+        font-weight: 700 !important;
+        color: var(--ct-azul-oscuro) !important;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+    }
+
+    /* ---------- Métricas ---------- */
+    [data-testid="stMetric"] {
+        background: white;
+        border: 1px solid var(--ct-borde);
+        border-radius: 14px;
+        padding: 16px 18px;
+        box-shadow: 0 4px 14px rgba(0, 74, 173, 0.06);
+    }
+    [data-testid="stMetricLabel"] {
+        color: var(--ct-texto-suave) !important;
+        font-weight: 700 !important;
+        font-size: 13px !important;
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+    }
+    [data-testid="stMetricValue"] {
+        color: var(--ct-azul-oscuro) !important;
+        font-weight: 900 !important;
+    }
+
+    /* ---------- Sidebar ---------- */
+    [data-testid="stSidebar"] {
+        background: linear-gradient(180deg, var(--ct-azul-oscuro) 0%, #003580 100%);
+    }
+    [data-testid="stSidebar"] * {
+        color: white !important;
+    }
+    [data-testid="stSidebar"] h1 {
+        color: white !important;
+        font-weight: 900;
+        font-size: 30px;
+        letter-spacing: -1px;
+    }
+    [data-testid="stSidebar"] .stRadio label {
+        color: white !important;
+        font-size: 15px !important;
+        text-transform: none;
+        letter-spacing: normal;
+    }
+    [data-testid="stSidebar"] .stButton > button {
+        background: var(--ct-verde-hoja);
+        color: white;
+        border: none;
+    }
+    [data-testid="stSidebar"] .stButton > button:hover {
+        background: var(--ct-verde-lima);
+        color: var(--ct-texto);
+    }
+    [data-testid="stSidebar"] hr {
+        border-color: rgba(255, 255, 255, 0.2) !important;
+    }
+
+    /* ---------- Alerts ---------- */
+    div[data-testid="stAlert"] {
+        border-radius: 12px !important;
+        border-left-width: 5px !important;
+        font-weight: 600;
+    }
+    div[data-baseweb="notification"][kind="positive"],
+    div[data-testid="stAlert"][data-baseweb-kind="success"] {
+        background: var(--ct-verde-tint) !important;
+        border-left-color: var(--ct-verde-hoja) !important;
+    }
+    div[data-baseweb="notification"][kind="warning"],
+    div[data-testid="stAlert"][data-baseweb-kind="warning"] {
+        background: var(--ct-amarillo-tint) !important;
+        border-left-color: var(--ct-amarillo) !important;
+    }
+    div[data-baseweb="notification"][kind="info"],
+    div[data-testid="stAlert"][data-baseweb-kind="info"] {
+        background: var(--ct-azul-tint) !important;
+        border-left-color: var(--ct-azul-claro) !important;
+    }
+
+    /* ---------- Progress bar ---------- */
+    .stProgress > div > div > div > div {
+        background: linear-gradient(90deg, var(--ct-azul-claro), var(--ct-verde-hoja)) !important;
+    }
+
+    /* ---------- Tabs ---------- */
+    .stTabs [data-baseweb="tab-list"] {
+        gap: 4px;
+        border-bottom: 2px solid var(--ct-borde);
+    }
+    .stTabs [data-baseweb="tab"] {
+        font-weight: 700;
+        color: var(--ct-texto-suave);
+        padding: 10px 18px;
+    }
+    .stTabs [aria-selected="true"] {
+        color: var(--ct-azul-oscuro) !important;
+        border-bottom: 3px solid var(--ct-azul-oscuro) !important;
+    }
+
+    /* ---------- Dividers ---------- */
+    hr {
+        border-color: var(--ct-borde) !important;
+    }
+
+    /* ---------- Títulos ---------- */
+    h1, h2, h3 {
+        color: var(--ct-azul-oscuro) !important;
+        font-weight: 800 !important;
     }
 
     </style>
@@ -396,9 +639,8 @@ st.markdown(
 )
 
 # =========================
-# Header principal
+# # Header principal con logo de marca
 # =========================
-
 st.markdown('<div class="main-container">', unsafe_allow_html=True)
 
 st.markdown(
@@ -407,7 +649,7 @@ st.markdown(
 )
 
 st.markdown(
-    '<div class="title-main">CulturaTrip</div>',
+    f'<div class="header-brand">{LOGO_SVG}<h1 class="title-main">CulturaTrip</h1></div>',
     unsafe_allow_html=True
 )
 
@@ -415,7 +657,6 @@ st.markdown(
     '<div class="subtitle-main">Planificación inteligente de turismo</div>',
     unsafe_allow_html=True
 )
-
 # =========================
 # Card Bienvenidos
 # =========================
