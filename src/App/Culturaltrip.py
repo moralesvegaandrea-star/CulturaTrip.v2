@@ -1807,23 +1807,54 @@ def pantalla_1():
     # ===============================
     # Destacados culturales + imagen
     # ===============================
+
+    # --- Iconos SVG mini por categoría (paleta CulturaTrip) ---
+    _ICON_HISTORIA = '<svg viewBox="0 0 24 24" width="22" height="22"><path d="M3 21h18v-2H3v2zm0-4h18v-2H3v2zm0-4h18v-2H3v2zm0-4h18V7H3v2zm0-6v2h18V3H3z" fill="#004AAD" opacity="0.15"/><path d="M12 2L3 7v2h18V7L12 2zm0 2.26L17.18 7H6.82L12 4.26zM3 21h18v-2H3v2zm2-4h14v-1H5v1zm0-3h14v-1H5v1zm1-3h4v4H6v-4zm6 0h4v4h-4v-4z" fill="#004AAD"/></svg>'
+    _ICON_RELIGION = '<svg viewBox="0 0 24 24" width="22" height="22"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#38B6FF" opacity="0.15"/><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 18.35C9.07 16.87 7 13.39 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 4.39-2.07 7.87-5 11.35zM11 6h2v5h-2zm0 6h2v2h-2z" fill="#38B6FF"/></svg>'
+    _ICON_CULTURA = '<svg viewBox="0 0 24 24" width="22" height="22"><circle cx="12" cy="12" r="10" fill="#3DCD00" opacity="0.15"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" fill="#3DCD00"/></svg>'
+    _ICON_GASTRO = '<svg viewBox="0 0 24 24" width="22" height="22"><path d="M8.1 13.34l2.83-2.83L3.91 3.5a4.008 4.008 0 000 5.66l4.19 4.18zm6.78-1.81c1.53.71 3.68.21 5.27-1.38 1.91-1.91 2.28-4.65.81-6.12-1.46-1.46-4.2-1.1-6.12.81-1.59 1.59-2.09 3.74-1.38 5.27L3.7 19.87l1.41 1.41L12 14.41l6.88 6.88 1.41-1.41L13.41 13l1.47-1.47z" fill="#FFDE59"/><path d="M8.1 13.34l2.83-2.83L3.91 3.5a4.008 4.008 0 000 5.66l4.19 4.18zm6.78-1.81c1.53.71 3.68.21 5.27-1.38 1.91-1.91 2.28-4.65.81-6.12-1.46-1.46-4.2-1.1-6.12.81-1.59 1.59-2.09 3.74-1.38 5.27L3.7 19.87l1.41 1.41L12 14.41l6.88 6.88 1.41-1.41L13.41 13l1.47-1.47z" fill="#DAA520" opacity="0.3"/></svg>'
+    _ICON_LENGUA = '<svg viewBox="0 0 24 24" width="22" height="22"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z" fill="#4BFA00" opacity="0.15"/><path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z" fill="#4BFA00"/><path d="M7 9h2v2H7zm4 0h2v2h-2zm4 0h2v2h-2z" fill="#4BFA00"/></svg>'
+
+    # Colores de borde por categoría temática
+    _CAT_COLORS = {
+        "historia":     "#004AAD",   # azul oscuro
+        "religion":     "#38B6FF",   # azul claro
+        "cultura":      "#3DCD00",   # verde hoja
+        "gastronomia":  "#FFDE59",   # amarillo
+        "lengua":       "#4BFA00",   # verde lima
+    }
+    _CAT_ICONS = {
+        "historia":     _ICON_HISTORIA,
+        "religion":     _ICON_RELIGION,
+        "cultura":      _ICON_CULTURA,
+        "gastronomia":  _ICON_GASTRO,
+        "lengua":       _ICON_LENGUA,
+    }
+    _CAT_LABELS = {
+        "historia":     "Historia",
+        "religion":     "Patrimonio religioso",
+        "cultura":      "Cultura y sociedad",
+        "gastronomia":  "Gastronomía",
+        "lengua":       "Lenguas",
+    }
+
     DATOS_CULTURALES = {
         "España": [
-            {"titulo": "🏺 Antigüedad", "texto": "España fue uno de los primeros territorios europeos explotados por metales por fenicios y romanos."},
-            {"titulo": "🏰 Granada", "texto": "Fue el último reino musulmán de la Península Ibérica hasta 1492."},
-            {"titulo": "🕌 Córdoba", "texto": "En el siglo X fue una de las ciudades más grandes del mundo occidental."},
-            {"titulo": "🏛️ Mérida", "texto": "Fue una de las capitales romanas más importantes fuera de Italia."},
-            {"titulo": "🗡️ Toledo", "texto": "Durante siglos convivieron cristianos, judíos y musulmanes."},
-            {"titulo": "⛪ Santiago", "texto": "El Camino de Santiago es una de las rutas de peregrinación más antiguas."},
-            {"titulo": "🌍 Sevilla", "texto": "Desde aquí se gestionaba el comercio con América."},
-            {"titulo": "🗣️ Idiomas", "texto": "Existen lenguas cooficiales como catalán, gallego y euskera."},
-            {"titulo": "🍷 Gastronomía", "texto": "Las tapas nacieron como una forma de cubrir bebidas."},
+            {"titulo": "Antigüedad",   "texto": "España fue uno de los primeros territorios europeos explotados por metales por fenicios y romanos.", "cat": "historia"},
+            {"titulo": "Granada",      "texto": "Fue el último reino musulmán de la Península Ibérica hasta 1492.", "cat": "historia"},
+            {"titulo": "Córdoba",      "texto": "En el siglo X fue una de las ciudades más grandes del mundo occidental.", "cat": "historia"},
+            {"titulo": "Mérida",       "texto": "Fue una de las capitales romanas más importantes fuera de Italia.", "cat": "historia"},
+            {"titulo": "Toledo",       "texto": "Durante siglos convivieron cristianos, judíos y musulmanes.", "cat": "cultura"},
+            {"titulo": "Santiago",     "texto": "El Camino de Santiago es una de las rutas de peregrinación más antiguas.", "cat": "religion"},
+            {"titulo": "Sevilla",      "texto": "Desde aquí se gestionaba el comercio con América.", "cat": "cultura"},
+            {"titulo": "Idiomas",      "texto": "Existen lenguas cooficiales como catalán, gallego y euskera.", "cat": "lengua"},
+            {"titulo": "Gastronomía",  "texto": "Las tapas nacieron como una forma de cubrir bebidas.", "cat": "gastronomia"},
         ],
         "Italia": [
-            {"titulo": "🏛️ Roma", "texto": "Centro del Imperio Romano durante siglos."}
+            {"titulo": "Roma",  "texto": "Centro del Imperio Romano durante siglos.", "cat": "historia"},
         ],
         "Francia": [
-            {"titulo": "🗼 París", "texto": "Uno de los centros culturales y artísticos más importantes de Europa."}
+            {"titulo": "París", "texto": "Uno de los centros culturales y artísticos más importantes de Europa.", "cat": "cultura"},
         ],
     }
 
@@ -1835,46 +1866,67 @@ def pantalla_1():
 
     st.subheader("Destacados culturales del país")
 
-    col_izq, col_der = st.columns([2, 1], gap="medium")
+    # Imagen del país en la parte superior (ancho completo, más protagonismo)
+    img_path = IMAGEN_PAIS.get(pais)
+    if img_path and img_path.exists():
+        import base64 as _b64_img
+        _img_bytes = img_path.read_bytes()
+        _img_b64 = _b64_img.b64encode(_img_bytes).decode("utf-8")
+        _ext = img_path.suffix.lower().replace(".", "").replace("jfif", "jpeg")
+        st.markdown(
+            f'<div style="text-align:center; margin-bottom:14px;">'
+            f'<img src="data:image/{_ext};base64,{_img_b64}" '
+            f'style="max-width:100%; width:auto; max-height:420px; '
+            f'border-radius:16px; box-shadow:0 4px 20px rgba(0,74,173,0.10); '
+            f'border:1px solid var(--ct-borde, #D7E3F4); object-fit:contain;" />'
+            f'</div>',
+            unsafe_allow_html=True,
+        )
 
-    with col_izq:
+    # Grid de cards culturales (2 columnas)
+    if pais in DATOS_CULTURALES:
+        datos = DATOS_CULTURALES[pais]
 
-        if pais in DATOS_CULTURALES:
+        # Construir el grid HTML completo
+        cards_html = '<div style="display:grid; grid-template-columns: 1fr 1fr; gap:14px;">'
 
-            for d in DATOS_CULTURALES[pais]:
+        for d in datos:
+            cat = d.get("cat", "historia")
+            border_color = _CAT_COLORS.get(cat, "#004AAD")
+            icon_svg = _CAT_ICONS.get(cat, _ICON_HISTORIA)
+            cat_label = _CAT_LABELS.get(cat, "Historia")
 
-                st.markdown(
-                    f"""
-                    <div style="margin-bottom:14px;">
-                        <div style="font-size:18px; font-weight:700;">
-                            {d["titulo"]}
-                        </div>
-                        <div style="font-size:16px; line-height:1.6; color:#374151;">
-                            {d["texto"]}
-                        </div>
-                    </div>
-                    """,
-                    unsafe_allow_html=True
-                )
-        else:
-            st.info("No hay datos culturales para este país todavía")
+            cards_html += (
+                f'<div style="background:white; border-radius:14px; padding:18px 20px;'
+                f' border-left:5px solid {border_color};'
+                f' box-shadow:0 2px 12px rgba(0,74,173,0.06);'
+                f' border:1px solid var(--ct-borde); border-left:5px solid {border_color};">'
+                f'<div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">'
+                f'<span style="flex-shrink:0;">{icon_svg}</span>'
+                f'<span style="font-size:17px; font-weight:800; color:var(--ct-azul-oscuro, #004AAD);">{d["titulo"]}</span>'
+                f'</div>'
+                f'<div style="font-size:14px; line-height:1.6; color:var(--ct-texto, #0B2B55); margin-bottom:8px;">'
+                f'{d["texto"]}'
+                f'</div>'
+                f'<span style="display:inline-block; padding:3px 10px; border-radius:999px;'
+                f' font-size:11px; font-weight:700; letter-spacing:0.3px;'
+                f' background:{border_color}18; color:{border_color};">'
+                f'{cat_label}</span>'
+                f'</div>'
+            )
 
-    with col_der:
+        cards_html += '</div>'
 
-        img_path = IMAGEN_PAIS.get(pais)
-
-        if img_path and img_path.exists():
-            st.image(str(img_path), use_container_width=True)
-        else:
-            st.info("Aún no hay imagen para este país.")
+        st.markdown(cards_html, unsafe_allow_html=True)
+    else:
+        st.info("No hay datos culturales para este país todavía")
 
     st.divider()
-
 # ===============================
 # Pantalla Gestion de Planes
 # ===============================
 def pantalla_gestion_planes():
-    st.header("📂 Gestión de planes")
+    st.header("Gestión de planes")
     st.caption("Consulta, crea, selecciona, edita o elimina tus planes guardados.")
 
     # =========================
@@ -1933,7 +1985,7 @@ def pantalla_gestion_planes():
         st.caption("Puedes crear tu primer plan desde el botón anterior.")
         return
 
-    st.markdown("### 📋 Listado de planes")
+    st.markdown("### Listado de planes")
 
     # =========================
     # 4. Encabezado tipo tabla
@@ -2030,7 +2082,7 @@ def pantalla_gestion_planes():
 # Pantalla 2
 # ===============================
 def pantalla_2():
-        st.header("🧭 Planifica tu viaje")
+        st.header("Planifica tu viaje")
         st.caption("Completa la información base del viaje para construir el plan y estimar costos.")
 
         modo_edicion = bool(st.session_state.get("modo_edicion_plan", False))
@@ -2443,7 +2495,7 @@ def pantalla_2():
 
 def pantalla_3():
 
-        st.header("📋 Resumen del plan")
+        st.header("Resumen del plan")
 
         plan_id = st.session_state.get("plan_seleccionado")
 
@@ -2887,7 +2939,7 @@ def pantalla_4():
 
 
 def pantalla_5():
-        st.header("📊 Control Dinámico del Presupuesto")
+        st.header("Control Dinámico del Presupuesto")
 
         plan_id = st.session_state.get("plan_seleccionado")
 
@@ -3396,7 +3448,7 @@ def pantalla_6():
 
 def pantalla_7():
 
-        st.header("✅ Resumen final del viaje")
+        st.header("Resumen final del viaje")
 
         plan_id = st.session_state.get("plan_seleccionado")
 
@@ -3583,7 +3635,7 @@ def pantalla_7():
         st.subheader("Estado final del plan")
 
         if total_estimado > 0 and diferencia >= 0 and pct >= 50:
-            st.success("🎉 Tu plan está bastante sólido: presupuesto controlado y buena preparación.")
+            st.success("Tu plan está bastante sólido: presupuesto controlado y buena preparación.")
         elif total_estimado > 0 and diferencia < 0:
             st.warning("Revisa el presupuesto antes de finalizar el viaje.")
         elif pct < 50:
