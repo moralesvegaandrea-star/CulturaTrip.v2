@@ -1858,30 +1858,7 @@ def pantalla_1():
         ],
     }
 
-    IMAGEN_PAIS = {
-        "España": BASE_DIR / "assets" / "spain_map.jfif",
-        "Italia": BASE_DIR / "assets" / "italia.jpg",
-        "Francia": BASE_DIR / "assets" / "francia.jpg",
-    }
-
     st.subheader("Destacados culturales del país")
-
-    # Imagen del país en la parte superior (ancho completo, más protagonismo)
-    img_path = IMAGEN_PAIS.get(pais)
-    if img_path and img_path.exists():
-        import base64 as _b64_img
-        _img_bytes = img_path.read_bytes()
-        _img_b64 = _b64_img.b64encode(_img_bytes).decode("utf-8")
-        _ext = img_path.suffix.lower().replace(".", "").replace("jfif", "jpeg")
-        st.markdown(
-            f'<div style="text-align:center; margin-bottom:14px;">'
-            f'<img src="data:image/{_ext};base64,{_img_b64}" '
-            f'style="max-width:100%; width:auto; max-height:420px; '
-            f'border-radius:16px; box-shadow:0 4px 20px rgba(0,74,173,0.10); '
-            f'border:1px solid var(--ct-borde, #D7E3F4); object-fit:contain;" />'
-            f'</div>',
-            unsafe_allow_html=True,
-        )
 
     # Grid de cards culturales (2 columnas)
     if pais in DATOS_CULTURALES:
