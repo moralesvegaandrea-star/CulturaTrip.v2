@@ -916,6 +916,7 @@ with st.sidebar:
         "Control de Gastos",
         "Checklist",
         "Resumen final",
+        "Nuestro Equipo",
     ]
 
     # Mantiene sincronía con step (1..7)
@@ -3628,8 +3629,225 @@ def pantalla_7():
         with b2:
             st.button("📤 Compartir plan (próximamente)", use_container_width=True)
 
+# ===============================
+# Pantalla Nuestro Equipo
+# ===============================
+# ===============================
+# Pantalla Nuestro Equipo
+# ===============================
+def pantalla_equipo():
+    import base64 as _b64_team
 
+    # --- Helper: cargar foto o generar avatar SVG ---
+    def _foto_o_avatar(foto_filename, iniciales, color):
+        """Intenta cargar la foto desde team_members/. Si no existe, genera avatar SVG."""
+        if foto_filename:
+            foto_path = BASE_DIR / "team_members" / foto_filename
+            if foto_path.exists() and foto_path.is_file():
+                try:
+                    img_bytes = foto_path.read_bytes()
+                    img_b64 = _b64_team.b64encode(img_bytes).decode("utf-8")
+                    ext = foto_path.suffix.lower().replace(".", "").replace("jfif", "jpeg")
+                    return (
+                        f'<img src="data:image/{ext};base64,{img_b64}" '
+                        f'style="width:100px; height:100px; border-radius:50%; object-fit:cover; '
+                        f'border:3px solid {color}; box-shadow:0 4px 12px rgba(0,74,173,0.12);"/>'
+                    )
+                except Exception:
+                    pass  # fallback al avatar SVG
 
+        # Fallback: avatar con iniciales
+        txt_color = "#004AAD" if color in ("#FFDE59", "#4BFA00") else "#FFFFFF"
+        return (
+            f'<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">'
+            f'<circle cx="50" cy="50" r="48" fill="{color}" stroke="white" stroke-width="3"/>'
+            f'<text x="50" y="50" text-anchor="middle" dominant-baseline="central" '
+            f'font-family="Nunito,sans-serif" font-size="34" font-weight="800" fill="{txt_color}">'
+            f'{iniciales}</text></svg>'
+        )
+
+    # --- Datos del equipo ---
+    EQUIPO = [
+        {
+            "nombre": "Ronald Rojas Barquero",
+            "iniciales": "RR",
+            "foto": "1739285482616.jfif",
+            "color": "#004AAD",
+            "rol_actual": "Global People Optimisation Portfolio Lead · Smith+Nephew",
+            "rol_ct": "Scrum Master & Data Engineering Lead",
+            "experiencia_anios": 11,
+            "descripcion": (
+                "Ingeniero Industrial con más de 11 años de experiencia en efectividad operacional "
+                "y eficiencia de procesos. Especialista en Big Data y Business Intelligence aplicados "
+                "a la optimización de decisiones."
+            ),
+            "linkedin": "https://www.linkedin.com/in/ronald-rojas-64a722143/",
+        },
+        {
+            "nombre": "Andrea Lucía Morales Vega",
+            "iniciales": "AM",
+            "foto": "1730839721600.jfif",
+            "color": "#38B6FF",
+            "rol_actual": "Associate Manager Business Operations · DXC Technology",
+            "rol_ct": "Product Owner & Strategic Planning Lead",
+            "experiencia_anios": 10,
+            "descripcion": (
+                "Ingeniera Industrial con más de 10 años de experiencia en análisis de datos, mejora de procesos y gestión "
+                "de proyectos. Experta en comunicación de negocios, gestión de stakeholders y "
+                "coordinación de entregables con Power BI."
+            ),
+            "linkedin": "https://www.linkedin.com/in/andrea-morales-04804870/",
+        },
+        {
+            "nombre": "Ana Belén Chaves Jiménez",
+            "iniciales": "AC",
+            "foto": "",
+            "color": "#3DCD00",
+            "rol_actual": "Nuclear Medicine Technologist · Hospital San Juan de Dios | Profesora · UCR",
+            "rol_ct": "Quality Assurance & Process Documentation Lead",
+            "experiencia_anios": 12,
+            "descripcion": (
+                "Tecnóloga en Imágenes Médicas y Máster en Dirección Estratégica de Organizaciones "
+                "de Salud. Más de 12 años de experiencia clínica y académica. Certificada en Scrum "
+                "Master y Product Owner."
+            ),
+            "linkedin": "https://www.linkedin.com/in/ana-bel%C3%A9n-chaves-52340b93/",
+        },
+        {
+            "nombre": "Montserrat Ulloa Álvarez",
+            "iniciales": "MU",
+            "foto": "1699314433125.jfif",
+            "color": "#FFDE59",
+            "rol_actual": "Analista de Datos Global · Ferretería EPA",
+            "rol_ct": "Business Intelligence Analyst & Data Visualization Lead",
+            "experiencia_anios": 3,
+            "descripcion": (
+                "Analista de datos especializada en R, Python y SQL con experiencia en visualización, "
+                "modelado estadístico y automatización de reportes. Licenciada en Ingeniería Industrial. "
+                "Bilingüe con conocimientos de portugués."
+            ),
+            "linkedin": "https://www.linkedin.com/in/montserrat-ulloa-7b8950261/",
+        },
+        {
+            "nombre": "Hilda Mireya Ibarra Mata",
+            "iniciales": "HI",
+            "foto": "1764462404757.jfif",
+            "color": "#4BFA00",
+            "rol_actual": "Master Data Analyst · CEMEX",
+            "rol_ct": "UX/Branding Designer & Frontend Developer",
+            "experiencia_anios": 8,
+            "descripcion": (
+                "Más de 8 años de experiencia en CEMEX en análisis de datos maestros y administración "
+                "de información. Licenciada en Mercadotecnia con Máster en Big Data y Business "
+                "Intelligence."
+            ),
+            "linkedin": "https://www.linkedin.com/in/hilda-mireya-ibarra-27b371113/",
+        },
+    ]
+
+    # --- Header ---
+    st.markdown(
+        '<div style="text-align:center; margin-bottom:8px;">'
+        '<span style="display:inline-block; padding:6px 16px; border-radius:999px; '
+        'background:var(--ct-azul-tint, #E6F4FF); color:var(--ct-azul-oscuro, #004AAD); '
+        'font-weight:700; font-size:13px; letter-spacing:0.3px; '
+        'border:1px solid rgba(56,182,255,0.3);">'
+        '👥 Equipo CulturaTrip</span></div>',
+        unsafe_allow_html=True,
+    )
+    st.markdown(
+        '<h1 style="text-align:center; color:var(--ct-azul-oscuro, #004AAD); '
+        'font-weight:900; font-size:42px; margin-bottom:4px;">Conoce a nuestro equipo</h1>',
+        unsafe_allow_html=True,
+    )
+    st.markdown(
+        '<p style="text-align:center; color:var(--ct-texto-suave, #5A6B85); '
+        'font-size:18px; margin-bottom:32px;">'
+        'El talento detrás de CulturaTrip — ingeniería, datos y pasión por el turismo cultural.'
+        '</p>',
+        unsafe_allow_html=True,
+    )
+
+    # --- LinkedIn icon SVG (reutilizable) ---
+    li_icon = (
+        '<svg viewBox="0 0 24 24" width="16" height="16" style="vertical-align:middle;">'
+        '<path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 '
+        '5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-10h3v10zm-1.5-11.27c-.97 0-1.75-.79-1.75'
+        '-1.76s.78-1.76 1.75-1.76 1.75.79 1.75 1.76-.78 1.76-1.75 1.76zm13.5 11.27h-3v-5.34'
+        'c0-1.27-.02-2.91-1.77-2.91-1.77 0-2.04 1.38-2.04 2.81v5.44h-3v-10h2.88v1.37h.04'
+        'c.4-.76 1.38-1.56 2.84-1.56 3.04 0 3.6 2 3.6 4.59v5.6z" fill="#004AAD"/></svg>'
+    )
+
+    # --- Generar las 5 cards ---
+    cards_html = '<div style="display:flex; flex-wrap:wrap; gap:22px; justify-content:center;">'
+
+    for m in EQUIPO:
+        avatar_html = _foto_o_avatar(m["foto"], m["iniciales"], m["color"])
+
+        cards_html += (
+            f'<div style="background:white; border-radius:20px; padding:28px 22px 22px; '
+            f'width:210px; text-align:center; '
+            f'box-shadow:0 4px 20px rgba(0,74,173,0.08); '
+            f'border:1px solid var(--ct-borde, #D7E3F4); '
+            f'border-top:4px solid {m["color"]}; '
+            f'display:flex; flex-direction:column; align-items:center; gap:6px;">'
+
+            # Foto / avatar
+            f'<div style="margin-bottom:6px;">{avatar_html}</div>'
+
+            # Nombre
+            f'<div style="font-size:17px; font-weight:800; color:var(--ct-azul-oscuro, #004AAD); '
+            f'line-height:1.2;">{m["nombre"]}</div>'
+
+            # Rol en CulturaTrip (badge)
+            f'<div style="margin:4px 0;">'
+            f'<span style="display:inline-block; padding:4px 10px; border-radius:999px; '
+            f'font-size:11px; font-weight:700; letter-spacing:0.2px; '
+            f'background:{m["color"]}20; color:{m["color"]}; '
+            f'border:1px solid {m["color"]}30;">'
+            f'{m["rol_ct"].split("·")[0].strip()}</span></div>'
+
+            # Descripción
+            f'<div style="font-size:12.5px; line-height:1.5; color:var(--ct-texto-suave, #5A6B85); '
+            f'margin:6px 0; min-height:80px;">{m["descripcion"]}</div>'
+
+            # Años de experiencia
+            f'<div style="font-size:12px; font-weight:700; color:var(--ct-azul-oscuro, #004AAD); '
+            f'margin:2px 0;">⏱ {m["experiencia_anios"]} años de experiencia</div>'
+
+            # Rol actual
+            f'<div style="font-size:11px; color:var(--ct-texto-suave, #5A6B85); '
+            f'line-height:1.3; margin:2px 0; font-style:italic;">{m["rol_actual"]}</div>'
+
+            # Rol CulturaTrip detallado
+            f'<div style="font-size:11px; color:var(--ct-azul-oscuro, #004AAD); '
+            f'line-height:1.3; margin:2px 0; font-weight:600;">'
+            f'CulturaTrip: {m["rol_ct"]}</div>'
+
+            # LinkedIn
+            f'<a href="{m["linkedin"]}" target="_blank" '
+            f'style="display:inline-flex; align-items:center; gap:5px; margin-top:8px; '
+            f'padding:6px 14px; border-radius:999px; font-size:12px; font-weight:700; '
+            f'color:var(--ct-azul-oscuro, #004AAD); text-decoration:none; '
+            f'background:var(--ct-azul-tint, #E6F4FF); '
+            f'border:1px solid rgba(56,182,255,0.3); transition:all 0.2s;">'
+            f'{li_icon} LinkedIn</a>'
+
+            f'</div>'
+        )
+
+    cards_html += '</div>'
+
+    st.markdown(cards_html, unsafe_allow_html=True)
+
+    # --- Nota al pie ---
+    st.markdown("<div style='height:24px;'></div>", unsafe_allow_html=True)
+    st.markdown(
+        '<p style="text-align:center; font-size:13px; color:var(--ct-texto-suave, #5A6B85);">'
+        'Proyecto académico · Máster en Big Data & Business Intelligence · 2025-2026'
+        '</p>',
+        unsafe_allow_html=True,
+    )
 # ===============================
 # Router
 # ===============================
@@ -3649,4 +3867,6 @@ elif st.session_state.step == 7:
     pantalla_6()
 elif st.session_state.step == 8:
     pantalla_7()
+elif st.session_state.step == 9:
+    pantalla_equipo()
 
