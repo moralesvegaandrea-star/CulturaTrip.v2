@@ -127,6 +127,7 @@ if missing:
 df["ccaa"] = df["ccaa"].apply(normaliza)
 df["tipo_vivienda"] = df["tipo_vivienda"].apply(normaliza)
 df = df.rename(columns={"tipo_vivienda": "categoria_alojamiento"})
+df["año"] = pd.to_numeric(df["año"], errors="coerce").astype("Int64")
 
 # ✅ crear llave estable
 df["ccaa_key"] = df["ccaa"].apply(ccaa_key)
@@ -158,7 +159,7 @@ df = df[~df["categoria_alojamiento"].isin(["otros", "no aplica"])].copy()
 df["mes"] = pd.to_numeric(df["mes"], errors="coerce")
 
 df_agg = (
-    df.groupby(["mes", "ccaa", "ccaa_key", "categoria_alojamiento"], as_index=False)
+    df.groupby(["año","mes", "ccaa", "ccaa_key", "categoria_alojamiento"], as_index=False)
       .agg(
           valoraciones=("valoraciones", "mean"),
           precio=("precio", "mean")

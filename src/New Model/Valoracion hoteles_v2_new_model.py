@@ -93,7 +93,7 @@ PATH_DIM_CCAA = os.path.join(CLEAN_DIR, "dim_ccaa_base.csv")
 df = load_csv(PATH_IN)
 df = clean_headers(df)
 
-cols_needed = ["mes", "categoria_alojamiento", "ccaa", "provincia", "indice_satisfaccion_hotelera"]
+cols_needed = ["año","mes", "categoria_alojamiento", "ccaa", "provincia", "indice_satisfaccion_hotelera"]
 missing = set(cols_needed) - set(df.columns)
 if missing:
     raise KeyError(f"Faltan columnas en el input: {missing}")
@@ -122,11 +122,11 @@ df["ccaa_key"] = df["ccaa"].apply(ccaa_key)
 # =========================
 df["valoraciones"] = df["valoraciones"].apply(to_float_es)
 df["valoraciones"] = pd.to_numeric(df["valoraciones"], errors="coerce")
-
+df["año"] = pd.to_numeric(df["año"], errors="coerce").astype("Int64")
 # =========================
 # 4) CONSOLIDAR PK
 # =========================
-pk = ["mes", "ccaa_key", "provincia", "categoria_alojamiento"]
+pk = ["año","mes", "ccaa_key", "provincia", "categoria_alojamiento"]
 
 df = (
     df.groupby(pk, as_index=False)
@@ -135,10 +135,10 @@ df = (
 
 # Imputación
 df["valoraciones"] = df["valoraciones"].fillna(
-    df.groupby(["categoria_alojamiento", "ccaa_key", "mes"])["valoraciones"].transform("mean")
+    df.groupby(["categoria_alojamiento", "ccaa_key","año", "mes"])["valoraciones"].transform("mean")
 )
 df["valoraciones"] = df["valoraciones"].fillna(
-    df.groupby(["categoria_alojamiento", "mes"])["valoraciones"].transform("mean")
+    df.groupby(["categoria_alojamiento","año", "mes"])["valoraciones"].transform("mean")
 )
 df["valoraciones"] = df["valoraciones"].fillna(df["valoraciones"].mean())
 
@@ -220,6 +220,7 @@ orden = [
     "ccaa",
     "ccaa_key",
     "provincia",
+    "año",
     "mes",
     "categoria_alojamiento",
     "valoraciones"

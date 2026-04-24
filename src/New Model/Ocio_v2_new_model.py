@@ -85,6 +85,7 @@ for col in ["provincia", "comunidad_autonoma", "producto", "subcategoria"]:
 
 # mes numérico
 df["mes"] = pd.to_numeric(df["mes"], errors="coerce")
+df["año"] = pd.to_numeric(df["año"], errors="coerce").astype("Int64")
 
 # =========================
 # 4) NUMÉRICOS
@@ -101,7 +102,7 @@ df = df[df["provincia"] != "total nacional"].copy()
 # 6) AGREGAR POR PROVINCIA
 # =========================
 df_agg = (
-    df.groupby(["mes", "producto", "subcategoria", "comunidad_autonoma", "provincia"], as_index=False)
+    df.groupby(["año","mes", "producto", "subcategoria", "comunidad_autonoma", "provincia"], as_index=False)
       .agg(
           gasto_total_promedio=("gasto_total", "mean"),
           precio_medio_entrada_promedio=("precio_medio_entrada", "mean")
@@ -206,6 +207,7 @@ df_agg = df_agg.drop(columns=["provincia_norm", "provincia_nombre_norm"], errors
 orden = [
     "id_pais",
     "id_provincia",
+    "año",
     "mes",
     "categoria",
     "producto",

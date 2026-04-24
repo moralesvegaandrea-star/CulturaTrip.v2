@@ -276,18 +276,18 @@ else:
 # =========================
 # 4) Imputación de nulos en precios (hotel)
 # =========================
-pk_hotel = ["id_pais", "id_ccaa", "id_provincia", "mes", "categoria_alojamiento","periodo_antelacion"]
+pk_hotel = ["id_pais", "id_ccaa", "id_provincia", "año","mes", "categoria_alojamiento","periodo_antelacion"]
 
 for col in ["precio_checkin_entre_semana", "precio_checkin_fin_semana"]:
     df_hotel[col] = df_hotel.groupby(pk_hotel)[col].transform(lambda x: x.fillna(x.mean()))
-    df_hotel[col] = df_hotel.groupby(["id_pais", "id_ccaa", "mes", "categoria_alojamiento"])[col].transform(lambda x: x.fillna(x.mean()))
-    df_hotel[col] = df_hotel.groupby(["id_pais", "mes", "categoria_alojamiento"])[col].transform(lambda x: x.fillna(x.mean()))
+    df_hotel[col] = df_hotel.groupby(["id_pais", "id_ccaa","año", "mes", "categoria_alojamiento"])[col].transform(lambda x: x.fillna(x.mean()))
+    df_hotel[col] = df_hotel.groupby(["id_pais","año", "mes", "categoria_alojamiento"])[col].transform(lambda x: x.fillna(x.mean()))
     df_hotel[col] = df_hotel[col].fillna(df_hotel[col].mean())
 
 # =========================
 # 5) Consolidar HOTEL a PK (sin año)
 # =========================
-df_hotel = df_hotel.drop(columns=["año"], errors="ignore")
+df_hotel["año"] = pd.to_numeric(df_hotel["año"], errors="coerce").astype("Int64")
 
 print("Nulos periodo_antelacion (HOTEL raw):", df_hotel["periodo_antelacion"].isna().sum())
 print("Valores únicos periodo_antelacion (top 20):",
@@ -325,8 +325,11 @@ df_hval["id_ccaa"] = df_hval["id_ccaa"].astype(str).str.zfill(2)
 df_hval["id_provincia"] = df_hval["id_provincia"].astype(str).str.zfill(2)
 df_hval["mes"] = pd.to_numeric(df_hval["mes"], errors="coerce")
 df_hval["valoraciones"] = pd.to_numeric(df_hval["valoraciones"], errors="coerce")
+# Asegurar mismo tipo en año antes del merge
+df_hotel_agg["año"] = pd.to_numeric(df_hotel_agg["año"], errors="coerce").astype("Int64")
+df_hval["año"] = pd.to_numeric(df_hval["año"], errors="coerce").astype("Int64")
 
-pk_val = ["id_pais", "id_ccaa", "id_provincia", "mes", "categoria_alojamiento"]
+pk_val = ["id_pais", "id_ccaa", "id_provincia","año", "mes", "categoria_alojamiento"]
 df_hval = df_hval.groupby(pk_val, as_index=False).agg(valoraciones=("valoraciones", "mean"))
 
 df_hotel_agg = df_hotel_agg.merge(
@@ -441,6 +444,7 @@ cols_final = [
     "id_pais",
     "id_ccaa",
     "id_provincia",
+    "año",
     "mes",
     "categoria_alojamiento",
     "periodo_antelacion",
