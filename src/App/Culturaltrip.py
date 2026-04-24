@@ -1286,31 +1286,108 @@ def mostrar_top5_provincias_similares(
             st.info("No se encontraron provincias similares para la provincia seleccionada.")
             return
 
-        df_simple = df_top5[
-            [
-                "ranking",
-                "provincia_nombre",
-                "score_similitud",
-                "total_actividades"
-            ]
-        ].copy()
+        # Colores para las medallas de ranking
+        _medallas = {1: "#004AAD", 2: "#38B6FF", 3: "#3DCD00", 4: "#FFDE59", 5: "#5A6B85"}
+        _medalla_iconos = {1: "🥇", 2: "🥈", 3: "🥉", 4: "4", 5: "5"}
 
-        df_simple["score_similitud"] = df_simple["score_similitud"].round(4)
-        df_simple["total_actividades"] = df_simple["total_actividades"].fillna(0).astype(int)
+        # Colores para tags de categoría
+        _tag_colors = {
+            "comida y bebida": "#FFDE59",
+            "servicios": "#38B6FF",
+            "vida nocturna": "#9B59B6",
+            "paisaje naturaleza": "#3DCD00",
+            "paisaje urbano": "#004AAD",
+            "compras": "#E67E22",
+            "otros": "#5A6B85",
+        }
 
-        df_simple = df_simple.rename(columns={
-            "ranking": "Top",
-            "provincia_nombre": "Provincia similar",
-            "score_similitud": "Similitud",
-            "total_actividades": "N.º actividades"
-        })
+        # Máximo de similitud para escalar las barras
+        max_score = float(df_top5["score_similitud"].max()) if not df_top5.empty else 1.0
+        if max_score == 0:
+            max_score = 1.0
 
-        st.dataframe(
-            df_simple,
-            use_container_width=True,
-            hide_index=True,
-            height=220
-        )
+        cards_html = '<div style="display:flex; flex-direction:column; gap:12px;">'
+
+        for _, row in df_top5.iterrows():
+            rank = int(row["ranking"])
+            nombre = str(row["provincia_nombre"]).title()
+            score = float(row["score_similitud"])
+            pct = min(int((score / max_score) * 100), 100)
+
+            # Etiqueta de compatibilidad
+            if score >= 0.7:
+                compat_label = "Alta"
+                compat_color = "#3DCD00"
+            elif score >= 0.5:
+                compat_label = "Media"
+                compat_color = "#FFDE59"
+            else:
+                compat_label = "Moderada"
+                compat_color = "#38B6FF"
+
+            # Tags de categorías
+            cats_raw = row.get("categorias_unicas", "")
+            tags_html = ""
+            if cats_raw and str(cats_raw).strip() and str(cats_raw).strip().lower() != "nan":
+                cats = [c.strip().lower() for c in str(cats_raw).split(",") if c.strip()]
+                for cat in cats[:5]:
+                    c_color = _tag_colors.get(cat, "#5A6B85")
+                    cat_display = cat.title()
+                    tags_html += (
+                        f'<span style="display:inline-block; padding:2px 8px; border-radius:999px; '
+                        f'font-size:10px; font-weight:700; margin:2px 3px 2px 0; '
+                        f'background:{c_color}18; color:{c_color}; '
+                        f'border:1px solid {c_color}30;">{cat_display}</span>'
+                    )
+
+            # Medalla
+            medalla_color = _medallas.get(rank, "#5A6B85")
+            if rank <= 3:
+                medalla_html = f'<span style="font-size:28px;">{_medalla_iconos[rank]}</span>'
+            else:
+                medalla_html = (
+                    f'<span style="display:inline-flex; align-items:center; justify-content:center; '
+                    f'width:32px; height:32px; border-radius:50%; '
+                    f'background:{medalla_color}20; color:{medalla_color}; '
+                    f'font-size:15px; font-weight:800;">{rank}</span>'
+                )
+
+            cards_html += (
+                f'<div style="display:flex; align-items:center; gap:16px; '
+                f'background:white; border-radius:14px; padding:16px 20px; '
+                f'border:1px solid var(--ct-borde, #D7E3F4); '
+                f'border-left:5px solid {medalla_color}; '
+                f'box-shadow:0 2px 10px rgba(0,74,173,0.05);">'
+
+                # Medalla
+                f'<div style="flex-shrink:0; width:40px; text-align:center;">{medalla_html}</div>'
+
+                # Contenido principal
+                f'<div style="flex:1; min-width:0;">'
+
+                # Nombre + compatibilidad
+                f'<div style="display:flex; align-items:center; gap:10px; margin-bottom:6px;">'
+                f'<span style="font-size:17px; font-weight:800; color:var(--ct-azul-oscuro, #004AAD);">{nombre}</span>'
+                f'<span style="padding:2px 8px; border-radius:999px; font-size:10px; font-weight:700; '
+                f'background:{compat_color}20; color:{compat_color};">{compat_label} compatibilidad</span>'
+                f'</div>'
+
+                # Barra de compatibilidad
+                f'<div style="width:100%; height:8px; border-radius:4px; background:var(--ct-borde, #D7E3F4); '
+                f'margin-bottom:8px; overflow:hidden;">'
+                f'<div style="width:{pct}%; height:100%; border-radius:4px; '
+                f'background:linear-gradient(90deg, {medalla_color}, {compat_color}); '
+                f'transition:width 0.5s ease;"></div></div>'
+
+                # Tags de categorías
+                f'<div style="display:flex; flex-wrap:wrap;">{tags_html}</div>'
+
+                f'</div>'
+                f'</div>'
+            )
+
+        cards_html += '</div>'
+        st.markdown(cards_html, unsafe_allow_html=True)
 
     except Exception as e:
         st.warning(f"No fue posible calcular provincias similares: {e}")
@@ -2162,52 +2239,144 @@ def pantalla_2():
                         fecha_regreso=fecha_regreso_ml,
                         presupuesto_usuario=presupuesto_ml
                     )
-
                     if df_top5_ml.empty:
                         st.warning("No se encontraron provincias candidatas para ese país destino.")
                     else:
                         mejor = df_top5_ml.iloc[0]
 
-                        st.success(
-                            f"Provincia recomendada principal: {mejor['provincia_nombre']}"
-                        )
+                        # Guardar recomendación principal ML
+                        st.session_state["provincia_ml_recomendada"] = mejor["provincia_nombre"]
+                        st.session_state["id_provincia_ml_recomendada"] = mejor["id_provincia"]
 
                         score_principal = float(mejor["score_modelo"])
 
                         if score_principal >= 0:
-                            badge = "🟢 Alta compatibilidad"
+                            compat_label = "Alta compatibilidad"
+                            compat_color = "#3DCD00"
                         elif score_principal >= -3:
-                            badge = "🟡 Compatibilidad media"
+                            compat_label = "Compatibilidad media"
+                            compat_color = "#FFDE59"
                         else:
-                            badge = "🔴 Baja compatibilidad"
+                            compat_label = "Baja compatibilidad"
+                            compat_color = "#E74C3C"
 
-                        st.caption(f"Nivel de compatibilidad: {badge}")
+                        # --- Coordenadas aproximadas de provincias españolas para el mapa ---
+                        _COORDS_PROVINCIA = {
+                            "a coruña": (50, 65), "lugo": (80, 60), "ourense": (75, 85),
+                            "pontevedra": (45, 85), "asturias": (115, 50), "cantabria": (150, 50),
+                            "vizcaya": (180, 48), "guipúzcoa": (195, 45), "álava": (185, 58),
+                            "navarra": (210, 52), "la rioja": (195, 68), "zaragoza": (230, 78),
+                            "huesca": (235, 58), "teruel": (245, 100), "lleida": (270, 62),
+                            "girona": (305, 55), "barcelona": (300, 72), "tarragona": (280, 82),
+                            "castellón": (275, 105), "valencia": (265, 125), "alicante": (260, 145),
+                            "murcia": (245, 155), "almería": (210, 170), "granada": (190, 165),
+                            "málaga": (170, 175), "cádiz": (130, 180), "sevilla": (140, 160),
+                            "huelva": (110, 160), "córdoba": (165, 150), "jaén": (195, 148),
+                            "ciudad real": (195, 130), "toledo": (175, 115), "madrid": (185, 100),
+                            "cuenca": (225, 108), "guadalajara": (215, 92), "ávila": (155, 95),
+                            "segovia": (170, 88), "soria": (200, 75), "valladolid": (145, 78),
+                            "burgos": (160, 62), "palencia": (145, 65), "león": (115, 62),
+                            "zamora": (110, 80), "salamanca": (105, 100), "cáceres": (115, 125),
+                            "badajoz": (120, 145), "albacete": (235, 135),
+                            "las palmas": (85, 220), "santa cruz de tenerife": (50, 220),
+                            "illes balears": (320, 105), "ceuta": (155, 195), "melilla": (215, 192),
+                        }
 
-                        # Guardar recomendación principal ML sin sobreescribir la selección manual
-                        st.session_state["provincia_ml_recomendada"] = mejor["provincia_nombre"]
-                        st.session_state["id_provincia_ml_recomendada"] = mejor["id_provincia"]
+                        # Colores para los pins
+                        _pin_colors = ["#004AAD", "#38B6FF", "#3DCD00", "#FFDE59", "#5A6B85"]
 
-                        # Tabla pequeña solicitada
-                        df_simple = df_top5_ml[[
-                            "ranking",
-                            "provincia_nombre",
-                            "n_actividades"
-                        ]].copy()
+                        # --- Construir mapa SVG ---
+                        svg_w, svg_h = 380, 240
 
-                        df_simple["n_actividades"] = df_simple["n_actividades"].fillna(0).astype(int)
-
-                        df_simple = df_simple.rename(columns={
-                            "ranking": "Top",
-                            "provincia_nombre": "Provincia",
-                            "n_actividades": "N.º actividades"
-                        })
-
-                        st.dataframe(
-                            df_simple,
-                            use_container_width=True,
-                            hide_index=True,
-                            height=220
+                        # Silueta simplificada de España
+                        spain_path = (
+                            "M45,55 L65,40 L100,35 L140,38 L175,35 L200,40 L220,38 "
+                            "L245,42 L270,38 L300,45 L320,55 L310,70 L305,85 "
+                            "L285,100 L275,115 L270,135 L260,150 L245,160 L225,175 "
+                            "L200,180 L170,185 L140,185 L120,175 L105,165 "
+                            "L95,145 L100,125 L95,105 L85,90 L60,80 L42,70 Z"
                         )
+
+                        map_svg = (
+                            f'<svg width="100%" viewBox="0 0 {svg_w} {svg_h}" '
+                            f'xmlns="http://www.w3.org/2000/svg" '
+                            f'style="max-width:500px; margin:0 auto; display:block;">'
+
+                            # Fondo del mapa
+                            f'<rect width="{svg_w}" height="{svg_h}" rx="16" '
+                            f'fill="var(--ct-azul-tint, #E6F4FF)" opacity="0.5"/>'
+
+                            # Silueta de España
+                            f'<path d="{spain_path}" fill="white" stroke="var(--ct-borde, #D7E3F4)" '
+                            f'stroke-width="1.5" opacity="0.9"/>'
+                        )
+
+                        # Pins de las 5 provincias
+                        legend_items = []
+                        for idx_ml, (_, row_ml) in enumerate(df_top5_ml.iterrows()):
+                            prov_name = str(row_ml["provincia_nombre"]).lower().strip()
+                            rank_ml = int(row_ml["ranking"])
+                            pin_color = _pin_colors[idx_ml % len(_pin_colors)]
+
+                            coords = _COORDS_PROVINCIA.get(prov_name, None)
+                            if coords:
+                                cx, cy = coords
+                            else:
+                                cx = 180 + idx_ml * 25
+                                cy = 120
+
+                            # Pin SVG (gota)
+                            pin_size = 14 if rank_ml == 1 else 10
+                            map_svg += (
+                                f'<g transform="translate({cx},{cy})">'
+                                f'<circle r="{pin_size}" fill="{pin_color}" opacity="0.25"/>'
+                                f'<circle r="{pin_size - 4}" fill="{pin_color}"/>'
+                                f'<text x="0" y="1" text-anchor="middle" dominant-baseline="central" '
+                                f'font-family="Nunito,sans-serif" font-size="{9 if rank_ml == 1 else 7}" '
+                                f'font-weight="800" fill="white">{rank_ml}</text>'
+                                f'</g>'
+                            )
+
+                            legend_items.append((rank_ml, row_ml["provincia_nombre"].title(), pin_color))
+
+                        map_svg += '</svg>'
+
+                        # --- Renderizar mapa + leyenda ---
+                        st.markdown(
+                            f'<div style="text-align:center; margin-bottom:12px;">{map_svg}</div>',
+                            unsafe_allow_html=True,
+                        )
+
+                        # Compatibilidad badge
+                        st.markdown(
+                            f'<div style="display:flex; align-items:center; gap:8px; margin-bottom:14px;">'
+                            f'<span style="display:inline-block; width:12px; height:12px; border-radius:50%; '
+                            f'background:{compat_color};"></span>'
+                            f'<span style="font-size:14px; font-weight:700; '
+                            f'color:var(--ct-texto, #0B2B55);">'
+                            f'Provincia principal: {mejor["provincia_nombre"].title()} '
+                            f'— {compat_label}</span></div>',
+                            unsafe_allow_html=True,
+                        )
+
+                        # Leyenda como lista compacta
+                        legend_html = '<div style="display:flex; flex-direction:column; gap:6px;">'
+                        for rank_l, name_l, color_l in legend_items:
+                            legend_html += (
+                                f'<div style="display:flex; align-items:center; gap:10px; '
+                                f'padding:8px 14px; border-radius:10px; '
+                                f'background:white; border:1px solid var(--ct-borde, #D7E3F4);">'
+                                f'<span style="display:inline-flex; align-items:center; justify-content:center; '
+                                f'width:26px; height:26px; border-radius:50%; flex-shrink:0; '
+                                f'background:{color_l}; color:white; font-size:12px; font-weight:800;">'
+                                f'{rank_l}</span>'
+                                f'<span style="font-size:15px; font-weight:700; '
+                                f'color:var(--ct-azul-oscuro, #004AAD);">{name_l}</span>'
+                                f'</div>'
+                            )
+                        legend_html += '</div>'
+
+                        st.markdown(legend_html, unsafe_allow_html=True)
 
                 except Exception as e:
                     st.error(f"No fue posible generar las recomendaciones ML: {e}")
