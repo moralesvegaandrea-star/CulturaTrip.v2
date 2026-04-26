@@ -639,25 +639,6 @@ st.markdown(
 )
 
 # =========================
-# # Header principal con logo de marca
-# =========================
-st.markdown('<div class="main-container">', unsafe_allow_html=True)
-
-st.markdown(
-    '<div style="text-align:center;"><span class="badge">✨ Exploración Cultural</span></div>',
-    unsafe_allow_html=True
-)
-
-st.markdown(
-    f'<div class="header-brand">{LOGO_SVG}<h1 class="title-main">CulturaTrip</h1></div>',
-    unsafe_allow_html=True
-)
-
-st.markdown(
-    '<div class="subtitle-main">Planificación inteligente de turismo</div>',
-    unsafe_allow_html=True
-)
-# =========================
 # Card Bienvenidos
 # =========================
 
@@ -743,6 +724,155 @@ df_alojamientos = load_csv(ALOJAMIENTOS_PATH)
 
 # Merge para tener lat/lon a nivel municipio
 df_divgeo = df_muni.merge(df_geo[["id_municipio", "lat", "lon"]], on="id_municipio", how="left")
+
+# ===============================
+# Sistema de autenticación simple
+# ===============================
+import hashlib
+
+def _hash_password(password: str) -> str:
+    """Hash SHA-256 con salt fijo del proyecto."""
+    salt = "CulturaTrip2026"
+    return hashlib.sha256(f"{salt}{password}".encode("utf-8")).hexdigest()
+
+def _crear_tabla_usuarios():
+    """Crea la tabla de usuarios si no existe."""
+    engine = get_engine()
+    with engine.begin() as conn:
+        conn.execute(text("""
+            CREATE TABLE IF NOT EXISTS usuarios (
+                email VARCHAR(255) PRIMARY KEY,
+                nombre VARCHAR(255) NOT NULL,
+                password_hash VARCHAR(255) NOT NULL,
+                fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+        """))
+
+def _registrar_usuario(email: str, nombre: str, password: str) -> tuple:
+    """Registra un usuario. Retorna (ok: bool, mensaje: str)."""
+    email = email.strip().lower()
+    if not email or not nombre.strip() or not password:
+        return False, "Todos los campos son obligatorios."
+    if len(password) < 4:
+        return False, "La contraseña debe tener al menos 4 caracteres."
+    engine = get_engine()
+    try:
+        with engine.begin() as conn:
+            existe = conn.execute(
+                text("SELECT 1 FROM usuarios WHERE email = :email"),
+                {"email": email}
+            ).fetchone()
+            if existe:
+                return False, "Ya existe una cuenta con ese correo."
+            conn.execute(
+                text("INSERT INTO usuarios (email, nombre, password_hash) VALUES (:email, :nombre, :hash)"),
+                {"email": email, "nombre": nombre, "hash": _hash_password(password)}
+            )
+        return True, "Cuenta creada con éxito. Ya puedes iniciar sesión."
+    except Exception as e:
+        return False, f"Error al registrar: {e}"
+
+def _autenticar_usuario(email: str, password: str) -> tuple:
+    """Verifica credenciales. Retorna (ok: bool, nombre: str o mensaje_error: str)."""
+    email = email.strip().lower()
+    if not email or not password:
+        return False, "Ingresa correo y contraseña."
+    engine = get_engine()
+    try:
+        with engine.begin() as conn:
+            row = conn.execute(
+                text("SELECT nombre, password_hash FROM usuarios WHERE email = :email"),
+                {"email": email}
+            ).fetchone()
+            if not row:
+                return False, "No existe una cuenta con ese correo."
+            if row[1] != _hash_password(password):
+                return False, "Contraseña incorrecta."
+            return True, row[0]
+    except Exception as e:
+        return False, f"Error de autenticación: {e}"
+
+# Crear tabla al iniciar (si no existe)
+_crear_tabla_usuarios()
+
+# --- Pantalla de Login ---
+if "autenticado" not in st.session_state:
+    st.session_state["autenticado"] = False
+    st.session_state["usuario_nombre"] = ""
+
+if not st.session_state["autenticado"]:
+    # Centrar el formulario
+    _col_l, _col_c, _col_r = st.columns([1, 2, 1])
+    with _col_c:
+
+        st.markdown(
+            '<h1 style="text-align:center; color:#004AAD; font-weight:900; '
+            'font-size:48px; margin:10px 0 4px;">CulturaTrip</h1>',
+            unsafe_allow_html=True,
+        )
+        st.markdown(
+            '<p style="text-align:center; color:#5A6B85; font-size:16px; margin-bottom:28px;">'
+            'Planificación inteligente de turismo</p>',
+            unsafe_allow_html=True,
+        )
+
+        tab_login, tab_registro = st.tabs(["Iniciar sesión", "Crear cuenta"])
+
+        with tab_login:
+            with st.form("form_login"):
+                email_login = st.text_input("Correo electrónico", placeholder="tu@email.com")
+                pass_login = st.text_input("Contraseña", type="password", placeholder="••••••••")
+                btn_login = st.form_submit_button("Iniciar sesión", use_container_width=True, type="primary")
+
+            if btn_login:
+                ok, resultado = _autenticar_usuario(email_login, pass_login)
+                if ok:
+                    # Limpiar toda la sesión anterior antes de entrar
+                    keys_to_keep = {"autenticado", "email", "usuario_nombre"}
+                    for key in list(st.session_state.keys()):
+                        if key not in keys_to_keep:
+                            del st.session_state[key]
+                    st.session_state["autenticado"] = True
+                    st.session_state["email"] = email_login.strip().lower()
+                    st.session_state["usuario_nombre"] = resultado
+                    st.session_state["step"] = 1
+                    st.session_state["menu"] = "Exploración Cultural"
+                    st.rerun()
+                else:
+                    st.error(resultado)
+
+        with tab_registro:
+            with st.form("form_registro"):
+                nombre_reg = st.text_input("Nombre completo", placeholder="Tu nombre")
+                email_reg = st.text_input("Correo electrónico", placeholder="tu@email.com")
+                pass_reg = st.text_input("Contraseña", type="password", placeholder="Mínimo 4 caracteres")
+                pass_reg2 = st.text_input("Confirmar contraseña", type="password", placeholder="Repite la contraseña")
+                btn_registro = st.form_submit_button("Crear cuenta", use_container_width=True)
+
+            if btn_registro:
+                if pass_reg != pass_reg2:
+                    st.error("Las contraseñas no coinciden.")
+                else:
+                    ok, msg = _registrar_usuario(email_reg, nombre_reg, pass_reg)
+                    if ok:
+                        st.success(msg)
+                    else:
+                        st.error(msg)
+
+    st.stop()  # Bloquea toda la app hasta autenticarse
+
+# =========================
+# Header global (visible en TODAS las pantallas, solo si autenticado)
+# =========================
+st.markdown('<div class="main-container">', unsafe_allow_html=True)
+st.markdown(
+    f'<div class="header-brand">{LOGO_SVG}<h1 class="title-main">CulturaTrip</h1></div>',
+    unsafe_allow_html=True
+)
+st.markdown(
+    '<div class="subtitle-main">Planificación inteligente de turismo</div>',
+    unsafe_allow_html=True
+)
 
 # ===============================
 # Session State (defaults)
@@ -904,8 +1034,36 @@ def iniciar_nuevo_plan():
 # Sidebar navegación (nuevo layout)
 # ===============================
 with st.sidebar:
-    st.title("CulturaTrip")
-    st.caption("Planificación inteligente de turismo")
+    # Logo pequeño en el sidebar (sin duplicar el header principal)
+    st.markdown(
+        f'<div style="text-align:center; padding:8px 0 4px;">'
+        f'<div style="display:inline-flex; align-items:center; justify-content:center; '
+        f'width:70px; height:70px; border-radius:50%; background:white; '
+        f'box-shadow:0 2px 10px rgba(0,0,0,0.15); margin-bottom:6px;">'
+        f'<div style="transform:scale(0.4); transform-origin:center; line-height:0;">{LOGO_SVG}</div>'
+        f'</div>'
+        f'<div style="font-size:22px; font-weight:900; color:white;">CulturaTrip</div>'
+        f'</div>',
+        unsafe_allow_html=True,
+    )
+
+    # Saludo + cerrar sesión
+    nombre_usuario = st.session_state.get("usuario_nombre", "")
+    if nombre_usuario:
+        st.markdown(
+            f'<div style="padding:8px 12px; border-radius:10px; '
+            f'background:rgba(255,255,255,0.15); margin-bottom:10px; font-size:13px;">'
+            f'👋 Hola, <b>{nombre_usuario}</b></div>',
+            unsafe_allow_html=True,
+        )
+    if st.button("🚪 Cerrar sesión", use_container_width=True):
+        # Limpiar toda la sesión
+        for key in list(st.session_state.keys()):
+            del st.session_state[key]
+        st.session_state["autenticado"] = False
+        st.rerun()
+
+    st.divider()
 
     opciones = [
         "Exploración Cultural",
