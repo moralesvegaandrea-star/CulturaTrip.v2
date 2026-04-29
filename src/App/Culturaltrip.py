@@ -3974,7 +3974,7 @@ def pantalla_equipo():
                 try:
                     img_bytes = foto_path.read_bytes()
                     img_b64 = _b64_team.b64encode(img_bytes).decode("utf-8")
-                    ext = foto_path.suffix.lower().replace(".", "").replace("jfif", "jpeg")
+                    ext = foto_path.suffix.lower().replace(".", "").replace("jfif", "jpeg").replace("jpg", "jpeg")
                     return (
                         f'<img src="data:image/{ext};base64,{img_b64}" '
                         f'style="width:100px; height:100px; border-radius:50%; object-fit:cover; '
@@ -4028,7 +4028,7 @@ def pantalla_equipo():
         {
             "nombre": "Ana Belén Chaves Jiménez",
             "iniciales": "AC",
-            "foto": "",
+            "foto": "IMG_20210906_181700.jpeg",
             "color": "#3DCD00",
             "rol_actual": "Nuclear Medicine Technologist · Hospital San Juan de Dios | Profesora · UCR",
             "rol_ct": "Quality Assurance & Process Documentation Lead",
