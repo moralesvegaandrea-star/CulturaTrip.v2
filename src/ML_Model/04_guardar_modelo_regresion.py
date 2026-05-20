@@ -1,25 +1,25 @@
 # =========================================================
-# 04 - GUARDAR MODELO DE REGRESIÓN DE PRECIOS
+# 04 - GUARDAR MODELO DE REGRESIÓN (MODELO V2 CORREGIDO)
 # =========================================================
 # Objetivo:
-# Entrenar nuevamente el mejor modelo seleccionado
-# (Random Forest Regressor) y guardarlo en disco para su
-# posterior uso en el simulador de presupuesto de viaje.
+# Entrenar el modelo final seleccionado y guardar los archivos
+# necesarios para su uso posterior en el prototipo.
+#
+# Decisión metodológica:
+# - Se guarda Random Forest base, ya que obtuvo mejor desempeño
+#   que el modelo optimizado en el conjunto de prueba.
+# - Se guardan también las features usadas para garantizar
+#   consistencia en futuras predicciones.
 # =========================================================
-import os
-import re
-import time
-import unicodedata
-from datetime import date, timedelta
-import requests
-from pathlib import Path
 
-import ast
+import os
 import pickle
 import pandas as pd
 from pathlib import Path
-from sklearn.ensemble import RandomForestRegressor
 
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 
 # ---------------------------------------------------------
 # 04.1 Definición de rutas
@@ -41,17 +41,16 @@ OUTPUTS_DIR.mkdir(parents=True, exist_ok=True)
 EXPERIMENTAL_DIR.mkdir(parents=True, exist_ok=True)
 
 
-input_path =  os.path.join(ML_DIR,"df_precios_features.csv")
+input_path =  os.path.join(ML_DIR,"df_precios_features_v2.csv")
 model_dir = BASE_DIR / "outputs" / "regresion_precios" / "modelos"
-model_path = model_dir / "random_forest_precio.pkl"
-features_path = model_dir / "features_modelo_precio.pkl"
-metricas_rf_path = os.path.join(ML_DIR, "metricas_random_forest_optimizado.csv")
-
+model_path = model_dir / "random_forest_precio_v2.pkl"
+features_path = model_dir / "features_modelo_precio_v2.pkl"
+metricas_rf_path = os.path.join(ML_DIR, "metricas_modelo_precio_v2.csv")
 
 model_dir.mkdir(parents=True, exist_ok=True)
 
 # ---------------------------------------------------------
-# 04.2 Cargar dataset con features
+# 04.2 Cargar dataset
 # ---------------------------------------------------------
 
 print("Leyendo dataset desde:")
@@ -64,73 +63,104 @@ print("Dimensiones:", df.shape)
 
 
 # ---------------------------------------------------------
-# 04.3 Definir variables predictoras y variable objetivo
+# 04.3 Separar variables predictoras y variable objetivo
 # ---------------------------------------------------------
 
-features = [
-    "id_ccaa",
-    "id_provincia",
-    "mes",
-    "temporada_cod",
-    "categoria_alojamiento_cod",
-    "periodo_antelacion_cod",
-    "valoraciones_norm",
-    "tiene_valoraciones",
-    "tipo_dia_cod"
-]
-
-X = df[features]
+X = df.drop(columns=["precio"])
 y = df["precio"]
 
+features = X.columns.tolist()
 
-# ---------------------------------------------------------
-# 04.4 Cargar mejores hiperparámetros desde el paso 03
-# ---------------------------------------------------------
-
-print("\nLeyendo mejores hiperparámetros desde:")
-print(metricas_rf_path)
-
-df_metricas_rf = pd.read_csv(metricas_rf_path)
-
-best_params_str = df_metricas_rf.loc[0, "best_params"]
-best_params = ast.literal_eval(best_params_str)
-
-print("\nMejores hiperparámetros cargados:")
-print(best_params)
+print("\nVariables del modelo:")
+print(features)
 
 
 # ---------------------------------------------------------
-# 04.5 Crear y entrenar modelo final optimizado
+# 04.4 Train / Test Split
+# ---------------------------------------------------------
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X,
+    y,
+    test_size=0.2,
+    random_state=42
+)
+
+
+# ---------------------------------------------------------
+# 04.5 Entrenar modelo final
 # ---------------------------------------------------------
 
 modelo_final = RandomForestRegressor(
-    **best_params,
+    n_estimators=200,
     random_state=42,
     n_jobs=-1
 )
 
-modelo_final.fit(X, y)
-
-print("\nModelo final optimizado entrenado correctamente.")
+modelo_final.fit(X_train, y_train)
 
 
 # ---------------------------------------------------------
-# 04.6 Guardar modelo entrenado
+# 04.6 Evaluar modelo final
 # ---------------------------------------------------------
 
-with open(model_path, "wb") as archivo_modelo:
-    pickle.dump(modelo_final, archivo_modelo)
+y_pred = modelo_final.predict(X_test)
+
+mae = mean_absolute_error(y_test, y_pred)
+rmse = mean_squared_error(y_test, y_pred) ** 0.5
+r2 = r2_score(y_test, y_pred)
+
+print("\n=== MÉTRICAS MODELO FINAL ===")
+print("MAE:", round(mae, 2))
+print("RMSE:", round(rmse, 2))
+print("R2:", round(r2, 4))
+
+
+# ---------------------------------------------------------
+# 04.7 Guardar métricas
+# ---------------------------------------------------------
+
+df_metricas = pd.DataFrame([{
+    "modelo": "RandomForestRegressor_base_v2",
+    "MAE": round(mae, 2),
+    "RMSE": round(rmse, 2),
+    "R2": round(r2, 4),
+    "n_estimators": 200,
+    "random_state": 42,
+    "usa_ids": False
+}])
+
+df_metricas.to_csv(metricas_rf_path, index=False, encoding="utf-8")
+
+
+# ---------------------------------------------------------
+# 04.8 Guardar modelo
+# ---------------------------------------------------------
+
+with open(model_path, "wb") as file:
+    pickle.dump(modelo_final, file)
 
 print("\nModelo guardado en:")
 print(model_path)
 
 
 # ---------------------------------------------------------
-# 04.7 Guardar lista de features
+# 04.9 Guardar lista de features
 # ---------------------------------------------------------
 
-with open(features_path, "wb") as archivo_features:
-    pickle.dump(features, archivo_features)
+with open(features_path, "wb") as file:
+    pickle.dump(features, file)
 
-print("\nLista de variables guardada en:")
+print("\nFeatures guardadas en:")
 print(features_path)
+
+
+# ---------------------------------------------------------
+# 04.10 Conclusión del paso
+# ---------------------------------------------------------
+
+print("\n=== CONCLUSIÓN PASO 04 ===")
+print("- Se entrenó y guardó el modelo Random Forest base.")
+print("- Se guardó la lista de variables predictoras.")
+print("- Se guardaron las métricas finales del modelo.")
+print("- El modelo queda listo para ser usado en simulaciones.")

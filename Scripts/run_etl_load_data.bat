@@ -12,6 +12,8 @@ docker compose run --rm app python src/"New Model"/rel_municipio_isla_load_postg
 docker compose run --rm app python src/"New Model"/OpenstreetMap_load_postgres.py
 docker compose run --rm app python src/"New Model"/Actividades_load_postgres.py
 docker compose run --rm app python src/"New Model"/Alojamientos_load_postgres.py
+docker exec -it culturatrip_db psql -U culturatrip -d culturatrip -f /docker-entrypoint-initdb.d/04_new_tables.sql
+docker exec -it culturatrip_db psql -U culturatrip -d culturatrip -f /docker-entrypoint-initdb.d/06_index.sql
 
 echo ======================================
 echo Carga completada

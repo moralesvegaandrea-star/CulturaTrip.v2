@@ -21,19 +21,21 @@ CulturaTrip es una plataforma inteligente de planificación de viajes culturales
 
 El sistema combina:
 
-Procesamiento de datos (ETL)
+* Procesamiento de datos (ETL)
 
-Modelado relacional en PostgreSQL
+* Modelado relacional en PostgreSQL
 
-Vistas analíticas
+* Vistas analíticas
 
-Modelos de Machine Learning
+* Modelos de Machine Learning
 
-Aplicación interactiva en Streamlit
+* Aplicación interactiva en Streamlit
+
+* Pipeline Cloud-in-Local (LocalStack + PySpark)
 
 Todo el entorno está diseñado bajo un enfoque de reproducibilidad completa mediante Docker.
 
-Datos necesarios para reproducir: listar los CSV se encuentran en la direccion data/clean/.
+Datos necesarios para reproducir: los CSV se encuentran en la dirección data/clean/.
 
 
 
@@ -41,15 +43,15 @@ Datos necesarios para reproducir: listar los CSV se encuentran en la direccion d
 
 Desarrollar un sistema que permita:
 
-Planificar viajes culturales de forma personalizada
+* Planificar viajes culturales de forma personalizada
 
-Estimar costos por categoría (alojamiento, transporte, alimentación, actividades)
+* Estimar costos por categoría (alojamiento, transporte, alimentación, actividades)
 
-Recomendar destinos óptimos
+* Recomendar destinos óptimos
 
-Analizar la viabilidad del viaje según presupuesto
+* Analizar la viabilidad del viaje según presupuesto
 
-Integrar modelos de Machine Learning en la toma de decisiones
+* Integrar modelos de Machine Learning en la toma de decisiones
 
 ## Requisitos del entorno
 
@@ -104,15 +106,15 @@ Patrones de acceso analítico (JOIN, agregaciones, filtros temporales)
 
 Se selecciona PostgreSQL 16 como SGBD principal por:
 
-Integridad referencial robusta (claves foráneas)
+* Integridad referencial robusta (claves foráneas)
 
-Soporte avanzado para consultas analíticas
+* Soporte avanzado para consultas analíticas
 
-Escalabilidad
+* Escalabilidad
 
-Gestión de tipos numéricos de precisión financiera (NUMERIC)
+* Gestión de tipos numéricos de precisión financiera (NUMERIC)
 
-Compatibilidad con Docker para ejecución local
+* Compatibilidad con Docker para ejecución local
 
 Alternativas consideradas:
 
@@ -128,62 +130,199 @@ Alternativas consideradas:
      El sistema sigue una arquitectura por capas:
 
        Datos (APIs / CSV)
-              ↓
-         ETL Python
-              ↓
-      PostgreSQL (tablas relacionales)
-              ↓
-     Views (QA + UI + Costos + ML Features)
-             ↓
-      Machine Learning (.pkl)
-             ↓
-        Streamlit App
+           ↓
+      ETL Python
+           ↓
+    PostgreSQL (tablas relacionales)
+           ↓
+    Views (QA + UI + Costos + ML Features)
+           ↓
+    Machine Learning (.pkl)
+           ↓
+     Streamlit App (B2C — turista)
+     Tableau (B2B — instituciones)
 
 ## Infraestructura (Docker)
 
-El proyecto se ejecuta mediante Docker Compose con tres servicios principales:
+El proyecto se ejecuta mediante Docker Compose con cinco servicios:
 
-db → PostgreSQL 16 (base de datos)
 
-app → ejecución de ETL y aplicación Streamlit
+| Servicio   | Imagen                         | Descripción                          | Puerto |
+| ---------- | ------------------------------ | ------------------------------------ | ------ |
+| db         | postgres:16                    | Base de datos PostgreSQL             | 5433   |
+| app        | culturatrip (build local)      | Aplicación Streamlit + ETL           | 8501   |
+| notebook   | culturatrip (build local)      | Jupyter Notebook para análisis       | 8888   |
+| localstack | localstack/localstack:3.5      | Simulador de Amazon S3 (Cloud-in-Local) | 4566   |
+| spark      | apache/spark:3.5.3-python3     | Apache Spark para procesamiento PySpark | 8080   |
 
-notebook → entorno Jupyter para análisis
 
-    Definido en:
+
+Definido en:
 
     docker-compose.yml
 
 ## Flujo Operativo del Proyecto
 
-1)  Levantar el entorno
+### Paso 1: Levantar el entorno
 
-         docker compose up --build
+```bash
+docker compose up --build
+```
 
-Esto inicia o da acceso a los servicios
+Esto inicia los 5 servicios. Verificar que todos están corriendo:
 
-PostgreSQL → puerto 5433
+```bash
+docker ps
+```
 
-| Servicio             | URL                                            |
+Deberías ver 5 contenedores activos:
+
+| Servicio             | URL / Puerto                                   |
 | -------------------- | ---------------------------------------------- |
-| Aplicación Streamlit | [http://localhost:8501](http://localhost:8501) |
-| Jupyter Notebook     | [http://localhost:8888](http://localhost:8888) |
+| Aplicación Streamlit | [http://localhost:8501](http://localhost:8501)  |
+| Jupyter Notebook     | [http://localhost:8888](http://localhost:8888)  |
+| PostgreSQL           | localhost:5433                                  |
+| LocalStack (S3)      | [http://localhost:4566](http://localhost:4566)  |
+| Spark UI             | [http://localhost:8080](http://localhost:8080)  |
 
 
-### Recomendación:
-#### Construir y levantar entorno
-Desde la raíz del proyecto
-Si ya existe el volumen y quieres re-inicializar desde cero: 
+### Paso 2: Ejecutar el proceso ETL (carga de datos a PostgreSQL)
 
-     docker compose down -v 
-y luego 
+#### Ejecución rápida (recomendado):
 
-    docker compose up --build.
+```bash
+Scripts/run_etl_load_data.bat
+```
+#### Ejecución manual (en orden):
 
-## Detener el Entorno
+```bash
+docker compose run --rm app python src/"New Model"/Paises_load_postgres.py
+docker compose run --rm app python src/"New Model"/Comunidad_Autonomas_New_Model_load_postgres.py
+docker compose run --rm app python src/"New Model"/Provincias_new_model_load_postgres.py
+docker compose run --rm app python src/"New Model"/Islas_v2_new_model_load_postgres.py
+docker compose run --rm app python src/"New Model"/Division_Politica_load_postgres.py
+docker compose run --rm app python src/"New Model"/rel_municipio_isla_load_postgres.py
+docker compose run --rm app python src/"New Model"/OpenstreetMap_load_postgres.py
+docker compose run --rm app python src/"New Model"/Actividades_load_postgres.py
+docker compose run --rm app python src/"New Model"/Alojamientos_load_postgres.py
+docker exec -it culturatrip_db psql -U culturatrip -d culturatrip -f /docker-entrypoint-initdb.d/04_new_tables.sql
+docker exec -it culturatrip_db psql -U culturatrip -d culturatrip -f /docker-entrypoint-initdb.d/06_index.sql
+```
 
-Detener servicios:
+### Paso 3: Ejecutar los scripts SQL (vistas, cambios y ML)
 
-    docker compose down
+#### Ejecución rápida (recomendado):
+
+```bash
+Scripts/run_views.bat
+```
+
+#### Ejecución manual (IMPORTANTE — respetar el orden):
+
+Los scripts SQL tienen dependencias entre sí. Algunos deben ejecutarse dos veces porque crean objetos que otros scripts referencian. El orden correcto es:
+
+```bash
+# Primera pasada: crear todas las estructuras base
+docker exec -it culturatrip_db psql -U culturatrip -d culturatrip -f /docker-entrypoint-initdb.d/07_new_changes.sql
+docker exec -it culturatrip_db psql -U culturatrip -d culturatrip -f /docker-entrypoint-initdb.d/08_alter_tables.sql
+docker exec -it culturatrip_db psql -U culturatrip -d culturatrip -f /docker-entrypoint-initdb.d/09_ML_views.sql
+docker exec -it culturatrip_db psql -U culturatrip -d culturatrip -f /docker-entrypoint-initdb.d/10_auth.sql
+
+# Segunda pasada: resolver dependencias cruzadas
+docker exec -it culturatrip_db psql -U culturatrip -d culturatrip -f /docker-entrypoint-initdb.d/07_new_changes.sql
+docker exec -it culturatrip_db psql -U culturatrip -d culturatrip -f /docker-entrypoint-initdb.d/08_alter_tables.sql
+docker exec -it culturatrip_db psql -U culturatrip -d culturatrip -f /docker-entrypoint-initdb.d/09_ML_views.sql
+```
+
+**¿Por qué dos pasadas?** Los scripts 07, 08 y 09 tienen dependencias cruzadas: por ejemplo, 09_ML_views.sql puede referenciar columnas creadas por 08_alter_tables.sql, y 07_new_changes.sql puede depender de vistas creadas en 09. La primera pasada crea todos los objetos (algunos pueden dar errores por dependencias aún no creadas), y la segunda pasada resuelve esas dependencias porque ahora todos los objetos ya existen.
+
+
+### Paso 4: Pipeline Cloud-in-Local (Fase 2 — Cloud Computing)
+
+Este pipeline demuestra el flujo de datos en una arquitectura cloud simulada localmente:
+
+```
+CSVs (data/clean/) → S3 simulado (LocalStack) → PySpark (limpieza + agregación) → Parquet → PostgreSQL (schema cloud)
+```
+
+#### Ejecución rápida (recomendado):
+
+```bash
+Scripts/run_cloud_pipeline.bat
+```
+
+#### Ejecución manual (en orden):
+
+**Prerequisito:** Instalar boto3 en el contenedor de Spark (solo la primera vez o después de recrear contenedores):
+
+```bash
+docker compose exec spark pip install boto3
+```
+
+**Etapa 1 — Ingesta a S3 simulado:**
+
+```bash
+docker compose run --rm app python cloud_pipeline/01_ingesta_s3.py
+```
+
+Sube los 11 CSVs de data/clean/ al bucket `culturatrip-raw` en LocalStack.
+
+**Etapa 2 — Procesamiento con PySpark:**
+
+```bash
+docker compose exec spark /opt/spark/bin/spark-submit --packages org.apache.hadoop:hadoop-aws:3.3.4,com.amazonaws:aws-java-sdk-bundle:1.12.262 /app/cloud_pipeline/02_procesamiento_spark.py
+```
+
+Lee CSVs desde S3, limpia datos (nulos, tipos), agrega por provincia y mes, y guarda como Parquet en bucket `culturatrip-gold`.
+
+**Etapa 3 — Carga a PostgreSQL:**
+
+```bash
+docker compose run --rm app python cloud_pipeline/03_carga_postgresql.py
+```
+
+Lee los Parquet desde S3 y los carga como 13 tablas en PostgreSQL bajo el schema `cloud`.
+
+**Etapa 4 — Data Mart (vistas SQL):**
+
+Las vistas SQL del schema `culturatrip` (vw_ui_*, vw_rec_*, vw_ml_*) ya están creadas en el Paso 3 y funcionan sobre las tablas del schema `public`. No requieren acción adicional.
+
+
+#### Verificación del pipeline cloud:
+
+```bash
+docker exec -it culturatrip_db psql -U culturatrip -d culturatrip -c "SELECT table_name FROM information_schema.tables WHERE table_schema='cloud' ORDER BY table_name;"
+```
+
+Resultado esperado: 13 tablas en el schema `cloud`.
+
+### Validación del modelo
+    docker exec -it culturatrip_db psql -U culturatrip -d culturatrip -c "
+    SELECT * FROM culturatrip.vw_qa_counts_base;"
+
+### Recomendación — Instalación desde cero:
+
+Si quieres re-inicializar todo el sistema desde cero:
+
+```bash
+docker compose down -v
+docker compose up --build
+```
+
+Luego ejecutar en orden:
+
+```bash
+Scripts/run_etl_load_data.bat
+Scripts/run_views.bat
+docker compose exec spark pip install boto3
+Scripts/run_cloud_pipeline.bat
+```
+
+### Detener el Entorno
+
+```bash
+docker compose down
+```
 
 ## Inicialización de base de datos
 
@@ -193,26 +332,26 @@ El sistema ejecuta automáticamente los scripts SQL ubicados en:
 
 Incluye:
 
-Creación de esquema
+* Creación de esquema
 
-Creación de tablas
+* Creación de tablas
 
-Creación de vistas
+* Creación de vistas
 
-###  Orden de Ejecución de Scripts SQL
-1. 01_schema.sql → creación del esquema
-2. 02_tables.sql → tablas base
-3. 03_views.sql → vistas iniciales (QA + UI)
-4. 04_new_tables.sql → tablas transaccionales
-5. 05_new_views.sql → modelo de costos
-6. 06_index.sql → índices
-7. 07_new_changes.sql → ajustes estructurales
-8. 08_alter_tables.sql → alteraciones
-9. 09_ML_views.sql → vistas para Machine Learning
+### Orden de Ejecución de Scripts SQL
 
-Los scripts SQL deben ejecutarse en el siguiente orden:
-
-    Scripts/run_views.bat
+| Orden | Archivo             | Descripción                                    |
+| ----- | ------------------- | ---------------------------------------------- |
+| 1     | 01_schema.sql       | Creación del esquema `culturatrip`             |
+| 2     | 02_tables.sql       | Tablas base (dimensiones y hechos)             |
+| 3     | 03_views.sql        | Vistas iniciales (QA + UI)                     |
+| 4     | 04_new_tables.sql   | Tablas transaccionales (plan de viaje)         |
+| 5     | 05_new_views.sql    | Modelo de costos                               |
+| 6     | 06_index.sql        | Índices de rendimiento                         |
+| 7     | 07_new_changes.sql  | Ajustes estructurales                          |
+| 8     | 08_alter_tables.sql | Alteraciones de tablas                         |
+| 9     | 09_ML_views.sql     | Vistas para Machine Learning                   |
+| 10    | 10_auth.sql         | Tabla de autenticación (login de usuarios)     |
 
 Estos scripts completan el modelo e incluyen:
 
@@ -231,12 +370,6 @@ Estos scripts completan el modelo e incluyen:
  
 Se puede referir a la variable de entorno llamado .env
 
-###  Ejecución rápida (recomendado)
-
-Para ejecutar todo el proceso ETL de forma automática:
-
-    Scripts/run_etl_load_data.bat
-
 ### Nota importante:
 
      La carpeta `New Model` contiene espacios en su nombre. 
@@ -248,32 +381,7 @@ Para ejecutar todo el proceso ETL de forma automática:
 
      y actualizar los comandos correspondientes.
 
-### Ejecución Manual 
-
-     docker compose run --rm app python src/"New Model"/Paises_load_postgres.py
-     docker compose run --rm app python src/"New Model"/Comunidad_Autonomas_New_Model_load_postgres.py
-     docker compose run --rm app python src/"New Model"/Provincias_new_model_load_postgres.py
-     docker compose run --rm app python src/"New Model"/Islas_v2_new_model_load_postgres.py
-     docker compose run --rm app python src/"New Model"/Division_Politica_load_postgres.py
-     docker compose run --rm app python src/"New Model"/rel_municipio_isla_load_postgres.py
-     docker compose run --rm app python src/"New Model"/OpenstreetMap_load_postgres.py
-     docker compose run --rm app python src/"New Model"/Actividades_load_postgres.py
-     docker compose run --rm app python src/"New Model"/Alojamientos_load_postgres.py
-     docker exec -it culturatrip_db psql -U culturatrip -d culturatrip -f /docker-entrypoint-initdb.d/04_new_tables.sql
-     docker exec -it culturatrip_db psql -U culturatrip -d culturatrip -f /docker-entrypoint-initdb.d/06_index.sql
-
-Los scripts loaders:
-
-Insertan en tablas del esquema culturatrip
-
-Garantizan coherencia con el modelo relacional
-
-### Validación del modelo
-    docker exec -it culturatrip_db psql -U culturatrip -d culturatrip -c "
-    SELECT * FROM culturatrip.vw_qa_counts_base;"
-
 ## Modelo Físico Implementado (MVP)
-
 
 ### Modelo Transaccional de Plan de Viaje
 
@@ -349,45 +457,39 @@ dim_parametros_presupuesto
 
 Distribución del presupuesto:
 
-Alojamiento → 35%
+* Alojamiento → 35%
 
-Transporte → 25%
+* Transporte → 25%
 
-Alimentación → 12%
+* Alimentación → 12%
 
-Actividades → 28%
+* Actividades → 28%
 
 Los costos se calculan mediante vistas:
 
-vw_plan_presupuesto_categoria
-vw_plan_costos_alojamiento
-vw_plan_costos_alimentacion
-vw_plan_costos_transporte
-vw_plan_costos_estimados
+* vw_plan_presupuesto_categoria
+* vw_plan_costos_alojamiento
+* vw_plan_costos_alimentacion
+* vw_plan_costos_transporte
+* vw_plan_costos_estimados
 
 El modelo de costos se implementa completamente a nivel de vistas en PostgreSQL, permitiendo desacoplar la lógica de negocio de la aplicación y facilitar su reutilización en diferentes capas del sistema.
+
 ## Machine Learning
 
 El sistema integra tres modelos:
 
 ### Modelo supervisado (Alojamiento)
-
 - Predicción de precios
-
 - Variables: categoría, temporada, ubicación
 
 ### Modelo no supervisado
-
-Clustering de provincias
-
-Segmentación de destinos
+- Clustering de provincias
+- Segmentación de destinos
 
 ### Modelo avanzado
-
 - Ranking de destinos
-
 - Evaluación multicriterio (costo + actividades + presupuesto)
-
 - Los modelos se ejecutan en tiempo real desde archivos .pkl.
 
 ## Aplicación (Streamlit)
@@ -395,7 +497,7 @@ Segmentación de destinos
 La aplicación está estructurada en un flujo de 8 pantallas:
 
 - Exploración cultural
-- Gestion de Planes
+- Gestión de Planes
 - Planificación del viaje
 - Resumen del plan
 - Presupuesto inteligente
@@ -412,31 +514,115 @@ El proyecto ha sido diseñado bajo el principio de:
 Reproducibilidad total del entorno, permitiendo ejecutar el sistema completo (datos, modelo y aplicación) mediante Docker sin configuraciones adicionales.
 
 
+## Pipeline Cloud-in-Local (Asignatura 10 — Fundamentos de Cloud Computing)
+
+### Arquitectura
+
+El pipeline implementa una arquitectura Data Lakehouse simulada localmente con Docker:
+
+```
+Fuentes (INE, GeoNames, OSM)
+         ↓
+  S3 simulado (LocalStack)         ← Capa Raw (Data Lake)
+         ↓
+  PySpark (limpieza + agregación)  ← Procesamiento
+         ↓
+  Parquet en S3                    ← Capa Gold
+         ↓
+  PostgreSQL (schema cloud)        ← Data Warehouse
+         ↓
+  Streamlit (B2C) + Tableau (B2B)  ← Consumo dual
+```
+
+### Componentes del pipeline
+
+| Archivo                               | Etapa                | Descripción                                          |
+| ------------------------------------- | -------------------- | ---------------------------------------------------- |
+| cloud_pipeline/01_ingesta_s3.py       | Etapa 1 — Raw        | Sube CSVs a bucket S3 en LocalStack con boto3        |
+| cloud_pipeline/02_procesamiento_spark.py | Etapa 2 — Gold    | PySpark: limpieza, agregación, guardado en Parquet   |
+| cloud_pipeline/03_carga_postgresql.py | Etapa 3 — Warehouse  | Lee Parquet desde S3 y carga a PostgreSQL (schema cloud) |
+| sql/03_views.sql (+ 05, 09)          | Etapa 4 — Data Mart  | Vistas SQL optimizadas para BI (ya existentes)       |
+
+### Equivalencia Local → Cloud (AWS)
+
+| Componente local         | Equivalente AWS              |
+| ------------------------ | ---------------------------- |
+| LocalStack (S3 simulado) | Amazon S3                    |
+| PySpark (contenedor)     | AWS Glue / Amazon EMR        |
+| PostgreSQL (contenedor)  | Amazon RDS (PostgreSQL)      |
+| Streamlit (contenedor)   | AWS App Runner               |
+| Tableau Desktop          | Tableau Online / QuickSight  |
+
+
 ## Estructura del Proyecto
-    CulturaTrip_TFM/
-    │
-    ├── Dockerfile
-    ├── docker-compose.yml
-    ├── requirements.txt
-    ├── .dockerignore
-    │
-    ├── src/
-    │   ├── App/
-    │   │   └── Culturaltrip.py
-    │   ├── New Model/
-    │   ├── Flat Model/
-    │   └── Experimental/
-    │
-    ├── data/
-    │   ├── raw/
-    │   ├── interim/
-    │   └── clean/
-    │
-    ├── Notebook/
-    └── README.md
 
+```
+CulturaTrip_TFM/
+│
+├── Dockerfile
+├── docker-compose.yml
+├── requirements.txt
+├── .dockerignore
+├── .env
+│
+├── src/
+│   ├── App/
+│   │   └── Culturaltrip.py
+│   ├── New Model/          ← loaders ETL
+│   ├── Flat Model/
+│   └── Experimental/
+│
+├── cloud_pipeline/          ← Pipeline Cloud-in-Local (NUEVO)
+│   ├── 01_ingesta_s3.py
+│   ├── 02_procesamiento_spark.py
+│   └── 03_carga_postgresql.py
+│
+├── data/
+│   ├── raw/
+│   ├── interim/
+│   └── clean/              ← CSVs limpios (fuente del pipeline)
+│
+├── sql/                     ← Scripts SQL (01 al 10)
+│   ├── 01_schema.sql
+│   ├── 02_tables.sql
+│   ├── 03_views.sql
+│   ├── 04_new_tables.sql
+│   ├── 05_new_views.sql
+│   ├── 06_index.sql
+│   ├── 07_new_changes.sql
+│   ├── 08_alter_tables.sql
+│   ├── 09_ML_views.sql
+│   └── 10_auth.sql
+│
+├── Scripts/                 ← Scripts de ejecución (.bat)
+│   ├── run_etl_load_data.bat
+│   ├── run_views.bat
+│   └── run_cloud_pipeline.bat
+│
+├── Notebook/
+├── MVP/
+├── outputs/
+├── assets/
+├── team_members/
+└── README.md
+```
+## Validación del Entorno
 
-## Consultas Representativas del TFM
+Para verificar que el modelo está correctamente creado:
+
+```bash
+docker exec -it culturatrip_db psql -U culturatrip -d culturatrip
+```
+
+Luego ejecutar:
+
+```sql
+SELECT table_name
+FROM information_schema.tables
+WHERE table_schema='culturatrip';
+```
+
+## Consultas Representativas del proyecto
 
 El modelo soporta consultas analíticas tales como:
 
@@ -540,48 +726,6 @@ Cantidad de hospedaje (alojamientos) por provincia
     GROUP BY p.id_provincia, p.provincia_nombre
     ORDER BY total_hospedajes DESC LIMIT 10;"
 
-
-Soporte para análisis estratégico turístico
-
-    Las vistas correspondientes se encuentran en 03_views.sql.
-
-Estas consultas demuestran:
-
-Las vistas definidas en 03_views.sql cumplen dos funciones:
-
-Control de Calidad (QA):
-
-Validan duplicados, integridad referencial y consistencia geográfica.
-
-Capa de Presentación (UI):
-
-Preparan datos agregados listos para ser consumidos por Streamlit.
-
-La vista vw_ui_pantalla1_global permite mostrar en la primera pantalla de la aplicación el número total de países, provincias, municipios e islas disponibles.
-
-La vista vw_ui_pantalla1_detalle_por_pais permite mostrar información cultural y territorial específica para el país seleccionado por el usuario.
-
-Esta separación garantiza:
-
-- Reproducibilidad
-
-- Optimización de consultas
-
-- Arquitectura modular (DB → Views → Streamlit)
-
-## Validación del Entorno
-
-Para verificar que el modelo está correctamente creado:
-
-    docker exec -it culturatrip_db psql -U culturatrip -d culturatrip
-
-Luego ejecutar:
-
-     SELECT table_name 
-     FROM information_schema.tables
-     WHERE table_schema='culturatrip';
-
-
 Otras validaciones:
 
      docker exec -it culturatrip_db psql -U culturatrip -d culturatrip -c "
@@ -592,37 +736,13 @@ Otras validaciones:
 
 Si las consultas devuelven resultados, el sistema está correctamente cargado y listo para su uso.
 
-## Optimización
-
-Se implementan índices para mejorar el rendimiento:
-
-- Índices en planes por usuario y fechas
-- Índices en relaciones de destino
-- Índices en dimensiones clave
-
-Ejemplo:
-
-- ux_plan_unico → evita duplicados de planes
-
 ## Limitaciones del MVP
 
 - No se implementan índices avanzados por volumen académico reducido.
-
 - No se incluyen procesos de actualización en tiempo real.
-
 - No se contempla particionamiento por ahora.
-
 - Se limita el alcance geográfico a España.
-
-- Futuras iteraciones podrán incorporar:
-
-- Optimización de consultas
-
-- Escalabilidad horizontal
-
-- Integración de datasets adicionales
-
-- Modelos de Machine Learning basados en agregaciones
+- Futuras iteraciones podrán incorporar: optimización de consultas, escalabilidad horizontal, integración de datasets adicionales, orquestación con Airflow, despliegue en Kubernetes.
 
 
 ## Valor Diferencial del Proyecto
@@ -633,14 +753,13 @@ CulturaTrip no solo analiza datos turísticos, sino que:
 - Permite planificación real de viajes (no solo análisis)
 - Incorpora un modelo de costos basado en fuentes oficiales (INE)
 - Combina analítica, Machine Learning y experiencia de usuario
+- Implementa un pipeline Cloud-in-Local que demuestra competencias en arquitectura cloud
 - Permite simulación y seguimiento real del viaje
-
-Esto lo diferencia de sistemas tradicionales de recomendación turística.
+- Ofrece consumo dual: Streamlit para el turista (B2C) y Tableau para instituciones (B2B)
 
 ## Conclusión
 
 CulturaTrip representa una solución integral de planificación de turismo cultural basada en datos, que combina:
-
 
 - Ingeniería de datos
 

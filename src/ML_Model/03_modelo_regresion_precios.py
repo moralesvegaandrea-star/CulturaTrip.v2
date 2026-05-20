@@ -1,10 +1,14 @@
 # =========================================================
-# 03 - MODELOS DE REGRESIÓN PARA PREDICCIÓN DE PRECIOS
+# 03 - MODELO DE REGRESIÓN (MODELO V2 CORREGIDO)
 # =========================================================
 # Objetivo:
-# Entrenar y comparar distintos modelos de regresión para
-# predecir el precio del alojamiento a partir de variables
-# turísticas y contextuales.
+# Entrenar y evaluar modelos de regresión para predecir
+# el precio del alojamiento utilizando variables limpias.
+#
+# Decisiones metodológicas:
+# - No se utilizan IDs como variables predictoras.
+# - Se comparan múltiples modelos.
+# - Se evalúa capacidad de generalización.
 # =========================================================
 
 import os
@@ -41,47 +45,29 @@ CLEAN_DIR.mkdir(parents=True, exist_ok=True)
 OUTPUTS_DIR.mkdir(parents=True, exist_ok=True)
 EXPERIMENTAL_DIR.mkdir(parents=True, exist_ok=True)
 
-input_path = os.path.join(ML_DIR,"df_precios_features.csv")
-output_dir = os.path.join(ML_DIR,"regresion_precios")
-output_metricas = os.path.join(ML_DIR, "metricas_modelos_regresion.csv")
-output_metricas_rf = os.path.join(ML_DIR, "metricas_random_forest_optimizado.csv")
-
+input_path = os.path.join(ML_DIR,"df_precios_features_v2.csv")
 
 # ---------------------------------------------------------
-# 03.2 Cargar dataset con features
+# 03.2 Cargar dataset
 # ---------------------------------------------------------
-
-print("Leyendo dataset desde:")
-print(input_path)
 
 df = pd.read_csv(input_path)
 
-print("\nDataset cargado correctamente.")
-print("Dimensiones:", df.shape)
+print("Dataset cargado:", df.shape)
 
 
 # ---------------------------------------------------------
-# 03.3 Definir variable objetivo y variables predictoras
+# 03.3 Definir X e y
 # ---------------------------------------------------------
 
-features = [
-    "id_ccaa",
-    "id_provincia",
-    "mes",
-    "temporada_cod",
-    "categoria_alojamiento_cod",
-    "periodo_antelacion_cod",
-    "valoraciones_norm",
-    "tiene_valoraciones",
-    "tipo_dia_cod"
-]
-
-X = df[features]
+X = df.drop(columns=["precio"])
 y = df["precio"]
 
+print("\nNúmero de variables:", X.shape[1])
+
 
 # ---------------------------------------------------------
-# 03.4 Dividir dataset en entrenamiento y prueba
+# 03.4 Train / Test Split
 # ---------------------------------------------------------
 
 X_train, X_test, y_train, y_test = train_test_split(
@@ -91,22 +77,22 @@ X_train, X_test, y_train, y_test = train_test_split(
     random_state=42
 )
 
-print("\nTamaño entrenamiento:", X_train.shape)
-print("Tamaño prueba:", X_test.shape)
+print("\nTrain:", X_train.shape)
+print("Test:", X_test.shape)
 
 
 # ---------------------------------------------------------
-# 03.5 Definir modelos base a comparar
+# 03.5 Modelos a comparar
 # ---------------------------------------------------------
 
 modelos = {
     "LinearRegression": LinearRegression(),
-    "RandomForestRegressor": RandomForestRegressor(
+    "RandomForest": RandomForestRegressor(
         n_estimators=200,
         random_state=42,
         n_jobs=-1
     ),
-    "GradientBoostingRegressor": GradientBoostingRegressor(
+    "GradientBoosting": GradientBoostingRegressor(
         n_estimators=200,
         random_state=42
     )
@@ -114,13 +100,13 @@ modelos = {
 
 
 # ---------------------------------------------------------
-# 03.6 Entrenar y evaluar cada modelo base
+# 03.6 Entrenamiento y evaluación
 # ---------------------------------------------------------
 
 resultados = []
 
-for nombre_modelo, modelo in modelos.items():
-    print(f"\nEntrenando modelo: {nombre_modelo}")
+for nombre, modelo in modelos.items():
+    print(f"\nEntrenando: {nombre}")
 
     modelo.fit(X_train, y_train)
     y_pred = modelo.predict(X_test)
@@ -130,50 +116,59 @@ for nombre_modelo, modelo in modelos.items():
     r2 = r2_score(y_test, y_pred)
 
     resultados.append({
-        "modelo": nombre_modelo,
-        "MAE": round(mae, 4),
-        "RMSE": round(rmse, 4),
+        "modelo": nombre,
+        "MAE": round(mae, 2),
+        "RMSE": round(rmse, 2),
         "R2": round(r2, 4)
     })
 
 
 # ---------------------------------------------------------
-# 03.7 Crear tabla de resultados de modelos base
+# 03.7 Resultados
 # ---------------------------------------------------------
 
-df_resultados = pd.DataFrame(resultados)
-df_resultados = df_resultados.sort_values(by="R2", ascending=False)
+df_resultados = pd.DataFrame(resultados).sort_values(by="R2", ascending=False)
 
-print("\n=== RESULTADOS DE LOS MODELOS BASE ===")
+print("\n=== RESULTADOS ===")
 print(df_resultados)
 
 
 # ---------------------------------------------------------
-# 03.8 Guardar métricas de comparación de modelos base
-# ---------------------------------------------------------
-
-df_resultados.to_csv(output_metricas, index=False, encoding="utf-8")
-
-print("\nMétricas de modelos base guardadas en:")
-print(output_metricas)
-
-
-# ---------------------------------------------------------
-# 03.9 Seleccionar mejor modelo base
+# 03.8 Mejor modelo
 # ---------------------------------------------------------
 
 mejor_modelo_nombre = df_resultados.iloc[0]["modelo"]
-print("\nMejor modelo base seleccionado:", mejor_modelo_nombre)
+
+print("\nMejor modelo:", mejor_modelo_nombre)
 
 
 # ---------------------------------------------------------
-# 03.10 Optimización de hiperparámetros del Random Forest
-# ---------------------------------------------------------
-# Se optimiza únicamente Random Forest por haber sido el
-# mejor modelo base en la comparación inicial.
+# 03.9 Importancia de variables (solo RF)
 # ---------------------------------------------------------
 
-print("\n=== OPTIMIZACIÓN DE HIPERPARÁMETROS: RANDOM FOREST ===")
+rf = RandomForestRegressor(
+    n_estimators=200,
+    random_state=42,
+    n_jobs=-1
+)
+
+rf.fit(X_train, y_train)
+
+importancias = pd.DataFrame({
+    "variable": X.columns,
+    "importancia": rf.feature_importances_
+}).sort_values(by="importancia", ascending=False)
+
+print("\n=== IMPORTANCIA DE VARIABLES ===")
+print(importancias.head(10))
+
+# =========================================================
+# 03.10 OPTIMIZACIÓN DE HIPERPARÁMETROS - RANDOM FOREST
+# =========================================================
+
+from sklearn.model_selection import GridSearchCV
+
+print("\n=== OPTIMIZACIÓN DE HIPERPARÁMETROS ===")
 
 param_grid = {
     "n_estimators": [100, 200],
@@ -200,7 +195,7 @@ grid_search.fit(X_train, y_train)
 
 best_rf = grid_search.best_estimator_
 
-print("\nMejores hiperparámetros encontrados:")
+print("\nMejores hiperparámetros:")
 print(grid_search.best_params_)
 
 print("\nMejor R2 en validación cruzada:")
@@ -208,7 +203,7 @@ print(round(grid_search.best_score_, 4))
 
 
 # ---------------------------------------------------------
-# 03.11 Evaluar modelo Random Forest optimizado
+# Evaluación final del modelo optimizado
 # ---------------------------------------------------------
 
 y_pred_rf = best_rf.predict(X_test)
@@ -218,38 +213,6 @@ rmse_rf = mean_squared_error(y_test, y_pred_rf) ** 0.5
 r2_rf = r2_score(y_test, y_pred_rf)
 
 print("\n=== RESULTADOS RANDOM FOREST OPTIMIZADO ===")
-print("MAE:", round(mae_rf, 4))
-print("RMSE:", round(rmse_rf, 4))
+print("MAE:", round(mae_rf, 2))
+print("RMSE:", round(rmse_rf, 2))
 print("R2:", round(r2_rf, 4))
-
-
-# ---------------------------------------------------------
-# 03.12 Guardar métricas del modelo optimizado
-# ---------------------------------------------------------
-
-df_resultado_rf = pd.DataFrame([{
-    "modelo": "RandomForestRegressor_Optimizado",
-    "MAE": round(mae_rf, 4),
-    "RMSE": round(rmse_rf, 4),
-    "R2": round(r2_rf, 4),
-    "best_params": str(grid_search.best_params_),
-    "best_cv_r2": round(grid_search.best_score_, 4)
-}])
-
-df_resultado_rf.to_csv(output_metricas_rf, index=False, encoding="utf-8")
-
-print("\nMétricas del Random Forest optimizado guardadas en:")
-print(output_metricas_rf)
-
-
-# ---------------------------------------------------------
-# 03.13 Importancia de variables del modelo optimizado
-# ---------------------------------------------------------
-
-importancias = pd.DataFrame({
-    "variable": features,
-    "importancia": best_rf.feature_importances_
-}).sort_values(by="importancia", ascending=False)
-
-print("\n=== IMPORTANCIA DE VARIABLES DEL RANDOM FOREST OPTIMIZADO ===")
-print(importancias)

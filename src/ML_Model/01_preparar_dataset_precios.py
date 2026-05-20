@@ -1,10 +1,16 @@
 # =========================================================
-# 01 - PREPARACIÓN DEL DATASET DE PRECIOS
+# 01 - PREPARACIÓN DEL DATASET (MODELO V2 CORREGIDO)
 # =========================================================
 # Objetivo:
-# Transformar el dataset de alojamientos desde formato ancho
-# a formato largo, para construir una base adecuada para
-# modelos de regresión que predigan precios turísticos.
+# Preparar el dataset base para el modelo de regresión,
+# eliminando identificadores, metadatos técnicos y columnas
+# que no aportan valor predictivo.
+#
+# Decisiones metodológicas:
+# - No se utilizan IDs como variables predictoras.
+# - Se conserva únicamente información explicativa del precio.
+# - El precio se mantiene en escala original para facilitar
+#   interpretación económica.
 # =========================================================
 
 import os
@@ -36,13 +42,11 @@ CLEAN_DIR.mkdir(parents=True, exist_ok=True)
 OUTPUTS_DIR.mkdir(parents=True, exist_ok=True)
 EXPERIMENTAL_DIR.mkdir(parents=True, exist_ok=True)
 
-input_path = os.path.join(CLEAN_DIR, "df_alojamientos.csv")
-output_dir = os.path.join(ML_DIR, "regresion_precios")
-output_path = os.path.join(ML_DIR,"df_precios_largo.csv")
-
+input_path = os.path.join(ML_DIR, "df_precios_largo.csv")
+output_path = os.path.join(ML_DIR,"df_precios_limpio_v2.csv")
 
 # ---------------------------------------------------------
-# 01.2 Cargar dataset base
+# 01.2 Cargar dataset
 # ---------------------------------------------------------
 
 print("Leyendo dataset desde:")
@@ -53,60 +57,38 @@ df = pd.read_csv(input_path)
 print("\nDataset cargado correctamente.")
 print("Dimensiones originales:", df.shape)
 
-
-# ---------------------------------------------------------
-# 01.3 Transformación a formato largo
-# ---------------------------------------------------------
-# Se convierten las columnas de precio entre semana y fin
-# de semana en una sola variable de precio, junto con una
-# variable indicadora del tipo de día.
-
-df_largo = df.melt(
-    id_vars=[
-        "id_alojamiento",
-        "id_pais",
-        "id_ccaa",
-        "id_provincia",
-        "mes",
-        "categoria_alojamiento",
-        "periodo_antelacion",
-        "tiene_valoraciones",
-        "fuente",
-        "granularidad_origen",
-        "es_dato_replicado",
-        "nivel_geografico",
-        "valoraciones_norm"
-    ],
-    value_vars=[
-        "precio_checkin_entre_semana",
-        "precio_checkin_fin_semana"
-    ],
-    var_name="tipo_dia_original",
-    value_name="precio"
-)
+print("\nColumnas originales:")
+print(df.columns.tolist())
 
 
 # ---------------------------------------------------------
-# 01.4 Crear variable limpia tipo_dia
+# 01.3 Eliminar columnas no predictivas
+# ---------------------------------------------------------
+# Se eliminan identificadores y variables técnicas.
+#
+# Los IDs no tienen significado numérico para el modelo.
+# Su uso puede inducir aprendizaje espurio o memorización.
 # ---------------------------------------------------------
 
-map_tipo_dia = {
-    "precio_checkin_entre_semana": "semana",
-    "precio_checkin_fin_semana": "fin_semana"
-}
-
-df_largo["tipo_dia"] = df_largo["tipo_dia_original"].map(map_tipo_dia)
-
-
-# ---------------------------------------------------------
-# 01.5 Seleccionar y ordenar columnas finales
-# ---------------------------------------------------------
-
-columnas_finales = [
+columnas_eliminar = [
     "id_alojamiento",
     "id_pais",
     "id_ccaa",
     "id_provincia",
+    "fuente",
+    "granularidad_origen",
+    "es_dato_replicado",
+    "nivel_geografico"
+]
+
+df_limpio = df.drop(columns=columnas_eliminar, errors="ignore")
+
+
+# ---------------------------------------------------------
+# 01.4 Validar columnas finales
+# ---------------------------------------------------------
+
+columnas_esperadas = [
     "mes",
     "categoria_alojamiento",
     "periodo_antelacion",
@@ -116,29 +98,62 @@ columnas_finales = [
     "precio"
 ]
 
-df_largo = df_largo[columnas_finales].copy()
+df_limpio = df_limpio[columnas_esperadas].copy()
+
+print("\nColumnas finales:")
+print(df_limpio.columns.tolist())
+
+print("\nDimensiones finales:", df_limpio.shape)
 
 
 # ---------------------------------------------------------
-# 01.6 Guardar dataset transformado
+# 01.5 Validar nulos
 # ---------------------------------------------------------
 
-df_largo.to_csv(output_path, index=False, encoding="utf-8")
+print("\n=== NULOS POR COLUMNA ===")
+print(df_limpio.isnull().sum())
 
-print("\nDataset en formato largo generado correctamente.")
-print("Archivo guardado en:")
+
+# ---------------------------------------------------------
+# 01.6 Validar valores únicos principales
+# ---------------------------------------------------------
+
+print("\n=== VALORES ÚNICOS: CATEGORÍA ===")
+print(df_limpio["categoria_alojamiento"].unique())
+
+print("\n=== VALORES ÚNICOS: PERIODO ANTELACIÓN ===")
+print(df_limpio["periodo_antelacion"].unique())
+
+print("\n=== VALORES ÚNICOS: TIPO DÍA ===")
+print(df_limpio["tipo_dia"].unique())
+
+print("\n=== MESES DISPONIBLES ===")
+print(sorted(df_limpio["mes"].unique()))
+
+
+# ---------------------------------------------------------
+# 01.7 Guardar dataset limpio
+# ---------------------------------------------------------
+
+df_limpio.to_csv(output_path, index=False, encoding="utf-8")
+
+print("\nDataset limpio guardado correctamente en:")
 print(output_path)
 
 
 # ---------------------------------------------------------
-# 01.7 Vista previa del resultado
+# 01.8 Vista previa
 # ---------------------------------------------------------
 
-print("\n=== PRIMERAS 5 FILAS DEL DATASET EN FORMATO LARGO ===")
-print(df_largo.head())
+print("\n=== PRIMERAS 10 FILAS DEL DATASET LIMPIO ===")
+print(df_limpio.head(10))
 
-print("\n=== DIMENSIONES DEL DATASET EN FORMATO LARGO ===")
-print(df_largo.shape)
 
-print("\n=== DISTRIBUCIÓN DE tipo_dia ===")
-print(df_largo["tipo_dia"].value_counts())
+# ---------------------------------------------------------
+# 01.9 Conclusión del paso
+# ---------------------------------------------------------
+
+print("\n=== CONCLUSIÓN PASO 01 ===")
+print("- Se eliminaron IDs y metadatos técnicos.")
+print("- Se conservaron variables explicativas del precio.")
+print("- El dataset queda listo para feature engineering.")

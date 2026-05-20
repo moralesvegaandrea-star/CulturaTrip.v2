@@ -1,11 +1,19 @@
 # =========================================================
-# 06 - SERVICIO DE PREDICCIÓN DE ALOJAMIENTO
+# 06 - SERVICIO DE PREDICCIÓN DE ALOJAMIENTO (MODELO V2)
 # =========================================================
-# coste total de alojamiento de un viaje utilizando el
-# modelo optimizado de regresión, integrando nombre de
-# provincia, fechas, categoría de alojamiento y comparándolo
-# contra el presupuesto disponible para alojamiento según la
+# Objetivo:
+# Estimar el coste total de alojamiento de un viaje
+# utilizando el modelo V2 de regresión (sin IDs, con
+# One-Hot Encoding), integrando nombre de provincia,
+# fechas, categoría de alojamiento y comparándolo contra
+# el presupuesto disponible para alojamiento según la
 # distribución presupuestaria definida en el proyecto.
+#
+# Decisión metodológica V2:
+# - No se utilizan IDs como variables predictoras.
+# - La categoría de alojamiento se codifica con One-Hot.
+# - La antelación se transforma a días numéricos.
+# - Se conservan únicamente variables explicativas del precio.
 # =========================================================
 import os
 import pandas as pd
@@ -39,9 +47,8 @@ CLEAN_DIR.mkdir(parents=True, exist_ok=True)
 OUTPUTS_DIR.mkdir(parents=True, exist_ok=True)
 EXPERIMENTAL_DIR.mkdir(parents=True, exist_ok=True)
 
-model_path = OUTPUTS_DIR/ "regresion_precios"/"modelos" / "random_forest_precio.pkl"
-features_path = OUTPUTS_DIR / "regresion_precios"/"modelos" / "features_modelo_precio.pkl"
-
+model_path = OUTPUTS_DIR/ "regresion_precios"/"modelos" / "random_forest_precio_v2.pkl"
+features_path = OUTPUTS_DIR / "regresion_precios"/"modelos" / "features_modelo_precio_v2.pkl"
 
 # ---------------------------------------------------------
 # Constante de distribución presupuestaria
@@ -50,12 +57,11 @@ features_path = OUTPUTS_DIR / "regresion_precios"/"modelos" / "features_modelo_p
 PCT_ALOJAMIENTO_STANDARD = 0.35
 
 
-
 # ---------------------------------------------------------
-# 06.2 Cargar modelo optimizado y lista de variables
+# 06.2 Cargar modelo V2 y lista de variables
 # ---------------------------------------------------------
 
-print("Cargando modelo optimizado...")
+print("Cargando modelo V2...")
 
 with open(model_path, "rb") as archivo_modelo:
     modelo = pickle.load(archivo_modelo)
@@ -63,7 +69,9 @@ with open(model_path, "rb") as archivo_modelo:
 with open(features_path, "rb") as archivo_features:
     features_modelo = pickle.load(archivo_features)
 
-print("Modelo cargado correctamente.\n")
+print("Modelo V2 cargado correctamente.")
+print("Features del modelo:", features_modelo)
+print()
 
 
 # ---------------------------------------------------------
@@ -96,66 +104,37 @@ print(df_provincias.head(), "\n")
 
 
 # ---------------------------------------------------------
-# 06.4 Función para clasificar temporada
+# 06.4 Mapeo de antelación a días
 # ---------------------------------------------------------
 
-def obtener_temporada_cod(mes):
-    if mes in [12, 1, 2]:
-        return 1   # baja
-    elif mes in [3, 4, 5, 10, 11]:
-        return 2   # media
-    elif mes in [6, 7, 8, 9]:
-        return 3   # alta
-    else:
-        raise ValueError("Mes inválido para clasificar temporada.")
+MAP_ANTELACION_DIAS = {
+    "1 semana": 7,
+    "2 semanas": 14,
+    "1 mes": 30,
+    "2-3 meses": 75,
+    "3 meses": 90
+}
 
 
-# ---------------------------------------------------------
-# 06.5 Función para clasificar periodo de antelación
-# ---------------------------------------------------------
-
-def obtener_periodo_antelacion_cod(fecha_ida):
+def obtener_antelacion_dias(fecha_ida):
+    """Calcula los días de antelación y devuelve el valor en días."""
     hoy = datetime.today()
     dias_antelacion = (fecha_ida - hoy).days
 
     if dias_antelacion <= 7:
-        return 1   # 1 semana
+        return 7
     elif dias_antelacion <= 14:
-        return 2   # 2 semanas
+        return 14
     elif dias_antelacion <= 31:
-        return 3   # 1 mes
+        return 30
     elif dias_antelacion <= 90:
-        return 4   # 2-3 meses
+        return 75
     else:
-        return 5   # 3 meses o más
+        return 90
 
 
 # ---------------------------------------------------------
-# 06.6 Mapeo de categoría de alojamiento
-# ---------------------------------------------------------
-
-def obtener_categoria_alojamiento_cod(categoria_alojamiento):
-    mapa_categoria = {
-        "hotel 3 estrellas": 1,
-        "hotel 4 estrellas": 2,
-        "hotel 5 estrellas": 3,
-        "apartamento": 4,
-        "casa entera": 5,
-        "habitacion privada": 6,
-        "habitacion compartida": 7,
-        "alternativo": 8
-    }
-
-    categoria_normalizada = categoria_alojamiento.lower().strip()
-
-    if categoria_normalizada not in mapa_categoria:
-        raise ValueError(f"Categoría de alojamiento no reconocida: {categoria_alojamiento}")
-
-    return mapa_categoria[categoria_normalizada]
-
-
-# ---------------------------------------------------------
-# 06.7 Función para contar noches
+# 06.5 Función para contar noches
 # ---------------------------------------------------------
 
 def calcular_tipo_noches(fecha_inicio, fecha_fin):
@@ -176,7 +155,7 @@ def calcular_tipo_noches(fecha_inicio, fecha_fin):
 
 
 # ---------------------------------------------------------
-# 06.8 Obtener ids geográficos desde nombre provincia
+# 06.6 Obtener ids geográficos desde nombre provincia
 # ---------------------------------------------------------
 
 def obtener_datos_provincia(nombre_provincia):
@@ -196,11 +175,34 @@ def obtener_datos_provincia(nombre_provincia):
 
 
 # ---------------------------------------------------------
-# 06.9 Función principal del servicio
+# 06.7 Construir input para modelo V2
 # ---------------------------------------------------------
 
+def construir_input_v2(mes, valoraciones_norm, tiene_valoraciones,
+                       antelacion_dias, tipo_dia_cod, categoria):
+    """
+    Construye el input para el modelo V2 con One-Hot Encoding.
+    No utiliza IDs ni codificaciones ordinales.
+    """
+    input_dict = {col: 0 for col in features_modelo}
+
+    # Variables numéricas
+    input_dict["mes"] = mes
+    input_dict["valoraciones_norm"] = valoraciones_norm
+    input_dict["tiene_valoraciones"] = tiene_valoraciones
+    input_dict["antelacion_dias"] = antelacion_dias
+    input_dict["tipo_dia_cod"] = tipo_dia_cod
+
+    # Categoría (One-Hot)
+    col_categoria = f"categoria_alojamiento_{categoria}"
+    if col_categoria in input_dict:
+        input_dict[col_categoria] = 1
+
+    return input_dict
+
+
 # ---------------------------------------------------------
-# 06.9 Función principal del servicio
+# 06.8 Función principal del servicio
 # ---------------------------------------------------------
 
 def estimar_coste_alojamiento(
@@ -210,7 +212,7 @@ def estimar_coste_alojamiento(
     fecha_regreso,
     presupuesto,
     valoraciones_norm=4.2,
-    tiene_valoraciones=True
+    tiene_valoraciones=1
 ):
 
     fecha_ida_dt = datetime.strptime(fecha_ida, "%Y-%m-%d")
@@ -222,28 +224,30 @@ def estimar_coste_alojamiento(
     datos_provincia = obtener_datos_provincia(provincia_nombre)
 
     mes = fecha_ida_dt.month
-    temporada_cod = obtener_temporada_cod(mes)
-    periodo_antelacion_cod = obtener_periodo_antelacion_cod(fecha_ida_dt)
-    categoria_alojamiento_cod = obtener_categoria_alojamiento_cod(categoria_alojamiento)
+    antelacion_dias = obtener_antelacion_dias(fecha_ida_dt)
 
     noches_semana, noches_fin_semana = calcular_tipo_noches(fecha_ida_dt, fecha_regreso_dt)
 
-    base_features = {
-        "id_ccaa": datos_provincia["id_ccaa"],
-        "id_provincia": datos_provincia["id_provincia"],
-        "mes": mes,
-        "temporada_cod": temporada_cod,
-        "categoria_alojamiento_cod": categoria_alojamiento_cod,
-        "periodo_antelacion_cod": periodo_antelacion_cod,
-        "valoraciones_norm": valoraciones_norm,
-        "tiene_valoraciones": tiene_valoraciones
-    }
+    # =========================================================
+    # V2: Construir inputs con One-Hot (sin IDs)
+    # =========================================================
+    input_semana = construir_input_v2(
+        mes=mes,
+        valoraciones_norm=valoraciones_norm,
+        tiene_valoraciones=tiene_valoraciones,
+        antelacion_dias=antelacion_dias,
+        tipo_dia_cod=0,
+        categoria=categoria_alojamiento
+    )
 
-    input_semana = base_features.copy()
-    input_semana["tipo_dia_cod"] = 0
-
-    input_fin_semana = base_features.copy()
-    input_fin_semana["tipo_dia_cod"] = 1
+    input_fin_semana = construir_input_v2(
+        mes=mes,
+        valoraciones_norm=valoraciones_norm,
+        tiene_valoraciones=tiene_valoraciones,
+        antelacion_dias=antelacion_dias,
+        tipo_dia_cod=1,
+        categoria=categoria_alojamiento
+    )
 
     X_semana = pd.DataFrame([input_semana])[features_modelo]
     X_fin_semana = pd.DataFrame([input_fin_semana])[features_modelo]
@@ -257,7 +261,7 @@ def estimar_coste_alojamiento(
     )
 
     # ============================================
-    # Comparación correcta contra presupuesto de alojamiento
+    # Comparación contra presupuesto de alojamiento
     # ============================================
     pct_alojamiento = PCT_ALOJAMIENTO_STANDARD
     budget_alojamiento = presupuesto * pct_alojamiento
@@ -269,8 +273,7 @@ def estimar_coste_alojamiento(
         "provincia": str(provincia_nombre),
         "categoria_alojamiento": str(categoria_alojamiento),
         "mes": int(mes),
-        "temporada_cod": int(temporada_cod),
-        "periodo_antelacion_cod": int(periodo_antelacion_cod),
+        "antelacion_dias": int(antelacion_dias),
         "id_ccaa": int(datos_provincia["id_ccaa"]),
         "id_provincia": int(datos_provincia["id_provincia"]),
         "noches_semana": int(noches_semana),
@@ -288,10 +291,10 @@ def estimar_coste_alojamiento(
     return resultado
 
 # ---------------------------------------------------------
-# 06.10 Test automático del servicio
+# 06.9 Test automático del servicio
 # ---------------------------------------------------------
 
-print("Ejecutando prueba del servicio...\n")
+print("Ejecutando prueba del servicio V2...\n")
 
 resultado = estimar_coste_alojamiento(
     provincia_nombre="albacete",
@@ -301,10 +304,11 @@ resultado = estimar_coste_alojamiento(
     presupuesto=5000
 )
 
-print("RESULTADO SIMULACIÓN\n")
+print("RESULTADO SIMULACIÓN V2\n")
 print("Provincia:", resultado["provincia"])
 print("Categoría alojamiento:", resultado["categoria_alojamiento"])
 print("Mes:", resultado["mes"])
+print("Antelación (días):", resultado["antelacion_dias"])
 print("ID CCAA:", resultado["id_ccaa"])
 print("ID Provincia:", resultado["id_provincia"])
 print("Noches semana:", resultado["noches_semana"])
@@ -317,8 +321,8 @@ print("Porcentaje asignado a alojamiento:", resultado["pct_alojamiento"])
 print("Presupuesto disponible para alojamiento:", resultado["budget_alojamiento"])
 
 if resultado["alcanza_presupuesto_alojamiento"]:
-    print("El presupuesto de alojamiento ALCANZA para este viaje.")
+    print("\nEl presupuesto de alojamiento ALCANZA para este viaje.")
     print("Margen disponible:", resultado["diferencia_alojamiento"])
 else:
-    print("El presupuesto de alojamiento NO alcanza para este viaje.")
+    print("\nEl presupuesto de alojamiento NO alcanza para este viaje.")
     print("Monto faltante:", abs(resultado["diferencia_alojamiento"]))

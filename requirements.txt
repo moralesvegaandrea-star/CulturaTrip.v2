@@ -12,3 +12,5 @@ requests
 openpyxl
 xlrd
 python-dotenv
+boto3
+pyarrow

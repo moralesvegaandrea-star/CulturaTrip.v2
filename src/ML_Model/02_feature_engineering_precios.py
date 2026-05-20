@@ -1,10 +1,15 @@
 # =========================================================
-# 02 - FEATURE ENGINEERING PARA REGRESIÓN DE PRECIOS
+# 02 - FEATURE ENGINEERING (MODELO V2 CORREGIDO)
 # =========================================================
 # Objetivo:
-# Crear variables derivadas y codificaciones a partir del
-# dataset en formato largo, para preparar una base adecuada
-# para modelos de regresión de precios turísticos.
+# Transformar las variables del dataset limpio en variables
+# numéricas aptas para modelos de regresión.
+#
+# Decisiones metodológicas:
+# - Se evita el uso de IDs como predictores.
+# - Las categorías nominales se codifican con One-Hot Encoding.
+# - La antelación se transforma a días para mejorar interpretación.
+# - El precio se mantiene como variable objetivo en escala original.
 # =========================================================
 
 import os
@@ -36,12 +41,11 @@ CLEAN_DIR.mkdir(parents=True, exist_ok=True)
 OUTPUTS_DIR.mkdir(parents=True, exist_ok=True)
 EXPERIMENTAL_DIR.mkdir(parents=True, exist_ok=True)
 
-input_path = os.path.join(ML_DIR, "df_precios_largo.csv")
-output_path = os.path.join(ML_DIR, "df_precios_features.csv")
-
+input_path = os.path.join(ML_DIR, "df_precios_limpio_v2.csv")
+output_path = os.path.join(ML_DIR, "df_precios_features_v2.csv")
 
 # ---------------------------------------------------------
-# 02.2 Cargar dataset en formato largo
+# 02.2 Cargar dataset limpio
 # ---------------------------------------------------------
 
 print("Leyendo dataset desde:")
@@ -50,28 +54,26 @@ print(input_path)
 df = pd.read_csv(input_path)
 
 print("\nDataset cargado correctamente.")
-print("Dimensiones:", df.shape)
+print("Dimensiones iniciales:", df.shape)
 
 
 # ---------------------------------------------------------
-# 02.3 Crear variable de temporada
+# 02.3 Crear variable de antelación en días
 # ---------------------------------------------------------
 
-def clasificar_temporada(mes):
-    if mes in [12, 1, 2]:
-        return "baja"
-    elif mes in [3, 4, 5, 10, 11]:
-        return "media"
-    elif mes in [6, 7, 8, 9]:
-        return "alta"
-    else:
-        return "desconocida"
+map_antelacion_dias = {
+    "1 semana": 7,
+    "2 semanas": 14,
+    "1 mes": 30,
+    "2-3 meses": 75,
+    "3 meses": 90
+}
 
-df["temporada"] = df["mes"].apply(clasificar_temporada)
+df["antelacion_dias"] = df["periodo_antelacion"].map(map_antelacion_dias)
 
 
 # ---------------------------------------------------------
-# 02.4 Codificar tipo_dia
+# 02.4 Codificar tipo de día
 # ---------------------------------------------------------
 
 map_tipo_dia = {
@@ -83,94 +85,65 @@ df["tipo_dia_cod"] = df["tipo_dia"].map(map_tipo_dia)
 
 
 # ---------------------------------------------------------
-# 02.5 Codificar categoría de alojamiento
+# 02.5 Convertir booleanos a enteros
 # ---------------------------------------------------------
 
-map_categoria = {
-    "hotel 3 estrellas": 1,
-    "hotel 4 estrellas": 2,
-    "hotel 5 estrellas": 3,
-    "apartamento": 4,
-    "casa entera": 5,
-    "habitacion privada": 6,
-    "habitacion compartida": 7,
-    "alternativo": 8
-}
-
-df["categoria_alojamiento_cod"] = df["categoria_alojamiento"].map(map_categoria)
+df["tiene_valoraciones"] = df["tiene_valoraciones"].astype(int)
 
 
 # ---------------------------------------------------------
-# 02.6 Codificar periodo de antelación
+# 02.6 One-Hot Encoding para categoría de alojamiento
+# ---------------------------------------------------------
+# La categoría es nominal, por lo que no se representa con
+# códigos ordinales. Esto evita imponer relaciones numéricas
+# artificiales entre tipos de alojamiento.
 # ---------------------------------------------------------
 
-map_antelacion = {
-    "1 semana": 1,
-    "2 semanas": 2,
-    "1 mes": 3,
-    "2-3 meses": 4,
-    "3 meses": 5
-}
-
-df["periodo_antelacion_cod"] = df["periodo_antelacion"].map(map_antelacion)
-
-
-# ---------------------------------------------------------
-# 02.7 Codificar temporada
-# ---------------------------------------------------------
-
-map_temporada = {
-    "baja": 1,
-    "media": 2,
-    "alta": 3
-}
-
-df["temporada_cod"] = df["temporada"].map(map_temporada)
+df_features = pd.get_dummies(
+    df,
+    columns=["categoria_alojamiento"],
+    drop_first=False,
+    dtype=int
+)
 
 
 # ---------------------------------------------------------
-# 02.8 Crear indicador de fin de semana premium
-# ---------------------------------------------------------
-# Esta variable refleja cuánto cambia el precio según el tipo de día.
-
-df["es_fin_de_semana"] = df["tipo_dia_cod"]
-
-
-# ---------------------------------------------------------
-# 02.9 Seleccionar columnas finales
+# 02.7 Eliminar columnas textuales ya transformadas
 # ---------------------------------------------------------
 
-columnas_finales = [
-    "id_alojamiento",
-    "id_pais",
-    "id_ccaa",
-    "id_provincia",
-    "mes",
-    "temporada",
-    "temporada_cod",
-    "categoria_alojamiento",
-    "categoria_alojamiento_cod",
+columnas_eliminar = [
     "periodo_antelacion",
-    "periodo_antelacion_cod",
-    "valoraciones_norm",
-    "tiene_valoraciones",
-    "tipo_dia",
-    "tipo_dia_cod",
-    "es_fin_de_semana",
-    "precio"
+    "tipo_dia"
 ]
 
-df = df[columnas_finales].copy()
+df_features = df_features.drop(columns=columnas_eliminar, errors="ignore")
+
+
+# ---------------------------------------------------------
+# 02.8 Validar nulos después de transformar
+# ---------------------------------------------------------
+
+print("\n=== NULOS POR COLUMNA DESPUÉS DE FEATURE ENGINEERING ===")
+print(df_features.isnull().sum())
+
+
+# ---------------------------------------------------------
+# 02.9 Validar columnas finales
+# ---------------------------------------------------------
+
+print("\nColumnas finales:")
+print(df_features.columns.tolist())
+
+print("\nDimensiones finales:", df_features.shape)
 
 
 # ---------------------------------------------------------
 # 02.10 Guardar dataset con features
 # ---------------------------------------------------------
 
-df.to_csv(output_path, index=False, encoding="utf-8")
+df_features.to_csv(output_path, index=False, encoding="utf-8")
 
-print("\nDataset con features generado correctamente.")
-print("Archivo guardado en:")
+print("\nDataset con features guardado correctamente en:")
 print(output_path)
 
 
@@ -178,11 +151,16 @@ print(output_path)
 # 02.11 Vista previa
 # ---------------------------------------------------------
 
-print("\n=== PRIMERAS 5 FILAS DEL DATASET CON FEATURES ===")
-print(df.head())
+print("\n=== PRIMERAS 10 FILAS DEL DATASET CON FEATURES ===")
+print(df_features.head(10))
 
-print("\n=== DIMENSIONES DEL DATASET CON FEATURES ===")
-print(df.shape)
 
-print("\n=== NULOS POR COLUMNA ===")
-print(df.isnull().sum())
+# ---------------------------------------------------------
+# 02.12 Conclusión del paso
+# ---------------------------------------------------------
+
+print("\n=== CONCLUSIÓN PASO 02 ===")
+print("- Se codificó correctamente la categoría de alojamiento.")
+print("- Se transformó la antelación a días.")
+print("- Se codificó tipo de día como variable binaria.")
+print("- El dataset queda listo para entrenamiento del modelo.")

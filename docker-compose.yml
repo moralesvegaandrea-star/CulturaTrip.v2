@@ -1,6 +1,9 @@
 version: "3.9"
 
 services:
+  # =============================================
+  # SERVICIO 1: Base de datos PostgreSQL
+  # =============================================
   db:
     image: postgres:16
     container_name: culturatrip_db
@@ -16,6 +19,9 @@ services:
       - ./sql:/docker-entrypoint-initdb.d
     env_file:
       - .env
+  # =============================================
+  # SERVICIO 2: Aplicacion Streamlit
+  # =============================================
   app:
     build: .
     container_name: culturatrip_app
@@ -32,7 +38,9 @@ services:
     working_dir: /app
     volumes:
       - ./:/app
-
+  # =============================================
+  # SERVICIO 3: Jupyter Notebook
+  # =============================================
   notebook:
     build: .
     container_name: culturatrip_notebook
@@ -55,5 +63,40 @@ services:
       --NotebookApp.token=''
       --NotebookApp.password=''
 
+  # =============================================
+  # SERVICIO 4: LocalStack (NUEVO)
+  # Simula Amazon S3 en tu computador
+  # =============================================
+  localstack:
+    image: localstack/localstack:3.5
+    container_name: culturatrip_localstack
+    ports:
+      - "4566:4566"
+    environment:
+      - SERVICES=s3
+      - DEFAULT_REGION=eu-west-1
+      - DOCKER_HOST=unix:///var/run/docker.sock
+    volumes:
+      - localstack_data:/var/lib/localstack
+  # =============================================
+  # SERVICIO 5: Apache Spark (NUEVO)
+  # Ejecuta scripts PySpark
+  # =============================================
+  spark:
+      image: apache/spark:3.5.3-python3
+      container_name: culturatrip_spark
+      user: root
+      depends_on:
+        - localstack
+      environment:
+        - AWS_ACCESS_KEY_ID=test
+        - AWS_SECRET_ACCESS_KEY=test
+        - AWS_DEFAULT_REGION=eu-west-1
+      ports:
+        - "8080:8080"
+      volumes:
+        - ./:/app
+      command: /bin/bash -c "sleep infinity"
 volumes:
   postgres_data:
+  localstack_data:
