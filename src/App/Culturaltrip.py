@@ -288,31 +288,18 @@ def load_modelo_no_supervisado():
 # ===============================
 # Loader modelo ML supervisado alojamiento_Pantalla_3
 # ===============================
+
 @st.cache_resource(show_spinner=False)
 def load_modelo_alojamiento():
     base_dir = Path(__file__).resolve().parents[2]
 
-    model_path = base_dir / "outputs" / "regresion_precios" / "modelos" / "random_forest_precio.pkl"
-    features_path = base_dir / "outputs" / "regresion_precios" / "modelos" / "features_modelo_precio.pkl"
+    model_path = base_dir / "data" / "Machine Learning" / "modelo_precios_v5" / "random_forest_precio_v5.pkl"
+    features_path = base_dir / "data" / "Machine Learning" / "modelo_precios_v5" / "features_modelo_precio_v5.pkl"
 
     modelo = joblib.load(model_path)
-
-    # fallback seguro para features
-    features = None
-    try:
-        with open(features_path, "rb") as f:
-            features = joblib.load(f) if str(features_path).endswith(".joblib") else None
-    except Exception:
-        features = None
-
-    if features is None:
-        import pickle
-        with open(features_path, "rb") as f:
-            features = pickle.load(f)
+    features = joblib.load(features_path)
 
     return modelo, features
-
-
 # =========================
 # Branding CulturaTrip · Logo SVG embebido
 # (se codifica en base64 para inyectarlo inline sin archivos externos)
@@ -1555,13 +1542,14 @@ def mostrar_top5_provincias_similares(
 # =========================
 def format_eur(valor):
     try:
-        return f"€{float(valor):,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+        return f"{float(valor):,.0f}".replace(",", ".") + " €"
     except Exception:
-        return "€0,00"
+        return "0 €"
 # =========================
 # Helper para pantalla_3
 # Predicción ML alojamiento por plan
 # =========================
+
 def predecir_costo_alojamiento_ml(id_plan: int, df_features_plan: pd.DataFrame) -> dict:
     resultado_default = {
         "ok": False,
@@ -1595,53 +1583,91 @@ def predecir_costo_alojamiento_ml(id_plan: int, df_features_plan: pd.DataFrame) 
         # Normalizar si viene como numpy array / Index / lista
         feature_cols = list(feature_cols)
 
-        base_data = {
-            "id_ccaa": fila.get("id_ccaa"),
-            "id_provincia": fila.get("id_provincia"),
-            "mes": fila.get("mes"),
-            "temporada_cod": fila.get("temporada_cod"),
-            "categoria_alojamiento_cod": fila.get("categoria_alojamiento_cod"),
-            "periodo_antelacion_cod": fila.get("periodo_antelacion_cod"),
-            "valoraciones_norm": fila.get("valoraciones_norm", 0),
-            "tiene_valoraciones": fila.get("tiene_valoraciones", 0),
-        }
-
-        # Validación mínima
-        campos_criticos = [
-            "id_ccaa",
-            "id_provincia",
-            "mes",
-            "temporada_cod",
-            "categoria_alojamiento_cod",
-            "periodo_antelacion_cod"
+        # =========================================================
+        # V5: Variables geográficas interpretables
+        # id_provincia se usa SOLO para derivar zona y gran_ciudad
+        # =========================================================
+        provincias_insulares = [7, 35, 38]
+        provincias_costa = [
+            15, 27, 36, 33, 39, 48, 20,
+            17, 8, 43, 12, 46, 3, 30,
+            4, 18, 29, 11, 21, 51, 52
         ]
-        faltantes_criticos = [c for c in campos_criticos if pd.isna(base_data.get(c))]
-        if faltantes_criticos:
+        grandes_ciudades = [28, 8]
+
+        id_prov = int(fila.get("id_provincia", 0) or 0)
+
+        if id_prov in provincias_insulares:
+            tipo_zona = "insular"
+        elif id_prov in provincias_costa:
+            tipo_zona = "costa"
+        else:
+            tipo_zona = "interior"
+
+        gran_ciudad = 1 if id_prov in grandes_ciudades else 0
+
+        # =========================================================
+        # V5: Antelación en días (desde la vista SQL)
+        # =========================================================
+        map_antelacion = {
+            "1 semana": 7, "2 semanas": 14, "1 mes": 30,
+            "2-3 meses": 75, "3 meses": 90
+        }
+        periodo_ant_raw = fila.get("periodo_antelacion_label", "1 mes")
+        antelacion_dias = map_antelacion.get(str(periodo_ant_raw), 30)
+
+        # =========================================================
+        # V5: Validación mínima (solo mes y categoría texto)
+        # =========================================================
+        mes_val = fila.get("mes")
+        cat_val = fila.get("categoria_alojamiento")
+
+        if pd.isna(mes_val) or pd.isna(cat_val):
             resultado_default["mensaje"] = (
-                f"Faltan features críticas para ML: {faltantes_criticos}"
+                f"Faltan features críticas para ML V5: mes={mes_val}, categoria={cat_val}"
             )
             return resultado_default
 
-        def construir_input(tipo_dia_cod: int) -> pd.DataFrame:
-            row_dict = base_data.copy()
+        mes_val = int(mes_val)
+        cat_val = str(cat_val).lower().strip()
+
+        # =========================================================
+        # V5: Construir input con One-Hot Encoding
+        # =========================================================
+        def construir_input_v5(tipo_dia_cod: int) -> pd.DataFrame:
+            row_dict = {col: 0.0 for col in feature_cols}
+
+            # Variables numéricas/binarias
+            row_dict["gran_ciudad"] = gran_ciudad
+            row_dict["valoraciones_norm"] = float(fila.get("valoraciones_norm", 0) or 0)
+            row_dict["tiene_valoraciones"] = int(fila.get("tiene_valoraciones", 0) or 0)
+            row_dict["antelacion_dias"] = antelacion_dias
             row_dict["tipo_dia_cod"] = tipo_dia_cod
 
-            X = pd.DataFrame([row_dict])
+            # One-Hot: categoría alojamiento
+            col_cat = f"categoria_alojamiento_{cat_val}"
+            if col_cat in row_dict:
+                row_dict[col_cat] = 1
 
-            # asegurar columnas esperadas por el modelo
-            for col in feature_cols:
-                if col not in X.columns:
-                    X[col] = 0
+            # One-Hot: mes
+            col_mes = f"mes_{mes_val}"
+            if col_mes in row_dict:
+                row_dict[col_mes] = 1
 
-            X = X[feature_cols].copy()
+            # One-Hot: zona turística
+            col_zona = f"tipo_zona_turistica_{tipo_zona}"
+            if col_zona in row_dict:
+                row_dict[col_zona] = 1
+
+            X = pd.DataFrame([row_dict])[feature_cols]
 
             for col in X.columns:
                 X[col] = pd.to_numeric(X[col], errors="coerce").fillna(0)
 
             return X
 
-        X_semana = construir_input(tipo_dia_cod=0)
-        X_fin_semana = construir_input(tipo_dia_cod=1)
+        X_semana = construir_input_v5(tipo_dia_cod=0)
+        X_fin_semana = construir_input_v5(tipo_dia_cod=1)
 
         pred_semana = float(modelo.predict(X_semana)[0])
         pred_fin_semana = float(modelo.predict(X_fin_semana)[0])
@@ -1671,6 +1697,7 @@ def predecir_costo_alojamiento_ml(id_plan: int, df_features_plan: pd.DataFrame) 
     except Exception as e:
         resultado_default["mensaje"] = f"Error al calcular ML de alojamiento: {e}"
         return resultado_default
+
 # =========================
 # Helper para pantalla_3
 # Tabla comparativa INE vs Actual vs ML
@@ -2232,7 +2259,7 @@ def pantalla_gestion_planes():
         fecha_ida = str(row["fecha_ida"]) if pd.notna(row["fecha_ida"]) else "—"
         fecha_regreso = str(row["fecha_regreso"]) if pd.notna(row["fecha_regreso"]) else "—"
 
-        presupuesto = format_eur(row["presupuesto_estimado"]) if pd.notna(row["presupuesto_estimado"]) else "€0,00"
+        presupuesto = format_eur(row["presupuesto_estimado"]) if pd.notna(row["presupuesto_estimado"]) else "0 €"
 
         c1, c2, c3, c4, c5, c6 = st.columns([1.2, 2.2, 2.2, 3.0, 2.0, 2.4])
 
@@ -2922,7 +2949,7 @@ def pantalla_3():
         if presupuesto_usuario > 0:
             pct_consumido = round((total_estimado / presupuesto_usuario) * 100, 2)
             st.progress(min(pct_consumido / 100, 1.0))
-            st.caption(f"Consumo estimado del presupuesto: {pct_consumido:.2f}%")
+            st.caption(f"Consumo estimado del presupuesto: {pct_consumido:.0f}%")
 
         if diferencia >= 0:
             st.success(f"✅ El plan se mantiene dentro del presupuesto. Margen estimado: {format_eur(diferencia)}")
@@ -3131,26 +3158,26 @@ def pantalla_4():
         with k1:
             st.metric(
                 "Presupuesto disponible",
-                f"€{presupuesto:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+                f"{presupuesto:,.0f}".replace(",", ".") + " €"
             )
 
         with k2:
             st.metric(
                 "Costo estimado total",
-                f"€{total_estimado:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+                f"€{total_estimado:,.0f}".replace(",", "X").replace(".", ",").replace("X", ".")
             )
 
         with k3:
             st.metric(
                 "Diferencia",
-                f"€{abs(diferencia):,.2f}".replace(",", "X").replace(".", ",").replace("X", "."),
+                f"{abs(diferencia):,.0f}".replace(",", ".") + " €",
                 "Dentro del presupuesto" if diferencia >= 0 else "Excedido"
             )
 
         with k4:
             st.metric(
                 "Costo por día",
-                f"€{costo_por_dia:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+                f"{costo_por_dia:,.0f}".replace(",", ".") + " €"
             )
 
         st.divider()
@@ -3167,18 +3194,18 @@ def pantalla_4():
             r1, r2, r3 = st.columns(3)
 
             with r1:
-                st.metric("Presupuesto consumido", f"{pct_consumido:.2f}%")
+                st.metric("Presupuesto consumido", f"{pct_consumido:.0f}%")
 
             with r2:
                 if diferencia >= 0:
                     st.metric(
                         "Margen disponible",
-                        f"€{diferencia:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+                        f"{diferencia:,.0f}".replace(",", ".") + " €"
                     )
                 else:
                     st.metric(
                         "Exceso estimado",
-                        f"€{abs(diferencia):,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+                        f"{abs(diferencia):,.0f}".replace(",", ".") + " €"
                     )
 
             with r3:
@@ -3228,7 +3255,7 @@ def pantalla_4():
             with a3:
                 st.metric(
                     "Meta mensual de ahorro",
-                    f"€{meta_mensual:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+                    f"{meta_mensual:,.0f}".replace(",", ".") + " €"
                 )
 
             ahorro_rows = []
@@ -3319,19 +3346,19 @@ def pantalla_5():
         with k1:
             st.metric(
                 "Costo estimado del plan",
-                f"€{presupuesto_aprobado:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+                f"{presupuesto_aprobado:,.0f}".replace(",", ".") + " €"
             )
 
         with k2:
             st.metric(
                 "Gastos registrados",
-                f"€{gasto_real_total:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+                f"{gasto_real_total:,.0f}".replace(",", ".") + " €"
             )
 
         with k3:
             st.metric(
                 "Diferencia vs estimado",
-                f"€{abs(diferencia_vs_estimado):,.2f}".replace(",", "X").replace(".", ",").replace("X", "."),
+                f"{abs(diferencia_vs_estimado):,.0f}".replace(",", ".") + " €",
                 "Disponible" if diferencia_vs_estimado >= 0 else "Excedido"
             )
 
@@ -3356,14 +3383,14 @@ def pantalla_5():
         with c2:
             st.metric(
                 "Margen vs presupuesto usuario",
-                f"€{abs(margen_vs_presupuesto):,.2f}".replace(",", "X").replace(".", ",").replace("X", "."),
+                f"{abs(margen_vs_presupuesto):,.0f}".replace(",", ".") + " €",
                 "Disponible" if margen_vs_presupuesto >= 0 else "Insuficiente"
             )
 
         with c3:
             st.metric(
                 "Saldo disponible del usuario",
-                f"€{abs(saldo_disponible_usuario):,.2f}".replace(",", "X").replace(".", ",").replace("X", "."),
+                f"{abs(saldo_disponible_usuario):,.0f}".replace(",", ".") + " €",
                 "Disponible" if saldo_disponible_usuario >= 0 else "Excedido"
             )
 
@@ -3833,7 +3860,7 @@ def pantalla_7():
         with c3:
             st.metric(
                 "Presupuesto",
-                f"€{float(plan['presupuesto_estimado']):,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+                f"{float(plan['presupuesto_estimado']):,.0f}".replace(",", ".") + " €"
             )
 
         st.divider()
@@ -3876,33 +3903,33 @@ def pantalla_7():
         k1, k2, k3, k4 = st.columns(4)
 
         with k1:
-            st.metric("Alojamiento", f"€{alojamiento:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
+            st.metric("Alojamiento", f"{alojamiento:,.0f}".replace(",", ".") + " €")
         with k2:
-            st.metric("Alimentación", f"€{alimentacion:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
+            st.metric("Alimentación", f"€{alimentacion:,.0f}".replace(",", ".") + " €")
         with k3:
-            st.metric("Actividades", f"€{actividades:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
+            st.metric("Actividades", f"€{actividades:,.0f}".replace(",", ".") + " €")
         with k4:
-            st.metric("Transporte", f"€{transporte:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
+            st.metric("Transporte", f"€{transporte:,.0f}".replace(",", ".") + " €")
 
         k5, k6, k7 = st.columns(3)
 
         with k5:
-            st.metric("Servicios", f"€{servicios:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
+            st.metric("Servicios", f"€{servicios:,.0f}".replace(",", ".") + " €")
         with k6:
-            st.metric("Otros", f"€{otros:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
+            st.metric("Otros", f"€{otros:,.0f}".replace(",", ".") + " €")
         with k7:
-            st.metric("Total estimado", f"€{total_estimado:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
+            st.metric("Total estimado", f"{total_estimado:,.0f}".replace(",", ".") + " €")
 
         if total_estimado > 0:
             if diferencia >= 0:
                 st.success(
                     f"✅ Tu viaje se mantiene dentro del presupuesto. Margen estimado: "
-                    f"€{diferencia:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+                    f"{diferencia:,.0f}".replace(",", ".") + " €"
                 )
             else:
                 st.warning(
                     f"⚠️ Tu viaje supera el presupuesto por "
-                    f"€{abs(diferencia):,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+                    f"{abs(diferencia):,.0f}".replace(",", ".") + " €"
                 )
 
         st.divider()
