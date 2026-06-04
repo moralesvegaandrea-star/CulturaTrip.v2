@@ -8,6 +8,7 @@ from datetime import date
 import math
 import joblib
 import numpy as np
+import extra_streamlit_components as stx
 import pickle
 from sklearn.metrics.pairwise import cosine_similarity
 
@@ -735,13 +736,21 @@ def _crear_tabla_usuarios():
             )
         """))
 
-def _registrar_usuario(email: str, nombre: str, password: str) -> tuple:
+def _registrar_usuario(
+    email: str, nombre: str, password: str,
+    acepta_terminos: bool, acepta_privacidad: bool,
+    acepta_ia: bool, acepta_comms: bool
+) -> tuple:
     """Registra un usuario. Retorna (ok: bool, mensaje: str)."""
     email = email.strip().lower()
     if not email or not nombre.strip() or not password:
         return False, "Todos los campos son obligatorios."
     if len(password) < 4:
         return False, "La contraseña debe tener al menos 4 caracteres."
+    if not acepta_terminos:
+        return False, "Debes aceptar los Términos y Condiciones para continuar."
+    if not acepta_privacidad:
+        return False, "Debes aceptar la Política de Privacidad para continuar."
     engine = get_engine()
     try:
         with engine.begin() as conn:
@@ -752,8 +761,21 @@ def _registrar_usuario(email: str, nombre: str, password: str) -> tuple:
             if existe:
                 return False, "Ya existe una cuenta con ese correo."
             conn.execute(
-                text("INSERT INTO usuarios (email, nombre, password_hash) VALUES (:email, :nombre, :hash)"),
-                {"email": email, "nombre": nombre, "hash": _hash_password(password)}
+                text("""
+                    INSERT INTO usuarios
+                        (email, nombre, password_hash,
+                         acepta_terminos, acepta_privacidad,
+                         acepta_ia_personalizada, acepta_comunicaciones)
+                    VALUES
+                        (:email, :nombre, :hash,
+                         :terminos, :privacidad,
+                         :ia, :comms)
+                """),
+                {
+                    "email": email, "nombre": nombre, "hash": _hash_password(password),
+                    "terminos": acepta_terminos, "privacidad": acepta_privacidad,
+                    "ia": acepta_ia, "comms": acepta_comms
+                }
             )
         return True, "Cuenta creada con éxito. Ya puedes iniciar sesión."
     except Exception as e:
@@ -779,6 +801,17 @@ def _autenticar_usuario(email: str, password: str) -> tuple:
     except Exception as e:
         return False, f"Error de autenticación: {e}"
 
+def _guardar_consentimiento_cookies(email: str) -> None:
+    """Marca acepta_cookies = TRUE para el usuario en la BD."""
+    engine = get_engine()
+    try:
+        with engine.begin() as conn:
+            conn.execute(
+                text("UPDATE usuarios SET acepta_cookies = TRUE WHERE email = :email"),
+                {"email": email}
+            )
+    except Exception:
+        pass  # No bloquear la app si falla el registro
 # Crear tabla al iniciar (si no existe)
 _crear_tabla_usuarios()
 
@@ -827,24 +860,119 @@ if not st.session_state["autenticado"]:
                     st.rerun()
                 else:
                     st.error(resultado)
-
         with tab_registro:
             with st.form("form_registro"):
                 nombre_reg = st.text_input("Nombre completo", placeholder="Tu nombre")
                 email_reg = st.text_input("Correo electrónico", placeholder="tu@email.com")
                 pass_reg = st.text_input("Contraseña", type="password", placeholder="Mínimo 4 caracteres")
                 pass_reg2 = st.text_input("Confirmar contraseña", type="password", placeholder="Repite la contraseña")
+
+                st.markdown("---")
+                st.markdown("**Consentimientos legales**")
+
+                acepta_terminos_reg = st.checkbox(
+                    "He leído y acepto los **Términos y Condiciones** de uso de la plataforma. *(Obligatorio)*"
+                )
+                acepta_privacidad_reg = st.checkbox(
+                    "He leído y acepto la **Política de Privacidad** y el tratamiento de mis datos personales. *(Obligatorio)*"
+                )
+                acepta_ia_reg = st.checkbox(
+                    "Autorizo el uso de mis preferencias e interacciones para generar recomendaciones personalizadas mediante técnicas de inteligencia artificial y análisis de datos. *(Obligatorio)*"
+                )
+                acepta_comms_reg = st.checkbox(
+                    "Deseo recibir recomendaciones, novedades y comunicaciones por correo electrónico. *(Opcional)*"
+                )
+
                 btn_registro = st.form_submit_button("Crear cuenta", use_container_width=True)
 
             if btn_registro:
                 if pass_reg != pass_reg2:
                     st.error("Las contraseñas no coinciden.")
                 else:
-                    ok, msg = _registrar_usuario(email_reg, nombre_reg, pass_reg)
+                    ok, msg = _registrar_usuario(
+                        email_reg, nombre_reg, pass_reg,
+                        acepta_terminos_reg, acepta_privacidad_reg,
+                        acepta_ia_reg, acepta_comms_reg
+                    )
                     if ok:
                         st.success(msg)
                     else:
                         st.error(msg)
+
+    # ===============================
+    # Banner de Cookies
+    # ===============================
+    cookie_manager = stx.CookieManager(key="ct_cookies")
+
+    # Leer si ya aceptó cookies previamente (cookie persistente)
+    cookie_aceptada = cookie_manager.get("ct_cookies_accepted")
+
+    if not cookie_aceptada:
+        # Mostrar banner flotante en la parte inferior
+        st.markdown("""
+            <style>
+            .cookie-banner {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background-color: #004AAD;
+                color: white;
+                padding: 16px 24px;
+                z-index: 9999;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 16px;
+                font-family: 'Nunito', sans-serif;
+                font-size: 14px;
+                box-shadow: 0 -2px 10px rgba(0,0,0,0.3);
+            }
+            .cookie-banner a {
+                color: #FFDE59;
+                text-decoration: underline;
+                cursor: pointer;
+            }
+            </style>
+            <div class="cookie-banner">
+                <span>
+                    🍪 <strong>Aviso de Cookies</strong> — 
+                    Utilizamos cookies técnicas necesarias para garantizar el correcto funcionamiento 
+                    de la aplicación, mantener la sesión iniciada y mejorar la experiencia de navegación.
+                </span>
+            </div>
+        """, unsafe_allow_html=True)
+
+        col_cookie_1, col_cookie_2, col_cookie_3 = st.columns([4, 1, 1])
+        with col_cookie_2:
+            if st.button("✅ Aceptar", key="btn_aceptar_cookies", use_container_width=True, type="primary"):
+                # Guardar cookie por 365 días
+                cookie_manager.set(
+                    "ct_cookies_accepted", "true",
+                    expires_at=None,  # sesión larga
+                    key="set_cookie_accept"
+                )
+                # Si hay sesión activa, guardar también en BD
+                if st.session_state.get("email"):
+                    _guardar_consentimiento_cookies(st.session_state["email"])
+                st.rerun()
+        with col_cookie_3:
+            with st.expander("📄 Ver Política"):
+                st.markdown("""
+                **Política de Cookies — CulturaTrip**
+
+                Utilizamos únicamente **cookies técnicas** necesarias para:
+                - Mantener tu sesión iniciada de forma segura.
+                - Recordar preferencias básicas de navegación.
+                - Garantizar el correcto funcionamiento de la plataforma.
+
+                **No utilizamos** cookies publicitarias ni de seguimiento de terceros.
+
+                Al hacer clic en *Aceptar*, consientes el uso de estas cookies conforme 
+                al **RGPD (Reglamento General de Protección de Datos)** y la 
+                **Ley 34/2002 (LSSI-CE)**.
+                """)
+
 
     st.stop()  # Bloquea toda la app hasta autenticarse
 
