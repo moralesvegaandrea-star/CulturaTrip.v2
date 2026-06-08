@@ -860,119 +860,143 @@ if not st.session_state["autenticado"]:
                     st.rerun()
                 else:
                     st.error(resultado)
+
+       ### Cambio inicia aqui###
         with tab_registro:
-            with st.form("form_registro"):
-                nombre_reg = st.text_input("Nombre completo", placeholder="Tu nombre")
-                email_reg = st.text_input("Correo electrónico", placeholder="tu@email.com")
-                pass_reg = st.text_input("Contraseña", type="password", placeholder="Mínimo 4 caracteres")
-                pass_reg2 = st.text_input("Confirmar contraseña", type="password", placeholder="Repite la contraseña")
+                with st.form("form_registro"):
+                    nombre_reg = st.text_input("Nombre completo", placeholder="Tu nombre")
+                    email_reg = st.text_input("Correo electrónico", placeholder="tu@email.com")
+                    pass_reg = st.text_input("Contraseña", type="password", placeholder="Mínimo 4 caracteres")
+                    pass_reg2 = st.text_input("Confirmar contraseña", type="password",
+                                              placeholder="Repite la contraseña")
 
-                st.markdown("---")
-                st.markdown("**Consentimientos legales**")
+                    st.markdown("---")
+                    st.markdown("##### Documentos legales")
+                    st.caption("Puedes leer cada documento antes de aceptar.")
 
-                acepta_terminos_reg = st.checkbox(
-                    "He leído y acepto los **Términos y Condiciones** de uso de la plataforma. *(Obligatorio)*"
-                )
-                acepta_privacidad_reg = st.checkbox(
-                    "He leído y acepto la **Política de Privacidad** y el tratamiento de mis datos personales. *(Obligatorio)*"
-                )
-                acepta_ia_reg = st.checkbox(
-                    "Autorizo el uso de mis preferencias e interacciones para generar recomendaciones personalizadas mediante técnicas de inteligencia artificial y análisis de datos. *(Obligatorio)*"
-                )
-                acepta_comms_reg = st.checkbox(
-                    "Deseo recibir recomendaciones, novedades y comunicaciones por correo electrónico. *(Opcional)*"
-                )
+                    with st.expander("Términos y Condiciones de Uso"):
+                        st.markdown("""
+            **Objeto**
+            CulturaTrip es una aplicación orientada a la planificación turística mediante técnicas de análisis de datos e inteligencia artificial.
 
-                btn_registro = st.form_submit_button("Crear cuenta", use_container_width=True)
+            **Registro**
+            Para utilizar determinadas funcionalidades será necesario crear una cuenta de usuario proporcionando información veraz y actualizada.
 
-            if btn_registro:
-                if pass_reg != pass_reg2:
-                    st.error("Las contraseñas no coinciden.")
-                else:
-                    ok, msg = _registrar_usuario(
-                        email_reg, nombre_reg, pass_reg,
-                        acepta_terminos_reg, acepta_privacidad_reg,
-                        acepta_ia_reg, acepta_comms_reg
+            **Uso permitido**
+            El usuario se compromete a utilizar la plataforma de forma lícita y conforme a los presentes términos.
+
+            **Recomendaciones**
+            Las recomendaciones generadas por el sistema son orientativas y se basan en información estadística y preferencias declaradas por el usuario.
+
+            **Responsabilidades**
+            El usuario será responsable de verificar cualquier información relevante antes de realizar reservas, compras o contrataciones relacionadas con un viaje.
+
+            **Protección de datos**
+            El tratamiento de datos personales se realizará conforme a la Política de Privacidad de la plataforma.
+
+            **Cancelación de cuenta**
+            El usuario podrá solicitar la eliminación de su cuenta en cualquier momento.
+
+            **Modificaciones**
+            El responsable del proyecto podrá actualizar o modificar funcionalidades, documentación y contenidos cuando resulte necesario para mejorar el sistema.
+                                """)
+
+                    with st.expander("Política de Privacidad"):
+                        st.markdown("""
+            **Finalidad**
+            La presente Política de Privacidad regula el tratamiento de los datos personales recopilados a través de la aplicación CulturaTrip.
+
+            **Datos recopilados**
+            La aplicación podrá recopilar: correo electrónico, preferencias de viaje, destinos de interés, presupuesto estimado, historial de planes creados e información asociada al uso de la plataforma.
+
+            **Finalidad del tratamiento**
+            Los datos serán utilizados para gestionar el acceso a la aplicación, almacenar planes de viaje, generar recomendaciones personalizadas, estimar presupuestos y mejorar el funcionamiento general del sistema.
+
+            **Base legal**
+            El tratamiento se fundamenta en el consentimiento otorgado por el usuario durante el proceso de registro.
+
+            **Conservación**
+            Los datos serán conservados mientras exista una cuenta activa o hasta que el usuario solicite su eliminación.
+
+            **Derechos del usuario**
+            El usuario podrá: acceder a sus datos, rectificar información incorrecta, solicitar la eliminación de sus datos y retirar el consentimiento previamente otorgado.
+
+            **Seguridad**
+            La aplicación implementa medidas de seguridad razonables, incluyendo autenticación de usuarios, almacenamiento seguro de contraseñas y control de acceso a la información.
+
+            **Uso de inteligencia artificial**
+            CulturaTrip utiliza técnicas de Machine Learning para generar recomendaciones personalizadas. Dichas recomendaciones tienen carácter orientativo y no producen efectos jurídicos automatizados sobre el usuario.
+                                """)
+
+                    with st.expander("Política de Cookies"):
+                        st.markdown("""
+            **¿Qué son las cookies?**
+            Las cookies son pequeños archivos almacenados en el dispositivo del usuario que permiten recordar determinada información necesaria para el funcionamiento de una aplicación web.
+
+            **Cookies utilizadas por CulturaTrip**
+            La aplicación utiliza exclusivamente cookies técnicas y de sesión necesarias para: mantener la autenticación del usuario, gestionar sesiones activas, garantizar el correcto funcionamiento de la plataforma y mejorar la experiencia de navegación.
+
+            **Finalidad**
+            Las cookies utilizadas no tienen fines publicitarios ni se emplean para la elaboración de perfiles comerciales.
+
+            **Gestión de cookies**
+            El usuario puede configurar su navegador para bloquear o eliminar cookies. No obstante, determinadas funcionalidades podrían dejar de estar disponibles si se deshabilitan las cookies técnicas necesarias.
+                                """)
+
+                    with st.expander("Aviso Legal"):
+                        st.markdown("""
+            **Titular del proyecto:** CulturaTrip
+
+            **Naturaleza:** Sistema Inteligente para la Planificación de Viajes Personalizados basado en Datos y Machine Learning, desarrollado como Trabajo Final de Máster.
+
+            **Responsables:** Ana Belén Chaves Jiménez, Andrea Lucía Morales Vega, Hilda Mireya Ibarra Mata, Montserrat Ulloa Álvarez y Ronald Rojas Barquero.
+
+            **Finalidad del sitio**
+            La aplicación tiene como finalidad apoyar la planificación turística mediante la generación de recomendaciones personalizadas, estimaciones presupuestarias y propuestas de itinerarios basadas en análisis de datos y técnicas de Machine Learning.
+
+            **Propiedad intelectual**
+            El contenido, diseño, arquitectura, modelos analíticos, documentación y funcionalidades desarrolladas forman parte del proyecto académico CulturaTrip y se encuentran protegidos por la normativa aplicable en materia de propiedad intelectual.
+
+            **Limitación de responsabilidad**
+            La información y recomendaciones proporcionadas tienen carácter orientativo y no constituyen asesoramiento profesional ni garantía de disponibilidad, precios o condiciones de los servicios turísticos mencionados.
+
+            **Legislación aplicable**
+            El presente Aviso Legal se interpreta conforme a la legislación española y europea aplicable en materia de servicios digitales y protección de datos.
+                                """)
+
+                    st.markdown("---")
+                    st.markdown("##### Consentimientos")
+
+                    acepta_terminos_reg = st.checkbox(
+                        "He leído y acepto los **Términos y Condiciones** de uso de la plataforma. *(Obligatorio)*"
                     )
-                    if ok:
-                        st.success(msg)
+                    acepta_privacidad_reg = st.checkbox(
+                        "He leído y acepto la **Política de Privacidad** y el tratamiento de mis datos personales. *(Obligatorio)*"
+                    )
+                    acepta_ia_reg = st.checkbox(
+                        "Autorizo el uso de mis preferencias e interacciones para generar recomendaciones personalizadas mediante técnicas de inteligencia artificial y análisis de datos. *(Obligatorio)*"
+                    )
+                    acepta_comms_reg = st.checkbox(
+                        "Deseo recibir recomendaciones, novedades y comunicaciones por correo electrónico. *(Opcional)*"
+                    )
+
+                    btn_registro = st.form_submit_button("Crear cuenta", use_container_width=True)
+
+                if btn_registro:
+                    if pass_reg != pass_reg2:
+                        st.error("Las contraseñas no coinciden.")
                     else:
-                        st.error(msg)
+                        ok, msg = _registrar_usuario(
+                            email_reg, nombre_reg, pass_reg,
+                            acepta_terminos_reg, acepta_privacidad_reg,
+                            acepta_ia_reg, acepta_comms_reg
+                        )
+                        if ok:
+                            st.success(msg)
+                        else:
+                            st.error(msg)
 
-    # ===============================
-    # Banner de Cookies
-    # ===============================
-    cookie_manager = stx.CookieManager(key="ct_cookies")
-
-    # Leer si ya aceptó cookies previamente (cookie persistente)
-    cookie_aceptada = cookie_manager.get("ct_cookies_accepted")
-
-    if not cookie_aceptada:
-        # Mostrar banner flotante en la parte inferior
-        st.markdown("""
-            <style>
-            .cookie-banner {
-                position: fixed;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                background-color: #004AAD;
-                color: white;
-                padding: 16px 24px;
-                z-index: 9999;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                gap: 16px;
-                font-family: 'Nunito', sans-serif;
-                font-size: 14px;
-                box-shadow: 0 -2px 10px rgba(0,0,0,0.3);
-            }
-            .cookie-banner a {
-                color: #FFDE59;
-                text-decoration: underline;
-                cursor: pointer;
-            }
-            </style>
-            <div class="cookie-banner">
-                <span>
-                    🍪 <strong>Aviso de Cookies</strong> — 
-                    Utilizamos cookies técnicas necesarias para garantizar el correcto funcionamiento 
-                    de la aplicación, mantener la sesión iniciada y mejorar la experiencia de navegación.
-                </span>
-            </div>
-        """, unsafe_allow_html=True)
-
-        col_cookie_1, col_cookie_2, col_cookie_3 = st.columns([4, 1, 1])
-        with col_cookie_2:
-            if st.button("✅ Aceptar", key="btn_aceptar_cookies", use_container_width=True, type="primary"):
-                # Guardar cookie por 365 días
-                cookie_manager.set(
-                    "ct_cookies_accepted", "true",
-                    expires_at=None,  # sesión larga
-                    key="set_cookie_accept"
-                )
-                # Si hay sesión activa, guardar también en BD
-                if st.session_state.get("email"):
-                    _guardar_consentimiento_cookies(st.session_state["email"])
-                st.rerun()
-        with col_cookie_3:
-            with st.expander("📄 Ver Política"):
-                st.markdown("""
-                **Política de Cookies — CulturaTrip**
-
-                Utilizamos únicamente **cookies técnicas** necesarias para:
-                - Mantener tu sesión iniciada de forma segura.
-                - Recordar preferencias básicas de navegación.
-                - Garantizar el correcto funcionamiento de la plataforma.
-
-                **No utilizamos** cookies publicitarias ni de seguimiento de terceros.
-
-                Al hacer clic en *Aceptar*, consientes el uso de estas cookies conforme 
-                al **RGPD (Reglamento General de Protección de Datos)** y la 
-                **Ley 34/2002 (LSSI-CE)**.
-                """)
-
+### Cambio Termina aqui###
 
     st.stop()  # Bloquea toda la app hasta autenticarse
 
@@ -988,6 +1012,34 @@ st.markdown(
     '<div class="subtitle-main">Planificación inteligente de turismo</div>',
     unsafe_allow_html=True
 )
+# ===============================
+# Banner de Cookies (solo usuarios autenticados)
+# ===============================
+cookie_manager = stx.CookieManager(key="ct_cookies")
+cookie_aceptada = cookie_manager.get("ct_cookies_accepted")
+
+if not cookie_aceptada:
+    st.markdown("""
+        <style>
+        .cookie-banner { ... }
+        </style>
+        <div class="cookie-banner">
+             <strong>Aviso de Cookies</strong> — Utilizamos cookies técnicas necesarias 
+            para garantizar el correcto funcionamiento de la aplicación...
+        </div>
+    """, unsafe_allow_html=True)
+
+    col_cookie_1, col_cookie_2, col_cookie_3 = st.columns([4, 1, 1])
+    with col_cookie_2:
+        if st.button("Aceptar", key="btn_aceptar_cookies", use_container_width=True, type="primary"):
+            cookie_manager.set("ct_cookies_accepted", "true", key="set_cookie_accept")
+            if st.session_state.get("email"):
+                _guardar_consentimiento_cookies(st.session_state["email"])
+            st.rerun()
+    with col_cookie_3:
+        with st.expander("Ver Política"):
+            st.markdown("""...""")
+
 
 # ===============================
 # Session State (defaults)
