@@ -1,0 +1,1 @@
+outputs/regresion_precios/modelos/random_forest_precio_v2.pkl filter=lfs diff=lfs merge=lfs -text
