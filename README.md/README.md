@@ -1,4 +1,4 @@
-# 🌍 CulturaTrip – Plataforma Inteligente de Análisis Turístico
+#  CulturaTrip – Plataforma Inteligente de Análisis Turístico
 
 ## Trabajo Final de Máster – Big Data & Business Intelligence
 
@@ -60,6 +60,20 @@ Antes de ejecutar el proyecto, asegúrate de tener instaladas las siguientes her
 - Python 3.10 o superior
 - Docker Desktop
 
+### Requisitos previos (una sola vez por máquina)
+
+Antes de empezar, asegúrate de tener instalado:
+
+| Herramienta | Descarga | Para qué sirve |
+|---|---|---|
+| Docker Desktop | https://www.docker.com/products/docker-desktop | Levantar el entorno completo |
+| Git | https://git-scm.com | Control de versiones |
+| Git LFS | https://git-lfs.com | Descargar modelos ML grandes (.pkl) |
+
+>  **Git LFS es obligatorio.** Sin él, el modelo `random_forest_precio_v2.pkl` (225 MB) llegará corrupto y la app fallará al iniciar.
+
+---
+
 Puedes verificar las versiones instaladas ejecutando:
 
 ```bash
@@ -74,10 +88,107 @@ docker --version
 
 ### Como Clonar el repositorio:
 
+**Paso 1 — Instalar Git LFS:**
+
+```bash
+git lfs install
+```
+
+**Paso 2 — Clonar el repositorio:**
+
 ```bash
 git clone https://github.com/moralesvegaandrea-star/CulturaTrip.v2
 cd CulturaTrip.v2
 ```
+
+**Paso 3 — Descargar los modelos ML:**
+
+```bash
+git lfs pull
+```
+
+**Paso 4 — Crear el archivo `.env`** en la raíz del proyecto:
+
+```
+DB_USER=culturatrip
+DB_PASSWORD=culturatrip
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=culturatrip
+```
+
+### Como Actualizar el repositorio:
+
+Esta sección explica cómo actualizar el proyecto a la última versión y verificar que todo funciona correctamente en una máquina nueva o existente.
+
+
+**Paso 1 — Verificar en qué versión estás:**
+
+```bash
+git log --oneline -5
+```
+
+Compara con los commits recientes en GitHub. Si estás desactualizado, continúa.
+
+**Paso 2 — Descargar todos los cambios:**
+
+```bash
+git pull origin master
+```
+
+Esto descarga: modelos `.pkl`, fotos del equipo, scripts SQL actualizados, cambios en Streamlit, y todo lo demás.
+
+**Paso 3 — Descargar el modelo grande (Git LFS):**
+
+```bash
+git lfs pull
+```
+
+Verifica que el modelo descargó correctamente (debe pesar ~225 MB):
+
+```bash
+# En Windows PowerShell
+(Get-Item "outputs/regresion_precios/modelos/random_forest_precio_v2.pkl").length / 1MB
+```
+
+Resultado esperado: `~225`
+
+**Paso 4 — Crear el archivo `.env`** (si no lo tienes, ya que no está en el repo):
+
+Crea un archivo llamado `.env` en la raíz del proyecto con este contenido:
+
+```
+DB_USER=culturatrip
+DB_PASSWORD=culturatrip
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=culturatrip
+```
+
+### Paso siguiente — Levantar y cargar datos
+
+Una vez actualizado el código, ejecuta en orden:
+
+```bash
+# 1. Levantar el entorno
+docker compose up --build
+
+# 2. Cargar los datos (ETL)
+Scripts/run_etl_load_data.bat
+
+# 3. Ejecutar las vistas SQL
+Scripts/run_views.bat
+```
+
+> Si quieres reinicializar todo desde cero (base de datos limpia):
+> ```bash
+> docker compose down -v
+> docker compose up --build
+> Scripts/run_etl_load_data.bat
+> Scripts/run_views.bat
+> ```
+
+---
 
 ## Datasets Utilizados
 
