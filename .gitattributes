@@ -1,1 +1,2 @@
 outputs/regresion_precios/modelos/random_forest_precio_v2.pkl filter=lfs diff=lfs merge=lfs -text
+data/Machine[[:space:]]Learning/modelo_precios_v5/random_forest_precio_v5.pkl filter=lfs diff=lfs merge=lfs -text
