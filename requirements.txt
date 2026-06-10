@@ -14,3 +14,6 @@ xlrd
 python-dotenv
 boto3
 pyarrow
+extra-streamlit-components
+joblib
+Pillow

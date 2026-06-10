@@ -1,7 +1,7 @@
 -- =========================
 -- dim_tiempo (simple mensual)
 -- =========================
-DROP TABLE IF EXISTS culturatrip.dim_tiempo;
+DROP TABLE IF EXISTS culturatrip.dim_tiempo CASCADE;
 
 CREATE TABLE culturatrip.dim_tiempo (
   anio        SMALLINT NOT NULL,
@@ -38,9 +38,9 @@ ON culturatrip.dim_tiempo (temporada);
 -- =========================
 -- fact_plan_viaje (cabecera)
 -- =========================
-DROP TABLE IF EXISTS culturatrip.fact_plan_viaje_preferencia;
-DROP TABLE IF EXISTS culturatrip.fact_plan_viaje_destino;
-DROP TABLE IF EXISTS culturatrip.fact_plan_viaje;
+DROP TABLE IF EXISTS culturatrip.fact_plan_viaje_preferencia CASCADE;
+DROP TABLE IF EXISTS culturatrip.fact_plan_viaje_destino CASCADE;
+DROP TABLE IF EXISTS culturatrip.fact_plan_viaje CASCADE;
 
 CREATE TABLE culturatrip.fact_plan_viaje (
   id_plan              BIGSERIAL PRIMARY KEY,
