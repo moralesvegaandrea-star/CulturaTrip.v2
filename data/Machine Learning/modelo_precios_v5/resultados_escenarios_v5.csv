@@ -1,0 +1,6 @@
+escenario,zona_turistica,gran_ciudad,categoria_alojamiento,mes,tipo_dia,valoraciones,precio_estimado_noche
+Barcelona lujo verano,costa,1,hotel 5 estrellas,8,fin_semana,4.6,298.27
+Madrid hotel ejecutivo,interior,1,hotel 4 estrellas,11,semana,4.2,144.15
+Baleares verano premium,insular,0,casa entera,7,fin_semana,4.8,214.47
+Salamanca económico invierno,interior,0,hotel 3 estrellas,2,semana,3.8,78.52
+Málaga apartamento turístico,costa,0,apartamento,9,fin_semana,4.3,186.71

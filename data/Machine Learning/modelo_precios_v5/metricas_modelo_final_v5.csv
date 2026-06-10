@@ -1,0 +1,2 @@
+modelo,MAE,RMSE,R2,best_cv_r2,best_params,observacion
+RandomForestRegressor_V5,14.72,35.32,0.8847,0.8307,"{'max_depth': None, 'min_samples_leaf': 1, 'min_samples_split': 2, 'n_estimators': 100}","Modelo V5 con variables geográficas interpretables, sin IDs."

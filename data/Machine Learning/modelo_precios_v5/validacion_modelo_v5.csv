@@ -1,0 +1,3 @@
+dataset,MAE,RMSE,R2,R2_CV_promedio,R2_CV_std,R2_gap_train_test,MAE_gap_test_train
+Train,5.47,15.4,0.976,0.8862,0.006,0.0522,5.27
+Test,10.74,24.77,0.9238,0.8862,0.006,0.0522,5.27
