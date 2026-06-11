@@ -222,6 +222,8 @@ CREATE TABLE culturatrip.fact_actividades (
     id_ccaa VARCHAR(2) NOT NULL,
     id_provincia VARCHAR(2) NOT NULL,
 
+     año SMALLINT,
+
     mes SMALLINT NOT NULL CHECK (mes BETWEEN 1 AND 12),
 
     categoria VARCHAR(40) NOT NULL,
@@ -258,7 +260,7 @@ CREATE TABLE culturatrip.fact_actividades (
 
     --  Evitar duplicados por llave natural
     CONSTRAINT unique_fact_actividades
-        UNIQUE (id_pais, id_ccaa, id_provincia, mes, categoria, producto, subcategoria)
+        UNIQUE (id_pais, id_ccaa, id_provincia, año, mes, categoria, producto, subcategoria)
 
 );
 /*

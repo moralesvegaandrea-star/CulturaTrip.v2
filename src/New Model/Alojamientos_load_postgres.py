@@ -128,8 +128,7 @@ with engine.begin() as conn:
         schema="culturatrip",
         if_exists="append",
         index=False,
-        method="multi",
-        chunksize=2000
+        chunksize=100
     )
 
 print(f"🎉 Cargadas {len(df)} filas en fact_alojamientos")
