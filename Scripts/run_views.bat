@@ -26,6 +26,7 @@ echo.
 
 docker exec -i culturatrip_db psql -U culturatrip -d culturatrip -f /docker-entrypoint-initdb.d/03_views.sql
 docker exec -i culturatrip_db psql -U culturatrip -d culturatrip -f /docker-entrypoint-initdb.d/05_new_views.sql
+docker exec -i culturatrip_db psql -U culturatrip -d culturatrip -f /docker-entrypoint-initdb.d/09_ML_views.sql
 
 echo.
 echo ======================================
